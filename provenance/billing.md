@@ -42,3 +42,24 @@ Preserved evidence:
 No console dollar value was invented. The reconciliation uses the service's
 raw usage events and the frozen price snapshot; the older per-run
 `pending_raw_usage` files are preserved unchanged as historical snapshots.
+
+## Pre-launch ledger snapshot
+
+Against the `$5,000` grant ceiling, the reconciled historical spend above
+leaves a ledger balance of `$4,956.64700955167462` before post-cutoff storage
+or usage. The committed path to the Pilot-0 freeze is `$445`: `$25` for the
+live smoke gate, `$120` for boundary completion/panel freeze, and `$300` for
+acquisition calibration. Reserving that path would leave
+`$4,511.64700955167462`; the separately capped `$600` Pilot 0 would leave
+`$3,911.64700955167462`.
+
+Twenty percent of the current ledger balance is `$991.329401910334924`. Even
+holding that conservative amount fixed, the balance after the `$445` path and
+Pilot 0 remains `$2,920.317607641339696` above it. This arithmetic does not
+replace the confirmatory-launch reserve check, which is recomputed from the
+then-uncommitted balance.
+
+The `$120` boundary authorization remains withheld. The recorded spend ends at
+the cutoff above, excludes subsequent storage, and has no Tinker console dollar
+balance; refresh the lag-cleared raw export and reconcile it to the console
+before that authorization.

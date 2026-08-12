@@ -93,6 +93,10 @@ class TeacherDoseConfig(_Section):
 class StageAConfig(_Section):
     provisional_checkpoint_updates: tuple[int, ...]
     selected_max_updates: int | None
+    provisional_max_tokens: int
+    selected_max_tokens: int | None
+    selected_rl_configuration: dict[str, Any] | None
+    entropy_collapse_gate_passed: bool
 
 
 class StageBConfig(_Section):
@@ -149,6 +153,12 @@ class PilotConfig(_Section):
             unresolved.append("teacher_dose.selected_demonstrations_per_family")
         if self.stage_a.selected_max_updates is None:
             unresolved.append("stage_a.selected_max_updates")
+        if self.stage_a.selected_max_tokens is None:
+            unresolved.append("stage_a.selected_max_tokens")
+        if self.stage_a.selected_rl_configuration is None:
+            unresolved.append("stage_a.selected_rl_configuration")
+        if not self.stage_a.entropy_collapse_gate_passed:
+            unresolved.append("stage_a.entropy_collapse_gate_passed")
         for name in (
             "teacher_seed_sft",
             "static_sft",

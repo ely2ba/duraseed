@@ -6,7 +6,8 @@ Equivalence gate: old and new code must produce identical initial/Extension-1 ma
 Status: accepted by Ely on 2026-08-12, boundary extraction only.  Extract and
 equivalence-verify the Extension-1 path before starting calibration closure;
 record old-vs-new fixture and deterministic-stream evidence in `docs/`.  The
-three-cohort freeze remains fail-closed and unimplemented until Phase 7 extracts
+three-cohort freeze remains fail-closed and unimplemented until the
+completed-evidence boundary-freeze gate extracts
 and compares it against complete three-cohort evidence before use.
 Any divergence stops; this approval does not authorize calibration changes,
 wholesale runner carry-over, remote access, or any threshold/task/selection

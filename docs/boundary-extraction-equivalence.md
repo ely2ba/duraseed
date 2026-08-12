@@ -66,9 +66,10 @@ serialization SHA-256
 No three-cohort output was compared or authorized.  Public
 `freeze_three_cohort_panels` raises unconditionally while
 `BOUNDARY_PANEL_FREEZE_EQUIVALENCE_STATUS` is
-`pending_phase7_three_cohort_check`.  Three-cohort reduction is deliberately
+`pending_three_cohort_equivalence_check`.  Three-cohort reduction is deliberately
 not implemented in v1 yet: there is no complete three-cohort evidence against
 which to verify its evidence, candidate-covariate, capacity, matching, and
-artifact bindings.  Phase 7 must extract and compare that reduction exactly
+artifact bindings.  The completed-evidence boundary-freeze gate must extract
+and compare that reduction exactly
 against the archived implementation after Extension-2 completes.  Only a later
 reviewed commit may add or enable freeze output.

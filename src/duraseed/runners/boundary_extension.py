@@ -174,17 +174,17 @@ def build_plan() -> RunPlan:
             ),
         ),
         launch_preconditions=(
-            "phase6_smoke_passed",
-            "phase7_human_approval",
+            "live_smoke_passed",
+            "boundary_extension_human_approval",
             "extension1_source_authenticated",
             "remaining_balance_verified",
         ),
         dry_run_command="uv run duraseed boundary-extension --dry-run",
-        mock_command="uv run pytest tests/unit/test_phase5_runner_flows.py -k boundary",
+        mock_command="uv run pytest tests/unit/test_boundary_extension_flow.py",
         authorization_command=(
             "uv run duraseed boundary-extension --authorize "
-            "--authorized-cost-usd 120 --confirm-phase6-smoke "
-            "--confirm-phase7-approval --confirm-source-authenticated "
+            "--authorized-cost-usd 120 --confirm-live-smoke "
+            "--confirm-boundary-extension-approval --confirm-source-authenticated "
             "--confirm-remaining-balance"
         ),
     )
@@ -283,7 +283,7 @@ def run_mock(
             m0_checkpoint_path="mock://m0",
         )
     except BoundaryFreezeUnverifiedError:
-        status = "blocked_pending_phase7_equivalence"
+        status = "blocked_pending_three_cohort_equivalence"
     else:  # pragma: no cover
         raise RunnerGateError("three-cohort composite unexpectedly became available")
     return BoundaryExtensionResult(first, second, status)

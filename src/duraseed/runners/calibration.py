@@ -131,7 +131,7 @@ def build_plan(config: PilotConfig) -> RunPlan:
     validate_frozen_maps(config)
     command = "uv run duraseed calibration --config duraseed_pilot_config.yaml"
     gates = (
-        "--confirm-panel-frozen --confirm-phase6-smoke "
+        "--confirm-panel-frozen --confirm-live-smoke "
         "--confirm-human-approval --confirm-remaining-balance"
     )
     return RunPlan(
@@ -148,12 +148,12 @@ def build_plan(config: PilotConfig) -> RunPlan:
         ),
         launch_preconditions=(
             "panel_frozen",
-            "phase6_smoke_passed",
+            "live_smoke_passed",
             "human_approval",
             "remaining_balance_verified",
         ),
         dry_run_command=f"{command} --dry-run",
-        mock_command="uv run pytest tests/unit/test_phase5_calibration_flow.py",
+        mock_command=("uv run pytest tests/unit/test_acquisition_calibration_flow.py"),
         authorization_command="\n".join(
             (
                 f"{command} --action teacher-dose --authorize "
@@ -216,7 +216,7 @@ def authorize_action(
     authorized_cost_usd: str | float | Decimal | None,
     prerequisite_selected: bool,
     panel_frozen: bool,
-    phase6_smoke_passed: bool,
+    live_smoke_passed: bool,
     human_approval: bool,
     remaining_balance_verified: bool,
 ):
@@ -231,7 +231,7 @@ def authorize_action(
         launch_preconditions=(
             *(("prerequisite_selected",) if selected.requires else ()),
             "panel_frozen",
-            "phase6_smoke_passed",
+            "live_smoke_passed",
             "human_approval",
             "remaining_balance_verified",
         ),
@@ -246,7 +246,7 @@ def authorize_action(
         preconditions={
             "prerequisite_selected": prerequisite_selected,
             "panel_frozen": panel_frozen,
-            "phase6_smoke_passed": phase6_smoke_passed,
+            "live_smoke_passed": live_smoke_passed,
             "human_approval": human_approval,
             "remaining_balance_verified": remaining_balance_verified,
         },
@@ -263,6 +263,11 @@ def preflight_text(config: PilotConfig) -> str:
             f"Dry-run: {plan.dry_run_command}",
             f"Mock: {plan.mock_command}",
             f"Authorization only (does not execute): {plan.authorization_command}",
+            (
+                "Required freezes: teacher dose/allocation; Stage-A LR/duration; "
+                "one common RL configuration after the entropy-collapse gate; "
+                "one shared max-tokens value after the live-smoke truncation gate"
+            ),
             "MAPS frozen (not an action): shortest2_cap2 / 3e-4 / step 480",
         )
     )

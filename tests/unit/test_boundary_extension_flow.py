@@ -204,7 +204,7 @@ def test_boundary_real_mock_flow_runs_both_blocks_and_fails_freeze_closed(
     assert result.extension2.capacity_audits
     assert result.extension1.evidence.final_eligible_family_ids
     assert result.extension2.evidence.final_eligible_family_ids
-    assert result.composite_status == "blocked_pending_phase7_equivalence"
+    assert result.composite_status == "blocked_pending_three_cohort_equivalence"
     assert tuple(action.name for action in build_boundary_plan().actions) == (
         "freeze-extension2-manifest",
         "extension1-confirm",
@@ -252,8 +252,8 @@ def test_completed_extension1_handoff_authenticates() -> None:
 
 def test_boundary_authorization_is_explicit_and_exact() -> None:
     ready = dict(
-        phase6_smoke_passed=True,
-        phase7_human_approval=True,
+        live_smoke_passed=True,
+        boundary_extension_human_approval=True,
         extension1_source_authenticated=True,
         remaining_balance_verified=True,
     )

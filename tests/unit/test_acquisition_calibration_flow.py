@@ -129,7 +129,7 @@ def test_calibration_authorization_and_maps_freeze() -> None:
         action="teacher-dose",
         prerequisite_selected=False,
         panel_frozen=True,
-        phase6_smoke_passed=True,
+        live_smoke_passed=True,
         human_approval=True,
         remaining_balance_verified=True,
     )
@@ -146,7 +146,7 @@ def test_calibration_authorization_and_maps_freeze() -> None:
             authorized_cost_usd="0",
             prerequisite_selected=True,
             panel_frozen=True,
-            phase6_smoke_passed=True,
+            live_smoke_passed=True,
             human_approval=True,
             remaining_balance_verified=True,
         ).authorized_cost_usd

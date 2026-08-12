@@ -218,6 +218,10 @@ teacher_dose:
 stage_a:
   provisional_checkpoint_updates: [0, 10, 25, 50, 100, 200, 400]
   selected_max_updates: null
+  provisional_max_tokens: 256
+  selected_max_tokens: null
+  selected_rl_configuration: null
+  entropy_collapse_gate_passed: false
   monitor_samples_per_item: 4
   prompt_distribution_source: frozen_m0_panel_distribution
   mid_training_boundary_rescan: false
@@ -274,8 +278,8 @@ statistics:
   checkpoint_selection_fresh_seed_namespace: stage_a.validation_selection
 
 # Tinker integration values. Renderer, common cap, format warm-up LR, and the
-# Stage-B SFT recipe are calibrated; Stage-A learning-rate selections remain
-# unresolved.
+# Stage-B SFT recipe are calibrated; Stage-A learning rates, duration, common
+# RL configuration, and shared max-token value remain unresolved.
 tinker:
   model_id: Qwen/Qwen3.5-9B-Base
   renderer_name: role_colon

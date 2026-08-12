@@ -63,4 +63,4 @@ handling, and complete result composition ran unchanged. Full canonical
 
 Result: zero divergence. The v1 freezer owns only object validation and pure
 local reduction. Completed-run/preflight authentication and the role-colon
-token measurer remain Phase-5 runner/runtime responsibilities.
+token measurer remain next-gate runner/runtime responsibilities.

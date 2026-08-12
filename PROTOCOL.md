@@ -1,7 +1,8 @@
 # DuraSeed pre-calibration protocol
 
-Status: pre-pilot; calibration is in progress. A guarded engineering-only
-Tinker smoke and raw M0 audit were executed on 9 August 2026. The raw audit
+Status: pre-pilot; calibration is in progress. An archived engineering-only
+Tinker smoke and raw M0 audit were executed on 9 August 2026; the v1 live
+smoke gate has not run. The raw audit
 rejected the zero-update candidate on the declared format gates, so conditional
 task-agnostic format training was required. A common trainable M0 has now been
 selected. The renderer and common TCES completion cap are now fixed at
@@ -51,6 +52,12 @@ The default confirmatory priority is `B-S/B-O/B-G`, but the final matrix and
 fresh seed count are chosen only after pilot variance, effect, and cost are
 measured. The first complete result is `B-S` versus `B-G` with two paired pilot
 seeds. Method breadth is cut before seed replication.
+
+After that two-seed Pilot 0, variance reconnaissance extends B-S/B-G to a
+total of 3--4 paired pilot seeds. Those seed-level variance and cost estimates
+inform the mechanism/context pilot decision and any justified B-O, G-B, R-G,
+or G-U runs. Only after those gates determine the confirmatory matrix is the
+design powered and frozen, preregistered, and run on fresh confirmatory seeds.
 
 Ordered comparisons are `G-B/G-U` for prompt targeting, `B-G/G-B` for the
 boundary teacher seed, `B-G/R-G` for targeted versus random teacher allocation,
@@ -299,6 +306,13 @@ preflight; execution requires the exact separate `$150` authorization and a
 preflight token-plus-storage upper bound no greater than that amount. This is
 Phase-4 calibration, not Pilot 0.
 
+The same acquisition-calibration freeze also selects one common RL
+objective/configuration before any multi-method run. If the entropy-collapse
+gate requires a fallback, that fallback applies to every RL cell. The live
+smoke tests the provisional 256-token completion cap; if truncation breaches
+the frozen gate, one common max-token value is raised for every method. A
+method-specific completion cap is forbidden.
+
 ## Stage-B probe calibration
 
 The first fixed 512-item MAPS curves ran two preselected profile/LR recipes
@@ -454,9 +468,8 @@ provisional floor of `0.25`; thresholds freeze only after M0 calibration.
 ## Tinker execution contract
 
 - Model: `Qwen/Qwen3.5-9B-Base`; adaptation: rank-32 LoRA.
-- The engineering smoke pins SDK/Cookbook versions and `role_colon`; scientific
-  renderer, token cap, LRs, M0, checkpoint schedules, panel artifact, and
-  authorization values remain unresolved until calibration.
+- The archived smoke pinned SDK/Cookbook versions and `role_colon`; the v1 live
+  smoke independently verifies the rebuilt runtime before scientific access.
 - Project identity comes from `TINKER_PROJECT_ID`.
 - Every future remote command is phase-scoped, preflighted, explicitly
   confirmed, bounded by pessimistic client-side token/spend guardrails, and
@@ -472,6 +485,13 @@ provisional floor of `0.25`; thresholds freeze only after M0 calibration.
   checked through a small service acceptance test.
 - Confirmatory launch reservations may consume at most 80% of the then-
   uncommitted grant balance.
+
+**Live smoke gate** is an engineering gate, not a numbered research phase.
+Its artifact phase label is `live-smoke-gate`, and its total authorized spend
+is capped at `$25`. It passes only with real, non-fabricated data, exact
+equality between online rewards and offline verifier rewards, a verified stop
+contract, and successful full-state resume plus weights-only branching. Any
+failure stops before a scientific run.
 
 The grant is funding, not authorization. `duraseed tinker smoke` is preflight
 only unless `--execute` and an explicit authorized cost are supplied.

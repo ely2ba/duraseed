@@ -162,11 +162,13 @@ def test_extension_provenance_is_bound_to_manifest_and_measurement(monkeypatch) 
         )
 
 
-def test_three_cohort_freeze_fails_closed_before_phase7_equivalence() -> None:
+def test_three_cohort_freeze_fails_closed_before_evidence_equivalence() -> None:
     assert BOUNDARY_PANEL_FREEZE_EQUIVALENCE_STATUS == (
-        "pending_phase7_three_cohort_check"
+        "pending_three_cohort_equivalence_check"
     )
-    with pytest.raises(BoundaryFreezeUnverifiedError, match="pending the Phase-7"):
+    with pytest.raises(
+        BoundaryFreezeUnverifiedError, match="pending the completed-evidence"
+    ):
         freeze_three_cohort_panels(
             (),
             (),

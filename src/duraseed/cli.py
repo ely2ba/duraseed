@@ -1,4 +1,4 @@
-"""Side-effect-free Phase-5 preflights and explicit launch authorization."""
+"""Side-effect-free next-gate preflights and explicit launch authorization."""
 
 from __future__ import annotations
 
@@ -32,8 +32,8 @@ def boundary_extension(
     dry_run: bool = typer.Option(False, "--dry-run"),
     execute: bool = typer.Option(False, "--authorize"),
     authorized_cost_usd: str | None = typer.Option(None),
-    confirm_phase6_smoke: bool = typer.Option(False),
-    confirm_phase7_approval: bool = typer.Option(False),
+    confirm_live_smoke: bool = typer.Option(False),
+    confirm_boundary_extension_approval: bool = typer.Option(False),
     confirm_source_authenticated: bool = typer.Option(False),
     confirm_remaining_balance: bool = typer.Option(False),
 ) -> None:
@@ -48,8 +48,10 @@ def boundary_extension(
             execute=execute,
             authorized_cost_usd=authorized_cost_usd,
             preconditions={
-                "phase6_smoke_passed": confirm_phase6_smoke,
-                "phase7_human_approval": confirm_phase7_approval,
+                "live_smoke_passed": confirm_live_smoke,
+                "boundary_extension_human_approval": (
+                    confirm_boundary_extension_approval
+                ),
                 "extension1_source_authenticated": confirm_source_authenticated,
                 "remaining_balance_verified": confirm_remaining_balance,
             },
@@ -70,7 +72,7 @@ def calibration_runner(
     authorized_cost_usd: str | None = typer.Option(None),
     confirm_prerequisite_selected: bool = typer.Option(False),
     confirm_panel_frozen: bool = typer.Option(False),
-    confirm_phase6_smoke: bool = typer.Option(False),
+    confirm_live_smoke: bool = typer.Option(False),
     confirm_human_approval: bool = typer.Option(False),
     confirm_remaining_balance: bool = typer.Option(False),
 ) -> None:
@@ -90,7 +92,7 @@ def calibration_runner(
             authorized_cost_usd=authorized_cost_usd,
             prerequisite_selected=confirm_prerequisite_selected,
             panel_frozen=confirm_panel_frozen,
-            phase6_smoke_passed=confirm_phase6_smoke,
+            live_smoke_passed=confirm_live_smoke,
             human_approval=confirm_human_approval,
             remaining_balance_verified=confirm_remaining_balance,
         )

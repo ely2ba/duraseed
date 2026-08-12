@@ -23,6 +23,8 @@ This is the starting point for readers and contributors. The public scientific c
 
 No later stage may rescan an earlier task distribution using method outcomes. Pilot and confirmatory generations use explicit seeds and authenticated manifests.
 
+After the two-seed Pilot 0, extend B-S/B-G to 3–4 paired pilot seeds for variance reconnaissance, then make the mechanism/context pilot decision. Only after those gates determine the confirmatory matrix do we freeze and power the design, preregister it, and run fresh confirmatory seeds.
+
 ## Evidence and provenance
 
 - `frozen/v0/`: compact calibration and replay evidence carried from v0; runtime code never writes here.

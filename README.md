@@ -2,7 +2,7 @@
 
 DuraSeed studies the stability–plasticity trade-off induced by different post-training acquisition paths: after methods reach matched capability on one task family, do they retain it differently while learning the next one? The study uses deterministic, exact-verifier TCES and MAPS environments with `Qwen/Qwen3.5-9B-Base`, rank-32 LoRA adapters, and Tinker for explicitly authorized remote execution.
 
-**Status:** Calibration and the v1 rebuild are complete through the next-gate runners; boundary extension and Stage-A calibration remain pending, and Pilot 0 has not started.
+**Status:** The v1 rebuild and replay gate are complete; the live smoke gate, boundary/panel completion, and acquisition calibration remain pending, and Pilot 0 has not started.
 
 ## Repository layout
 

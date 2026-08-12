@@ -1,4 +1,4 @@
-"""Shared, side-effect-free contracts for the two Phase-5 runners."""
+"""Shared, side-effect-free contracts for the two next-gate runners."""
 
 from __future__ import annotations
 
