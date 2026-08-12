@@ -1,0 +1,50 @@
+{
+  "authorized_cost_usd": 8.0,
+  "cost_usd": 6.0,
+  "deviations": [
+    "bounded Stage-B calibration only; Pilot 0 not started",
+    "MAPS profile/LR/duration selection unresolved",
+    "billing pending"
+  ],
+  "final_sampler_checkpoint_path": null,
+  "final_state_checkpoint_path": null,
+  "finished_at": "2026-08-10T04:20:36.549807Z",
+  "git_commit": "03375d905f560dc687f808446771d030e1d8a1ea",
+  "lora_rank": 32,
+  "method": null,
+  "model_id": "Qwen/Qwen3.5-9B-Base",
+  "parent_tinker_checkpoint_path": "tinker://334a5523-f111-5ca2-9607-58ae27cc941d:train:0/weights/m0-recovery-20260809T191351Z-reconstructed-state",
+  "price_snapshot_id": "tinker-qwen3.5-9b-base-2026-08-09",
+  "project_id": "7727a6e3-fadb-4b07-9801-721221235e1e",
+  "prompt_tokens": 130100,
+  "protocol_version": "duraseed-prepilot-v5",
+  "renderer": "role_colon",
+  "reserved_cost_usd": 6.0,
+  "resolved_config_hash": "0f10787dc3e168f317f9fe5d1a97d4273292916617ad756165c46a4556a8f566",
+  "run_kind": "stage_b_calibration",
+  "sampled_tokens": 20044,
+  "seed": 17,
+  "service_randomness_contract": "Tinker SamplingParams.seed is recorded per request; the smoke measures, but does not assume, cross-client or cross-session bit identity. Group members are sampled in separate requests with deterministic per-sample seeds.",
+  "started_at": "2026-08-10T04:07:22.973154Z",
+  "status": "completed",
+  "task_manifest_ids": {
+    "current_provisional_b_train": "sha256:8480fdf883fb44a1cfb4349021c387f9158da360850ab9c25848df40d15967e3",
+    "current_provisional_b_validation": "sha256:c5ce4254dfccd9c721c601448bf2f9ece5d3d6d0dde7819672cd38b349b68e2a",
+    "graded_candidate_b_train": "sha256:4690e88443825f8c7335a332c890d1228caaafed07ceffdc326324a2b6e5fc19",
+    "graded_candidate_b_validation": "sha256:4567d181b8fb1dd2d60340c7b296faaab9c75d511ee562e6de78621ff93e0c82"
+  },
+  "tinker_cookbook_version": "0.5.3",
+  "tinker_sdk_version": "0.25.0",
+  "tinker_session_id": "78358a2c-3b81-581c-9586-11c8f6ac39ac",
+  "tinker_training_run_id": null,
+  "tinker_training_run_ids": [
+    "78358a2c-3b81-581c-9586-11c8f6ac39ac:train:0",
+    "78358a2c-3b81-581c-9586-11c8f6ac39ac:train:1",
+    "78358a2c-3b81-581c-9586-11c8f6ac39ac:train:2",
+    "78358a2c-3b81-581c-9586-11c8f6ac39ac:train:3",
+    "78358a2c-3b81-581c-9586-11c8f6ac39ac:train:4",
+    "78358a2c-3b81-581c-9586-11c8f6ac39ac:train:5"
+  ],
+  "train_tokens": 368040,
+  "updated_at": "2026-08-10T04:20:36.549807Z"
+}

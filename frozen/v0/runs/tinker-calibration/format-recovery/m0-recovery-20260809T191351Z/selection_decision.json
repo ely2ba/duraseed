@@ -1,0 +1,334 @@
+{
+  "corrected_quick_screen_replays": [
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-1-sampler",
+      "exact_format_success_rate": 0.59375,
+      "exact_literal_payload_rate": 0.734375,
+      "exact_tag_compliance_rate": 0.59375,
+      "learning_rate": 0.0001,
+      "literal_copy_success_rate": 0.734375,
+      "nonempty_payload_rate": 0.734375,
+      "passes": false,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 1
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-1-sampler",
+      "exact_format_success_rate": 0.890625,
+      "exact_literal_payload_rate": 0.9375,
+      "exact_tag_compliance_rate": 0.890625,
+      "learning_rate": 0.0003,
+      "literal_copy_success_rate": 0.9375,
+      "nonempty_payload_rate": 0.9375,
+      "passes": false,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 1
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-1-sampler",
+      "exact_format_success_rate": 0.75,
+      "exact_literal_payload_rate": 0.765625,
+      "exact_tag_compliance_rate": 0.84375,
+      "learning_rate": 0.001,
+      "literal_copy_success_rate": 0.765625,
+      "nonempty_payload_rate": 0.875,
+      "passes": false,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 1
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-2-sampler",
+      "exact_format_success_rate": 0.984375,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 0.984375,
+      "learning_rate": 0.0001,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 2
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-2-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.0003,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 2
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-2-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.001,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 2
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-4-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.0001,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 4
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-4-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.0003,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 4
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-4-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.001,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 4
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-8-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.0001,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 8
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-8-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.0003,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 8
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-8-sampler",
+      "exact_format_success_rate": 0.0,
+      "exact_literal_payload_rate": 0.0,
+      "exact_tag_compliance_rate": 0.0,
+      "learning_rate": 0.001,
+      "literal_copy_success_rate": 0.0,
+      "nonempty_payload_rate": 0.0,
+      "passes": false,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 8
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-16-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.0001,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 16
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-16-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.0003,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 16
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-16-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.001,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 16
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-32-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.0001,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 32
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-32-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.0003,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 32
+    },
+    {
+      "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-32-sampler",
+      "exact_format_success_rate": 1.0,
+      "exact_literal_payload_rate": 1.0,
+      "exact_tag_compliance_rate": 1.0,
+      "learning_rate": 0.001,
+      "literal_copy_success_rate": 1.0,
+      "nonempty_payload_rate": 1.0,
+      "passes": true,
+      "sample_count": 64,
+      "task_grammar_present": false,
+      "training_step": 32
+    }
+  ],
+  "full_confirmations": [
+    {
+      "checkpoint_source": "frozen_first_full_confirmation",
+      "diagnostics": {
+        "length_stop_count": 4,
+        "length_stop_rate": 0.015625,
+        "renderer_termination_counts": {
+          "eos": 1,
+          "malformed": 4,
+          "stop_sequence": 251
+        },
+        "sample_count": 256
+      },
+      "evidence_reused": true,
+      "passes": true,
+      "source_run_id": "m0-recovery-20260809T184459Z",
+      "summary": {
+        "canonical_wrapper_compliance_rate": 0.9765625,
+        "checkpoint_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-2-sampler",
+        "exact_format_success_rate": 0.9765625,
+        "exact_literal_payload_rate": 0.98828125,
+        "learning_rate": 0.0001,
+        "nonempty_payload_rate": 0.98828125,
+        "sample_count": 256,
+        "task_grammar_present": false,
+        "training_step": 2
+      }
+    },
+    {
+      "checkpoint_source": "two_update_reconstruction",
+      "diagnostics": {
+        "length_stop_count": 2,
+        "length_stop_rate": 0.0078125,
+        "renderer_termination_counts": {
+          "eos": 2,
+          "malformed": 2,
+          "stop_sequence": 252
+        },
+        "sample_count": 256
+      },
+      "passes": true,
+      "summary": {
+        "canonical_wrapper_compliance_rate": 0.98046875,
+        "checkpoint_path": "tinker://334a5523-f111-5ca2-9607-58ae27cc941d:train:0/sampler_weights/m0-recovery-20260809T191351Z-reconstructed-sampler",
+        "exact_format_success_rate": 0.98046875,
+        "exact_literal_payload_rate": 0.99609375,
+        "learning_rate": 0.0001,
+        "nonempty_payload_rate": 0.99609375,
+        "sample_count": 256,
+        "task_grammar_present": false,
+        "training_step": 2
+      }
+    }
+  ],
+  "outcome": "scientific_m0_selected",
+  "pilot_started": false,
+  "reconstruction": {
+    "learning_rate": 0.0001,
+    "metrics": [
+      {
+        "forward_backward.clock_cycle:unique": 6205629.0,
+        "forward_backward.loss:sum": 3.0318791568279266,
+        "local.train_tokens": 2034.0
+      },
+      {
+        "forward_backward.clock_cycle:unique": 6205631.0,
+        "forward_backward.loss:sum": 1.0682565197348595,
+        "local.train_tokens": 2064.0
+      }
+    ],
+    "optimizer_updates": 2,
+    "status": "completed",
+    "training_run_id": "334a5523-f111-5ca2-9607-58ae27cc941d:train:0"
+  },
+  "recovery_git_commit": "cd04512d7c69a453306f8d8a8075d495243da364",
+  "sampler_restore_probe": {
+    "error": "ValueError: Error retrieving result: Error code: 404 - {'error': 'Model not found for request ID 97d2d7ea-5cde-5839-8ee3-a854a36e90fc:train:0:0'} with status 404 for self.request_id='97d2d7ea-5cde-5839-8ee3-a854a36e90fc:train:0:0' and expected type self.model_cls=<class 'tinker.types._pydantic_types.load_weights_response.LoadWeightsResponse'>",
+    "evidence_reused": true,
+    "source_run_id": "m0-recovery-20260809T185137Z",
+    "status": "rejected",
+    "training_run_id": "97d2d7ea-5cde-5839-8ee3-a854a36e90fc:train:0"
+  },
+  "scientific_m0_selected": true,
+  "selected_learning_rate": 0.0001,
+  "selected_sampler_checkpoint_path": "tinker://334a5523-f111-5ca2-9607-58ae27cc941d:train:0/sampler_weights/m0-recovery-20260809T191351Z-reconstructed-sampler",
+  "selected_source_candidate_path": "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-2-sampler",
+  "selected_state_checkpoint_path": "tinker://334a5523-f111-5ca2-9607-58ae27cc941d:train:0/weights/m0-recovery-20260809T191351Z-reconstructed-state",
+  "selected_training_step": 2,
+  "source_format_training_git_commit": "c80a0387e012863744f15af3a2f55db5c3b1d502",
+  "source_format_training_run_id": "format-training-20260809T171110Z",
+  "source_raw_m0_run_id": "m0-calibration-20260809T124248Z-05075ce8",
+  "status": "completed",
+  "teacher_forced_logprob_diagnostic": {
+    "reason": "direct full-format reconfirmation is authoritative; diagnostic is not a gate",
+    "status": "not_computed"
+  }
+}

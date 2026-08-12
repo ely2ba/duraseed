@@ -1,0 +1,9 @@
+{
+  "project_id": "7727a6e3-fadb-4b07-9801-721221235e1e",
+  "raw_quantities": {
+    "prefill_tokens": 130100,
+    "sample_tokens": 20044,
+    "train_tokens": 368040
+  },
+  "status": "pending_raw_usage"
+}

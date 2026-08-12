@@ -1,0 +1,31 @@
+{
+  "candidate_checkpoints": "sampler_weights_only",
+  "evaluation_steps": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "full_evaluation": {
+    "format_items": 256,
+    "format_max_tokens": 128,
+    "maps_items": 0,
+    "paired_tces_items": 128,
+    "tces_max_tokens": 1024
+  },
+  "interruption_policy": "rerun_the_bounded_calibration",
+  "lora_rank": 32,
+  "model_id": "Qwen/Qwen3.5-9B-Base",
+  "quick_screen": {
+    "items": 64,
+    "max_tokens": 128
+  },
+  "renderer": "role_colon",
+  "restore_semantics": "weights_only_fresh_optimizer",
+  "source_state_path": "tinker://7a1bd1bf-2ac0-5cf2-9be1-34fe80139271:train:0/weights/m0-calibration-20260809T124248Z-05075ce8-candidate-m0-state",
+  "train_attn": true,
+  "train_mlp": true,
+  "train_unembed": true
+}

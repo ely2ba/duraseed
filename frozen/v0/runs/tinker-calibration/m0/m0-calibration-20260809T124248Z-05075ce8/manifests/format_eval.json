@@ -1,0 +1,1799 @@
+{
+  "manifest_id": "sha256:19ad5eee8a9688e07bee246bd38f06ef2b5d6db9ab6539d46004a34086f72c66",
+  "records": [
+    {
+      "item_index": 0,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-893cc8a2d8a1277d",
+      "record_id": "sha256:dc1470326ebda7c67b891d23cb0a6bb9629bc010529d4c09f02e3366354b97b3",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-893cc8a2d8a1277d</answer>"
+    },
+    {
+      "item_index": 1,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-80b64a8f1d7afd1c",
+      "record_id": "sha256:168e808acc33048c5c72bcb7f3c162625d5c9107c84c299491ec873d79dddefa",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-80b64a8f1d7afd1c</answer>"
+    },
+    {
+      "item_index": 2,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-10e14648cc5d5013",
+      "record_id": "sha256:a7187c67c16379d4c1f1cdb411b0bf905d761d05440dfa305b93683eb8718078",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-10e14648cc5d5013</answer>"
+    },
+    {
+      "item_index": 3,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9ab7f2be11904b9e",
+      "record_id": "sha256:9e5d675f18c8038fa23a746d35518a0dd41d0cd2e2f8c3ada9f5c82a278c3d8e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9ab7f2be11904b9e</answer>"
+    },
+    {
+      "item_index": 4,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e2d76cb44280c203",
+      "record_id": "sha256:6cc35d151da7d450dd6fea51bf153a93fac069127f25a22c9536208c61303709",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e2d76cb44280c203</answer>"
+    },
+    {
+      "item_index": 5,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-a17cb84c0906b8e5",
+      "record_id": "sha256:edad7e2c4c4590c439158a3fd5edbb6f644d729be68c3a7f5c34768c73eee2cc",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-a17cb84c0906b8e5</answer>"
+    },
+    {
+      "item_index": 6,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-0a737f4f4cae95a4",
+      "record_id": "sha256:1c4ca61094c06d93b308f9822f9922fb730d9cd8592c87106f0e5c6ca5c3be82",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-0a737f4f4cae95a4</answer>"
+    },
+    {
+      "item_index": 7,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-678cc917765f9380",
+      "record_id": "sha256:508d8229439823b66a5cbafb5fff088a55f01a6f2d60b7828d9026def555ed39",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-678cc917765f9380</answer>"
+    },
+    {
+      "item_index": 8,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9e8a1b48ab92441e",
+      "record_id": "sha256:f19266f1ab965f2e15782e618503f4da4328bf97b979cdddf0cd83331319630e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9e8a1b48ab92441e</answer>"
+    },
+    {
+      "item_index": 9,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-763e66cb269c05df",
+      "record_id": "sha256:feaaff5c7c431f216a3c511cb4d871bca6a01d78617ec258a191d221bb9872f7",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-763e66cb269c05df</answer>"
+    },
+    {
+      "item_index": 10,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-230ed1e0a4039e67",
+      "record_id": "sha256:f4e2b7318d438e9c271205ffd92a35b5a5d7a42a58b3cdad81da1ed37190f300",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-230ed1e0a4039e67</answer>"
+    },
+    {
+      "item_index": 11,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-362cb992067a8fe6",
+      "record_id": "sha256:773fcd8bed044446d02c9ce3e9e5ecdac567ad2626dfd13c3809e0b44f42701c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-362cb992067a8fe6</answer>"
+    },
+    {
+      "item_index": 12,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-a3367640107e3b04",
+      "record_id": "sha256:ceb0b41feb7899662be48c730749b5b2b1224d00b7f8c85bee7260f0d7fad54d",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-a3367640107e3b04</answer>"
+    },
+    {
+      "item_index": 13,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e1577daf092a88b9",
+      "record_id": "sha256:c296ea21d6f8e62e54c5bba531abf6eae3bdf2d611202a212b3ed8810b870e81",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e1577daf092a88b9</answer>"
+    },
+    {
+      "item_index": 14,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-77b5bce8faee6ed2",
+      "record_id": "sha256:d8a61393a1bed1bb18341045a5d6381b68906340a26d9b5ccd83fa51f5c4c177",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-77b5bce8faee6ed2</answer>"
+    },
+    {
+      "item_index": 15,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-42b7dfe4c76d7d8f",
+      "record_id": "sha256:5ec92a1b1be49a5a2aab739ca39a0a958339a713ee6365bd690e12b90ce90062",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-42b7dfe4c76d7d8f</answer>"
+    },
+    {
+      "item_index": 16,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-c658c8c9fdbfffac",
+      "record_id": "sha256:47bba7481d4cf0f289d5decf5e1abb719592205f9f35733231ce4668c065007f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-c658c8c9fdbfffac</answer>"
+    },
+    {
+      "item_index": 17,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9dc14c81f7e0626e",
+      "record_id": "sha256:931636cb2cda4364925193fb5c33d94978ad14634a38d6b17ae384db325d75eb",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9dc14c81f7e0626e</answer>"
+    },
+    {
+      "item_index": 18,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-387e508ed64931c9",
+      "record_id": "sha256:a57310b32ad2e1dfbe7ca37b5ca4f3c56a711f096ebd00d9004e77c6f698a0c9",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-387e508ed64931c9</answer>"
+    },
+    {
+      "item_index": 19,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-8b03ba480ab09044",
+      "record_id": "sha256:41bd278a0326ddabff94395bd2a57058065ee02cca3facb33aa18ba115d3c789",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-8b03ba480ab09044</answer>"
+    },
+    {
+      "item_index": 20,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-cda2c4fa19d6e0f1",
+      "record_id": "sha256:8c950b4e7e191900d296db815eb74979969bcbf558a5b3e948479807dca243a1",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-cda2c4fa19d6e0f1</answer>"
+    },
+    {
+      "item_index": 21,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e6cbb6fe473ae026",
+      "record_id": "sha256:0ad2ed0fc10cde3b3e15bf281346394cbf28cca3c010be171317ab084dedadac",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e6cbb6fe473ae026</answer>"
+    },
+    {
+      "item_index": 22,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-7cac513a6bf668d1",
+      "record_id": "sha256:d273ded322fc73a51de84b2b689b69b643a1be854cf3fe05c216176f18fd2075",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-7cac513a6bf668d1</answer>"
+    },
+    {
+      "item_index": 23,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-1a08fd16a8994e09",
+      "record_id": "sha256:acd5d67fc59333e0f00bfaacfa9e5e38e9846f850db62625bbb5236d61bfc7b5",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-1a08fd16a8994e09</answer>"
+    },
+    {
+      "item_index": 24,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-065c0652c4b6d5c7",
+      "record_id": "sha256:cf2a63e6bc82584cc284074a4acb85a6cb0322f64830e9c6d6b764c95505e9b7",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-065c0652c4b6d5c7</answer>"
+    },
+    {
+      "item_index": 25,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-d45c5459c5f73d49",
+      "record_id": "sha256:88fb3aa96b0473e8f874dd1fecc04a725f005bf5a142090183905657e4311da1",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-d45c5459c5f73d49</answer>"
+    },
+    {
+      "item_index": 26,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ad2f3a8add335e2b",
+      "record_id": "sha256:f39c6352d96c650b60791afdf8d0ed25b90ac4ae027951b660bed3eb88c5a9ba",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ad2f3a8add335e2b</answer>"
+    },
+    {
+      "item_index": 27,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-0f56e7a45eba0ff6",
+      "record_id": "sha256:fee3e30e3066c095c62cd3777640e88a3619b3e0ab7a6315b5b6ea6e19fd18ee",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-0f56e7a45eba0ff6</answer>"
+    },
+    {
+      "item_index": 28,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ed948211600c0076",
+      "record_id": "sha256:478bcee97c5ac05fafffee6ad152763c4675c37a9fafa8d833a68ff79868fe36",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ed948211600c0076</answer>"
+    },
+    {
+      "item_index": 29,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-002af8c770848e4a",
+      "record_id": "sha256:f5424aa21ed1d787611bcaba93444042bb0f0551f3b64b770dc9d864eb6b6026",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-002af8c770848e4a</answer>"
+    },
+    {
+      "item_index": 30,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-8d594db267b60070",
+      "record_id": "sha256:af2a6cc76702bfe3dd9769a96ef140ad52bb8f7aaa5beb62b52d8db301bc3fe3",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-8d594db267b60070</answer>"
+    },
+    {
+      "item_index": 31,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-4446b7442f9545aa",
+      "record_id": "sha256:aafda4162c414856a9d53a74a3cd0872e30166d9b7cbe0a4de8d33abb62812c1",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-4446b7442f9545aa</answer>"
+    },
+    {
+      "item_index": 32,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-4b1e0fc0d9ec9309",
+      "record_id": "sha256:05247fdcdb4001e7863b855c6206bf0365e3df9f441652b02cc674f3c16a3340",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-4b1e0fc0d9ec9309</answer>"
+    },
+    {
+      "item_index": 33,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-41ae7bf96e70c8ed",
+      "record_id": "sha256:adda32c1908d8930405003b0a8703f9f2e72d7ae2a961ca12f2f7196c8643c9c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-41ae7bf96e70c8ed</answer>"
+    },
+    {
+      "item_index": 34,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e4f43b1d41a11847",
+      "record_id": "sha256:7b44964a092c397c021024820dbc0a931f68824b51ee09558f37a06fbcf95779",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e4f43b1d41a11847</answer>"
+    },
+    {
+      "item_index": 35,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-26c3b642cab93823",
+      "record_id": "sha256:06eced9f22d3416b906fea150b94a63c44e1f4d0358015219029c9b72ce2fe2d",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-26c3b642cab93823</answer>"
+    },
+    {
+      "item_index": 36,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9ef144f9c72e9060",
+      "record_id": "sha256:c039c98fcbdec1a8138168cc601935f386d31ded8fc8b530a2f2f8ba9b203fc0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9ef144f9c72e9060</answer>"
+    },
+    {
+      "item_index": 37,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-83cee64ed93948ff",
+      "record_id": "sha256:eb89203b04b7fd5e95ab090519866c8797e74604292d2f6a5618dab672ea00d6",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-83cee64ed93948ff</answer>"
+    },
+    {
+      "item_index": 38,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-aec843be06387d96",
+      "record_id": "sha256:8518cdcda18f2a852174d6068d0a4b6c7032569854f9d767f66c8a333b6ff412",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-aec843be06387d96</answer>"
+    },
+    {
+      "item_index": 39,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-a9ff193a2ed0a289",
+      "record_id": "sha256:e3b0cf8f003aadf53d138b6d6e36bd69fd2dfcebec427b3f7c4c9f5a1f754bc8",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-a9ff193a2ed0a289</answer>"
+    },
+    {
+      "item_index": 40,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-bb3689619e41a8d6",
+      "record_id": "sha256:1de0451adfd70276f64f1119a5d509af4492cb643005bd07805fb5f060fcaa5c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-bb3689619e41a8d6</answer>"
+    },
+    {
+      "item_index": 41,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e9aee27a735c5380",
+      "record_id": "sha256:48962122d22418968ba75ff71e1b2e4f6bbe7ec9eb11b4fe7708dcc6bd591075",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e9aee27a735c5380</answer>"
+    },
+    {
+      "item_index": 42,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-d27c5e6f8f019c46",
+      "record_id": "sha256:4c4a09421b8398220b7c20f57955e7f232d5354d2bc4e84d583706a76b9a90a4",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-d27c5e6f8f019c46</answer>"
+    },
+    {
+      "item_index": 43,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-7e51d8f353043e18",
+      "record_id": "sha256:5cb981a4c9de22125627fbbaf552f4fb36f83ce274f85dae412363c84ce4f5a3",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-7e51d8f353043e18</answer>"
+    },
+    {
+      "item_index": 44,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-d6cc40e47436b1a5",
+      "record_id": "sha256:ba4d334aa88d602a99c6eb0672e47f18688b65519aed89d96fedd8c5b69e688d",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-d6cc40e47436b1a5</answer>"
+    },
+    {
+      "item_index": 45,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-76c48b2fdbef7594",
+      "record_id": "sha256:c18b3bdceae972b939e2d2d8992f4bec648352afc466734f0dde54359de7a171",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-76c48b2fdbef7594</answer>"
+    },
+    {
+      "item_index": 46,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-354098ab6bfe3205",
+      "record_id": "sha256:df6a39166272d7289f46feefdfb429d9a53c75d82548a7ad99b840175860bc6b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-354098ab6bfe3205</answer>"
+    },
+    {
+      "item_index": 47,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-5bb5dfa9b0e9024f",
+      "record_id": "sha256:fd2fc815fb9e7037be3e186f3365c6996e4086f6ba98d7f3e4f7838c6718dfde",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-5bb5dfa9b0e9024f</answer>"
+    },
+    {
+      "item_index": 48,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-d5c1eaabe7ca5f3f",
+      "record_id": "sha256:b88638198ddc6171eb8f70a731842d4669b74ad6dc4b42442d23d08f4f52cdcd",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-d5c1eaabe7ca5f3f</answer>"
+    },
+    {
+      "item_index": 49,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-c6b647335b2bdf02",
+      "record_id": "sha256:42fc3d39d186c4c2afe2bbf7ac2b27dc3387291ce950682d6f446f108b881174",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-c6b647335b2bdf02</answer>"
+    },
+    {
+      "item_index": 50,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-0b21086cfaac817b",
+      "record_id": "sha256:5f1e96a4ad8f6b399ecf2e7b87fe1e0be6be98415f0213aa31c64f1cdfe63c8c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-0b21086cfaac817b</answer>"
+    },
+    {
+      "item_index": 51,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-1abdd625b18beaca",
+      "record_id": "sha256:19abd48c0b3e21ab0ea90a78a7dca9e0aa41d3a953153d2003200cae86350910",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-1abdd625b18beaca</answer>"
+    },
+    {
+      "item_index": 52,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-828b90e12ef9da4c",
+      "record_id": "sha256:27e00186c10923fbac8f21139d633c8bffae9d04170e57d9d5b0e09175df3e5b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-828b90e12ef9da4c</answer>"
+    },
+    {
+      "item_index": 53,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-99f5b6067ef312be",
+      "record_id": "sha256:037c7cee89ce5199bf9caa06604a4ca21c026edaf7afae1c1092677186f72be1",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-99f5b6067ef312be</answer>"
+    },
+    {
+      "item_index": 54,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-51d757bc2cdc87e4",
+      "record_id": "sha256:37b69259f0ab07eff8ddbee8e4734b2696df87512e9bacf24708cd27ae69ce6f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-51d757bc2cdc87e4</answer>"
+    },
+    {
+      "item_index": 55,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-b568df8de4a1ead3",
+      "record_id": "sha256:d862b6ff4dcf36c987aeebbcc70bde86cec9d74f32da29a040ee05b2d3903ea7",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-b568df8de4a1ead3</answer>"
+    },
+    {
+      "item_index": 56,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-b5d3145769b390bf",
+      "record_id": "sha256:dd9e61b736984d3ebb6ec4abfb8f9453b3753b73891ede45bb8e5f5af4f4a111",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-b5d3145769b390bf</answer>"
+    },
+    {
+      "item_index": 57,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-742efb4d3c54a3f2",
+      "record_id": "sha256:fc9bea9a09cd8f49c6e6e8894882b4cebfd7eaef3701f984dd5ed4f8cd145f80",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-742efb4d3c54a3f2</answer>"
+    },
+    {
+      "item_index": 58,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-21bf600f70d36ce7",
+      "record_id": "sha256:c7ecb8cca4ba4ed48b043b3851ec7ac4c7e0e87de1aaefd5d7595b778ad0ab82",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-21bf600f70d36ce7</answer>"
+    },
+    {
+      "item_index": 59,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-699ce7a1a9ba64b0",
+      "record_id": "sha256:36380b10ef7a7a548e3347ab4ca14017d1997a616cb2f0c2a8f27a0f282a8b20",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-699ce7a1a9ba64b0</answer>"
+    },
+    {
+      "item_index": 60,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-5650138a02808053",
+      "record_id": "sha256:15f4a78bc59eec4269f9b79a29d52064fcb4eaaae9fd051a03259bc4f8507b15",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-5650138a02808053</answer>"
+    },
+    {
+      "item_index": 61,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9c93259e387ca97f",
+      "record_id": "sha256:f4a8fd5652cf1374195d0e05be4959f0bb4ca4c1724d468289679cc476e4e832",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9c93259e387ca97f</answer>"
+    },
+    {
+      "item_index": 62,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-7b58dafceca68e7f",
+      "record_id": "sha256:98f5a70cf28db56f5bd5816fb8c96ad68f19153fa3cc881bdbbcd83c52c66589",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-7b58dafceca68e7f</answer>"
+    },
+    {
+      "item_index": 63,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-aa5ec0aac91ad1ae",
+      "record_id": "sha256:80e7fa0559672283a71afeaf98a28421676cd64d4aa8bc32f82906edf965e69b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-aa5ec0aac91ad1ae</answer>"
+    },
+    {
+      "item_index": 64,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e3ef0cca82b2677c",
+      "record_id": "sha256:513dbf5163d4862d972bc9469d3532e6b563cd1c9cc62d31a4bf3776ee7edc23",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e3ef0cca82b2677c</answer>"
+    },
+    {
+      "item_index": 65,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-dca8e5b66c14099a",
+      "record_id": "sha256:5088ddecb01a42b473dd3822ca74cfb3762e1989a9bd4b2978d37d7f90901a13",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-dca8e5b66c14099a</answer>"
+    },
+    {
+      "item_index": 66,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-64a21fa7b0116f41",
+      "record_id": "sha256:e31150f2e800ea70bf3d45afafd71fb6eb6692779bcc9c9fa44cd44ebc4b945f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-64a21fa7b0116f41</answer>"
+    },
+    {
+      "item_index": 67,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-cdd3d6e7b3361dac",
+      "record_id": "sha256:73f07d7474b4baba3a107b6af3a44e5d1f98f99f9105f8f5d3f65b0d8f3b66a5",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-cdd3d6e7b3361dac</answer>"
+    },
+    {
+      "item_index": 68,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e7f72e5665904af8",
+      "record_id": "sha256:834a433098641c4d6ea1a553550399370baf475f7b036fbfc723ee2bdb12078a",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e7f72e5665904af8</answer>"
+    },
+    {
+      "item_index": 69,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-2424cea657b38f17",
+      "record_id": "sha256:2fa0a3da375e4ccfdc7246f28c6205d5b36c17447b9153946e8b58d70f02c08d",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-2424cea657b38f17</answer>"
+    },
+    {
+      "item_index": 70,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-36bc51140b078cf5",
+      "record_id": "sha256:7f2e64b9579acf408121fc8d71885ec77fc0b48f038d4ce4df227700b344f9a2",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-36bc51140b078cf5</answer>"
+    },
+    {
+      "item_index": 71,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-b76601020a325b9f",
+      "record_id": "sha256:9d9893e3ec1e7e50e508e36354bef8d829291c8a2aeddf23cc0e006ebfbc2998",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-b76601020a325b9f</answer>"
+    },
+    {
+      "item_index": 72,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-5b09a371fdf762ad",
+      "record_id": "sha256:102e995b6ea3be5e4f341a87a16e730a33c2a3cf19302b94488fb466d26b9a23",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-5b09a371fdf762ad</answer>"
+    },
+    {
+      "item_index": 73,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-5a2c64545c0a9fca",
+      "record_id": "sha256:3758146eb7e2837d298ddf63a88aee23029f898148fcc0865baa238ea54dea22",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-5a2c64545c0a9fca</answer>"
+    },
+    {
+      "item_index": 74,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-0d4630558d1ac8ba",
+      "record_id": "sha256:f199ca8c1f31667c340ff04e3436e70f235df5ae43297e0bcea4bb2ce2938ed8",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-0d4630558d1ac8ba</answer>"
+    },
+    {
+      "item_index": 75,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ba69f213ccf75a6f",
+      "record_id": "sha256:7da0722eca18fba4deccfe0b76cc1e4dfc756d37ea461b6e95278bff382c91c0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ba69f213ccf75a6f</answer>"
+    },
+    {
+      "item_index": 76,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-78106910a3d590ed",
+      "record_id": "sha256:1268892060adda915de34892d78bac74b20b09c2ff274bb5c78d86d2cc908939",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-78106910a3d590ed</answer>"
+    },
+    {
+      "item_index": 77,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9f259bdc51d70cfb",
+      "record_id": "sha256:638c3bd000985ece49f6ab9f84fa4f57b54ae7d0c7d35dbc12428cc05fa4a797",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9f259bdc51d70cfb</answer>"
+    },
+    {
+      "item_index": 78,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-2ad358de5b74cfae",
+      "record_id": "sha256:d9327ee6b19cfc1c6da5c9230d3aea2c0b5e0112d047255df7c51ce95f62675a",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-2ad358de5b74cfae</answer>"
+    },
+    {
+      "item_index": 79,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-73f73c720a2fd038",
+      "record_id": "sha256:b756882a5c509efcc8f9c8592fab05e660d0679587d437e8d176e1e723b204cf",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-73f73c720a2fd038</answer>"
+    },
+    {
+      "item_index": 80,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-760c82a871f47a8f",
+      "record_id": "sha256:ddfa7d1a0f5742888bab8ad7b6e4a7fe2f0669ae9dd049cb1fdd098dd4be0da0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-760c82a871f47a8f</answer>"
+    },
+    {
+      "item_index": 81,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-6e3f265ae5ddcf28",
+      "record_id": "sha256:2146ffa923cf0ae17d87d3c03ba7371575a2cdea8574882ce60a7974e67803ec",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-6e3f265ae5ddcf28</answer>"
+    },
+    {
+      "item_index": 82,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-b638cb39e1f98103",
+      "record_id": "sha256:95828c18a0fc4b411526185c68abd26d7d2efc868e0dabd84d3377af0a7ece5e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-b638cb39e1f98103</answer>"
+    },
+    {
+      "item_index": 83,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-45919f0dd23ba3da",
+      "record_id": "sha256:579675c2585942ff6b41127bd097fd80a80d5aabc655f23c9cf16d17e0a9b2d9",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-45919f0dd23ba3da</answer>"
+    },
+    {
+      "item_index": 84,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-c49e723fed9fea5a",
+      "record_id": "sha256:f19cc8cbc3ab00d9fee66ab66b84883023e7d58e33c320a75d6b9a52ae388b06",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-c49e723fed9fea5a</answer>"
+    },
+    {
+      "item_index": 85,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-608d973680b0a2e8",
+      "record_id": "sha256:3074fe6ebbfa66fed4cb2684a2e5ab316b6bf9dae0e68391ff49bc1e40b5c25b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-608d973680b0a2e8</answer>"
+    },
+    {
+      "item_index": 86,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-11f478341ebaf877",
+      "record_id": "sha256:3d0b10e6aae154c6495d13187b2e7a0cfc0e3b446271840a78942f2dbf9d1a73",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-11f478341ebaf877</answer>"
+    },
+    {
+      "item_index": 87,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-a84cea9dc45659ff",
+      "record_id": "sha256:ec808e8dc3bd279aa390b07191f7f2a88be2e5762743efe0619ddbf284630e4c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-a84cea9dc45659ff</answer>"
+    },
+    {
+      "item_index": 88,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-75d4a8ad9e1b529a",
+      "record_id": "sha256:594d5605e9cad6243a9b6fcd9821d10ce238e667cca8bef04222f3f69a4949f2",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-75d4a8ad9e1b529a</answer>"
+    },
+    {
+      "item_index": 89,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9bea2ea2770124ea",
+      "record_id": "sha256:2c37bf318fe125e82f95e5fcb5833ce137f8c16f324de688e491dab7e76e69e4",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9bea2ea2770124ea</answer>"
+    },
+    {
+      "item_index": 90,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-09ac3b8500806aa6",
+      "record_id": "sha256:b32512f849b464404db1b09c31c820bbf6db2751df3d0c099e4a78756886f37a",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-09ac3b8500806aa6</answer>"
+    },
+    {
+      "item_index": 91,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-6b9d0a326a12b87d",
+      "record_id": "sha256:1f15bcc8972998ed94878fef7b8a5725cd7a93801c6f027c62d9aa3beb0298f5",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-6b9d0a326a12b87d</answer>"
+    },
+    {
+      "item_index": 92,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-22199e943c68fcf3",
+      "record_id": "sha256:252e1061d0da7da073f721a8bd43646e4c42b116c4621e5b2af11862ba318ee4",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-22199e943c68fcf3</answer>"
+    },
+    {
+      "item_index": 93,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-bcee61d19de964b7",
+      "record_id": "sha256:9d0d97fca19ce359eaf047677f690f0051a31975ccf568c93043b1064b821024",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-bcee61d19de964b7</answer>"
+    },
+    {
+      "item_index": 94,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-f1e0c6e393d9d85d",
+      "record_id": "sha256:b38de75f3c8c0f6dbfd7c78fd30827c0860f7c9b24cdd50b5f6f8f5ade0b45d0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-f1e0c6e393d9d85d</answer>"
+    },
+    {
+      "item_index": 95,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-60cba270680df936",
+      "record_id": "sha256:facce948c4dfa113c8fdb9fc021b1a7e318a0f08a631e27935afad45e111c4ba",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-60cba270680df936</answer>"
+    },
+    {
+      "item_index": 96,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-da4641d5d7c5cb85",
+      "record_id": "sha256:8a249a7c32402dc3bb97e474df27746269666156d21d90da7e166164aac08ab9",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-da4641d5d7c5cb85</answer>"
+    },
+    {
+      "item_index": 97,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-45740c819bac523e",
+      "record_id": "sha256:0d06590048022772f1d2f6f708f9468afcea6a9211338ccea43c1434529bcb40",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-45740c819bac523e</answer>"
+    },
+    {
+      "item_index": 98,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-652b9d56781aab0e",
+      "record_id": "sha256:2822575cdada86af699c342c73db510d0b757270e6722b7eea5c24f0e0ad87fb",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-652b9d56781aab0e</answer>"
+    },
+    {
+      "item_index": 99,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-d286ebe9a4c1cd24",
+      "record_id": "sha256:af5ae2effffddf1484afec4828f9e9d367c4e26074f10196783cc8bd5d401d83",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-d286ebe9a4c1cd24</answer>"
+    },
+    {
+      "item_index": 100,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-7eaca9c09a1f32d5",
+      "record_id": "sha256:2b903b77649efab3738db8785100c58ef7fa41089d018b9b621fd72d19ed6804",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-7eaca9c09a1f32d5</answer>"
+    },
+    {
+      "item_index": 101,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-528d442551f3ee8e",
+      "record_id": "sha256:3f082f1d89d9c96a279c5cfcf2102ba9f806ba95d6652ea089b0092b0bc10eac",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-528d442551f3ee8e</answer>"
+    },
+    {
+      "item_index": 102,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-4903a81a33592216",
+      "record_id": "sha256:df07a1011ec114ae5b2755608f4f8481e2b3841c679fe6fbeb82f5c4f3d1fdd9",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-4903a81a33592216</answer>"
+    },
+    {
+      "item_index": 103,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-f380006f2fd6daf4",
+      "record_id": "sha256:a861285e7df12fbb70a7f01a92239046c5c8cbe530ded966f348614f322784b6",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-f380006f2fd6daf4</answer>"
+    },
+    {
+      "item_index": 104,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-af1a755c68c8ae6c",
+      "record_id": "sha256:cc0700cf57f95322a62c66c703b93fa11a4ac0bd90dbf3f68635bf85716d3d68",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-af1a755c68c8ae6c</answer>"
+    },
+    {
+      "item_index": 105,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-93a80e3ae101c538",
+      "record_id": "sha256:6e5d085a640a93626e7f5ccbcdf8ca52bbc810fcfb78b4591f6f0137e100383e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-93a80e3ae101c538</answer>"
+    },
+    {
+      "item_index": 106,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e70835a2c8b45c9f",
+      "record_id": "sha256:505ad90efb6454f588219dba792c70539bb730c4e8800585ba50660b4316f7f6",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e70835a2c8b45c9f</answer>"
+    },
+    {
+      "item_index": 107,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-17b55145e0fd3242",
+      "record_id": "sha256:4dcae814b66da5313dba27a7ca0915d09f52f2de3e65cd4f8c0eeb456eac53fc",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-17b55145e0fd3242</answer>"
+    },
+    {
+      "item_index": 108,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ce47038599508880",
+      "record_id": "sha256:cda34cd9e1893d7b92463c5abfcbb06cf422714bde157f21b72a780f49032a7b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ce47038599508880</answer>"
+    },
+    {
+      "item_index": 109,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-7445624d05392f97",
+      "record_id": "sha256:f97e01d0f49c43aed3aa4401bba822638f8ca5a4433b34ce93560d50347b62df",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-7445624d05392f97</answer>"
+    },
+    {
+      "item_index": 110,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-6dd13769106b104d",
+      "record_id": "sha256:88a90a13a76313a7b50644619336e7a085497545f693f84ec424138dc213dd0f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-6dd13769106b104d</answer>"
+    },
+    {
+      "item_index": 111,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-414bc234076512ab",
+      "record_id": "sha256:07624f7912c8a726b49a51d1f74cef50995f5e2e66629bcf3a125b4dc1238a64",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-414bc234076512ab</answer>"
+    },
+    {
+      "item_index": 112,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-2fefaf7088681bfe",
+      "record_id": "sha256:479a970b55c3d9a52655965006bf90a1b88b7b0e030e9eeb021ae88d1e3813e8",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-2fefaf7088681bfe</answer>"
+    },
+    {
+      "item_index": 113,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-7c66fab439a1a3e9",
+      "record_id": "sha256:4b759149ae60622c67288381d468c4b92eaa8720de1abf37d028a9023e9ec08f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-7c66fab439a1a3e9</answer>"
+    },
+    {
+      "item_index": 114,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-f7f80b1d7b4faa93",
+      "record_id": "sha256:548b77e478534349bb75785f29ee83c1aab3d8872e5749df40dfca136b282104",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-f7f80b1d7b4faa93</answer>"
+    },
+    {
+      "item_index": 115,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-10e311b888e28bd9",
+      "record_id": "sha256:7b300acfd9e142a0216e0891bf0d35d6ad42a0d3660f25a2096b002c95bb5208",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-10e311b888e28bd9</answer>"
+    },
+    {
+      "item_index": 116,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-5f37d465b8d0f9d7",
+      "record_id": "sha256:96a23bda1f95eef661ea1b9371588dd85deeecfc5ad56223ff41f77567b8847b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-5f37d465b8d0f9d7</answer>"
+    },
+    {
+      "item_index": 117,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e85003a42c0603ee",
+      "record_id": "sha256:9dfb73758261a9f7d1b158acea48f76ecddd82ae23ba80fcde6e19035b94117e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e85003a42c0603ee</answer>"
+    },
+    {
+      "item_index": 118,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9ef260784648e2b6",
+      "record_id": "sha256:00160ecfb12198a66e5cc4ac75a43c5c22cbcdaa1aaa7071d12c844fccaf73ef",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9ef260784648e2b6</answer>"
+    },
+    {
+      "item_index": 119,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-26f6d1b36a522865",
+      "record_id": "sha256:27f098814d1cade9657a887661f9e90fec38811eb407a0bd73abd7b7e713e671",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-26f6d1b36a522865</answer>"
+    },
+    {
+      "item_index": 120,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-d3a5b4ab3e8bcede",
+      "record_id": "sha256:10dd4f33fa8b7e6d65cb5717bea15da6334b6345f7fdc67d7165025816e84f12",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-d3a5b4ab3e8bcede</answer>"
+    },
+    {
+      "item_index": 121,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-0df63e4576ad07cb",
+      "record_id": "sha256:14879bd6f696a0f7c6a5e6c0bc9ad32c9797f8aa4d9d777976b72fac7754b807",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-0df63e4576ad07cb</answer>"
+    },
+    {
+      "item_index": 122,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9864f1de5a089425",
+      "record_id": "sha256:59ea70e4677e0be2b4196af84a656661f7a9f48769627c55f67bf39ef40842af",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9864f1de5a089425</answer>"
+    },
+    {
+      "item_index": 123,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-08a3f06151a77214",
+      "record_id": "sha256:b35d74d38239f453b21b1025090b57e30a4b97268862ade2e9cb3b41c500d275",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-08a3f06151a77214</answer>"
+    },
+    {
+      "item_index": 124,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9d05cc8b0fc5c495",
+      "record_id": "sha256:cad269a197f331a12fa025219d5cbd6e7da75d3608c4e212afe6e10f9fb13627",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9d05cc8b0fc5c495</answer>"
+    },
+    {
+      "item_index": 125,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-97f59eee16d4b0b1",
+      "record_id": "sha256:419210a3adff46770e6db259e204d28fd0cc5a48805512c9aea0d59ebab41f46",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-97f59eee16d4b0b1</answer>"
+    },
+    {
+      "item_index": 126,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-21a948b6cad133df",
+      "record_id": "sha256:627c9087e8985f9bba4dae4fd0838290d75878c3671d34aa77491bfa5e3104b2",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-21a948b6cad133df</answer>"
+    },
+    {
+      "item_index": 127,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-0e7a27c34f6de5f3",
+      "record_id": "sha256:0f36819b775aedc68afbb4cb41a8bd8b29010af42271beb8fb7dbadf57088273",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-0e7a27c34f6de5f3</answer>"
+    },
+    {
+      "item_index": 128,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-a4d1d751d532edc3",
+      "record_id": "sha256:8c87e49df6af1c3f6d1a12f0623d25c63f12f834b0ea9ee2658b63fbb220bc10",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-a4d1d751d532edc3</answer>"
+    },
+    {
+      "item_index": 129,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-2e2b0b0640cfd7ed",
+      "record_id": "sha256:e4358a6f899dad9a75d83942123ec5b992f0787cc2b741743471f054074d981f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-2e2b0b0640cfd7ed</answer>"
+    },
+    {
+      "item_index": 130,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-4ec02190ca3591f6",
+      "record_id": "sha256:70235a1f4481850926ebcdc60c60eacd1724ae3ec72cf0bf2a196ea9255ee7c1",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-4ec02190ca3591f6</answer>"
+    },
+    {
+      "item_index": 131,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-6bee3ac0c7a50ec5",
+      "record_id": "sha256:4fa2fbece686c3243bca74a527916c66bdc1e3851c36049a42791029ea1ada39",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-6bee3ac0c7a50ec5</answer>"
+    },
+    {
+      "item_index": 132,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-1d85ef003eef5e66",
+      "record_id": "sha256:2d5a9183bfe1833169f3d91190bf5379c6b9a696ed701e816a891be87f40d640",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-1d85ef003eef5e66</answer>"
+    },
+    {
+      "item_index": 133,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ef2842db74b2060b",
+      "record_id": "sha256:34111a3de8e25d3d23a02ae033800032bd225bf991cd8940b9e7f172b5135d7e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ef2842db74b2060b</answer>"
+    },
+    {
+      "item_index": 134,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-038d42380c969d11",
+      "record_id": "sha256:157875c47e56c713e4f2bac18624e7a72ceaee648a2912f25cbef106524084ba",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-038d42380c969d11</answer>"
+    },
+    {
+      "item_index": 135,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-8b5c7d320de6b861",
+      "record_id": "sha256:4210f2d88addea639ceac8a7b4049cf2b6fada48b4dd4fe07776808adfffaf72",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-8b5c7d320de6b861</answer>"
+    },
+    {
+      "item_index": 136,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-f48a7bc5a3868793",
+      "record_id": "sha256:74d918219e52f6549b8d312b1ab7b9e736979b0f0742bf0e670dc82bd2e25662",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-f48a7bc5a3868793</answer>"
+    },
+    {
+      "item_index": 137,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-2677767378f7f442",
+      "record_id": "sha256:6479c36feb9b03883254d55ba7b5217ebb700c778443d0f9e713894a8cb8b9e0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-2677767378f7f442</answer>"
+    },
+    {
+      "item_index": 138,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-64dba74edb7d86ef",
+      "record_id": "sha256:2e6f3dc7550add81d4baba3989bb1fb419b2af5cd04184af174e65c6c9d0d1bd",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-64dba74edb7d86ef</answer>"
+    },
+    {
+      "item_index": 139,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-2abc8336d45de769",
+      "record_id": "sha256:cd01cfdad404c831a248c1da1679f1bfa63a4e0053f1e1a3861ae1b00a22ae67",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-2abc8336d45de769</answer>"
+    },
+    {
+      "item_index": 140,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-60d5e6f7d3baaf8d",
+      "record_id": "sha256:0d383902612db60f93336e6a8cdedfb314531e0dbc90aadaa0497925229d9d27",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-60d5e6f7d3baaf8d</answer>"
+    },
+    {
+      "item_index": 141,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-3f6c04af6a4126b1",
+      "record_id": "sha256:494137c20c5fba7a309eef08889ad9579a8d36b60016f17fee6e19c9ec49fab2",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-3f6c04af6a4126b1</answer>"
+    },
+    {
+      "item_index": 142,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-8e9914ddfde51905",
+      "record_id": "sha256:16f97eeecf6e3ec67fcbe852b815807dd0a602d931ce81a153dc48fef8d6d1c1",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-8e9914ddfde51905</answer>"
+    },
+    {
+      "item_index": 143,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-169dee32ec954f34",
+      "record_id": "sha256:1a78425e21b47308ec12d30f1cffe8cd4f2aead15cdac5f1cabca58a8ea999ca",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-169dee32ec954f34</answer>"
+    },
+    {
+      "item_index": 144,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e7d56cfe4de75870",
+      "record_id": "sha256:2521057f25596fe9c960c89fccf69b97a43174e880eb0b95eb28bbefb2252ba3",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e7d56cfe4de75870</answer>"
+    },
+    {
+      "item_index": 145,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e46e934f83bc3f5b",
+      "record_id": "sha256:f9c9017050e6bf3fd1eabc4a75d661aa880f5d962d16319ef8ac410ad83d274e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e46e934f83bc3f5b</answer>"
+    },
+    {
+      "item_index": 146,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-2ef6b5720ad400d5",
+      "record_id": "sha256:dbced42a2d6caf92c9abf58074dff14962b6d468f496ce7accae915b7f75c4fb",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-2ef6b5720ad400d5</answer>"
+    },
+    {
+      "item_index": 147,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-257c55b9a30f5f13",
+      "record_id": "sha256:a07223a73ac3d7c39e3d03fef284e33142c85e9e467e10e0a2f7d26f47ddb47b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-257c55b9a30f5f13</answer>"
+    },
+    {
+      "item_index": 148,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ef346b2671a4178c",
+      "record_id": "sha256:62fc16dd87696e878f22ac45dc989256183346d14e54705deb594a4552ad09eb",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ef346b2671a4178c</answer>"
+    },
+    {
+      "item_index": 149,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-3085d43819b3c362",
+      "record_id": "sha256:e9e320820e2e2208b709c6bf9423bb1ade884548df0cbddc198237a5f15f022b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-3085d43819b3c362</answer>"
+    },
+    {
+      "item_index": 150,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-477c22b622687a95",
+      "record_id": "sha256:ad69f21a1b75aabfe992d5f4ce04394bee4fbd78a79ff1163a8a67704906f968",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-477c22b622687a95</answer>"
+    },
+    {
+      "item_index": 151,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-88504d5d21aa0885",
+      "record_id": "sha256:5ef7a0a1812c62ddafe570fb2e948a1b84a50469495992dc8299361b84c6a4b1",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-88504d5d21aa0885</answer>"
+    },
+    {
+      "item_index": 152,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e48a277d1421f606",
+      "record_id": "sha256:6f10380c3105925a4b1e75ae215a98fcf4525383251ad232ffbd0ad58c1c7e2f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e48a277d1421f606</answer>"
+    },
+    {
+      "item_index": 153,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-600b8ec8619ec2f7",
+      "record_id": "sha256:efd5ef5258823a83e708e1ed00e3a1113c49c9f6784c071454cc7e6ac3b5877e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-600b8ec8619ec2f7</answer>"
+    },
+    {
+      "item_index": 154,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-bea4c495d6f90f27",
+      "record_id": "sha256:f1e051059e62f08cdaf1c94474f8ae32c98f84811afb13304ffa06389ffda89b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-bea4c495d6f90f27</answer>"
+    },
+    {
+      "item_index": 155,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-39b45601c7e2338b",
+      "record_id": "sha256:573870d66829fe0be1a002826eee076b552041efa1ac11204b4c9bb4bebd95f8",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-39b45601c7e2338b</answer>"
+    },
+    {
+      "item_index": 156,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-3f727ef4c70fc047",
+      "record_id": "sha256:24d4de55051740113469a6954a975f087636677edeab8bb0599019f8ea391d03",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-3f727ef4c70fc047</answer>"
+    },
+    {
+      "item_index": 157,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-76166725c058b5e3",
+      "record_id": "sha256:bfebc64e353aaf2c488368974dce9eefb39fd7ffad1770e37971d311ec0f7d57",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-76166725c058b5e3</answer>"
+    },
+    {
+      "item_index": 158,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-96bbc8ae31092446",
+      "record_id": "sha256:8efbe08b66caa7ebcda8c6f87542ab45d9ebe7bca8b283cd7ba34e60204481c0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-96bbc8ae31092446</answer>"
+    },
+    {
+      "item_index": 159,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-97084eb1e9d45266",
+      "record_id": "sha256:016ab34daf6927ea51f2b7b88cfa5f69d6f981df2a2cfeed3ebc37bf7ac3d4d9",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-97084eb1e9d45266</answer>"
+    },
+    {
+      "item_index": 160,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-90cfae104e5f070e",
+      "record_id": "sha256:a249243044719c7a279184218b7676cd73be08cc0aca05a1622521e0930cfdf3",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-90cfae104e5f070e</answer>"
+    },
+    {
+      "item_index": 161,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-7305cebe509fd37b",
+      "record_id": "sha256:8634acadaa29e4aa6a52c670c5d773106ccb233e5dfd7fa64f0d050426c8b2df",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-7305cebe509fd37b</answer>"
+    },
+    {
+      "item_index": 162,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ff3ceed9cbd024a9",
+      "record_id": "sha256:170a9e4347b3182b0c0da63ef601383544d22cd8783225b116539b563f976008",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ff3ceed9cbd024a9</answer>"
+    },
+    {
+      "item_index": 163,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-17fa80f0cd244422",
+      "record_id": "sha256:370bbb1337e63cc8b7420001cb6891b737787488c22e39ade4b35e90224f63d6",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-17fa80f0cd244422</answer>"
+    },
+    {
+      "item_index": 164,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-5ac1890f6600c43a",
+      "record_id": "sha256:885b51831b836f37a913cdd78f404535f4f4b5f6c2e48247a67ff6fbfdb179ca",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-5ac1890f6600c43a</answer>"
+    },
+    {
+      "item_index": 165,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-3888d0668ad26e18",
+      "record_id": "sha256:0b8923347831c92deded2220d85fa958f57f20e86024d44680d93a215dc3be83",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-3888d0668ad26e18</answer>"
+    },
+    {
+      "item_index": 166,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-54162b81ec08a252",
+      "record_id": "sha256:d2dbeb32c827d39fa938d953b0c577cb7eca5e500bef68f5f4353517d7bb21d4",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-54162b81ec08a252</answer>"
+    },
+    {
+      "item_index": 167,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-fbf1ba13b9b60141",
+      "record_id": "sha256:97829e7303c44c94cbc2ce7fac04757a22ab6b56dcadfdd556e5a3cf98dd0396",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-fbf1ba13b9b60141</answer>"
+    },
+    {
+      "item_index": 168,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-a640114d302e4bf4",
+      "record_id": "sha256:225b40a15801f84e916370fbb229a842553390ea02c53de5bfb776cffab5c890",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-a640114d302e4bf4</answer>"
+    },
+    {
+      "item_index": 169,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ff50bca8f5ca9ac1",
+      "record_id": "sha256:08e15e4108d54f72e7fc564fb8043eb41058ae94e671459457c7c1019bc9693a",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ff50bca8f5ca9ac1</answer>"
+    },
+    {
+      "item_index": 170,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-4ed5ec9f7b2ec4cd",
+      "record_id": "sha256:57dc454f666227b6a52025b3a319a4ceb5f1cc320f5f8f8cda8f24230371798d",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-4ed5ec9f7b2ec4cd</answer>"
+    },
+    {
+      "item_index": 171,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-5441142404c276f1",
+      "record_id": "sha256:63afba58374f5fea144cb45ea9c068415ba11f38945981d8e97d19a9b7d8896d",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-5441142404c276f1</answer>"
+    },
+    {
+      "item_index": 172,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-8124c6c14437fab2",
+      "record_id": "sha256:4da96babe3845522ac8da62b7655a6eb80f3a7636cd7dab1e0b9e33c5f96a825",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-8124c6c14437fab2</answer>"
+    },
+    {
+      "item_index": 173,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-4bc99d2d74ef9205",
+      "record_id": "sha256:9712aee742d89a3320ae02a6254d7f3def13a37be1b025d49d5da5b0c6af0bc5",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-4bc99d2d74ef9205</answer>"
+    },
+    {
+      "item_index": 174,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-cc4e137203f2261b",
+      "record_id": "sha256:e5d356af91e895f40702ebab58ed5eec2c2d8ce7d2f0ccf23bca68466693a648",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-cc4e137203f2261b</answer>"
+    },
+    {
+      "item_index": 175,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-6884cedc5339dcd6",
+      "record_id": "sha256:2ad5d44e417485e608b4cc03bed9d388d24623cfdf49e70f36f54e66f1ceeabe",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-6884cedc5339dcd6</answer>"
+    },
+    {
+      "item_index": 176,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-aa502fb15b7ec437",
+      "record_id": "sha256:c074c7bcd1899f6b05ee4848e69f5b22baed676c851010a901c30c135e28f96b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-aa502fb15b7ec437</answer>"
+    },
+    {
+      "item_index": 177,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-5f28d007179ca5e1",
+      "record_id": "sha256:2cadd3353a38cb31881bf9aa8599b0ee4c233dfe1ea704a9f9915d7ae114ee0a",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-5f28d007179ca5e1</answer>"
+    },
+    {
+      "item_index": 178,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-2a5faab54fbfb227",
+      "record_id": "sha256:ecfadba50ecb72d0a8eb1c88c8468ec8f99db49a1ee12ea1f982024c88b19729",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-2a5faab54fbfb227</answer>"
+    },
+    {
+      "item_index": 179,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-b85040c8d4707919",
+      "record_id": "sha256:187ce88a164f0b1dc1817eabb4ec52ceef10dee796958af7af145d102372ad4f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-b85040c8d4707919</answer>"
+    },
+    {
+      "item_index": 180,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-8ae1f9930e600452",
+      "record_id": "sha256:ab1938661fedb137bc0f6da9f2c25df76eb7f67d2dfc50e68e93fcb361f010cf",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-8ae1f9930e600452</answer>"
+    },
+    {
+      "item_index": 181,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-33a0a71351aad877",
+      "record_id": "sha256:70f79edd173992d3a618ed0b2fcca6a2990574f2ce925f65bc310aad2213f669",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-33a0a71351aad877</answer>"
+    },
+    {
+      "item_index": 182,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-357f30b54cfe8e73",
+      "record_id": "sha256:60e336c40aa1133b9d854cb454f906abd5ebf4050743ce3bbb4b343e96bf0179",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-357f30b54cfe8e73</answer>"
+    },
+    {
+      "item_index": 183,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-cd50dec9ebd95c32",
+      "record_id": "sha256:a097278d14200ffc488c333305f4e7bd65b7509303b7e7f56b08ccae4f9f072f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-cd50dec9ebd95c32</answer>"
+    },
+    {
+      "item_index": 184,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-f7b71090a687d55b",
+      "record_id": "sha256:0dacac4fc2fa04746176be25e6a6a46dfdf04318266031da73dbc832ec2c8880",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-f7b71090a687d55b</answer>"
+    },
+    {
+      "item_index": 185,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-064d0785989e4c32",
+      "record_id": "sha256:ef6da0e22a855c48cbc56e9612eaf1e1d8811f1a31a86301154a666a67521883",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-064d0785989e4c32</answer>"
+    },
+    {
+      "item_index": 186,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-33756bbc2c64785f",
+      "record_id": "sha256:b72de01600383d3501d42a5117d152fa9b60c30e1b505bf8e5167bca86bb62df",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-33756bbc2c64785f</answer>"
+    },
+    {
+      "item_index": 187,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-481e883edf4576f0",
+      "record_id": "sha256:bba52a60e4e230da311cf30ee659451944b3a5d97a3235386cdc066aff083c1b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-481e883edf4576f0</answer>"
+    },
+    {
+      "item_index": 188,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-c0b88012e7dfef6e",
+      "record_id": "sha256:2b854b06089afc6dfa88a4451cb8a92ebfcdf5b0d523269282ec862d88a29167",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-c0b88012e7dfef6e</answer>"
+    },
+    {
+      "item_index": 189,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-7af4063ba318975f",
+      "record_id": "sha256:3e384e99489bb81647440fe83c17359a5afe0b2561ca68cfd541f7937310c9b7",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-7af4063ba318975f</answer>"
+    },
+    {
+      "item_index": 190,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-81089682d9d2dc27",
+      "record_id": "sha256:3b588497254fee1a7767de380e8b5266d7fdb20f69524ff41875a1174c2feb9c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-81089682d9d2dc27</answer>"
+    },
+    {
+      "item_index": 191,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-f18a255bd044dfc6",
+      "record_id": "sha256:d85c2bd73bfcf263739ffb8edb7b9bc97e252ae8de6657275d9f21e1aaec9d4f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-f18a255bd044dfc6</answer>"
+    },
+    {
+      "item_index": 192,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-b8f20b7418b77d9c",
+      "record_id": "sha256:d03234528276b64874a8ec37473bc766032c5ab82b37a24013ea4d792224788a",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-b8f20b7418b77d9c</answer>"
+    },
+    {
+      "item_index": 193,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-bc1191f692e3937f",
+      "record_id": "sha256:c1ed8b01ae98c5cadaf7b2551b4fb367d212bb6f42c025126b506492430fc8a2",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-bc1191f692e3937f</answer>"
+    },
+    {
+      "item_index": 194,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-0b88eba1d335623c",
+      "record_id": "sha256:662f66d11d781f111a6c486db7b1423ff2a6f4a3131a3a1afaecbcf9b9fa858b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-0b88eba1d335623c</answer>"
+    },
+    {
+      "item_index": 195,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-0cd96fb748deb54c",
+      "record_id": "sha256:45b4b5479eb564fc67e4a585120b580ff1a36870472429723db66fec99894fdb",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-0cd96fb748deb54c</answer>"
+    },
+    {
+      "item_index": 196,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-0b9a3bc2bc92bb64",
+      "record_id": "sha256:90ff13f04498ad78d72d413918d596d52de2b8957cd3d0e9f758e26db44a27fd",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-0b9a3bc2bc92bb64</answer>"
+    },
+    {
+      "item_index": 197,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-51a0cbfe993a1388",
+      "record_id": "sha256:48a288d0a1639e6d6f8f9f9a549a6365428f4e4e09152c5dccaf826ed16ab3f5",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-51a0cbfe993a1388</answer>"
+    },
+    {
+      "item_index": 198,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-626ad9cea5b1b532",
+      "record_id": "sha256:69d802072f4a258b5dc9d7e9198ec4bdc207e47703da53e8ae15554a10d6d4ca",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-626ad9cea5b1b532</answer>"
+    },
+    {
+      "item_index": 199,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-336511ff3234f999",
+      "record_id": "sha256:1b547844d0298b0291c809f357ce7e80312f69c5495f20e13830c395a156d87a",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-336511ff3234f999</answer>"
+    },
+    {
+      "item_index": 200,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-1e1703e0767825f7",
+      "record_id": "sha256:f64a9ef9b124a7dfcff8491b6a03be8210c7afc60e369975a9d33b30bf2b9128",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-1e1703e0767825f7</answer>"
+    },
+    {
+      "item_index": 201,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-f6aef87b839e2dbb",
+      "record_id": "sha256:0f4d5e5aeaa3383d440d42817d7a1ee1b04b11c54182d0294556895234615d5d",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-f6aef87b839e2dbb</answer>"
+    },
+    {
+      "item_index": 202,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-3b99350b33b3d372",
+      "record_id": "sha256:273c9dd05647d101810ac71325feaccf4980f51a4358ecd7121f0cd8398bfe56",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-3b99350b33b3d372</answer>"
+    },
+    {
+      "item_index": 203,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ccf0d2b3e49e48da",
+      "record_id": "sha256:9a6d62092baa2fe8f119c0a59455b3482b5dc002ce02b63097ca07760699d7aa",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ccf0d2b3e49e48da</answer>"
+    },
+    {
+      "item_index": 204,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-cf683cdba80c3a37",
+      "record_id": "sha256:e87d00ee88e41be535ff1056cc431448dd1e263612c80455ee8986cdf861637d",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-cf683cdba80c3a37</answer>"
+    },
+    {
+      "item_index": 205,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-d3fbb34aac611264",
+      "record_id": "sha256:19b0b9f1d0ad6547de1bad46ab858f5146939ff196fbd1680a9a3c84bf011d6e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-d3fbb34aac611264</answer>"
+    },
+    {
+      "item_index": 206,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-c0e8a8b93ce4ae1d",
+      "record_id": "sha256:1849714dcb6184d076ee937eda0a87f5a10228160700326559dbb7f959f354b0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-c0e8a8b93ce4ae1d</answer>"
+    },
+    {
+      "item_index": 207,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-04ddfc48f116984e",
+      "record_id": "sha256:c594894d47521530c24e3035d4567cc331e28d3ebc8c87eb0765ef510e20a6ab",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-04ddfc48f116984e</answer>"
+    },
+    {
+      "item_index": 208,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-7e67e1d10b332e4e",
+      "record_id": "sha256:783478b853f8e534bb639a8e0c826ff40445a26bf65512168f090404b6e7960c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-7e67e1d10b332e4e</answer>"
+    },
+    {
+      "item_index": 209,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-5af12df34b38a92e",
+      "record_id": "sha256:16888170c8248d37aa4b88957efc34f5ad1315f6fe539dd18a32b736d631d47f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-5af12df34b38a92e</answer>"
+    },
+    {
+      "item_index": 210,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e1ac6d90a9c1cbd0",
+      "record_id": "sha256:0bd06ce10db8c8ca0859cab134697f3355ba47bde31469f9afa3b207f1c7fa0f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e1ac6d90a9c1cbd0</answer>"
+    },
+    {
+      "item_index": 211,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-75d1e60886b0716b",
+      "record_id": "sha256:e6a34a583764351f81c3976052e34084ddd0a42da74cf35db55000e6d41335d0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-75d1e60886b0716b</answer>"
+    },
+    {
+      "item_index": 212,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-dbff74e7b89c4828",
+      "record_id": "sha256:217ec33ff51945337d98d9183a02f491298cdd90ab247bc32192a376cd16a71c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-dbff74e7b89c4828</answer>"
+    },
+    {
+      "item_index": 213,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-82ef41afd53fc2b8",
+      "record_id": "sha256:4f9c6a0dcbfceaf79cf9acfe61ce431893ea7ff3bac6c88215198169d497c96b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-82ef41afd53fc2b8</answer>"
+    },
+    {
+      "item_index": 214,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-3d5856c7c6f49f48",
+      "record_id": "sha256:8897f970c4fd172ed693bc26793e971570b42c7b4dba65a3986a77a1118702cc",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-3d5856c7c6f49f48</answer>"
+    },
+    {
+      "item_index": 215,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-785559293059dd87",
+      "record_id": "sha256:4e3e2d007e825df8de2b105331caa63ea778bce1476fc799cde0d18cc5678cb7",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-785559293059dd87</answer>"
+    },
+    {
+      "item_index": 216,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-4aac3db75dbc79e4",
+      "record_id": "sha256:2d1514f9893f680c8cc7958c52948047f28326775006393a905f09c6723583f0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-4aac3db75dbc79e4</answer>"
+    },
+    {
+      "item_index": 217,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-fcb16dd252ab3f19",
+      "record_id": "sha256:0ac184ec11ed82b42537cb7e210c609ede3802ae4d5fc147aa97b07aa2e49b33",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-fcb16dd252ab3f19</answer>"
+    },
+    {
+      "item_index": 218,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-0c820a8765507b89",
+      "record_id": "sha256:b072eda4d73a7cc916cd8179e81250f6ced5a99082072c0b5fabdbb85ba976c0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-0c820a8765507b89</answer>"
+    },
+    {
+      "item_index": 219,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-f5188586ee43cd15",
+      "record_id": "sha256:91ba4038e0836ee4dc3210f77dcd3c5b8cbd7a9cedbedf238c9b54fb9d9d7d4c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-f5188586ee43cd15</answer>"
+    },
+    {
+      "item_index": 220,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-edff20b4779c6800",
+      "record_id": "sha256:d0601f5f4b27cb56cc7961660e7027a4db32270b52b8c7cfaf9508e573858f2c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-edff20b4779c6800</answer>"
+    },
+    {
+      "item_index": 221,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-172306a52a072bd0",
+      "record_id": "sha256:e1101e904610f45cd043b990ce1ecc7becc1dc0bee14548d56b0d1565f10b0e0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-172306a52a072bd0</answer>"
+    },
+    {
+      "item_index": 222,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-6e7bd1fcecdefa49",
+      "record_id": "sha256:025e1e8eeea81cad530441b677a3c0a44b52abac696625c22a85b0390d76e76b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-6e7bd1fcecdefa49</answer>"
+    },
+    {
+      "item_index": 223,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-fd2f16a59d65800a",
+      "record_id": "sha256:13b378149ef4e53c55a2c5f8c5a37be084e0827226a2ffc576952c12ec4205dc",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-fd2f16a59d65800a</answer>"
+    },
+    {
+      "item_index": 224,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-4f53eeaef01f176b",
+      "record_id": "sha256:bb51343aaa8454b36526e524debabcc3244e3796752aaaa9e5530789dee0582d",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-4f53eeaef01f176b</answer>"
+    },
+    {
+      "item_index": 225,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ee15050e7ef3000b",
+      "record_id": "sha256:5ed8cd0a093a068e71fce59da07ae04119533ce4f0d658cbbd9ec18b6e51f75c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ee15050e7ef3000b</answer>"
+    },
+    {
+      "item_index": 226,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-de7a3ce39cab9bdd",
+      "record_id": "sha256:36e768292d5f5e9728744d4a3bbefe36da202387401e5979f7fb1f55810ce23b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-de7a3ce39cab9bdd</answer>"
+    },
+    {
+      "item_index": 227,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-a0d3d630d0b64e35",
+      "record_id": "sha256:0c3b8c79ac4095ae5d8fe1954850af4145c5b1c11244fd8fef8dca6aed8a1275",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-a0d3d630d0b64e35</answer>"
+    },
+    {
+      "item_index": 228,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-2e365d8112fbf945",
+      "record_id": "sha256:597e2411b879a6bf69aff794b458c846fc15ef51844a90471924b51ee25fcdcc",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-2e365d8112fbf945</answer>"
+    },
+    {
+      "item_index": 229,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-a547c94e99d4b064",
+      "record_id": "sha256:5ca39d527aae65d608615452382499388994cd27bf161ccf83c306a7d427331f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-a547c94e99d4b064</answer>"
+    },
+    {
+      "item_index": 230,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ccfd6afa87c25e83",
+      "record_id": "sha256:ccfbdb3c8096447d46c324e3e4ac78e593a987aa996fad350493890b4e47164b",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ccfd6afa87c25e83</answer>"
+    },
+    {
+      "item_index": 231,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-4e474baa7460e399",
+      "record_id": "sha256:ec161b9a580cac001ea0cecba07c158f38dd3038cb6af527f54b4cc2aff276cc",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-4e474baa7460e399</answer>"
+    },
+    {
+      "item_index": 232,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-9f60b19f13eaae2a",
+      "record_id": "sha256:bf1bc98f2c78edb63651a2aa281c885603ae8e4c517bfb97ed9b26e7d773f657",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-9f60b19f13eaae2a</answer>"
+    },
+    {
+      "item_index": 233,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-ec886e1963e2faea",
+      "record_id": "sha256:df20d4a67280481ecf658dd40341da720ed5b7f202e2734bd379860aebc9b6a6",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-ec886e1963e2faea</answer>"
+    },
+    {
+      "item_index": 234,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-6e96a08e6c0501c6",
+      "record_id": "sha256:15a45d14784affacf77652ebbc3929042754f52d2bedaa0af853d153fe9bc4e0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-6e96a08e6c0501c6</answer>"
+    },
+    {
+      "item_index": 235,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-f6e0a3af7439db9e",
+      "record_id": "sha256:0e86380296f8a4a0d42e6431dc21d119935ced27932e47929d42c1979af0041e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-f6e0a3af7439db9e</answer>"
+    },
+    {
+      "item_index": 236,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-a42a75029effe3ae",
+      "record_id": "sha256:47907e27da870977278fdd6a43e8fc9b7d33d9b8bfecbd61b5b9db6a35e5420a",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-a42a75029effe3ae</answer>"
+    },
+    {
+      "item_index": 237,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-efdb285827aa49fa",
+      "record_id": "sha256:457225b98e5995bfa4d347c49b9fdc128b873487a2ac889ffc623bd859034fcc",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-efdb285827aa49fa</answer>"
+    },
+    {
+      "item_index": 238,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e9b6147a337f2d3a",
+      "record_id": "sha256:2536c315a6bd741528f503a9a2ce4ee2e06c3e5b5323ba0c8ac0d5fe91b49c6f",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e9b6147a337f2d3a</answer>"
+    },
+    {
+      "item_index": 239,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-feb4f60ff9df06e4",
+      "record_id": "sha256:ef04915d5556612302f2e00114a800cb51da8f1eb654cb6a5a0be8277b1c9e5a",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-feb4f60ff9df06e4</answer>"
+    },
+    {
+      "item_index": 240,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-fb0a1cd5feec5f8f",
+      "record_id": "sha256:23b5676862817e2ada2c687248245f400f8d33befb8d8ee9db1917339cc0a4c7",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-fb0a1cd5feec5f8f</answer>"
+    },
+    {
+      "item_index": 241,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-2ac2c6aebeedf85e",
+      "record_id": "sha256:f54bceb9853beffaba19f5fd267ad07d29603ad6ff60cc8685b08c37fa1e42fb",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-2ac2c6aebeedf85e</answer>"
+    },
+    {
+      "item_index": 242,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-77504a6dd3c9bd50",
+      "record_id": "sha256:0b64b08ed61823bb4efbe92113683dbf49e8ac88be17d9b063e769a3b1e3da06",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-77504a6dd3c9bd50</answer>"
+    },
+    {
+      "item_index": 243,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-98c55ff71724dc1d",
+      "record_id": "sha256:3277f450eaaa0f2d71d8a6c80f281ea35648ce6e0fe3e4602454db2b041e8035",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-98c55ff71724dc1d</answer>"
+    },
+    {
+      "item_index": 244,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-5e7d6874ca4dd0f2",
+      "record_id": "sha256:dc70b86b8fb5c1e86d1606cac95c68158b9e2028a74d4381778024a33dec19d5",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-5e7d6874ca4dd0f2</answer>"
+    },
+    {
+      "item_index": 245,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-6c5f7d5f53ae7fb2",
+      "record_id": "sha256:f75af07542983e3978fb4bca0c98dd22cd88f009aa7215e43db873dfec7ca73d",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-6c5f7d5f53ae7fb2</answer>"
+    },
+    {
+      "item_index": 246,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-a06ee3f09740fc1d",
+      "record_id": "sha256:947c8e4661d26137b820dd1e1061989fecf4a32f319feb08be33ebc2807e386e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-a06ee3f09740fc1d</answer>"
+    },
+    {
+      "item_index": 247,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-4a9feaec8529895d",
+      "record_id": "sha256:79916a9e009de0ef405054375d138107619a3991e533ca09a0bc5119fc9678f5",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-4a9feaec8529895d</answer>"
+    },
+    {
+      "item_index": 248,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-f8b27718cd7ae2a8",
+      "record_id": "sha256:b1065a2942efaf11b49cac6f9e8366d50667d772a048ebb0d54f35efe0beef56",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-f8b27718cd7ae2a8</answer>"
+    },
+    {
+      "item_index": 249,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-6e68080736cd17b2",
+      "record_id": "sha256:452d579f82b507124b03f3724fe293ef83462b4a7c9f13081fdf2b5b6e9b4462",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-6e68080736cd17b2</answer>"
+    },
+    {
+      "item_index": 250,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-e1c7de2be368d3f6",
+      "record_id": "sha256:0acd56d6de61a594527090c68cfbbbeb897ab4c47e9a5a3b391e1054b35ce71e",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-e1c7de2be368d3f6</answer>"
+    },
+    {
+      "item_index": 251,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-c1d5fc35eddfb968",
+      "record_id": "sha256:9fc4f2081b015c122cda9d4b269abfee278e9b5a56f7278e139112b19779426c",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-c1d5fc35eddfb968</answer>"
+    },
+    {
+      "item_index": 252,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-68041cb575958527",
+      "record_id": "sha256:79f25e13abf5b60072e7b50f40501c560f5db40fce0f322c2e134f589c3db7a0",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-68041cb575958527</answer>"
+    },
+    {
+      "item_index": 253,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-72067099523fc251",
+      "record_id": "sha256:4c62e90701ab43ce95bf333aa7479807a676559f0b1388e24bcf3199ee9851c6",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-72067099523fc251</answer>"
+    },
+    {
+      "item_index": 254,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-fcbf510f8a71daaf",
+      "record_id": "sha256:30facdba22d4c08634185a811dba8fcf63a970f5f54731c60f37339f27b76ae8",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-fcbf510f8a71daaf</answer>"
+    },
+    {
+      "item_index": 255,
+      "prompt_text": "Return the literal token below inside exactly one <answer>...</answer> tag.\nToken: format-d979a61a8980d8ed",
+      "record_id": "sha256:550dcbe0daf1c5af514fc54475bf1e338af76083b7d9baca8251a1aa8503fa22",
+      "split": "format_eval",
+      "verified_completion_text": "<answer>format-d979a61a8980d8ed</answer>"
+    }
+  ],
+  "schema_version": "duraseed-format-manifest-v1",
+  "split": "format_eval"
+}

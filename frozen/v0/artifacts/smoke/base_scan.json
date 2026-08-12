@@ -1,0 +1,48 @@
+{
+  "fixture_kind": "synthetic_base_scan_surrogate",
+  "model_id": "synthetic/control-flow-fixture",
+  "records": [
+    {
+      "family": "boundary-alpha",
+      "item_id": "candidate-01",
+      "samples": 16,
+      "split": "a_candidate",
+      "successes": 1
+    },
+    {
+      "family": "boundary-alpha",
+      "item_id": "candidate-02",
+      "samples": 16,
+      "split": "a_candidate",
+      "successes": 1
+    },
+    {
+      "family": "boundary-beta",
+      "item_id": "candidate-03",
+      "samples": 16,
+      "split": "a_candidate",
+      "successes": 1
+    },
+    {
+      "family": "boundary-beta",
+      "item_id": "candidate-04",
+      "samples": 16,
+      "split": "a_candidate",
+      "successes": 1
+    },
+    {
+      "family": "easy-control",
+      "item_id": "candidate-05",
+      "samples": 16,
+      "split": "a_candidate",
+      "successes": 14
+    },
+    {
+      "family": "hard-control",
+      "item_id": "candidate-06",
+      "samples": 16,
+      "split": "a_candidate",
+      "successes": 0
+    }
+  ]
+}

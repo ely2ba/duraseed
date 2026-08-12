@@ -1,0 +1,43 @@
+# Generated scientific outputs and local datasets
+/runs/
+/artifacts/
+/data/
+/datasets/
+/local-data/
+/outputs/
+
+# Credentials and private local material
+.env
+.env.*
+!.env.example
+/.secrets/
+/secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+*credentials*.json
+*secret*.json
+*.private.md
+config.local.*
+*.local.yaml
+*.local.yml
+
+# Python, test, and tool caches
+/.venv/
+/.hypothesis/
+/.pytest_cache/
+/.ruff_cache/
+/.mypy_cache/
+__pycache__/
+*.py[cod]
+
+# Builds, coverage, editors, and operating-system files
+/build/
+/dist/
+*.egg-info/
+.coverage
+htmlcov/
+.DS_Store
+.idea/
+.vscode/

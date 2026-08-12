@@ -1,0 +1,13 @@
+{
+  "fixture_kind": "exact_verifier_smoke",
+  "maps": {
+    "reward": 1.0,
+    "strategy_family_id": "maps:ADD>ADD",
+    "task_id": "smoke-maps"
+  },
+  "tces": {
+    "reward": 1.0,
+    "strategy_family_id": "ADD(r1,r2)|intermediates=I",
+    "task_id": "smoke-tces"
+  }
+}

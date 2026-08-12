@@ -1,0 +1,44 @@
+{
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-2-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-09-08T19:14:07.369454+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0",
+    "ttl_seconds": 2592000
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-2-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-09-08T19:14:07.861441+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1",
+    "ttl_seconds": 2592000
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-2-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-09-08T19:14:08.336404+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2",
+    "ttl_seconds": 2592000
+  },
+  "tinker://334a5523-f111-5ca2-9607-58ae27cc941d:train:0/sampler_weights/m0-recovery-20260809T191351Z-reconstructed-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": null,
+    "training_run_id": "334a5523-f111-5ca2-9607-58ae27cc941d:train:0",
+    "ttl_seconds": null
+  },
+  "tinker://334a5523-f111-5ca2-9607-58ae27cc941d:train:0/weights/m0-recovery-20260809T191351Z-reconstructed-state": {
+    "checkpoint_type": "training",
+    "expires_at": null,
+    "training_run_id": "334a5523-f111-5ca2-9607-58ae27cc941d:train:0",
+    "ttl_seconds": null
+  },
+  "tinker://7a1bd1bf-2ac0-5cf2-9be1-34fe80139271:train:0/sampler_weights/m0-calibration-20260809T124248Z-05075ce8-candidate-m0-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-09-08T19:14:06.321660+00:00",
+    "training_run_id": "7a1bd1bf-2ac0-5cf2-9be1-34fe80139271:train:0",
+    "ttl_seconds": 2592000
+  },
+  "tinker://7a1bd1bf-2ac0-5cf2-9be1-34fe80139271:train:0/weights/m0-calibration-20260809T124248Z-05075ce8-candidate-m0-state": {
+    "checkpoint_type": "training",
+    "expires_at": "2026-09-08T19:14:06.873150+00:00",
+    "training_run_id": "7a1bd1bf-2ac0-5cf2-9be1-34fe80139271:train:0",
+    "ttl_seconds": 2592000
+  }
+}

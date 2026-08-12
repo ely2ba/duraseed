@@ -1,0 +1,13 @@
+{
+  "base_model": "Qwen/Qwen3.5-9B-Base",
+  "checkpoint_storage_usd_per_gb_month": 0.1,
+  "currency": "USD",
+  "effective_date": "2026-08-09",
+  "per_million_tokens": {
+    "cached_prefill": 0.132,
+    "prefill": 0.66,
+    "sample": 1.995,
+    "train": 1.463
+  },
+  "source": "https://tinker-docs.thinkingmachines.ai/tinker/models/"
+}

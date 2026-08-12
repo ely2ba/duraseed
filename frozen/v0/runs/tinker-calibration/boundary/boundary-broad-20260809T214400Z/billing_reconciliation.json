@@ -1,0 +1,10 @@
+{
+  "billing_data_may_lag_hours": true,
+  "calculated_token_cost_usd": 2.766227055,
+  "conservative_accounted_cost_usd": 10.0,
+  "console_confirmation_required": true,
+  "price_snapshot_id": "tinker-qwen3.5-9b-base-2026-08-09",
+  "project_id": "7727a6e3-fadb-4b07-9801-721221235e1e",
+  "reason": "sampling-only session identity is not exposed by the public SDK",
+  "status": "pending_raw_usage"
+}

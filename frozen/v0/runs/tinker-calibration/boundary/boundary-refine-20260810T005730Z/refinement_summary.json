@@ -1,0 +1,23 @@
+{
+  "audit_families_rescued": 11,
+  "candidate_family_count": 35,
+  "families_meeting_multi_item_no_domination_diagnostic": 2,
+  "families_with_multiple_successful_items": 38,
+  "format_compliance": 0.6496010638297872,
+  "i8_at_equal_item_mean": {
+    "maximum": 0.899871826171875,
+    "median": 0.5806589372596193,
+    "minimum": 0.2124462882384485
+  },
+  "next_step": "choose finalist families for held-out-item confirmation; do not freeze panels from refinement evidence alone",
+  "panel_assignment_performed": false,
+  "pilot_started": false,
+  "refined_families_with_observed_success": 46,
+  "refined_family_count": 47,
+  "request_count": 2256,
+  "selection_performed": false,
+  "status": "targeted_refinement_complete_selection_unresolved",
+  "total_exact_successes_in_refined_evidence": 217,
+  "truncation_rate": 0.2376994680851064,
+  "zero_success_audit_family_count": 12
+}

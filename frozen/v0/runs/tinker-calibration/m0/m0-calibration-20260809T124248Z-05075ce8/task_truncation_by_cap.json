@@ -1,0 +1,30 @@
+{
+  "caps": [
+    {
+      "sampling_max_tokens": 256,
+      "task_sample_count": 64,
+      "truncated_count": 51,
+      "truncation_rate": 0.796875
+    },
+    {
+      "sampling_max_tokens": 512,
+      "task_sample_count": 64,
+      "truncated_count": 40,
+      "truncation_rate": 0.625
+    },
+    {
+      "sampling_max_tokens": 768,
+      "task_sample_count": 64,
+      "truncated_count": 49,
+      "truncation_rate": 0.765625
+    },
+    {
+      "sampling_max_tokens": 1024,
+      "task_sample_count": 64,
+      "truncated_count": 34,
+      "truncation_rate": 0.53125
+    }
+  ],
+  "selection_performed": false,
+  "status": "measured"
+}

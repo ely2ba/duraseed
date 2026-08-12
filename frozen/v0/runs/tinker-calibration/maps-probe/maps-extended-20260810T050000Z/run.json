@@ -1,0 +1,46 @@
+{
+  "authorized_cost_usd": 50.0,
+  "cost_usd": 40.0,
+  "deviations": [
+    "extended Stage-B calibration only; Pilot 0 not started",
+    "MAPS profile/LR/duration selection unresolved",
+    "billing pending"
+  ],
+  "final_sampler_checkpoint_path": null,
+  "final_state_checkpoint_path": null,
+  "finished_at": "2026-08-10T06:17:32.209565Z",
+  "git_commit": "6d202ae61742891377fee4f625bed113f7cb0a6d",
+  "lora_rank": 32,
+  "method": null,
+  "model_id": "Qwen/Qwen3.5-9B-Base",
+  "parent_tinker_checkpoint_path": "tinker://334a5523-f111-5ca2-9607-58ae27cc941d:train:0/weights/m0-recovery-20260809T191351Z-reconstructed-state",
+  "price_snapshot_id": "tinker-qwen3.5-9b-base-2026-08-09",
+  "project_id": "7727a6e3-fadb-4b07-9801-721221235e1e",
+  "prompt_tokens": 1024500,
+  "protocol_version": "duraseed-prepilot-v5",
+  "renderer": "role_colon",
+  "reserved_cost_usd": 40.0,
+  "resolved_config_hash": "0f10787dc3e168f317f9fe5d1a97d4273292916617ad756165c46a4556a8f566",
+  "run_kind": "stage_b_calibration",
+  "sampled_tokens": 154063,
+  "seed": 17,
+  "service_randomness_contract": "Tinker SamplingParams.seed is recorded per request; the smoke measures, but does not assume, cross-client or cross-session bit identity. Group members are sampled in separate requests with deterministic per-sample seeds.",
+  "started_at": "2026-08-10T05:03:34.322884Z",
+  "status": "completed",
+  "task_manifest_ids": {
+    "current_provisional_b_train": "sha256:8af01d4ea2f4f9fd2a7c51d8e4b30aa7e2e8e6fcfe6fca556ad002ecd205ea2d",
+    "current_provisional_b_validation": "sha256:16af7252c30ec57289f4af0dab55ef82dd7cde3a0c64a3f68d091ddd06fe4781",
+    "moderate_candidate_b_train": "sha256:0ac0cc41e479fbe760ef75f1e696dc62bccbe67418b73106612acf35e95f0212",
+    "moderate_candidate_b_validation": "sha256:6ff5b88c7061384c88b753e7ea310f19ad1f96ca75ed71ee640fe984292d2f5e"
+  },
+  "tinker_cookbook_version": "0.5.3",
+  "tinker_sdk_version": "0.25.0",
+  "tinker_session_id": "5bbe880d-0eb8-58ea-b3e5-4b1635ce86f3",
+  "tinker_training_run_id": null,
+  "tinker_training_run_ids": [
+    "5bbe880d-0eb8-58ea-b3e5-4b1635ce86f3:train:0",
+    "5bbe880d-0eb8-58ea-b3e5-4b1635ce86f3:train:1"
+  ],
+  "train_tokens": 2380334,
+  "updated_at": "2026-08-10T06:17:32.209565Z"
+}

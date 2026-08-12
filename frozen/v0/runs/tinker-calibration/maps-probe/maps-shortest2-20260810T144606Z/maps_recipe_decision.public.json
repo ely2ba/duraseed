@@ -1,0 +1,437 @@
+{
+  "arms": [
+    {
+      "baseline_metrics": {
+        "by_shortest_program_length": [
+          {
+            "exact_success_count": 25,
+            "exact_success_rate": 0.048828125,
+            "item_count": 512,
+            "shortest_program_length": 2
+          }
+        ],
+        "exact_success_count": 25,
+        "exact_success_rate": 0.048828125,
+        "exact_success_wilson_95": [
+          0.033289430544156826,
+          0.07108655145578816
+        ],
+        "failure_code_counts": {
+          "illegal_instruction": 4,
+          "invalid_program": 27,
+          "missing_answer_tag": 30,
+          "multiple_answer_tags": 1,
+          "program_too_long": 63,
+          "success": 25,
+          "wrong_target": 362
+        },
+        "item_count": 512,
+        "length_stop_rate": 0.046875,
+        "mean_sampled_tokens": 21.732421875,
+        "training_step": 0,
+        "valid_answer_tag_rate": 0.900390625,
+        "valid_program_syntax_rate": 0.830078125
+      },
+      "coordinates": [
+        {
+          "gate_failures": [
+            "exact_success_rate_outside_inclusive_0.40_to_0.80",
+            "valid_program_syntax_rate_below_0.95"
+          ],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 30,
+                "exact_success_rate": 0.05859375,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 30,
+            "exact_success_rate": 0.05859375,
+            "exact_success_wilson_95": [
+              0.04134837176993725,
+              0.08241341148542018
+            ],
+            "failure_code_counts": {
+              "illegal_instruction": 10,
+              "invalid_program": 4,
+              "missing_answer_tag": 26,
+              "success": 30,
+              "wrong_target": 442
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.556640625,
+            "training_step": 1,
+            "valid_answer_tag_rate": 0.9453125,
+            "valid_program_syntax_rate": 0.94140625
+          },
+          "passes_gate": false,
+          "training_step": 1
+        },
+        {
+          "gate_failures": [
+            "exact_success_rate_outside_inclusive_0.40_to_0.80"
+          ],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 34,
+                "exact_success_rate": 0.06640625,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 34,
+            "exact_success_rate": 0.06640625,
+            "exact_success_wilson_95": [
+              0.04790706612817715,
+              0.09136335813151024
+            ],
+            "failure_code_counts": {
+              "illegal_instruction": 1,
+              "invalid_program": 22,
+              "success": 34,
+              "wrong_target": 455
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.359375,
+            "training_step": 2,
+            "valid_answer_tag_rate": 1.0,
+            "valid_program_syntax_rate": 0.95703125
+          },
+          "passes_gate": false,
+          "training_step": 2
+        },
+        {
+          "gate_failures": [
+            "exact_success_rate_outside_inclusive_0.40_to_0.80"
+          ],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 37,
+                "exact_success_rate": 0.072265625,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 37,
+            "exact_success_rate": 0.072265625,
+            "exact_success_wilson_95": [
+              0.05288070279816797,
+              0.09802120221476687
+            ],
+            "failure_code_counts": {
+              "illegal_instruction": 2,
+              "success": 37,
+              "wrong_target": 473
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.93359375,
+            "training_step": 5,
+            "valid_answer_tag_rate": 1.0,
+            "valid_program_syntax_rate": 1.0
+          },
+          "passes_gate": false,
+          "training_step": 5
+        },
+        {
+          "gate_failures": [
+            "exact_success_rate_outside_inclusive_0.40_to_0.80"
+          ],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 32,
+                "exact_success_rate": 0.0625,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 32,
+            "exact_success_rate": 0.0625,
+            "exact_success_wilson_95": [
+              0.04461659649349124,
+              0.08689950726403116
+            ],
+            "failure_code_counts": {
+              "illegal_instruction": 3,
+              "success": 32,
+              "wrong_target": 477
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.44921875,
+            "training_step": 10,
+            "valid_answer_tag_rate": 1.0,
+            "valid_program_syntax_rate": 1.0
+          },
+          "passes_gate": false,
+          "training_step": 10
+        },
+        {
+          "gate_failures": [
+            "exact_success_rate_outside_inclusive_0.40_to_0.80"
+          ],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 33,
+                "exact_success_rate": 0.064453125,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 33,
+            "exact_success_rate": 0.064453125,
+            "exact_success_wilson_95": [
+              0.046259166467464766,
+              0.08913409754114011
+            ],
+            "failure_code_counts": {
+              "success": 33,
+              "wrong_target": 479
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.50390625,
+            "training_step": 20,
+            "valid_answer_tag_rate": 1.0,
+            "valid_program_syntax_rate": 1.0
+          },
+          "passes_gate": false,
+          "training_step": 20
+        },
+        {
+          "gate_failures": [
+            "exact_success_rate_outside_inclusive_0.40_to_0.80"
+          ],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 37,
+                "exact_success_rate": 0.072265625,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 37,
+            "exact_success_rate": 0.072265625,
+            "exact_success_wilson_95": [
+              0.05288070279816797,
+              0.09802120221476687
+            ],
+            "failure_code_counts": {
+              "success": 37,
+              "wrong_target": 475
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.56640625,
+            "training_step": 40,
+            "valid_answer_tag_rate": 1.0,
+            "valid_program_syntax_rate": 1.0
+          },
+          "passes_gate": false,
+          "training_step": 40
+        },
+        {
+          "gate_failures": [
+            "exact_success_rate_outside_inclusive_0.40_to_0.80"
+          ],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 43,
+                "exact_success_rate": 0.083984375,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 43,
+            "exact_success_rate": 0.083984375,
+            "exact_success_wilson_95": [
+              0.06294737053968927,
+              0.11121749597974051
+            ],
+            "failure_code_counts": {
+              "success": 43,
+              "wrong_target": 469
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.46875,
+            "training_step": 80,
+            "valid_answer_tag_rate": 1.0,
+            "valid_program_syntax_rate": 1.0
+          },
+          "passes_gate": false,
+          "training_step": 80
+        },
+        {
+          "gate_failures": [
+            "exact_success_rate_outside_inclusive_0.40_to_0.80"
+          ],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 104,
+                "exact_success_rate": 0.203125,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 104,
+            "exact_success_rate": 0.203125,
+            "exact_success_wilson_95": [
+              0.1705465380866688,
+              0.2401251037487928
+            ],
+            "failure_code_counts": {
+              "illegal_instruction": 6,
+              "success": 104,
+              "wrong_target": 402
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.73046875,
+            "training_step": 160,
+            "valid_answer_tag_rate": 1.0,
+            "valid_program_syntax_rate": 1.0
+          },
+          "passes_gate": false,
+          "training_step": 160
+        },
+        {
+          "gate_failures": [
+            "exact_success_rate_outside_inclusive_0.40_to_0.80"
+          ],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 182,
+                "exact_success_rate": 0.35546875,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 182,
+            "exact_success_rate": 0.35546875,
+            "exact_success_wilson_95": [
+              0.3152250946767785,
+              0.3978650467431173
+            ],
+            "failure_code_counts": {
+              "illegal_instruction": 12,
+              "success": 182,
+              "wrong_target": 318
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.66015625,
+            "training_step": 320,
+            "valid_answer_tag_rate": 1.0,
+            "valid_program_syntax_rate": 1.0
+          },
+          "passes_gate": false,
+          "training_step": 320
+        },
+        {
+          "gate_failures": [],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 208,
+                "exact_success_rate": 0.40625,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 208,
+            "exact_success_rate": 0.40625,
+            "exact_success_wilson_95": [
+              0.3645597190580231,
+              0.4493365888900174
+            ],
+            "failure_code_counts": {
+              "illegal_instruction": 2,
+              "invalid_program": 2,
+              "success": 208,
+              "wrong_target": 300
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.734375,
+            "training_step": 480,
+            "valid_answer_tag_rate": 1.0,
+            "valid_program_syntax_rate": 0.99609375
+          },
+          "passes_gate": true,
+          "training_step": 480
+        },
+        {
+          "gate_failures": [],
+          "metrics": {
+            "by_shortest_program_length": [
+              {
+                "exact_success_count": 241,
+                "exact_success_rate": 0.470703125,
+                "item_count": 512,
+                "shortest_program_length": 2
+              }
+            ],
+            "exact_success_count": 241,
+            "exact_success_rate": 0.470703125,
+            "exact_success_wilson_95": [
+              0.4278469468194331,
+              0.5139956494143296
+            ],
+            "failure_code_counts": {
+              "illegal_instruction": 8,
+              "invalid_program": 1,
+              "success": 241,
+              "wrong_target": 262
+            },
+            "item_count": 512,
+            "length_stop_rate": 0.0,
+            "mean_sampled_tokens": 12.798828125,
+            "training_step": 640,
+            "valid_answer_tag_rate": 1.0,
+            "valid_program_syntax_rate": 0.998046875
+          },
+          "passes_gate": true,
+          "training_step": 640
+        }
+      ],
+      "first_passing_step": 480,
+      "git_commit": "8468508ab2b5e269fd39311ff4f6f80488d2ea4f",
+      "learning_rate": 0.0003,
+      "run_id": "maps-shortest2-20260810T144606Z",
+      "training_run_id": "68f62ddf-cb2a-5256-b4cc-2c9dbf74fa1d:train:0"
+    }
+  ],
+  "cross_profile_equivalence_claimed": false,
+  "evidence_status": "authenticated_complete_through_640",
+  "next_step": "freeze shortest2_cap2 at 3e-4 and the earliest passing duration; do not claim cross-profile equivalence",
+  "no_automatic_extension": true,
+  "profile": "shortest2_cap2",
+  "profile_context": "predeclared_corrective_difficulty_profile",
+  "selected_learning_rate": 0.0003,
+  "selected_training_step": 480,
+  "selection_rule": {
+    "cross_profile_comparison": "not_performed",
+    "duration_order": "earliest_passing_real_checkpoint",
+    "exact_success_rate_inclusive": [
+      0.4,
+      0.8
+    ],
+    "learning_rate": "fixed_3e-4_single_arm",
+    "maximum_length_stop_rate": 0.05,
+    "minimum_valid_program_syntax_rate": 0.95
+  },
+  "status": "selected"
+}

@@ -1,0 +1,109 @@
+{
+  "answer_termination_count": 118,
+  "answer_termination_rate": 0.921875,
+  "by_shortest_program_length": [
+    {
+      "answer_termination_rate": 0.9351851851851852,
+      "exact_success_count": 6,
+      "exact_success_rate": 0.05555555555555555,
+      "item_count": 108,
+      "shortest_program_length": 2,
+      "valid_answer_tag_rate": 0.9074074074074074,
+      "valid_program_syntax_rate": 0.9074074074074074
+    },
+    {
+      "answer_termination_rate": 0.85,
+      "exact_success_count": 0,
+      "exact_success_rate": 0.0,
+      "item_count": 20,
+      "shortest_program_length": 3,
+      "valid_answer_tag_rate": 0.85,
+      "valid_program_syntax_rate": 0.85
+    }
+  ],
+  "candidate_completion_cap": 128,
+  "caps": [
+    {
+      "censored_answer_count": 2,
+      "censored_answer_rate": 0.015625,
+      "censored_answer_wilson_95": [
+        0.004295449710144082,
+        0.055180976679817195
+      ],
+      "censored_exact_success_count": 0,
+      "max_tokens": 128,
+      "passes": true
+    },
+    {
+      "censored_answer_count": 2,
+      "censored_answer_rate": 0.015625,
+      "censored_answer_wilson_95": [
+        0.004295449710144082,
+        0.055180976679817195
+      ],
+      "censored_exact_success_count": 0,
+      "max_tokens": 256,
+      "passes": true
+    },
+    {
+      "censored_answer_count": 2,
+      "censored_answer_rate": 0.015625,
+      "censored_answer_wilson_95": [
+        0.004295449710144082,
+        0.055180976679817195
+      ],
+      "censored_exact_success_count": 0,
+      "max_tokens": 512,
+      "passes": true
+    },
+    {
+      "censored_answer_count": 1,
+      "censored_answer_rate": 0.0078125,
+      "censored_answer_wilson_95": [
+        0.0013804318928742412,
+        0.04292625943886061
+      ],
+      "censored_exact_success_count": 0,
+      "max_tokens": 1024,
+      "passes": true
+    },
+    {
+      "censored_answer_count": 0,
+      "censored_answer_rate": 0.0,
+      "censored_answer_wilson_95": [
+        0.0,
+        0.029136956273508416
+      ],
+      "censored_exact_success_count": 0,
+      "max_tokens": 2048,
+      "passes": true
+    }
+  ],
+  "completion_cap_frozen": false,
+  "exact_success_count": 6,
+  "exact_success_rate": 0.046875,
+  "failure_code_counts": {
+    "illegal_instruction": 1,
+    "invalid_program": 7,
+    "missing_answer_tag": 6,
+    "program_too_long": 2,
+    "success": 6,
+    "wrong_target": 106
+  },
+  "item_count": 128,
+  "manifest_id": "sha256:c61b15092f1d34b51b0bc943e60c2343be9a2f84f444532e21b357b331080832",
+  "mean_sampled_tokens": 97.8828125,
+  "median_sampled_tokens": 23.0,
+  "no_training": true,
+  "p95_sampled_tokens": 128,
+  "profile_selected": false,
+  "sampling_temperature": 1.0,
+  "sampling_top_p": 0.95,
+  "status": "measured",
+  "stop_reason_counts": {
+    "length": 3,
+    "stop": 125
+  },
+  "valid_answer_tag_rate": 0.8984375,
+  "valid_program_syntax_rate": 0.8984375
+}

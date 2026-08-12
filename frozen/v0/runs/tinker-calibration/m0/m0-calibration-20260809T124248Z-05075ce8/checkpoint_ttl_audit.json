@@ -1,0 +1,14 @@
+{
+  "tinker://7a1bd1bf-2ac0-5cf2-9be1-34fe80139271:train:0/sampler_weights/m0-calibration-20260809T124248Z-05075ce8-candidate-m0-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T12:44:00.216013+00:00",
+    "training_run_id": "7a1bd1bf-2ac0-5cf2-9be1-34fe80139271:train:0",
+    "ttl_seconds": 604800
+  },
+  "tinker://7a1bd1bf-2ac0-5cf2-9be1-34fe80139271:train:0/weights/m0-calibration-20260809T124248Z-05075ce8-candidate-m0-state": {
+    "checkpoint_type": "training",
+    "expires_at": "2026-08-16T12:44:00.488470+00:00",
+    "training_run_id": "7a1bd1bf-2ac0-5cf2-9be1-34fe80139271:train:0",
+    "ttl_seconds": 604800
+  }
+}

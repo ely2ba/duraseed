@@ -1,0 +1,9 @@
+{
+  "manifest_id": "sha256:36095b3846360f7ad80efb7bb9b1cb38c40f409319de0044f522570ffc637c88",
+  "record_count": 1024,
+  "source_kind": "task_agnostic_format",
+  "task_families": [
+    "format"
+  ],
+  "tces_or_maps_grammar_present": false
+}

@@ -1,0 +1,5 @@
+item_id,family,samples,base_successes,stage_a_successes,stage_b_successes,split
+test-01,boundary-alpha,16,1,8,6,a_test_in_domain
+test-02,boundary-alpha,16,2,10,8,a_test_in_domain
+test-03,boundary-beta,16,0,6,2,a_test_in_domain
+test-04,boundary-beta,16,1,8,8,a_test_in_domain

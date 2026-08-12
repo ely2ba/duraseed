@@ -1,0 +1,11 @@
+{
+  "decision": "format_training_required",
+  "optimizer_updates": 0,
+  "reasons": [
+    "exact_tag_compliance_below_floor",
+    "parser_invalid_rate_above_ceiling",
+    "zero_update_parity_not_resolved",
+    "renderer_artifact_dominance_not_resolved"
+  ],
+  "scientific_m0_selected": false
+}

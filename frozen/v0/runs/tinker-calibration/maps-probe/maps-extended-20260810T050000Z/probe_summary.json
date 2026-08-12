@@ -1,0 +1,759 @@
+{
+  "baselines": {
+    "current_provisional": {
+      "by_shortest_program_length": [
+        {
+          "exact_success_count": 14,
+          "exact_success_rate": 0.0330188679245283,
+          "item_count": 424,
+          "shortest_program_length": 2
+        },
+        {
+          "exact_success_count": 4,
+          "exact_success_rate": 0.045454545454545456,
+          "item_count": 88,
+          "shortest_program_length": 3
+        }
+      ],
+      "exact_success_count": 18,
+      "exact_success_rate": 0.03515625,
+      "exact_success_wilson_95": [
+        0.022351806085305896,
+        0.05488405415706165
+      ],
+      "failure_code_counts": {
+        "illegal_instruction": 1,
+        "invalid_program": 28,
+        "missing_answer_tag": 29,
+        "program_too_long": 4,
+        "success": 18,
+        "wrong_target": 432
+      },
+      "item_count": 512,
+      "length_stop_rate": 0.046875,
+      "mean_sampled_tokens": 28.05078125,
+      "training_step": 0,
+      "valid_answer_tag_rate": 0.908203125,
+      "valid_program_syntax_rate": 0.8828125
+    },
+    "moderate_candidate": {
+      "by_shortest_program_length": [
+        {
+          "exact_success_count": 15,
+          "exact_success_rate": 0.06276150627615062,
+          "item_count": 239,
+          "shortest_program_length": 2
+        },
+        {
+          "exact_success_count": 12,
+          "exact_success_rate": 0.048582995951417005,
+          "item_count": 247,
+          "shortest_program_length": 3
+        },
+        {
+          "exact_success_count": 0,
+          "exact_success_rate": 0.0,
+          "item_count": 26,
+          "shortest_program_length": 4
+        }
+      ],
+      "exact_success_count": 27,
+      "exact_success_rate": 0.052734375,
+      "exact_success_wilson_95": [
+        0.036492305788731,
+        0.07563799671337895
+      ],
+      "failure_code_counts": {
+        "illegal_instruction": 3,
+        "invalid_program": 34,
+        "missing_answer_tag": 27,
+        "multiple_answer_tags": 1,
+        "program_too_long": 2,
+        "success": 27,
+        "wrong_target": 418
+      },
+      "item_count": 512,
+      "length_stop_rate": 0.03125,
+      "mean_sampled_tokens": 26.1875,
+      "training_step": 0,
+      "valid_answer_tag_rate": 0.8984375,
+      "valid_program_syntax_rate": 0.876953125
+    }
+  },
+  "branches": [
+    {
+      "coordinates": [
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 1,
+              "exact_success_rate": 0.0023584905660377358,
+              "item_count": 424,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 88,
+              "shortest_program_length": 3
+            }
+          ],
+          "exact_success_count": 1,
+          "exact_success_rate": 0.001953125,
+          "exact_success_wilson_95": [
+            0.00034485776154337486,
+            0.010979278212421853
+          ],
+          "failure_code_counts": {
+            "illegal_instruction": 11,
+            "invalid_program": 13,
+            "success": 1,
+            "wrong_target": 487
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 9.134765625,
+          "training_step": 1,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 0.974609375
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 12,
+              "exact_success_rate": 0.02830188679245283,
+              "item_count": 424,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 1,
+              "exact_success_rate": 0.011363636363636364,
+              "item_count": 88,
+              "shortest_program_length": 3
+            }
+          ],
+          "exact_success_count": 13,
+          "exact_success_rate": 0.025390625,
+          "exact_success_wilson_95": [
+            0.014897398253755443,
+            0.04295266073319966
+          ],
+          "failure_code_counts": {
+            "empty_answer": 31,
+            "invalid_program": 40,
+            "missing_answer_tag": 24,
+            "program_too_long": 13,
+            "success": 13,
+            "wrong_target": 391
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.001953125,
+          "mean_sampled_tokens": 13.533203125,
+          "training_step": 2,
+          "valid_answer_tag_rate": 0.953125,
+          "valid_program_syntax_rate": 0.794921875
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 29,
+              "exact_success_rate": 0.06839622641509434,
+              "item_count": 424,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 88,
+              "shortest_program_length": 3
+            }
+          ],
+          "exact_success_count": 29,
+          "exact_success_rate": 0.056640625,
+          "exact_success_wilson_95": [
+            0.039723226447529306,
+            0.08016139655674563
+          ],
+          "failure_code_counts": {
+            "success": 29,
+            "wrong_target": 483
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 12.7734375,
+          "training_step": 5,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 17,
+              "exact_success_rate": 0.04009433962264151,
+              "item_count": 424,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 2,
+              "exact_success_rate": 0.022727272727272728,
+              "item_count": 88,
+              "shortest_program_length": 3
+            }
+          ],
+          "exact_success_count": 19,
+          "exact_success_rate": 0.037109375,
+          "exact_success_wilson_95": [
+            0.023883775518617995,
+            0.05722924497483205
+          ],
+          "failure_code_counts": {
+            "illegal_instruction": 2,
+            "success": 19,
+            "wrong_target": 491
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 13.36328125,
+          "training_step": 10,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 26,
+              "exact_success_rate": 0.06132075471698113,
+              "item_count": 424,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 1,
+              "exact_success_rate": 0.011363636363636364,
+              "item_count": 88,
+              "shortest_program_length": 3
+            }
+          ],
+          "exact_success_count": 27,
+          "exact_success_rate": 0.052734375,
+          "exact_success_wilson_95": [
+            0.036492305788731,
+            0.07563799671337895
+          ],
+          "failure_code_counts": {
+            "success": 27,
+            "wrong_target": 485
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 12.9296875,
+          "training_step": 20,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 28,
+              "exact_success_rate": 0.0660377358490566,
+              "item_count": 424,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 88,
+              "shortest_program_length": 3
+            }
+          ],
+          "exact_success_count": 28,
+          "exact_success_rate": 0.0546875,
+          "exact_success_wilson_95": [
+            0.03810443399268586,
+            0.07790302876050659
+          ],
+          "failure_code_counts": {
+            "success": 28,
+            "wrong_target": 484
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 12.59765625,
+          "training_step": 40,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 25,
+              "exact_success_rate": 0.0589622641509434,
+              "item_count": 424,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 1,
+              "exact_success_rate": 0.011363636363636364,
+              "item_count": 88,
+              "shortest_program_length": 3
+            }
+          ],
+          "exact_success_count": 26,
+          "exact_success_rate": 0.05078125,
+          "exact_success_wilson_95": [
+            0.03488718106757214,
+            0.07336596118345534
+          ],
+          "failure_code_counts": {
+            "success": 26,
+            "wrong_target": 486
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 12.98828125,
+          "training_step": 80,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 76,
+              "exact_success_rate": 0.1792452830188679,
+              "item_count": 424,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 4,
+              "exact_success_rate": 0.045454545454545456,
+              "item_count": 88,
+              "shortest_program_length": 3
+            }
+          ],
+          "exact_success_count": 80,
+          "exact_success_rate": 0.15625,
+          "exact_success_wilson_95": [
+            0.12737214825167764,
+            0.19024764755780427
+          ],
+          "failure_code_counts": {
+            "illegal_instruction": 12,
+            "success": 80,
+            "wrong_target": 420
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 13.43359375,
+          "training_step": 160,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 146,
+              "exact_success_rate": 0.3443396226415094,
+              "item_count": 424,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 3,
+              "exact_success_rate": 0.03409090909090909,
+              "item_count": 88,
+              "shortest_program_length": 3
+            }
+          ],
+          "exact_success_count": 149,
+          "exact_success_rate": 0.291015625,
+          "exact_success_wilson_95": [
+            0.25334281371732637,
+            0.33180103941684724
+          ],
+          "failure_code_counts": {
+            "illegal_instruction": 3,
+            "success": 149,
+            "wrong_target": 360
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 13.58984375,
+          "training_step": 320,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        }
+      ],
+      "learning_rate": 0.0003,
+      "profile": "current_provisional",
+      "training_run_id": "5bbe880d-0eb8-58ea-b3e5-4b1635ce86f3:train:0"
+    },
+    {
+      "coordinates": [
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 20,
+              "exact_success_rate": 0.08368200836820083,
+              "item_count": 239,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 2,
+              "exact_success_rate": 0.008097165991902834,
+              "item_count": 247,
+              "shortest_program_length": 3
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 26,
+              "shortest_program_length": 4
+            }
+          ],
+          "exact_success_count": 22,
+          "exact_success_rate": 0.04296875,
+          "exact_success_wilson_95": [
+            0.0285446988298758,
+            0.06419980241682172
+          ],
+          "failure_code_counts": {
+            "illegal_instruction": 3,
+            "invalid_program": 9,
+            "missing_answer_tag": 3,
+            "multiple_answer_tags": 1,
+            "program_too_long": 3,
+            "success": 22,
+            "wrong_target": 471
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0078125,
+          "mean_sampled_tokens": 15.09375,
+          "training_step": 1,
+          "valid_answer_tag_rate": 0.98828125,
+          "valid_program_syntax_rate": 0.970703125
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 21,
+              "exact_success_rate": 0.08786610878661087,
+              "item_count": 239,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 1,
+              "exact_success_rate": 0.004048582995951417,
+              "item_count": 247,
+              "shortest_program_length": 3
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 26,
+              "shortest_program_length": 4
+            }
+          ],
+          "exact_success_count": 22,
+          "exact_success_rate": 0.04296875,
+          "exact_success_wilson_95": [
+            0.0285446988298758,
+            0.06419980241682172
+          ],
+          "failure_code_counts": {
+            "illegal_instruction": 1,
+            "invalid_program": 4,
+            "program_too_long": 3,
+            "success": 22,
+            "wrong_target": 482
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 12.69140625,
+          "training_step": 2,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 0.98828125
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 23,
+              "exact_success_rate": 0.09623430962343096,
+              "item_count": 239,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 3,
+              "exact_success_rate": 0.012145748987854251,
+              "item_count": 247,
+              "shortest_program_length": 3
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 26,
+              "shortest_program_length": 4
+            }
+          ],
+          "exact_success_count": 26,
+          "exact_success_rate": 0.05078125,
+          "exact_success_wilson_95": [
+            0.03488718106757214,
+            0.07336596118345534
+          ],
+          "failure_code_counts": {
+            "program_too_long": 16,
+            "success": 26,
+            "wrong_target": 470
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 16.609375,
+          "training_step": 5,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 0.978515625
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 22,
+              "exact_success_rate": 0.09205020920502092,
+              "item_count": 239,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 6,
+              "exact_success_rate": 0.024291497975708502,
+              "item_count": 247,
+              "shortest_program_length": 3
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 26,
+              "shortest_program_length": 4
+            }
+          ],
+          "exact_success_count": 28,
+          "exact_success_rate": 0.0546875,
+          "exact_success_wilson_95": [
+            0.03810443399268586,
+            0.07790302876050659
+          ],
+          "failure_code_counts": {
+            "program_too_long": 1,
+            "success": 28,
+            "wrong_target": 483
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 13.88671875,
+          "training_step": 10,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 23,
+              "exact_success_rate": 0.09623430962343096,
+              "item_count": 239,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 4,
+              "exact_success_rate": 0.016194331983805668,
+              "item_count": 247,
+              "shortest_program_length": 3
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 26,
+              "shortest_program_length": 4
+            }
+          ],
+          "exact_success_count": 27,
+          "exact_success_rate": 0.052734375,
+          "exact_success_wilson_95": [
+            0.036492305788731,
+            0.07563799671337895
+          ],
+          "failure_code_counts": {
+            "success": 27,
+            "wrong_target": 485
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 14.640625,
+          "training_step": 20,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 25,
+              "exact_success_rate": 0.10460251046025104,
+              "item_count": 239,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 5,
+              "exact_success_rate": 0.020242914979757085,
+              "item_count": 247,
+              "shortest_program_length": 3
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 26,
+              "shortest_program_length": 4
+            }
+          ],
+          "exact_success_count": 30,
+          "exact_success_rate": 0.05859375,
+          "exact_success_wilson_95": [
+            0.04134837176993725,
+            0.08241341148542018
+          ],
+          "failure_code_counts": {
+            "program_too_long": 2,
+            "success": 30,
+            "wrong_target": 480
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 15.19140625,
+          "training_step": 40,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 0.998046875
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 24,
+              "exact_success_rate": 0.100418410041841,
+              "item_count": 239,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 4,
+              "exact_success_rate": 0.016194331983805668,
+              "item_count": 247,
+              "shortest_program_length": 3
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 26,
+              "shortest_program_length": 4
+            }
+          ],
+          "exact_success_count": 28,
+          "exact_success_rate": 0.0546875,
+          "exact_success_wilson_95": [
+            0.03810443399268586,
+            0.07790302876050659
+          ],
+          "failure_code_counts": {
+            "illegal_instruction": 3,
+            "success": 28,
+            "wrong_target": 481
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 13.92578125,
+          "training_step": 80,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 40,
+              "exact_success_rate": 0.16736401673640167,
+              "item_count": 239,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 14,
+              "exact_success_rate": 0.05668016194331984,
+              "item_count": 247,
+              "shortest_program_length": 3
+            },
+            {
+              "exact_success_count": 0,
+              "exact_success_rate": 0.0,
+              "item_count": 26,
+              "shortest_program_length": 4
+            }
+          ],
+          "exact_success_count": 54,
+          "exact_success_rate": 0.10546875,
+          "exact_success_wilson_95": [
+            0.0817381468957351,
+            0.13507548238560207
+          ],
+          "failure_code_counts": {
+            "illegal_instruction": 10,
+            "program_too_long": 5,
+            "success": 54,
+            "wrong_target": 443
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 15.333984375,
+          "training_step": 160,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 0.99609375
+        },
+        {
+          "by_shortest_program_length": [
+            {
+              "exact_success_count": 50,
+              "exact_success_rate": 0.20920502092050208,
+              "item_count": 239,
+              "shortest_program_length": 2
+            },
+            {
+              "exact_success_count": 14,
+              "exact_success_rate": 0.05668016194331984,
+              "item_count": 247,
+              "shortest_program_length": 3
+            },
+            {
+              "exact_success_count": 2,
+              "exact_success_rate": 0.07692307692307693,
+              "item_count": 26,
+              "shortest_program_length": 4
+            }
+          ],
+          "exact_success_count": 66,
+          "exact_success_rate": 0.12890625,
+          "exact_success_wilson_95": [
+            0.10262061563755877,
+            0.16071893665676826
+          ],
+          "failure_code_counts": {
+            "illegal_instruction": 2,
+            "success": 66,
+            "wrong_target": 444
+          },
+          "item_count": 512,
+          "length_stop_rate": 0.0,
+          "mean_sampled_tokens": 14.94921875,
+          "training_step": 320,
+          "valid_answer_tag_rate": 1.0,
+          "valid_program_syntax_rate": 1.0
+        }
+      ],
+      "learning_rate": 0.0001,
+      "profile": "moderate_candidate",
+      "training_run_id": "5bbe880d-0eb8-58ea-b3e5-4b1635ce86f3:train:1"
+    }
+  ],
+  "next_step": "review fixed learning curves before any extension",
+  "selected_duration": null,
+  "selected_learning_rate": null,
+  "selected_profile": null,
+  "selection_performed": false,
+  "status": "evidence_complete_selection_unresolved"
+}

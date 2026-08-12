@@ -1,0 +1,19 @@
+{
+  "families_with_observed_success": 35,
+  "family_count": 64,
+  "format_compliance": 0.666015625,
+  "i8_at_equal_item_mean": {
+    "maximum": 0.94228638,
+    "median": 0.727509218671875,
+    "minimum": 0.5695327799999998
+  },
+  "item_count": 256,
+  "items_with_observed_success": 56,
+  "next_step": "choose the targeted-refinement set and zero-success audit sample from the observed family table; do not freeze panels yet",
+  "pilot_started": false,
+  "request_count": 1024,
+  "selection_performed": false,
+  "status": "broad_measurement_complete_selection_unresolved",
+  "total_exact_successes": 64,
+  "truncation_rate": 0.228515625
+}

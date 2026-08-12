@@ -1,0 +1,68 @@
+{
+  "authorized_cost_usd": 10.0,
+  "cost_estimate": {
+    "authorization_ceiling_usd": 10.0,
+    "prefill_token_reservation": 500000,
+    "reserved_cost_usd": 10.0,
+    "sample_token_reservation": 4194304,
+    "token_cost_upper_bound_usd": 8.69763648,
+    "train_token_reservation": 0
+  },
+  "execution_authorized": true,
+  "measurement": {
+    "cohort_provenance": {
+      "cohort_id": "extension_1",
+      "cohort_ordinal": 1,
+      "distinct_family_ordinal_start": 64,
+      "distinct_family_ordinal_stop": 128,
+      "parent_manifest_id": "sha256:9fd4f87c4d3f2e5111c933785a0568d635cc9b1cde7a356f5c5b920e98377dd9",
+      "selection_order": "first_appearance_in_a_candidate",
+      "variant_item_index_start": 2048,
+      "variant_item_index_stop": 2304
+    },
+    "exact_family_count": 64,
+    "group_size_for_i8": 8,
+    "items_per_family": 4,
+    "manifest_id": "sha256:9ba01ecdf39103b4695122ee635e2557afe3154123d5277fc8801a7c7d46b862",
+    "max_tokens": 4096,
+    "next_action_depends_on_observed_broad_evidence": true,
+    "pre_spend_leakage_audit": {
+      "checked_dimensions": [
+        "intended_family",
+        "task_id",
+        "content_hash",
+        "numeric_identity"
+      ],
+      "new_record_count": 256,
+      "prior_cohort_count": 1,
+      "prior_record_count": 408,
+      "status": "passed"
+    },
+    "request_count": 1024,
+    "samples_per_item": 4,
+    "selection_performed": false,
+    "split": "a_candidate",
+    "temperature": 1.0,
+    "top_p": 0.95
+  },
+  "phase": "m0_tces_boundary_broad_screen",
+  "pilot_started": false,
+  "project_id": "7727a6e3-fadb-4b07-9801-721221235e1e",
+  "remote_execution": true,
+  "run_id": "boundary-broad-extension1-20260810T223000Z",
+  "source": {
+    "prior_confirmation_chain": [
+      {
+        "broad_manifest_id": "sha256:9fd4f87c4d3f2e5111c933785a0568d635cc9b1cde7a356f5c5b920e98377dd9",
+        "cohort_id": "initial",
+        "confirmation_manifest_id": "sha256:2e81ed7c36fe43b15e78279c0a22f4528a233b26bdb2cf4c128f90f451db34f2"
+      }
+    ],
+    "run_id": "m0-recovery-20260809T191351Z",
+    "sampler_checkpoint_path": "tinker://334a5523-f111-5ca2-9607-58ae27cc941d:train:0/sampler_weights/m0-recovery-20260809T191351Z-reconstructed-sampler",
+    "state_checkpoint_path": "tinker://334a5523-f111-5ca2-9607-58ae27cc941d:train:0/weights/m0-recovery-20260809T191351Z-reconstructed-state",
+    "training_step": 2
+  },
+  "status": "authorized",
+  "unresolved_deviations": []
+}

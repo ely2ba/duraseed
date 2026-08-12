@@ -1,0 +1,54 @@
+{
+  "fixture_kind": "synthetic_analysis_only",
+  "hard_reliable_probability": 0.9,
+  "hard_transition_counts": {
+    "uncertain -> reliable -> reliable": 1,
+    "unreliable -> reliable -> reliable": 1,
+    "unreliable -> reliable -> uncertain": 1,
+    "unreliable -> uncertain -> uncertain": 1
+  },
+  "hard_unreliable_probability": 0.1,
+  "pass_at_k": {
+    "k": 4,
+    "mean_by_stage": {
+      "M0": 0.23750000000000002,
+      "post-A": 0.9498626373626373,
+      "post-B": 0.8144230769230769
+    }
+  },
+  "posterior_soft_cover": {
+    "M0": 0.04463319131698457,
+    "post-A": 0.9610064677909834,
+    "post-B": 0.7409864741762643
+  },
+  "scientific_claim": false,
+  "stage_b_auc": {
+    "by_method": {
+      "B-G": {
+        "absolute_auc": 0.45,
+        "final_score": 0.7,
+        "gain_auc": 0.31249999999960937,
+        "initial_score": 0.2
+      },
+      "M0": {
+        "absolute_auc": 0.375,
+        "final_score": 0.6,
+        "gain_auc": 0.26470588235262976,
+        "initial_score": 0.15
+      }
+    },
+    "gain_epsilon": 1e-12,
+    "score_source": "synthetic curve fixture on the configured common grid",
+    "step_grid": [
+      0,
+      5,
+      10,
+      25,
+      50,
+      100,
+      200,
+      400
+    ]
+  },
+  "tau": 0.25
+}

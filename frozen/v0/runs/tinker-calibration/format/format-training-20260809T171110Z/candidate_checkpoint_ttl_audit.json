@@ -1,0 +1,110 @@
+{
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-1-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:31:37.660287+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-16-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:39:14.344595+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-2-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:35:00.950619+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-32-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:41:57.318262+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-4-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:36:13.291312+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0/sampler_weights/format-training-20260809T171110Z-lr-1e-04-step-8-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:37:30.792856+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:0",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-1-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:31:37.912791+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-16-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:39:14.650219+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-2-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:35:01.226417+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-32-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:41:57.595048+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-4-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:36:13.597482+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1/sampler_weights/format-training-20260809T171110Z-lr-3e-04-step-8-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:37:31.073485+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:1",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-1-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:31:38.243985+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-16-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:39:14.935657+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-2-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:35:01.505733+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-32-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:41:57.885077+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-4-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:36:13.895608+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2",
+    "ttl_seconds": 604800
+  },
+  "tinker://058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2/sampler_weights/format-training-20260809T171110Z-lr-1e-03-step-8-sampler": {
+    "checkpoint_type": "sampler",
+    "expires_at": "2026-08-16T17:37:31.340327+00:00",
+    "training_run_id": "058bebf2-6569-52d6-bd2c-cdb8e3296080:train:2",
+    "ttl_seconds": 604800
+  }
+}

@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "duraseed"
+version = "0.1.0"
+description = "Tinker-native experiments on LLM stability and plasticity"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "cryptography==49.0.0",
+  "pydantic==2.13.4",
+  "PyYAML==6.0.2",
+  "typer==0.16.0",
+]
+
+[project.scripts]
+duraseed = "duraseed.cli:main"
+
+[project.optional-dependencies]
+dev = [
+  "hypothesis==6.135.20",
+  "pytest==8.4.2",
+  "ruff==0.15.19",
+]
+tinker = [
+  "tinker==0.25.0",
+  "tinker-cookbook==0.5.3",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"
