@@ -59,7 +59,20 @@ Pilot 0 remains `$2,920.317607641339696` above it. This arithmetic does not
 replace the confirmatory-launch reserve check, which is recomputed from the
 then-uncommitted balance.
 
-The `$120` boundary authorization remains withheld. The recorded spend ends at
-the cutoff above, excludes subsequent storage, and has no Tinker console dollar
-balance; refresh the lag-cleared raw export and reconcile it to the console
-before that authorization.
+## Console refresh before the live smoke
+
+On 13 August 2026 UTC, the signed-in Tinker console reported `$44.34` spent in
+the August billing period and a current balance of `$4,955.66`. Its exported
+usage CSV contains 32,975,005 tokens and 3.41 GB-months; its rounded line items
+sum to `$44.33`, one cent below the authoritative dashboard total because each
+line is rounded independently. The preserved export is
+`../DuraSeed-v1-preservation/billing/usage-console-2026-08.csv`, SHA-256
+`db9bd8166d67d4489af5891d099a4d8b28644f9e8fd1843a7957ad72a073a270`.
+
+The console balance exactly reconciles to the grant ceiling minus its displayed
+spend: `$5,000.00 - $44.34 = $4,955.66`. The `$445` path to the Pilot-0 freeze
+would leave `$4,510.66`; the separately capped `$600` Pilot 0 would leave
+`$3,910.66`. Twenty percent of the current uncommitted balance is `$991.132`,
+so even holding that protected amount fixed leaves `$2,919.528` above it after
+the pre-Pilot path and Pilot 0. The reserve must still be recomputed at any
+later confirmatory launch.
