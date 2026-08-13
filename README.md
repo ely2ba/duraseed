@@ -2,7 +2,13 @@
 
 DuraSeed studies the stability–plasticity trade-off induced by different post-training acquisition paths: after methods reach matched capability on one task family, do they retain it differently while learning the next one? The study uses deterministic, exact-verifier TCES and MAPS environments with `Qwen/Qwen3.5-9B-Base`, rank-32 LoRA adapters, and Tinker for explicitly authorized remote execution.
 
-**Status:** The v1 rebuild, replay gate, and local execution stack are complete. Next come the live engineering smoke, boundary-extension panel freeze, and acquisition calibration; Pilot 0 has not started.
+## Where things stand
+
+Most of the groundwork is now finished. The project has been rebuilt in a clean public repository, the original tasks, verifiers, and analysis have been replayed with zero differences, and the remaining pre-pilot workflows pass locally. Earlier calibration established the common M0 starting point, selected the canonical training format, froze the MAPS recipe at `shortest2_cap2` with learning rate `3e-4` through step 480, and identified 15 eligible families in the first boundary cohort.
+
+The next milestone is a small live engineering smoke that checks the complete remote path—training, sampling, exact verifier rewards, stop handling, checkpoint resume, and branching—before any scientific run begins. After that, the boundary extension will finish the two remaining cohorts and combine the eligible families into the target and sentinel panels used by the study. Acquisition calibration then chooses the shared teacher dose, data allocation, Stage-A learning rates and duration, RL setup, and completion limit.
+
+Only once those gates are complete and frozen will Pilot 0 begin. Pilot 0 has not started, no sealed test data has been opened, and no scientific result is claimed yet.
 
 ## Repository layout
 
