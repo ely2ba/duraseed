@@ -101,6 +101,7 @@ async def sample_seeded(
     top_p: float,
     ledger: TokenLedger,
     sample_index_start: int = 0,
+    explicit_seeds: tuple[int, ...] | None = None,
 ) -> tuple[SampleObservation, ...]:
     """Make independently seeded one-sample calls for one prompt group."""
 
@@ -120,17 +121,24 @@ async def sample_seeded(
     prompt_tokens = int(prompt.length)
     reserved = TokenBudget(prompt_tokens * group_size, max_tokens * group_size, 0)
     sample_indices = tuple(range(sample_index_start, sample_index_start + group_size))
-    sample_seeds = tuple(
-        derive_namespaced_seed(
-            coordinates.experiment_seed,
-            coordinates.seed_namespace,
-            task.task_family,
-            task.task_id,
-            task.item_index,
-            sample_index,
+    if explicit_seeds is not None:
+        valid_shape = len(explicit_seeds) == group_size == len(set(explicit_seeds))
+        valid_values = all(type(seed) is int and seed >= 0 for seed in explicit_seeds)
+        if not valid_shape or not valid_values:
+            raise ValueError("explicit sampling seeds must match the group")
+        sample_seeds = explicit_seeds
+    else:
+        sample_seeds = tuple(
+            derive_namespaced_seed(
+                coordinates.experiment_seed,
+                coordinates.seed_namespace,
+                task.task_family,
+                task.task_id,
+                task.item_index,
+                sample_index,
+            )
+            for sample_index in sample_indices
         )
-        for sample_index in sample_indices
-    )
     ledger.reserve_call(reserved)
     try:
         responses = await asyncio.gather(

@@ -195,3 +195,61 @@ def test_sampling_failure_conservatively_settles_reserved_usage() -> None:
         )
     assert not ledger.has_pending_call
     assert ledger.observed == TokenBudget(2, 8, 0)
+
+
+def test_explicit_group_seeds_reproduce_archived_nested_derivation() -> None:
+    runtime = _runtime()
+    ledger = TokenLedger(TokenBudget(20, 80, 0), 5.0)
+    sampler = Sampler(ledger)
+    root = derive_namespaced_seed(17, "tinker.stage_a.bg_rollout", 4, 2, "task-a")
+    explicit = tuple(
+        derive_namespaced_seed(root, "tinker.smoke.group_sample", index)
+        for index in range(8)
+    )
+
+    rows = asyncio.run(
+        sample_seeded(
+            runtime,
+            sampler,
+            _task("task-a", 7),
+            _coordinates(),
+            group_size=8,
+            max_tokens=8,
+            temperature=1.0,
+            top_p=0.95,
+            ledger=ledger,
+            explicit_seeds=explicit,
+        )
+    )
+
+    assert tuple(row.generation.sampling_seed for row in rows) == explicit
+    assert tuple(sampler.seeds) == explicit
+
+
+@pytest.mark.parametrize(
+    "explicit",
+    [
+        (1,),
+        (1, 1),
+        (1, -1),
+        (1, True),
+    ],
+)
+def test_explicit_group_seed_contract_rejects_invalid_coordinates(explicit) -> None:  # type: ignore[no-untyped-def]
+    runtime = _runtime()
+    ledger = TokenLedger(TokenBudget(20, 80, 0), 5.0)
+    with pytest.raises(ValueError, match="explicit sampling seeds"):
+        asyncio.run(
+            sample_seeded(
+                runtime,
+                Sampler(ledger),
+                _task("task-a", 7),
+                _coordinates(),
+                group_size=2,
+                max_tokens=8,
+                temperature=1.0,
+                top_p=0.95,
+                ledger=ledger,
+                explicit_seeds=explicit,
+            )
+        )

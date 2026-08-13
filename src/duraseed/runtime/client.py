@@ -42,6 +42,12 @@ class RuntimeBundle:
     tokenizer: Any
 
 
+def bind_model(sdk: SDKBundle, service: Any, model: Any) -> RuntimeBundle:
+    tokenizer = model.get_tokenizer()
+    renderer = sdk.get_renderer(RENDERER_NAME, tokenizer, model_name=MODEL_ID)
+    return RuntimeBundle(sdk, service, model, renderer, tokenizer)
+
+
 def load_sdk() -> SDKBundle:
     """Load the optional SDK only at the authorized execution boundary."""
 
@@ -118,13 +124,7 @@ async def resolve_model(
         ledger.abort_call()
         raise
     ledger.settle_call(TokenBudget(0, 0, 0))
-    tokenizer = model.get_tokenizer()
-    renderer = sdk.get_renderer(
-        RENDERER_NAME,
-        tokenizer,
-        model_name=MODEL_ID,
-    )
-    return RuntimeBundle(sdk, service, model, renderer, tokenizer)
+    return bind_model(sdk, service, model)
 
 
 async def create_sampler(
@@ -223,6 +223,7 @@ __all__ = [
     "SDKBundle",
     "TINKER_VERSION",
     "apply_update",
+    "bind_model",
     "create_sampler",
     "create_service",
     "load_sdk",

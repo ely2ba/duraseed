@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import asyncio
+import os
 from pathlib import Path
 
 import typer
@@ -10,9 +12,55 @@ from duraseed.config import load_pilot_config
 from duraseed.runners import RunnerGateError, authorize_launch
 from duraseed.runners import boundary_extension as boundary
 from duraseed.runners import calibration
+from duraseed.runners import live_smoke as smoke
 
 
 app = typer.Typer(add_completion=False, no_args_is_help=True)
+
+
+@app.command("live-smoke")
+def live_smoke(
+    run_id: str | None = typer.Option(None),
+    output_root: Path = typer.Option(Path("runs/live-smoke")),
+    dry_run: bool = typer.Option(False, "--dry-run"),
+    execute: bool = typer.Option(False, "--execute"),
+    authorized_cost_usd: str | None = typer.Option(None),
+    confirm_billing_reconciled: bool = typer.Option(False),
+    confirm_human_launch: bool = typer.Option(False),
+    project_id: str | None = typer.Option(None, envvar="TINKER_PROJECT_ID"),
+) -> None:
+    """Preflight or execute the exact $25 live smoke gate."""
+
+    if dry_run and execute:
+        raise typer.BadParameter("--dry-run and --execute are mutually exclusive")
+    if not execute:
+        typer.echo(smoke.preflight_text())
+        return
+    if run_id is None:
+        raise typer.BadParameter("--run-id is required with --execute")
+    if not project_id or not project_id.strip():
+        raise typer.BadParameter(
+            "an explicit --project-id/TINKER_PROJECT_ID is required"
+        )
+    if not os.environ.get("TINKER_API_KEY", "").strip():
+        raise typer.BadParameter("TINKER_API_KEY is required with --execute")
+    try:
+        authorization = smoke.authorize(
+            execute=execute,
+            authorized_cost_usd=authorized_cost_usd,
+            billing_reconciled=confirm_billing_reconciled,
+            human_approval=confirm_human_launch,
+        )
+        result = asyncio.run(
+            smoke.run_remote(
+                smoke.SmokeSettings(run_id=run_id, output_root=output_root),
+                authorization,
+                project_id=project_id,
+            )
+        )
+    except RunnerGateError as error:
+        raise typer.BadParameter(str(error)) from error
+    typer.echo(f"live smoke artifacts: {result}")
 
 
 @app.command("validate")
