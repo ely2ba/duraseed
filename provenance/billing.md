@@ -76,3 +76,20 @@ would leave `$4,510.66`; the separately capped `$600` Pilot 0 would leave
 so even holding that protected amount fixed leaves `$2,919.528` above it after
 the pre-Pilot path and Pilot 0. The reserve must still be recomputed at any
 later confirmatory launch.
+
+## Console refresh after the live smoke
+
+After the live smoke completed on 13 August 2026 UTC, the signed-in console
+reported `$44.56` spent and a remaining balance of `$4,955.44`. The new console
+export includes the smoke's 2,976 prefill, 11,170 sample, and 7,025 training
+tokens. It is preserved outside the public repository as
+`../DuraSeed-v1-preservation/billing/usage-console-2026-08-post-smoke.csv`,
+SHA-256
+`2e4c4dfcc30ca158d18de463fa80bf7f4f99a7199ee7cf4359e8e18e166e3955`.
+
+Twenty percent of the current balance is `$991.088`. Reserving the next `$120`
+boundary gate would leave `$4,835.44`, or `$3,844.352` above that protected
+amount. The provider's session-level raw usage feed had not yet caught up at
+this snapshot, so the boundary launch remains blocked until its raw session
+rows reproduce those exact token totals. No lag-cleared flag is inferred from
+the dashboard total alone.

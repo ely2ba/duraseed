@@ -6,7 +6,9 @@ DuraSeed studies the stability–plasticity trade-off induced by different post-
 
 Most of the groundwork is now finished. The project has been rebuilt in a clean public repository, the original tasks, verifiers, and analysis have been replayed with zero differences, and the remaining pre-pilot workflows pass locally. Earlier calibration established the common M0 starting point, selected the canonical training format, froze the MAPS recipe at `shortest2_cap2` with learning rate `3e-4` through step 480, and identified 15 eligible families in the first boundary cohort.
 
-The next milestone is a small live engineering smoke that checks the complete remote path—training, sampling, exact verifier rewards, stop handling, checkpoint resume, and branching—before any scientific run begins. After that, the boundary extension will finish the two remaining cohorts and combine the eligible families into the target and sentinel panels used by the study. Acquisition calibration then chooses the shared teacher dose, data allocation, Stage-A learning rates and duration, RL setup, and completion limit.
+The first live engineering smoke has now passed on real remote execution. It exercised training and sampling end to end, reproduced verifier rewards exactly online and offline, confirmed the stop contract, and successfully tested both full-state resume and weights-only branching. This remains an engineering result, but it clears an important practical risk before the longer experiments begin.
+
+The project is now moving through the boundary extension. Cohort 2 already has broad and refinement evidence; its confirmation, the third cohort, and the final three-cohort panel freeze are the remaining pieces before the target and sentinel panels are fixed. Acquisition calibration then chooses the shared teacher dose and data allocation, Stage-A learning rates and duration, one common RL setup, and one common completion limit.
 
 Only once those gates are complete and frozen will Pilot 0 begin. Pilot 0 has not started, no sealed test data has been opened, and no scientific result is claimed yet.
 

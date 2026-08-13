@@ -64,7 +64,11 @@ class TokenLedger:
 
     @staticmethod
     def _usage(tokens: TokenBudget) -> UsageQuantities:
-        return UsageQuantities(tokens.prefill, tokens.sample, tokens.train)
+        return UsageQuantities(
+            prefill_tokens=tokens.prefill,
+            sample_tokens=tokens.sample,
+            train_tokens=tokens.train,
+        )
 
     @property
     def committed_cost_usd(self) -> float:

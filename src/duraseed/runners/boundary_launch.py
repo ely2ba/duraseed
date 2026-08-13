@@ -13,14 +13,17 @@ from typing import Any
 
 from duraseed.boundary_live_sources import load_boundary_live_source
 from duraseed.config import load_pilot_config
+from duraseed.git_guard import require_clean_worktree
 from duraseed.live_smoke_gate import PHASE_LABEL, TOTAL_CAP_USD, TTL_SECONDS
-from duraseed.run_records import RunRecord, RunStatus
+from duraseed.post_smoke_billing import SmokeBillingTotals
+from duraseed.run_records import RunRecord, RunStatus, read_run_record
 from duraseed.runners import (
     LaunchAuthorization,
     RunnerGateError,
     authorize_launch,
 )
 from duraseed.runners.boundary_extension import build_plan
+from duraseed.runners.boundary_billing import authenticate_post_smoke_billing
 from duraseed.runners.boundary_live import execute_boundary_live
 from duraseed.runtime import (
     MODEL_ID,
@@ -167,48 +170,6 @@ def authenticate_live_smoke(
     return run_id, digest, finished
 
 
-def authenticate_post_smoke_billing(
-    path: str | Path,
-    *,
-    smoke_run_id: str,
-    smoke_sha256: str,
-    smoke_finished_at: datetime,
-    project_id: str,
-) -> None:
-    """Require lag-cleared usage and balance evidence before the $120 gate."""
-
-    resolved, value = _json(path, "post-smoke billing reconciliation")
-    raw_path_value = value.get("raw_usage_path")
-    if not isinstance(raw_path_value, str) or not raw_path_value.strip():
-        raise RunnerGateError("post-smoke billing reconciliation omitted raw usage")
-    raw_path = Path(raw_path_value).expanduser()
-    if not raw_path.is_absolute():
-        raw_path = resolved.parent / raw_path
-    try:
-        raw_sha256 = "sha256:" + hashlib.sha256(raw_path.read_bytes()).hexdigest()
-    except OSError as error:
-        raise RunnerGateError("post-smoke raw usage is unreadable") from error
-    cutoff = _utc(value.get("raw_usage_cutoff_utc"), "raw usage cutoff")
-    balance = _decimal(value.get("remaining_balance_usd"), "remaining balance")
-    reserve = _decimal(value.get("protected_reserve_usd"), "protected reserve")
-    if (
-        value.get("status") != "reconciled"
-        or value.get("source_run_id") != smoke_run_id
-        or value.get("source_acceptance_sha256") != smoke_sha256
-        or value.get("project_id") != project_id
-        or value.get("raw_usage_sha256") != raw_sha256
-        or cutoff < smoke_finished_at
-        or value.get("remaining_balance_verified") is not True
-        or value.get("protected_reserve_survives") is not True
-        or _decimal(value.get("boundary_authorization_usd"), "boundary authorization")
-        != Decimal("120")
-        or balance < Decimal("120")
-        or reserve < 0
-        or balance - Decimal("120") < reserve
-    ):
-        raise RunnerGateError("post-smoke billing reconciliation is incomplete")
-
-
 def authorize_boundary(
     *,
     authorized_cost_usd: str | None,
@@ -220,11 +181,15 @@ def authorize_boundary(
     smoke_run_id, smoke_sha256, finished_at = authenticate_live_smoke(
         smoke_acceptance, project_id=project_id
     )
+    smoke_run = read_run_record(Path(smoke_acceptance).resolve().parent)
     authenticate_post_smoke_billing(
         billing_reconciliation,
         smoke_run_id=smoke_run_id,
         smoke_sha256=smoke_sha256,
         smoke_finished_at=finished_at,
+        smoke_tokens=SmokeBillingTotals(
+            smoke_run.prompt_tokens, smoke_run.sampled_tokens, smoke_run.train_tokens
+        ),
         project_id=project_id,
     )
     authorization = authorize_launch(
@@ -264,6 +229,7 @@ async def run_remote_boundary(
         or authorization.authorized_cost_usd != build_plan().remote_cost_cap_usd
     ):
         raise RunnerGateError("the exact $120 boundary authorization is required")
+    require_clean_worktree(gate_name="boundary extension")
     config = load_pilot_config(config_path)
     source = load_boundary_live_source(config, source_root)
     if project_id != source.contract.project_id:

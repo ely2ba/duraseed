@@ -245,6 +245,22 @@ def test_fixed_reservations_are_observed_on_success_and_failure() -> None:
     assert ledger.observed_cost_usd > 0.75
 
 
+def test_ledger_maps_token_budget_to_uncached_usage_and_pinned_cost() -> None:
+    tokens = TokenBudget(prefill=2_976, sample=11_170, train=7_025)
+    usage = TokenLedger._usage(tokens)
+    assert usage == UsageQuantities(
+        prefill_tokens=2_976,
+        cached_prefill_tokens=0,
+        sample_tokens=11_170,
+        train_tokens=7_025,
+    )
+
+    ledger = TokenLedger(tokens, 25.0)
+    ledger.reserve_call(tokens, fixed_usd=4.0)
+    ledger.settle_call(tokens)
+    assert ledger.observed_cost_usd == pytest.approx(4.034525885)
+
+
 def test_ledger_fails_closed_on_nested_or_over_budget_reservations() -> None:
     ledger = TokenLedger(TokenBudget(2, 2, 2), 0.01)
     ledger.reserve_call(TokenBudget(1, 1, 1))
