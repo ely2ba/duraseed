@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import subprocess
 from typing import Literal
 
 from duraseed.config import PilotConfig, load_pilot_config
@@ -21,7 +22,11 @@ from duraseed.live_smoke_sampling import SmokeSampler
 from duraseed.live_smoke_resume import run_resume_branch
 from duraseed.live_smoke_updates import run_stage_a
 from duraseed.run_records import RunStatus
-from duraseed.runners import LaunchAuthorization, validate_mock_output_root
+from duraseed.runners import (
+    LaunchAuthorization,
+    RunnerGateError,
+    validate_mock_output_root,
+)
 from duraseed.runners.live_smoke_data import SmokeInputs, build_inputs
 from duraseed.runtime import (
     RuntimeBundle,
@@ -33,6 +38,27 @@ from duraseed.runtime import (
     resolve_model,
     set_and_verify_ttl,
 )
+
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
+
+
+def require_clean_worktree() -> None:
+    """Refuse paid execution when recorded HEAD would omit local changes."""
+
+    try:
+        status = subprocess.run(
+            ["git", "-C", str(REPOSITORY_ROOT), "status", "--porcelain"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+    except subprocess.CalledProcessError as error:
+        raise RunnerGateError(
+            "live smoke cannot authenticate the git worktree"
+        ) from error
+    if status:
+        raise RunnerGateError("live smoke requires a clean git worktree")
 
 
 async def execute_smoke(
@@ -193,6 +219,7 @@ async def run_remote(
         raise ValueError("the exact $25 live-smoke authorization is required")
     if not project_id.strip():
         raise ValueError("an explicit Tinker project ID is required")
+    require_clean_worktree()
     config = load_pilot_config(settings.config_path)
     inputs = build_inputs(settings.seed)
     sample_limit = settings.max_tokens * (

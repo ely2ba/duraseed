@@ -87,86 +87,120 @@ class LiveSmokeCalibrationEvidence:
             )
 
 
+MAX_TOKEN_CANDIDATE_LADDER = (256, 512, 1024, 2048, 4096)
+MAX_TOKEN_OBSERVED_CAPS = (512, 1024, 2048, 4096)
+MAX_TOKEN_REFERENCE_RUN_ID = "tces-cap-reference-20260809T204337Z"
+MAX_TOKEN_SELECTION_RULE = (
+    "smallest_cap_censoring_at_most_5_percent_of_all_items_and_no_exact_successes"
+)
+MAX_TOKEN_SUMMARY_SHA256 = (
+    "sha256:d2505e16bec8dc4374e4a5917d80a71095018407ab5d95937c06dd7997e9ae76"
+)
+MAX_TOKEN_GENERATIONS_SHA256 = (
+    "sha256:a3854d5cfad49a75bcdb0e95b3e0cdaddbc2cf9685f54d88eb7d5cd2cc95ff70"
+)
+MAX_TOKEN_REWARDS_SHA256 = (
+    "sha256:3e91a65617e97495d8646802fdab0da5f94c4bb5ca0922b39af13b3e84b285de"
+)
+
+
 @dataclass(frozen=True, slots=True)
-class MaxTokenPathEvidence:
-    method: str
+class MaxTokenCapObservation:
     max_tokens: int
-    reference_sample_count: int
-    reference_censored_count: int
-    censored_success_count: int
-    minimum_answer_terminated_count: int
+    censored_answer_count: int
+    censored_exact_success_count: int
+    passed: bool
 
     def __post_init__(self) -> None:
         if (
-            not self.method.strip()
-            or type(self.max_tokens) is not int
-            or self.max_tokens < PROVISIONAL_ACQUISITION_MAX_TOKENS
-            or type(self.reference_sample_count) is not int
-            or self.reference_sample_count < 1
-            or any(
-                type(value) is not int or not 0 <= value <= self.reference_sample_count
+            any(
+                type(value) is not int
                 for value in (
-                    self.reference_censored_count,
-                    self.censored_success_count,
-                    self.minimum_answer_terminated_count,
+                    self.max_tokens,
+                    self.censored_answer_count,
+                    self.censored_exact_success_count,
                 )
             )
-            or self.censored_success_count > self.reference_censored_count
+            or type(self.passed) is not bool
         ):
-            raise ValueError("invalid acquisition max-token path evidence")
+            raise ValueError("max-token cap observation has invalid field types")
+
+
+@dataclass(frozen=True, slots=True)
+class MaxTokenReferenceEvidence:
+    summary_sha256: str
+    generations_sha256: str
+    rewards_sha256: str
+    run_id: str
+    sample_count: int
+    source_split: str
+    seed: int
+    training_step: int
+    reference_max_tokens: int
+    answer_termination_count: int
+    exact_success_count: int
+    observations: tuple[MaxTokenCapObservation, ...]
+
+    def __post_init__(self) -> None:
+        expected_observations = tuple(
+            MaxTokenCapObservation(*row)
+            for row in (
+                (512, 15, 3, False),
+                (1024, 9, 2, False),
+                (2048, 4, 1, False),
+                (4096, 0, 0, True),
+            )
+        )
+        if (
+            self.summary_sha256 != MAX_TOKEN_SUMMARY_SHA256
+            or self.generations_sha256 != MAX_TOKEN_GENERATIONS_SHA256
+            or self.rewards_sha256 != MAX_TOKEN_REWARDS_SHA256
+            or self.run_id != MAX_TOKEN_REFERENCE_RUN_ID
+            or self.sample_count != 128
+            or self.source_split != "a_validation"
+            or self.seed != 5
+            or self.training_step != 2
+            or self.reference_max_tokens != FROZEN_PROTOCOL_MAX_TOKENS
+            or self.answer_termination_count != 73
+            or self.exact_success_count != 8
+            or self.observations != expected_observations
+        ):
+            raise RunnerGateError(
+                "max-token evidence differs from the frozen M0 source"
+            )
 
 
 @dataclass(frozen=True, slots=True)
 class MaxTokenFreezeEvidence:
     specification_sha256: str
     evidence_sha256: str
+    specification_authorization_sha256: str
+    reference: MaxTokenReferenceEvidence
     candidate_max_tokens: tuple[int, ...]
     maximum_reference_censor_rate: float
-    rows: tuple[MaxTokenPathEvidence, ...]
+    minimum_answer_terminations: int
+    require_zero_censored_exact_successes: bool
+    provisional_failure_inferred_from_max_tokens: int
     selected_max_tokens: int
-    specification_authorization_sha256: str
+    apply_to_methods: tuple[str, ...]
 
     def __post_init__(self) -> None:
         validate_sha256_id(self.specification_sha256)
         validate_sha256_id(self.evidence_sha256)
         validate_sha256_id(self.specification_authorization_sha256)
-        candidates = self.candidate_max_tokens
         if (
-            not candidates
-            or candidates[0] != PROVISIONAL_ACQUISITION_MAX_TOKENS
-            or candidates != tuple(sorted(set(candidates)))
-            or candidates[-1] > FROZEN_PROTOCOL_MAX_TOKENS
-            or self.selected_max_tokens not in candidates
-            or not 0 <= self.maximum_reference_censor_rate < 1
+            self.evidence_sha256 != self.reference.summary_sha256
+            or self.candidate_max_tokens != MAX_TOKEN_CANDIDATE_LADDER
+            or self.maximum_reference_censor_rate != 0.05
+            or self.minimum_answer_terminations != 64
+            or self.require_zero_censored_exact_successes is not True
+            or self.provisional_failure_inferred_from_max_tokens != 512
+            or self.selected_max_tokens != FROZEN_PROTOCOL_MAX_TOKENS
+            or self.apply_to_methods != ALL_METHODS
         ):
-            raise ValueError("invalid prospective acquisition max-token rule")
-        by_cap = {
-            cap: tuple(row for row in self.rows if row.max_tokens == cap)
-            for cap in candidates
-        }
-        tested = candidates[: candidates.index(self.selected_max_tokens) + 1]
-        methods = tuple(row.method for row in by_cap[tested[0]])
-        if (
-            any(tuple(row.method for row in by_cap[cap]) != methods for cap in tested)
-            or len(methods) < 2
-            or len(set(methods)) != len(methods)
-            or any(by_cap[cap] for cap in candidates[len(tested) :])
-        ):
-            raise RunnerGateError("max-token evidence is not a common ordered gate")
-        passes = {
-            cap: all(
-                row.reference_censored_count / row.reference_sample_count
-                <= self.maximum_reference_censor_rate
-                and row.censored_success_count == 0
-                and row.minimum_answer_terminated_count > 0
-                for row in by_cap[cap]
+            raise RunnerGateError(
+                "max-token ratification differs from its proposed rule"
             )
-            for cap in tested
-        }
-        if not passes[self.selected_max_tokens] or any(
-            passes[cap] for cap in tested[:-1]
-        ):
-            raise RunnerGateError("max-token selection does not follow its frozen rule")
 
 
 def _validate_settings(values: tuple[tuple[str, Scalar], ...], label: str) -> None:
@@ -320,8 +354,15 @@ __all__: tuple[str, ...] = (
     "AcquisitionFreeze",
     "CommonRLFreezeEvidence",
     "LiveSmokeCalibrationEvidence",
+    "MAX_TOKEN_CANDIDATE_LADDER",
+    "MAX_TOKEN_GENERATIONS_SHA256",
+    "MAX_TOKEN_REFERENCE_RUN_ID",
+    "MAX_TOKEN_REWARDS_SHA256",
+    "MAX_TOKEN_SELECTION_RULE",
+    "MAX_TOKEN_SUMMARY_SHA256",
+    "MaxTokenCapObservation",
     "MaxTokenFreezeEvidence",
-    "MaxTokenPathEvidence",
+    "MaxTokenReferenceEvidence",
     "StageALiveEvidence",
     "TeacherDoseArmEvidence",
     "TeacherDoseLiveEvidence",

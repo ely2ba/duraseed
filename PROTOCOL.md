@@ -506,7 +506,7 @@ equality between online rewards and offline verifier rewards, a verified stop
 contract, and successful full-state resume plus weights-only branching. Any
 failure stops before a scientific run.
 
-The grant is funding, not authorization. `duraseed tinker smoke` is preflight
+The grant is funding, not authorization. `duraseed live-smoke` is preflight
 only unless `--execute` and an explicit authorized cost are supplied.
 
 ## Tasks, data, and reproducibility

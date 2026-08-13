@@ -1,4 +1,5 @@
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from click import unstyle
@@ -7,6 +8,7 @@ from typer.testing import CliRunner
 from duraseed.cli import app
 from duraseed.live_smoke_gate import authorize
 from duraseed.runners import RunnerGateError
+from duraseed.runners import live_smoke as smoke_runner
 
 
 def test_cli_preflight_is_credential_free_and_execute_is_exactly_gated(
@@ -81,3 +83,13 @@ def test_authorization_requires_exact_cap_and_both_confirmations() -> None:
         human_approval=True,
     )
     assert str(granted.authorized_cost_usd) == "25"
+
+
+def test_paid_smoke_rejects_a_dirty_recorded_worktree(monkeypatch) -> None:
+    monkeypatch.setattr(
+        smoke_runner.subprocess,
+        "run",
+        lambda *args, **kwargs: SimpleNamespace(stdout=" M PROTOCOL.md\n"),
+    )
+    with pytest.raises(RunnerGateError, match="clean git worktree"):
+        smoke_runner.require_clean_worktree()

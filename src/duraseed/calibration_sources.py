@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
 import json
 from pathlib import Path
 from typing import Any
@@ -12,6 +11,7 @@ from duraseed.config import PilotConfig
 from duraseed.data.manifests import DatasetManifest
 from duraseed.data.panels import FamilyPanelArtifact, PanelLabel
 from duraseed.data.stage_a_prompt_pools import StageAPromptPoolBundle
+from duraseed.max_token_ratification import load_ratification
 from duraseed.provenance import canonical_json_hash, sha256_bytes
 from duraseed.run_records import RunStatus, read_run_record
 from duraseed.runners import RunnerGateError
@@ -20,7 +20,6 @@ from duraseed.training.acquisition_freeze import (
     FROZEN_PROTOCOL_MAX_TOKENS,
     LiveSmokeCalibrationEvidence,
     MaxTokenFreezeEvidence,
-    MaxTokenPathEvidence,
 )
 from duraseed.training.teacher_allocation_sources import (
     TeacherAllocationSources,
@@ -170,7 +169,7 @@ def load_max_token_evidence(
     authorization_path: str | Path,
     evidence_path: str | Path,
 ) -> MaxTokenFreezeEvidence:
-    """Authenticate a prospectively accepted §10.1 rule and its real result."""
+    """Authenticate an accepted ratification of the single frozen M0 source."""
 
     if (
         ACCEPTED_MAX_TOKEN_SPECIFICATION_SHA256 is None
@@ -180,65 +179,13 @@ def load_max_token_evidence(
             "no prospective acquisition max-token rule is accepted in this build"
         )
 
-    specification, specification_raw = _object(
-        Path(specification_path), "acquisition max-token specification"
+    return load_ratification(
+        specification_path,
+        authorization_path,
+        evidence_path,
+        accepted_specification_sha256=ACCEPTED_MAX_TOKEN_SPECIFICATION_SHA256,
+        accepted_authorization_sha256=ACCEPTED_MAX_TOKEN_AUTHORIZATION_SHA256,
     )
-    authorization, authorization_raw = _object(
-        Path(authorization_path), "acquisition max-token authorization"
-    )
-    evidence, evidence_raw = _object(
-        Path(evidence_path), "acquisition max-token evidence"
-    )
-    specification_hash = sha256_bytes(specification_raw)
-    authorization_hash = sha256_bytes(authorization_raw)
-    try:
-        authorized_at = datetime.fromisoformat(
-            str(authorization.get("authorized_at_utc", ""))
-        )
-    except ValueError as error:
-        raise RunnerGateError("max-token authorization time is malformed") from error
-    if (
-        specification_hash != ACCEPTED_MAX_TOKEN_SPECIFICATION_SHA256
-        or authorization_hash != ACCEPTED_MAX_TOKEN_AUTHORIZATION_SHA256
-        or specification.get("schema_version")
-        != "duraseed-acquisition-max-token-spec-v1"
-        or specification.get("status") != "ratified_before_sampling"
-        or not isinstance(specification.get("representative_paths"), list)
-        or len(specification["representative_paths"]) < 2
-        or len(set(specification["representative_paths"]))
-        != len(specification["representative_paths"])
-        or authorization.get("schema_version")
-        != "duraseed-acquisition-max-token-authorization-v1"
-        or authorization.get("status") != "accepted"
-        or authorization.get("specification_sha256") != specification_hash
-        or not isinstance(authorization.get("authorizer"), str)
-        or not authorization["authorizer"].strip()
-        or not isinstance(authorization.get("authorized_at_utc"), str)
-        or not authorization["authorized_at_utc"].strip()
-        or authorized_at.tzinfo is None
-        or authorized_at.utcoffset() is None
-        or evidence.get("schema_version")
-        != "duraseed-acquisition-max-token-evidence-v1"
-        or evidence.get("status") != "selected"
-        or evidence.get("real_data") is not True
-        or evidence.get("specification_sha256") != specification_hash
-        or evidence.get("specification_authorization_sha256") != authorization_hash
-        or not isinstance(evidence.get("rows"), list)
-    ):
-        raise RunnerGateError("acquisition max-token gate is not authenticated")
-    try:
-        rows = tuple(MaxTokenPathEvidence(**row) for row in evidence["rows"])
-        return MaxTokenFreezeEvidence(
-            specification_hash,
-            sha256_bytes(evidence_raw),
-            tuple(specification["candidate_max_tokens"]),
-            float(specification["maximum_reference_censor_rate"]),
-            rows,
-            evidence["selected_max_tokens"],
-            authorization_hash,
-        )
-    except (KeyError, TypeError, ValueError) as error:
-        raise RunnerGateError("acquisition max-token gate is malformed") from error
 
 
 def _assignment(panel: FamilyPanelArtifact, seed: int):

@@ -348,6 +348,7 @@ def test_run_remote_dispatches_same_behavioral_runtime(
     monkeypatch.setattr(smoke_runner, "load_sdk", lambda: runtime.sdk)
     monkeypatch.setattr(smoke_runner, "create_service", lambda *a, **k: service)
     monkeypatch.setattr(smoke_runner, "resolve_model", resolve)
+    monkeypatch.setattr(smoke_runner, "require_clean_worktree", lambda: None)
     result = asyncio.run(
         smoke_runner.run_remote(
             SmokeSettings("remote-dispatch", output_root=tmp_path / "remote-test"),
