@@ -63,6 +63,12 @@ scientific artifacts themselves are not rewritten.
   run records, and path-free public views of the two preflights required to
   authenticate the unfinished confirmation handoff. The aborted pre-output
   Extension 1 attempt is not carried.
+- `provenance/derived-artifacts.sha256` covers the exact 136-record Extension-1
+  confirmation manifest regenerated from that handoff. Its scientific manifest
+  ID is `sha256:23665b09e285af293d8bda200317056f35ae091014462f721226b89c46eef4a6`,
+  matching the independently compared v0/v1 object in
+  `docs/boundary-extraction-equivalence.md`; it is derived, not claimed as a
+  byte-identical v0 file.
 - MAPS evidence includes both profile screens and all completed probe curves,
   their manifests, generations, rewards, metrics, checkpoint ledgers,
   summaries, prices, and the ratified `shortest2_cap2` decision.
@@ -104,5 +110,6 @@ scientific artifacts themselves are not rewritten.
 
 `provenance/v0-artifacts.sha256` is the authoritative map for byte-identical
 public v0 files; `provenance/public-projections.sha256` covers the three
-derived public views. The Phase 3 code carry-over is separate and governed by
+derived public views; `provenance/derived-artifacts.sha256` covers the exact
+unfinished-handoff derivative above. The Phase 3 code carry-over is separate and governed by
 `provenance/immutable-carryover.sha256`.

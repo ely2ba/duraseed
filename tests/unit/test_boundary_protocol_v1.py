@@ -9,6 +9,7 @@ from duraseed.data.boundary_confirmation import (
     choose_refinement_family_ids,
     reduce_confirmation_evidence,
 )
+from duraseed.boundary_live_sources import reconstruct_family_templates
 from duraseed.data.boundary_freeze import (
     BOUNDARY_PANEL_FREEZE_EQUIVALENCE_STATUS,
     BoundaryFreezeUnverifiedError,
@@ -69,6 +70,12 @@ def test_broad_and_confirmation_manifests_are_deterministic_and_disjoint() -> No
     )
     assert not {row.task_id for row in broad.records}.intersection(
         row.task_id for row in confirmation.records
+    )
+
+    reconstructed = reconstruct_family_templates(broad, finalists)
+    assert (
+        build_confirmation_manifest(config, broad, finalists, templates=reconstructed)
+        == confirmation
     )
 
 

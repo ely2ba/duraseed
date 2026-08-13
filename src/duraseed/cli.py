@@ -12,6 +12,7 @@ from duraseed.config import load_pilot_config
 from duraseed.runners import RunnerGateError, authorize_launch
 from duraseed.runners import boundary_extension as boundary
 from duraseed.runners import calibration
+from duraseed.runners import boundary_launch
 from duraseed.runners import live_smoke as smoke
 
 
@@ -109,6 +110,53 @@ def boundary_extension(
     typer.echo(
         f"authorized {authorization.plan_name}: ${authorization.authorized_cost_usd}"
     )
+
+
+@app.command("boundary-live")
+def boundary_live(
+    run_id: str = typer.Option(...),
+    source_root: Path = typer.Option(
+        Path("frozen/v0/runs/tinker-calibration/boundary")
+    ),
+    smoke_acceptance: Path = typer.Option(...),
+    billing_reconciliation: Path = typer.Option(...),
+    extension1_confirmation: Path = typer.Option(...),
+    output_root: Path = typer.Option(Path("runs/boundary-extension")),
+    config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
+    authorized_cost_usd: str | None = typer.Option(None),
+    confirm_human_launch: bool = typer.Option(False),
+    project_id: str | None = typer.Option(None, envvar="TINKER_PROJECT_ID"),
+) -> None:
+    """Execute the authenticated fixed $120 boundary continuation."""
+
+    if not project_id or not project_id.strip():
+        raise typer.BadParameter(
+            "an explicit --project-id/TINKER_PROJECT_ID is required"
+        )
+    if not os.environ.get("TINKER_API_KEY", "").strip():
+        raise typer.BadParameter("TINKER_API_KEY is required")
+    try:
+        authorization, _ = boundary_launch.authorize_boundary(
+            authorized_cost_usd=authorized_cost_usd,
+            smoke_acceptance=smoke_acceptance,
+            billing_reconciliation=billing_reconciliation,
+            human_approval=confirm_human_launch,
+            project_id=project_id,
+        )
+        result = asyncio.run(
+            boundary_launch.run_remote_boundary(
+                authorization=authorization,
+                project_id=project_id,
+                run_id=run_id,
+                source_root=source_root,
+                output_root=output_root,
+                config_path=config,
+                extension1_confirmation_path=extension1_confirmation,
+            )
+        )
+    except RunnerGateError as error:
+        raise typer.BadParameter(str(error)) from error
+    typer.echo(f"boundary artifacts: {result}")
 
 
 @app.command("calibration")

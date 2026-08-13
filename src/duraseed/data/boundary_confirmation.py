@@ -25,7 +25,11 @@ from duraseed.data.manifests import (
 from duraseed.data.panel_capacity import FamilyCapacityAudit
 from duraseed.data.splits import TCESSplitBuilder, derive_tces_split_seed
 from duraseed.provenance import derive_namespaced_seed
-from duraseed.tasks.tces import TCESFamilyGenerator, TCESGeneratorConfig
+from duraseed.tasks.tces import (
+    GeneratedTCESInstance,
+    TCESFamilyGenerator,
+    TCESGeneratorConfig,
+)
 
 
 BOUNDARY_REFINEMENT_AUDIT_FAMILY_COUNT = 12
@@ -174,6 +178,8 @@ def build_confirmation_manifest(
     generator_config: TCESGeneratorConfig,
     broad_manifest: DatasetManifest,
     finalist_family_ids: Sequence[str],
+    *,
+    templates: Mapping[str, GeneratedTCESInstance] | None = None,
 ) -> DatasetManifest:
     """Generate four new deterministic numeric items for each finalist."""
 
@@ -194,7 +200,9 @@ def build_confirmation_manifest(
     cohort, global_start = broad_cohort(broad_manifest)
     if not finalists and cohort == BOUNDARY_BROAD_INITIAL_COHORT:
         raise ValueError("the initial confirmation requires finalist family IDs")
-    templates = (
+    if templates is not None and set(templates) != set(finalists):
+        raise BoundaryConfirmationError("template overrides differ from finalists")
+    templates = templates or (
         regenerate_family_templates(generator_config, broad_manifest, finalists)
         if finalists
         else {}
