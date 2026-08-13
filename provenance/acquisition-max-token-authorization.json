@@ -1,0 +1,7 @@
+{
+  "schema_version": "duraseed-acquisition-max-token-authorization-v1",
+  "status": "accepted",
+  "specification_sha256": "sha256:801a43db3bfcd6b025757601ef49321409a328893d46b68290a3cbd32a452c00",
+  "authorizer": "Ely",
+  "authorized_at_utc": "2026-08-13T11:48:51Z"
+}

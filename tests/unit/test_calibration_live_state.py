@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from duraseed.calibration_input_loader import load_calibration_source_objects
 from duraseed.calibration_sources import load_max_token_evidence
 from duraseed.calibration_state import (
     artifact,
@@ -180,14 +181,35 @@ def test_max_token_reference_requires_exact_frozen_counts_and_hashes(
         _max_token_reference(**{field: invalid})
 
 
-def test_max_token_loader_requires_ratified_authorization_bytes_before_io(
+def test_accepted_max_token_artifacts_authenticate_frozen_source() -> None:
+    root = Path(__file__).resolve().parents[2]
+    summary = (
+        root
+        / "frozen/v0/runs/tinker-calibration/tces-cap"
+        / MAX_TOKEN_REFERENCE_RUN_ID
+        / "tces_cap_summary.json"
+    )
+    value = load_max_token_evidence(
+        root / "provenance/acquisition-max-token-ratification.json",
+        root / "provenance/acquisition-max-token-authorization.json",
+        summary,
+    )
+    assert value.selected_max_tokens == 4096
+    assert value.reference.sample_count == 128
+    assert value.apply_to_methods == ALL_METHODS
+
+
+def test_panel_source_stays_closed_until_final_three_cohort_equivalence(
     tmp_path: Path,
 ) -> None:
-    spec = tmp_path / "spec.json"
-    auth = tmp_path / "auth.json"
-    evidence = tmp_path / "evidence.json"
-    with pytest.raises(RunnerGateError, match="no prospective"):
-        load_max_token_evidence(spec, auth, evidence)
+    with pytest.raises(RunnerGateError, match="RFC/equivalence is not accepted"):
+        load_calibration_source_objects(
+            config=None,  # type: ignore[arg-type]
+            boundary_directory=tmp_path,
+            source_directory=tmp_path,
+            panel_split_authorization_path=tmp_path / "authorization.json",
+            panel_split_equivalence_path=tmp_path / "equivalence.json",
+        )
 
 
 def test_max_token_loader_authenticates_one_source_then_common_apply_to(

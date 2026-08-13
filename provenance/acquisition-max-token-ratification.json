@@ -1,0 +1,24 @@
+{
+  "schema_version": "duraseed-acquisition-max-token-ratification-v1",
+  "status": "ratified_from_preexisting_m0_evidence",
+  "specified_at_utc": "2026-08-13T07:22:01Z",
+  "reference": {
+    "run_id": "tces-cap-reference-20260809T204337Z",
+    "reference_time_utc": "2026-08-09T20:43:37Z",
+    "source_split": "a_validation",
+    "seed": 5,
+    "training_step": 2,
+    "reference_max_tokens": 4096,
+    "sample_count": 128,
+    "summary_sha256": "sha256:d2505e16bec8dc4374e4a5917d80a71095018407ab5d95937c06dd7997e9ae76",
+    "generations_sha256": "sha256:a3854d5cfad49a75bcdb0e95b3e0cdaddbc2cf9685f54d88eb7d5cd2cc95ff70",
+    "rewards_sha256": "sha256:3e91a65617e97495d8646802fdab0da5f94c4bb5ca0922b39af13b3e84b285de"
+  },
+  "candidate_max_tokens": [256, 512, 1024, 2048, 4096],
+  "maximum_reference_censor_rate": 0.05,
+  "minimum_answer_terminations": 64,
+  "require_zero_censored_exact_successes": true,
+  "provisional_failure_inferred_from_max_tokens": 512,
+  "selected_max_tokens": 4096,
+  "common_apply_to_methods": ["G-U", "G-B", "R-G", "B-S", "B-O", "B-G"]
+}

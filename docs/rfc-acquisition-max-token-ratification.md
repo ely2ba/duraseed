@@ -1,6 +1,7 @@
 # RFC: common Stage-A max-token ratification
 
-Status: Proposed; not accepted. No paid launch is authorized by this document.
+Status: Accepted by Ely on 2026-08-13 UTC. This decision authorizes no paid
+launch by itself.
 
 ## Problem
 
@@ -29,7 +30,7 @@ its raw generations and rewards have SHA-256
 and `3e91a65617e97495d8646802fdab0da5f94c4bb5ca0922b39af13b3e84b285de`.
 The source is the selected step-2 M0, seed 5, with no method outcome observed.
 
-## Proposed decision
+## Accepted decision
 
 Ratify 4096 as the one common Stage-A completion cap for every method and for
 all acquisition-calibration sampling. This applies the pre-result M0 truncation
@@ -54,11 +55,16 @@ unbudgeted). The conservative common 4096 cap uses the strongest existing
 pre-outcome evidence without pretending it establishes cross-method
 equivalence.
 
-## Approval record
+## Approval record and scope
 
-Authorizer: `[pending]`
+Authorizer: Ely
 
-Accepted at (UTC): `[pending]`
+Accepted at: 2026-08-13T11:48:51Z
 
-Until both fields are filled and Status is Accepted, acquisition calibration
-must stop before Tinker access.
+The accepted bytes are recorded in
+`provenance/acquisition-max-token-ratification.json` and
+`provenance/acquisition-max-token-authorization.json`. This acceptance fixes
+only the common 4096-token Stage-A cap and its application to all six methods.
+It does not accept a panel source, teacher dose, learning rate, duration,
+common RL configuration, fallback, launch authorization, or any scientific
+result. Every independent calibration gate remains in force.

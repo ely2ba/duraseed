@@ -1,4 +1,4 @@
-"""Authenticate the historical M0 source for the proposed max-token ratification."""
+"""Authenticate the historical M0 source for the accepted max-token decision."""
 
 from __future__ import annotations
 

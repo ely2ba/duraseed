@@ -43,9 +43,13 @@ _BOUNDARY_FILES = (
 
 # Filled only after the completed-evidence three-cohort reduction is accepted.
 ACCEPTED_BOUNDARY_FREEZE_EQUIVALENCE_SHA256: str | None = None
-# Filled only after the prospective §10.1 rule and its producer are accepted.
-ACCEPTED_MAX_TOKEN_SPECIFICATION_SHA256: str | None = None
-ACCEPTED_MAX_TOKEN_AUTHORIZATION_SHA256: str | None = None
+# Accepted §10.1 decision and authorization, stored under provenance/.
+ACCEPTED_MAX_TOKEN_SPECIFICATION_SHA256: str | None = (
+    "sha256:801a43db3bfcd6b025757601ef49321409a328893d46b68290a3cbd32a452c00"
+)
+ACCEPTED_MAX_TOKEN_AUTHORIZATION_SHA256: str | None = (
+    "sha256:a89bab743f2a70f116b5b4bb1c5767836984550f127ebc3801ed0d69c1905c93"
+)
 
 
 @dataclass(frozen=True, slots=True)

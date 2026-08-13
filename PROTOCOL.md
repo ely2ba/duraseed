@@ -321,10 +321,10 @@ protocol-wide fallback rather than choosing one after outcomes.
 The `$25` engineering live smoke requires real, non-fabricated data, exact
 online/offline reward parity, a verified stop contract, full-state resume, and
 weights-only branching. Its 4096-token probe is a transport diagnostic, not a
-new acquisition-cap selector. Before multi-method runs, the proposed
+new acquisition-cap selector. The accepted
 [`common max-token ratification`](docs/rfc-acquisition-max-token-ratification.md)
-must be accepted or acquisition calibration remains blocked. A method-specific
-completion cap is forbidden.
+independently fixes 4096 as the shared Stage-A completion cap for all methods.
+A method-specific completion cap is forbidden.
 
 ## Stage-B probe calibration
 
