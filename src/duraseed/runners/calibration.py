@@ -136,16 +136,7 @@ def build_plan(config: PilotConfig) -> RunPlan:
     )
     return RunPlan(
         name="calibration",
-        actions=(
-            Action("teacher-dose", Decimal("150")),
-            Action(
-                "teacher-allocation",
-                Decimal("0"),
-                ("teacher-dose",),
-                remote=False,
-            ),
-            Action("stage-a", Decimal("150"), ("teacher-allocation",)),
-        ),
+        actions=(Action("acquisition-calibration", Decimal("300")),),
         launch_preconditions=(
             "panel_frozen",
             "live_smoke_passed",
@@ -154,15 +145,8 @@ def build_plan(config: PilotConfig) -> RunPlan:
         ),
         dry_run_command=f"{command} --dry-run",
         mock_command=("uv run pytest tests/unit/test_acquisition_calibration_flow.py"),
-        authorization_command="\n".join(
-            (
-                f"{command} --action teacher-dose --authorize "
-                f"--authorized-cost-usd 150 {gates}",
-                f"{command} --action teacher-allocation --authorize "
-                f"--authorized-cost-usd 0 --confirm-prerequisite-selected {gates}",
-                f"{command} --action stage-a --authorize --authorized-cost-usd 150 "
-                f"--confirm-prerequisite-selected {gates}",
-            )
+        authorization_command=(
+            f"{command} --authorize --authorized-cost-usd 300 {gates}"
         ),
     )
 
@@ -208,43 +192,22 @@ def reduce_calibration(
     return CalibrationResult(dose, allocation, decisions, duration)
 
 
-def authorize_action(
+def authorize_calibration(
     config: PilotConfig,
     *,
-    action: str,
     execute: bool,
     authorized_cost_usd: str | float | Decimal | None,
-    prerequisite_selected: bool,
     panel_frozen: bool,
     live_smoke_passed: bool,
     human_approval: bool,
     remaining_balance_verified: bool,
 ):
     plan = build_plan(config)
-    try:
-        selected = next(value for value in plan.actions if value.name == action)
-    except StopIteration as error:
-        raise RunnerGateError("unknown calibration action") from error
-    action_plan = RunPlan(
-        name=f"calibration:{action}",
-        actions=(selected,),
-        launch_preconditions=(
-            *(("prerequisite_selected",) if selected.requires else ()),
-            "panel_frozen",
-            "live_smoke_passed",
-            "human_approval",
-            "remaining_balance_verified",
-        ),
-        dry_run_command=plan.dry_run_command,
-        mock_command=plan.mock_command,
-        authorization_command=plan.authorization_command,
-    )
     return authorize_launch(
-        action_plan,
+        plan,
         execute=execute,
         authorized_cost_usd=authorized_cost_usd,
         preconditions={
-            "prerequisite_selected": prerequisite_selected,
             "panel_frozen": panel_frozen,
             "live_smoke_passed": live_smoke_passed,
             "human_approval": human_approval,
@@ -266,7 +229,7 @@ def preflight_text(config: PilotConfig) -> str:
             (
                 "Required freezes: teacher dose/allocation; Stage-A LR/duration; "
                 "one common RL configuration after the entropy-collapse gate; "
-                "one shared max-tokens value after the live-smoke truncation gate"
+                "one shared max-tokens value after the acquisition truncation gate"
             ),
             "MAPS frozen (not an action): shortest2_cap2 / 3e-4 / step 480",
         )
@@ -280,7 +243,7 @@ __all__: Sequence[str] = (
     "FROZEN_MAPS_UPDATES",
     "CalibrationInputs",
     "CalibrationResult",
-    "authorize_action",
+    "authorize_calibration",
     "apply_supervised_batch",
     "apply_group_batch",
     "build_plan",

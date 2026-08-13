@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from decimal import Decimal
 import math
 
 from duraseed.runtime.billing import PRICE_SNAPSHOT, PriceSnapshot, UsageQuantities
@@ -36,6 +37,10 @@ class TokenBudget:
 ZERO_TOKENS = TokenBudget(0, 0, 0)
 
 
+def _add_usd(left: float, right: float) -> float:
+    return float(Decimal(str(left)) + Decimal(str(right)))
+
+
 class TokenLedger:
     """Reserve worst-case usage before a call, then record its actual usage."""
 
@@ -59,11 +64,7 @@ class TokenLedger:
 
     @staticmethod
     def _usage(tokens: TokenBudget) -> UsageQuantities:
-        return UsageQuantities(
-            prefill_tokens=tokens.prefill,
-            sample_tokens=tokens.sample,
-            train_tokens=tokens.train,
-        )
+        return UsageQuantities(tokens.prefill, tokens.sample, tokens.train)
 
     @property
     def committed_cost_usd(self) -> float:
@@ -77,12 +78,7 @@ class TokenLedger:
     def has_pending_call(self) -> bool:
         return self._pending is not None
 
-    def reserve_call(
-        self,
-        tokens: TokenBudget,
-        *,
-        fixed_usd: float = 0.0,
-    ) -> None:
+    def reserve_call(self, tokens: TokenBudget, *, fixed_usd: float = 0.0) -> None:
         """Commit a worst-case reservation before beginning one paid operation."""
 
         if self._pending is not None:
@@ -104,7 +100,7 @@ class TokenLedger:
         if candidate_cost > self.authorized_usd:
             raise ReservationError("reservation exceeds the authorized dollar cap")
         self.committed = candidate
-        self.committed_fixed_usd += fixed_usd
+        self.committed_fixed_usd = _add_usd(self.committed_fixed_usd, fixed_usd)
         self._pending = (tokens, fixed_usd)
 
     def settle_call(self, actual: TokenBudget) -> None:
@@ -118,7 +114,7 @@ class TokenLedger:
         ):
             raise ReservationError("observed usage exceeds the call reservation")
         self.observed = self.observed.plus(actual)
-        self.observed_fixed_usd += fixed_usd
+        self.observed_fixed_usd = _add_usd(self.observed_fixed_usd, fixed_usd)
         self._pending = None
 
     def abort_call(self) -> None:
@@ -128,7 +124,7 @@ class TokenLedger:
             raise ReservationError("no paid call is awaiting settlement")
         reserved, fixed_usd = self._pending
         self.observed = self.observed.plus(reserved)
-        self.observed_fixed_usd += fixed_usd
+        self.observed_fixed_usd = _add_usd(self.observed_fixed_usd, fixed_usd)
         self._pending = None
 
 

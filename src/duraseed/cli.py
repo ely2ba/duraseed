@@ -9,9 +9,11 @@ from pathlib import Path
 import typer
 
 from duraseed.config import load_pilot_config
+from duraseed.calibration_billing import reconcile_calibration_billing
 from duraseed.runners import RunnerGateError, authorize_launch
 from duraseed.runners import boundary_extension as boundary
 from duraseed.runners import calibration
+from duraseed.runners import calibration_launch
 from duraseed.runners import boundary_launch
 from duraseed.runners import live_smoke as smoke
 
@@ -162,31 +164,25 @@ def boundary_live(
 @app.command("calibration")
 def calibration_runner(
     config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
-    action: str | None = typer.Option(None),
     dry_run: bool = typer.Option(False, "--dry-run"),
     execute: bool = typer.Option(False, "--authorize"),
     authorized_cost_usd: str | None = typer.Option(None),
-    confirm_prerequisite_selected: bool = typer.Option(False),
     confirm_panel_frozen: bool = typer.Option(False),
     confirm_live_smoke: bool = typer.Option(False),
     confirm_human_approval: bool = typer.Option(False),
     confirm_remaining_balance: bool = typer.Option(False),
 ) -> None:
-    """Print calibration gates or validate one evidence-dependent action."""
+    """Print calibration gates or authorize the one `$300` acquisition launch."""
 
     resolved = load_pilot_config(config)
     if dry_run and not execute:
         typer.echo(calibration.preflight_text(resolved))
         return
-    if action is None:
-        raise typer.BadParameter("--action is required with --authorize")
     try:
-        authorization = calibration.authorize_action(
+        authorization = calibration.authorize_calibration(
             resolved,
-            action=action,
             execute=execute,
             authorized_cost_usd=authorized_cost_usd,
-            prerequisite_selected=confirm_prerequisite_selected,
             panel_frozen=confirm_panel_frozen,
             live_smoke_passed=confirm_live_smoke,
             human_approval=confirm_human_approval,
@@ -197,6 +193,91 @@ def calibration_runner(
     typer.echo(
         f"authorized {authorization.plan_name}: ${authorization.authorized_cost_usd}"
     )
+
+
+@app.command("calibration-live")
+def calibration_live(
+    run_id: str = typer.Option(...),
+    boundary_directory: Path = typer.Option(...),
+    source_directory: Path = typer.Option(...),
+    smoke_acceptance: Path = typer.Option(...),
+    m0_selection: Path = typer.Option(...),
+    m0_ttl: Path = typer.Option(...),
+    panel_split_authorization: Path = typer.Option(...),
+    panel_split_equivalence: Path = typer.Option(...),
+    max_token_specification: Path = typer.Option(...),
+    max_token_authorization: Path = typer.Option(...),
+    max_token_evidence: Path = typer.Option(...),
+    billing_reconciliation: Path = typer.Option(...),
+    raw_billing: Path = typer.Option(...),
+    output_root: Path = typer.Option(Path("runs/acquisition-calibration")),
+    config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
+    authorized_cost_usd: str | None = typer.Option(None),
+    confirm_human_launch: bool = typer.Option(False),
+    restart_reconciliation: list[Path] = typer.Option([]),
+    restart_raw_billing: list[Path] = typer.Option([]),
+    project_id: str | None = typer.Option(None, envvar="TINKER_PROJECT_ID"),
+) -> None:
+    """Execute one authenticated `$300` acquisition-calibration launch."""
+
+    if not project_id or not project_id.strip():
+        raise typer.BadParameter(
+            "an explicit --project-id/TINKER_PROJECT_ID is required"
+        )
+    if not os.environ.get("TINKER_API_KEY", "").strip():
+        raise typer.BadParameter("TINKER_API_KEY is required")
+    if len(restart_reconciliation) != len(restart_raw_billing):
+        raise typer.BadParameter("restart reconciliation/raw billing counts differ")
+    try:
+        result = asyncio.run(
+            calibration_launch.run_remote_calibration(
+                run_id=run_id,
+                output_root=output_root,
+                config_path=config,
+                boundary_directory=boundary_directory,
+                source_directory=source_directory,
+                smoke_acceptance_path=smoke_acceptance,
+                m0_selection_path=m0_selection,
+                m0_ttl_path=m0_ttl,
+                panel_split_authorization_path=panel_split_authorization,
+                panel_split_equivalence_path=panel_split_equivalence,
+                max_token_specification_path=max_token_specification,
+                max_token_authorization_path=max_token_authorization,
+                max_token_evidence_path=max_token_evidence,
+                billing_reconciliation_path=billing_reconciliation,
+                raw_billing_path=raw_billing,
+                project_id=project_id,
+                authorized_cost_usd=authorized_cost_usd,
+                human_approval=confirm_human_launch,
+                restart_evidence=tuple(
+                    zip(
+                        restart_reconciliation,
+                        restart_raw_billing,
+                        strict=True,
+                    )
+                ),
+            )
+        )
+    except RunnerGateError as error:
+        raise typer.BadParameter(str(error)) from error
+    typer.echo(f"calibration artifacts: {result}")
+
+
+@app.command("calibration-reconcile")
+def calibration_reconcile(
+    run_directory: Path = typer.Option(...),
+    reconciliation: Path = typer.Option(...),
+    raw_billing: Path = typer.Option(...),
+) -> None:
+    """Finalize post-run billing only after lag-cleared raw usage is present."""
+
+    try:
+        result = reconcile_calibration_billing(
+            run_directory, reconciliation, raw_billing
+        )
+    except RunnerGateError as error:
+        raise typer.BadParameter(str(error)) from error
+    typer.echo(f"calibration billing reconciled: {result['aggregate_billed_usd']}")
 
 
 def main() -> None:

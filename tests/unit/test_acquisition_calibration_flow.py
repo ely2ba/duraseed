@@ -3,14 +3,21 @@ from __future__ import annotations
 from dataclasses import replace
 from decimal import Decimal
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
 from duraseed.config import load_pilot_config
+from duraseed.calibration_budget import (
+    CalibrationBudget,
+    calibration_allocation,
+    require_remaining_budget,
+)
 from duraseed.runners import RunnerGateError
+from duraseed.runtime import TokenBudget, TokenLedger
 from duraseed.runners.calibration import (
     CalibrationInputs,
-    authorize_action,
+    authorize_calibration,
     build_plan,
     reduce_calibration,
 )
@@ -116,42 +123,22 @@ def test_calibration_real_mock_flow_invokes_all_carried_decisions(monkeypatch) -
     )
     assert result.duration.selected_max_updates == 50
     plan = build_plan(CONFIG)
-    assert tuple(action.name for action in plan.actions) == (
-        "teacher-dose",
-        "teacher-allocation",
-        "stage-a",
-    )
+    assert tuple(action.name for action in plan.actions) == ("acquisition-calibration",)
     assert all("maps" not in action.name for action in plan.actions)
 
 
 def test_calibration_authorization_and_maps_freeze() -> None:
     ready = dict(
-        action="teacher-dose",
-        prerequisite_selected=False,
         panel_frozen=True,
         live_smoke_passed=True,
         human_approval=True,
         remaining_balance_verified=True,
     )
-    with pytest.raises(RunnerGateError, match=r"\$150"):
-        authorize_action(CONFIG, execute=True, authorized_cost_usd="151", **ready)
-    assert authorize_action(
-        CONFIG, execute=True, authorized_cost_usd="150", **ready
-    ).authorized_cost_usd == Decimal("150")
-    assert (
-        authorize_action(
-            CONFIG,
-            action="teacher-allocation",
-            execute=True,
-            authorized_cost_usd="0",
-            prerequisite_selected=True,
-            panel_frozen=True,
-            live_smoke_passed=True,
-            human_approval=True,
-            remaining_balance_verified=True,
-        ).authorized_cost_usd
-        == 0
-    )
+    with pytest.raises(RunnerGateError, match=r"\$300"):
+        authorize_calibration(CONFIG, execute=True, authorized_cost_usd="301", **ready)
+    assert authorize_calibration(
+        CONFIG, execute=True, authorized_cost_usd="300", **ready
+    ).authorized_cost_usd == Decimal("300")
     drifted = CONFIG.model_copy(
         update={
             "stage_b": CONFIG.stage_b.model_copy(update={"selected_max_updates": 640})
@@ -159,3 +146,57 @@ def test_calibration_authorization_and_maps_freeze() -> None:
     )
     with pytest.raises(RunnerGateError, match="step 480"):
         build_plan(drifted)
+
+
+def test_calibration_cap_is_allocated_from_complete_local_bounds(monkeypatch) -> None:
+    import duraseed.calibration_budget as budget
+
+    teacher = CalibrationBudget(TokenBudget(1, 2, 3), 1.0, 80.0)
+    stages = {
+        1: CalibrationBudget(TokenBudget(4, 5, 6), 2.0, 190.0),
+        2: CalibrationBudget(TokenBudget(7, 8, 9), 3.0, 220.0),
+    }
+    inputs = SimpleNamespace(
+        config=SimpleNamespace(
+            teacher_dose=SimpleNamespace(demonstrations_per_family=(1, 2))
+        )
+    )
+    monkeypatch.setattr(budget, "teacher_dose_budget", lambda _inputs: teacher)
+    monkeypatch.setattr(budget, "stage_a_budget", lambda _inputs, dose: stages[dose])
+
+    allocation = calibration_allocation(inputs)
+    expected_stage = 3.01
+    assert (allocation.teacher_cap_usd, allocation.stage_a_cap_usd) == (
+        80,
+        expected_stage,
+    )
+    assert allocation.stage_a_tokens == TokenBudget(7, 8, 9)
+    assert allocation.aggregate_cap_usd == 300
+    monkeypatch.setattr(
+        budget,
+        "teacher_dose_budget",
+        lambda _inputs: CalibrationBudget(TokenBudget(0, 0, 0), 0.8, 0.8),
+    )
+    fixed_cap = calibration_allocation(inputs).teacher_cap_usd
+    fixed = TokenLedger(TokenBudget(0, 0, 0), fixed_cap)
+    for _ in range(16):
+        fixed.reserve_call(TokenBudget(0, 0, 0), fixed_usd=0.05)
+        fixed.settle_call(TokenBudget(0, 0, 0))
+    assert fixed.committed_cost_usd <= fixed.authorized_usd
+    dynamic = TokenLedger(TokenBudget(0, 0, 0), 220)
+    assert (
+        require_remaining_budget(
+            CalibrationBudget(TokenBudget(0, 0, 0), 0, 200),
+            dynamic,
+            prior_billed_usd=0,
+        )["action_cap_usd"]
+        == 220
+    )
+
+    monkeypatch.setattr(
+        budget,
+        "teacher_dose_budget",
+        lambda _inputs: CalibrationBudget(TokenBudget(1, 2, 3), 1.0, 298.0),
+    )
+    with pytest.raises(RunnerGateError, match=r"aggregate \$300"):
+        calibration_allocation(inputs)

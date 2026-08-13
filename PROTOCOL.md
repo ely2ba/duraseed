@@ -302,16 +302,29 @@ bounded run. The final 50-update duration freezes only if the predeclared pure
 reducer passes both methods. Failure does not authorize step 100, a larger LR
 grid, or another recovery framework. Candidate samplers have seven-day TTL and
 no candidate full states are saved. The default command is a credential-free
-preflight; execution requires the exact separate `$150` authorization and a
-preflight token-plus-storage upper bound no greater than that amount. This is
-Phase-4 calibration, not Pilot 0.
+preflight; execution requires one exact `$300` acquisition-calibration
+authorization. Authenticated local sources deterministically allocate that
+envelope between teacher-dose and worst-case Stage-A bounds before any service
+is constructed. This is Phase-4 calibration, not Pilot 0.
 
 The same acquisition-calibration freeze also selects one common RL
 objective/configuration before any multi-method run. If the entropy-collapse
-gate requires a fallback, that fallback applies to every RL cell. The live
-smoke tests the provisional 256-token completion cap; if truncation breaches
-the frozen gate, one common max-token value is raised for every method. A
-method-specific completion cap is forbidden.
+gate requires a fallback, that fallback applies to every RL cell. The initial
+common configuration is the exact group-relative objective above. Its existing
+pre-outcome duration gate requires the final-ten mixed-group rate to be at
+least 0.20 and all optimization metrics to be finite. Token surprisal,
+completion diversity, valid-family diversity, success diversity, and loss
+health must also be present and structurally valid, but have no additional
+outcome-tuned threshold. Failure hard-stops for a separately approved
+protocol-wide fallback rather than choosing one after outcomes.
+
+The `$25` engineering live smoke requires real, non-fabricated data, exact
+online/offline reward parity, a verified stop contract, full-state resume, and
+weights-only branching. Its 4096-token probe is a transport diagnostic, not a
+new acquisition-cap selector. Before multi-method runs, the proposed
+[`common max-token ratification`](docs/rfc-acquisition-max-token-ratification.md)
+must be accepted or acquisition calibration remains blocked. A method-specific
+completion cap is forbidden.
 
 ## Stage-B probe calibration
 

@@ -30,7 +30,7 @@ class TeacherAllocationSources:
     a_monitor_manifest: DatasetManifest
     target_train_manifest: DatasetManifest
     gate_manifest: DatasetManifest
-    selected_dose: int
+    selected_dose: int | None
     optimizer_updates: int
 
     @property
@@ -69,6 +69,22 @@ def _require_tces_manifest(
 def validate_teacher_allocation_sources(
     source: TeacherAllocationSources,
 ) -> TeacherAllocationSources:
+    validate_teacher_allocation_base_sources(source)
+    if (
+        type(source.selected_dose) is not int
+        or source.selected_dose
+        not in source.config.teacher_dose.demonstrations_per_family
+        or source.optimizer_updates != source.config.teacher_dose.calibration_updates
+    ):
+        raise TeacherAllocationSourceError("teacher-dose recipe is off protocol")
+    return source
+
+
+def validate_teacher_allocation_base_sources(
+    source: TeacherAllocationSources,
+) -> TeacherAllocationSources:
+    """Authenticate dose-independent inputs before empirical dose selection."""
+
     if not isinstance(source, TeacherAllocationSources):
         raise TypeError("sources must be TeacherAllocationSources")
     if not isinstance(source.config, PilotConfig):
@@ -95,13 +111,8 @@ def validate_teacher_allocation_sources(
     ):
         _require_tces_manifest(manifest, split=split, root_seed=source.config.seed)
 
-    if (
-        type(source.selected_dose) is not int
-        or source.selected_dose
-        not in source.config.teacher_dose.demonstrations_per_family
-        or source.optimizer_updates != source.config.teacher_dose.calibration_updates
-    ):
-        raise TeacherAllocationSourceError("teacher-dose recipe is off protocol")
+    if source.optimizer_updates != source.config.teacher_dose.calibration_updates:
+        raise TeacherAllocationSourceError("teacher-dose update count is off protocol")
     panel_families = frozenset(panel_ids)
     train_counts = Counter(
         record.intended_family for record in source.target_train_manifest.records
@@ -147,5 +158,6 @@ __all__ = [
     "RANDOM_FAMILY_ROWS",
     "TeacherAllocationSourceError",
     "TeacherAllocationSources",
+    "validate_teacher_allocation_base_sources",
     "validate_teacher_allocation_sources",
 ]
