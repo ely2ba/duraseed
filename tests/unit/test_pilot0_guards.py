@@ -74,7 +74,7 @@ def test_source_authentication_binds_smoke_m0_billing_and_sealed_metadata(
     )
     monkeypatch.setattr(
         pilot0_sources,
-        "load_m0_evidence",
+        "_load_m0_evidence",
         lambda selection, ttl: (
             "tinker://m0/sampler_weights/a",
             "tinker://m0/weights/a",

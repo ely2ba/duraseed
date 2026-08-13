@@ -10,7 +10,6 @@ from typing import Any, Literal
 
 from pydantic import Field, field_validator
 
-from duraseed.calibration_sources import load_m0_evidence
 from duraseed.data.leakage import audit_leakage
 from duraseed.data.sealing import inspect_seal
 from duraseed.provenance import canonical_json_hash, sha256_bytes, validate_sha256_id
@@ -194,7 +193,7 @@ def load_pilot0_source_authentication(
     smoke_run, smoke_hash, smoke_finished = authenticate_live_smoke(
         completed_live_smoke_path, project_id=bundle.project_id
     )
-    sampler, state, step, selection_hash, ttl_hash = load_m0_evidence(
+    sampler, state, step, selection_hash, ttl_hash = _load_m0_evidence(
         m0_selection_path, m0_ttl_path
     )
     billing, billing_raw = _read_object(
@@ -284,6 +283,37 @@ def _read_object(path: Path, label: str) -> tuple[dict[str, Any], bytes]:
     if not isinstance(value, dict):
         raise RunnerGateError(f"Pilot-0 {label} is not an object")
     return value, raw
+
+
+def _load_m0_evidence(
+    selection_path: str | Path, ttl_path: str | Path
+) -> tuple[str, str, int, str, str]:
+    """Authenticate the selected step-2 M0 without importing calibration code."""
+
+    selection, selection_raw = _read_object(Path(selection_path), "M0 selection")
+    ttl, ttl_raw = _read_object(Path(ttl_path), "M0 TTL")
+    sampler = selection.get("selected_sampler_checkpoint_path")
+    state = selection.get("selected_state_checkpoint_path")
+    step = selection.get("selected_training_step")
+    expected = ((sampler, "sampler"), (state, "training"))
+    if (
+        selection.get("status") != "completed"
+        or selection.get("scientific_m0_selected") is not True
+        or selection.get("pilot_started") is not False
+        or type(sampler) is not str
+        or type(state) is not str
+        or step != 2
+        or sampler.split("/sampler_weights/", 1)[0] != state.split("/weights/", 1)[0]
+        or any(
+            not isinstance(ttl.get(path), dict)
+            or ttl[path].get("checkpoint_type") != kind
+            or ttl[path].get("expires_at") is not None
+            or ttl[path].get("ttl_seconds") is not None
+            for path, kind in expected
+        )
+    ):
+        raise RunnerGateError("Pilot-0 selected M0 is not the non-expiring step-2 pair")
+    return sampler, state, step, sha256_bytes(selection_raw), sha256_bytes(ttl_raw)
 
 
 def seed_source_ids(source: Any) -> Pilot0SeedSourceIDs:
