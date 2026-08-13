@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 from duraseed.config import PilotConfig
 from duraseed.data.manifests import (
@@ -28,12 +29,6 @@ from duraseed.runtime import (
     RENDERER_NAME,
     RuntimeBundle,
     TokenLedger,
-)
-from duraseed.training.acquisition_freeze import (
-    ALL_METHODS,
-    COMMON_RL_METHODS,
-    AcquisitionFreeze,
-    TeacherDoseRecipe,
 )
 from duraseed.training.stage_a_calibration import StageADurationDecisionStatus
 from duraseed.training.teacher_dose import TeacherDoseDecisionStatus
@@ -59,6 +54,8 @@ COMMON_RL_CONFIGURATION = (
     ("loss", "importance_sampling"),
     ("objective", "group_relative_exact_binary"),
 )
+ALL_METHODS = ("G-U", "G-B", "R-G", "B-S", "B-O", "B-G")
+COMMON_RL_METHODS = ("G-U", "G-B", "R-G", "B-G")
 
 
 @dataclass(frozen=True, slots=True)
@@ -83,8 +80,8 @@ class Pilot0Inputs:
     m0_sampler_path: str
     m0_state_path: str
     panel: FamilyPanelArtifact
-    acquisition: AcquisitionFreeze
-    teacher_recipe: TeacherDoseRecipe
+    acquisition: Any
+    teacher_recipe: Any
     acquisition_artifact_sha256: str
     teacher_recipe_artifact_sha256: str
     panel_artifact_sha256: str
