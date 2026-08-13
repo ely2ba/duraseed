@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pytest
+from click import unstyle
 from typer.testing import CliRunner
 
 from duraseed.cli import app
@@ -22,7 +23,7 @@ def test_cli_preflight_is_credential_free_and_execute_is_exactly_gated(
         ["live-smoke", "--execute", "--run-id", "live", "--authorized-cost-usd", "25"],
     )
     assert blocked.exit_code != 0
-    assert "project-id" in blocked.output
+    assert "project-id" in unstyle(blocked.output)
 
 
 def test_cli_execute_dispatches_real_runner_only_after_all_gates(
