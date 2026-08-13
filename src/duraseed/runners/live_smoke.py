@@ -31,6 +31,7 @@ from duraseed.runtime import (
     create_service,
     load_sdk,
     resolve_model,
+    set_and_verify_ttl,
 )
 
 
@@ -116,6 +117,39 @@ async def execute_smoke(
                 "advantages": diagnostics.centered_advantages[0],
             },
             observed_cost_usd=ledger.observed_cost_usd,
+        )
+        paths = (
+            resume.stage_a_state_path,
+            resume.resumed_roundtrip_state_path,
+            resume.stage_b_sampler_path,
+        )
+
+        def persist_ttl(rows):  # type: ignore[no-untyped-def]
+            evidence = [
+                {
+                    "path": row.path,
+                    "training_run_id": row.training_run_id,
+                    "expires_at": row.expires_at.isoformat(),
+                    "checkpoint_type": str(row.checkpoint_type),
+                    "ttl_seconds": row.ttl_seconds,
+                }
+                for row in rows
+            ]
+            write_json(run.directory / "checkpoint_ttl_audit.json", evidence)
+            return {"verified_paths": [row["path"] for row in evidence]}
+
+        await run.paid(
+            "checkpoint:ttl-audit",
+            ledger,
+            lambda: set_and_verify_ttl(
+                runtime,
+                runtime.service.create_rest_client(),
+                paths,
+                ttl_seconds=7 * 24 * 60 * 60,
+                ledger=ledger,
+            ),
+            reservation={"token_budget": 0, "path_count": len(paths)},
+            persist=persist_ttl,
         )
         write_json(
             run.directory / "sampling_diagnostics.json",

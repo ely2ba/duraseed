@@ -15,6 +15,7 @@ from duraseed.runners.live_smoke_data import build_inputs
 from duraseed.runtime import RuntimeBundle, SDKBundle, TokenBudget, TokenLedger
 from duraseed.tasks.maps import canonical_program, shortest_program
 from duraseed.tasks.tces import enumerate_task
+from tests.unit.live_smoke_fakes import RestClient
 
 
 class Input:
@@ -44,6 +45,11 @@ class Tinker:
             self.tokens = tokens
 
     Datum = Datum
+
+    class ParsedCheckpointTinkerPath:
+        @classmethod
+        def from_tinker_path(cls, path):  # type: ignore[no-untyped-def]
+            return SimpleNamespace(training_run_id="fake-run")
 
     class AdamParams:
         def __init__(self, **values) -> None:  # type: ignore[no-untyped-def]
@@ -176,6 +182,9 @@ class Service:
     async def create_training_client_from_state_async(self, path, **kwargs):  # type: ignore[no-untyped-def]
         self.next_model += 1
         return Model(self, f"branch-{self.next_model}")
+
+    def create_rest_client(self):  # type: ignore[no-untyped-def]
+        return RestClient(self)
 
 
 def _runtime(inputs, ledger: TokenLedger) -> tuple[RuntimeBundle, Service]:  # type: ignore[no-untyped-def]
