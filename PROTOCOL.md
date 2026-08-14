@@ -1,8 +1,8 @@
 # DuraSeed pre-calibration protocol
 
-Status: pre-pilot; calibration is in progress. An archived engineering-only
-Tinker smoke and raw M0 audit were executed on 9 August 2026; the v1 live
-smoke gate has not run. The raw audit
+Status: pre-pilot; the boundary extension is in progress. An archived
+engineering-only Tinker smoke and raw M0 audit were executed on 9 August 2026,
+and the v1 live smoke gate passed on 13 August 2026. The raw audit
 rejected the zero-update candidate on the declared format gates, so conditional
 task-agnostic format training was required. A common trainable M0 has now been
 selected. The renderer and common TCES completion cap are now fixed at
