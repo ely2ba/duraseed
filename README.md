@@ -8,7 +8,7 @@ Most of the groundwork is now finished. The project has been rebuilt in a clean 
 
 The first live engineering smoke has now passed on real remote execution. It exercised training and sampling end to end, reproduced verifier rewards exactly online and offline, confirmed the stop contract, and successfully tested both full-state resume and weights-only branching. This remains an engineering result, but it clears an important practical risk before the longer experiments begin.
 
-The project is now moving through the boundary extension. Cohort 2 already has broad and refinement evidence; its confirmation, the third cohort, and the final three-cohort panel freeze are the remaining pieces before the target and sentinel panels are fixed. Acquisition calibration then chooses the shared teacher dose and data allocation, Stage-A learning rates and duration, one common RL setup, and one common completion limit.
+The boundary extension is now close to completion. Cohort 2 has finished broad sampling, refinement, and confirmation. Cohort 3 has finished broad sampling and refinement and is paused before confirmation; after that, the final three-cohort reduction will freeze the target and sentinel panels. Acquisition calibration then chooses the shared teacher dose and data allocation, Stage-A learning rates and duration, one common RL setup, and one common completion limit.
 
 Only once those gates are complete and frozen will Pilot 0 begin. Pilot 0 has not started, no sealed test data has been opened, and no scientific result is claimed yet.
 
