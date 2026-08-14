@@ -11,6 +11,10 @@ from pathlib import Path
 import subprocess
 from typing import Any
 
+from duraseed.boundary_live_fresh_resume import (
+    is_fresh_resume_trace,
+    validate_fresh_resume,
+)
 from duraseed.boundary_live_sources import load_boundary_live_source
 from duraseed.config import load_pilot_config
 from duraseed.git_guard import require_clean_worktree
@@ -25,6 +29,7 @@ from duraseed.runners import (
 from duraseed.runners.boundary_extension import build_plan
 from duraseed.runners.boundary_billing import authenticate_post_smoke_billing
 from duraseed.runners.boundary_live import execute_boundary_live
+from duraseed.runners.boundary_refine_resume import execute_boundary_refine_resume
 from duraseed.runtime import (
     MODEL_ID,
     RENDERER_NAME,
@@ -235,6 +240,13 @@ async def run_remote_boundary(
     source = load_boundary_live_source(config, source_root)
     if project_id != source.contract.project_id:
         raise RunnerGateError("project ID differs from the authenticated M0 source")
+    fresh_extension2 = (
+        validate_fresh_resume(
+            Path(output_root) / run_id, Path(refine_retry_trace).resolve()
+        )
+        if is_fresh_resume_trace(refine_retry_trace)
+        else None
+    )
     sdk = load_sdk()
     tokenizer_utils = importlib.import_module("tinker_cookbook.tokenizer_utils")
     tokenizer = tokenizer_utils.get_tokenizer(MODEL_ID)
@@ -251,15 +263,21 @@ async def run_remote_boundary(
         ledger=bootstrap,
         checkpoint_path=source.contract.sampler_checkpoint_path,
     )
-    await execute_boundary_live(
-        runtime,
-        sampler,
-        source=source,
-        config=config,
-        output_root=output_root,
-        run_id=run_id,
-        git_commit=_git_commit(),
-        extension1_confirmation_path=extension1_confirmation_path,
-        refine_retry_trace=refine_retry_trace,
+    execute = (
+        execute_boundary_refine_resume
+        if fresh_extension2 is not None
+        else execute_boundary_live
     )
+    arguments = {
+        "source": source,
+        "config": config,
+        "output_root": output_root,
+        "run_id": run_id,
+        "git_commit": _git_commit(),
+        "extension1_confirmation_path": extension1_confirmation_path,
+        "refine_retry_trace": refine_retry_trace,
+    }
+    if fresh_extension2 is not None:
+        arguments["extension2"] = fresh_extension2
+    await execute(runtime, sampler, **arguments)
     return Path(output_root) / run_id

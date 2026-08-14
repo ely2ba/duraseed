@@ -9,6 +9,11 @@ from pathlib import Path
 from typing import Any
 
 from duraseed.boundary_live_artifacts import BoundaryLiveArtifacts
+from duraseed.boundary_live_fresh_resume import (
+    BoundaryFreshResumeArtifacts,
+    FRESH_RESUME_MARKER,
+    is_fresh_resume_trace,
+)
 from duraseed.boundary_live_retry import BoundaryRetryArtifacts, RETRY_MARKER
 from duraseed.data.boundary_protocol import BOUNDARY_ENGINEERING_SEED
 from duraseed.data.manifests import DatasetManifest
@@ -66,11 +71,15 @@ def open_boundary_artifacts(
         deviations=["boundary calibration only; Pilot 0 not started"],
     )
     directory = Path(output_root) / run_id
-    artifact_type = (
-        BoundaryRetryArtifacts
-        if refine_retry_trace is not None or (directory / RETRY_MARKER).exists()
-        else BoundaryLiveArtifacts
-    )
+    if (
+        is_fresh_resume_trace(refine_retry_trace)
+        or (directory / FRESH_RESUME_MARKER).exists()
+    ):
+        artifact_type = BoundaryFreshResumeArtifacts
+    elif refine_retry_trace is not None or (directory / RETRY_MARKER).exists():
+        artifact_type = BoundaryRetryArtifacts
+    else:
+        artifact_type = BoundaryLiveArtifacts
     artifact_kwargs = (
         {
             "trace_path": (
@@ -79,7 +88,7 @@ def open_boundary_artifacts(
                 else None
             )
         }
-        if artifact_type is BoundaryRetryArtifacts
+        if artifact_type in (BoundaryRetryArtifacts, BoundaryFreshResumeArtifacts)
         else {}
     )
     artifacts = artifact_type(
