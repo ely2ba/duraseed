@@ -432,15 +432,16 @@ future auxiliary exact-task control are secondary reports.
 One greedy pass on selected final checkpoints is a post-selection robustness
 sensitivity and never participates in selection.
 
-Checkpoint matching uses validation only. The cheap monitor identifies the
-first apparent crossing; the predecessor, crossing checkpoint, and successor
-are re-evaluated on all 512 validation items with fresh independent seeds and
-16 samples/item. All candidates extend to 32 samples/item if panel-mean
-sampling SE exceeds 0.0075. Select the real in-band checkpoint closest to the
-target, tie to the earlier checkpoint. Never smooth or interpolate a checkpoint,
-and mark a method unavailable when it does not reach the band. Final tests are
-never used for calibration, panel selection, checkpoint selection, or method
-choice.
+Checkpoint matching uses validation only. After fixed-budget Pilot 0, the common
+target freezes as the minimum of the four seed-by-method step-50 targeted-panel
+posterior means, before candidate draws. The cheap monitor identifies the first
+apparent crossing; the predecessor, crossing checkpoint, and successor are
+re-evaluated on all 512 validation items with fresh independent seeds and 16
+samples/item. All candidates extend to 32 samples/item if panel-mean sampling SE
+exceeds 0.0075. Select the real in-band checkpoint closest to the target, tie to
+the earlier checkpoint. Never smooth or interpolate a checkpoint, and mark a
+method unavailable when it does not reach the band. Final tests are never used
+for calibration, panel selection, checkpoint selection, or method choice.
 
 ## Comparability
 

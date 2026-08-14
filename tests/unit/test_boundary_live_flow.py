@@ -288,7 +288,9 @@ def test_live_orchestrator_runs_fixed_actions_and_leaves_freeze_closed(
 
     monkeypatch.setattr(live, "build_extension2_manifest", lambda _generator: manifest)
     monkeypatch.setattr(live, "audit_new_broad_cohort", lambda *_args: {})
-    monkeypatch.setattr(live, "capacity_cleared_confirmation", lambda *_args: manifest)
+    monkeypatch.setattr(
+        live, "capacity_cleared_confirmation", lambda *_args: (manifest, ())
+    )
     monkeypatch.setattr(live, "collect_groups", fake_collect)
     monkeypatch.setattr(live, "summarize", lambda *_args, **_kwargs: (summary,))
     monkeypatch.setattr(

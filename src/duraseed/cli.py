@@ -14,6 +14,7 @@ from duraseed.runners import RunnerGateError, authorize_launch
 from duraseed.runners import boundary_extension as boundary
 from duraseed.runners import calibration
 from duraseed.runners import calibration_launch
+from duraseed.runners import boundary_confirm_launch
 from duraseed.runners import boundary_launch
 from duraseed.runners import live_smoke as smoke
 
@@ -156,6 +157,41 @@ def boundary_live(
                 config_path=config,
                 extension1_confirmation_path=extension1_confirmation,
                 refine_retry_trace=refine_retry_trace,
+            )
+        )
+    except RunnerGateError as error:
+        raise typer.BadParameter(str(error)) from error
+    typer.echo(f"boundary artifacts: {result}")
+
+
+@app.command("boundary-confirm-resume")
+def boundary_confirm_resume(
+    run_id: str = typer.Option(...),
+    source_root: Path = typer.Option(
+        Path("frozen/v0/runs/tinker-calibration/boundary")
+    ),
+    output_root: Path = typer.Option(Path("runs/boundary-extension")),
+    config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
+    confirm_human_launch: bool = typer.Option(False),
+    project_id: str | None = typer.Option(None, envvar="TINKER_PROJECT_ID"),
+) -> None:
+    """Continue the authenticated paused run at Extension-2 confirmation only."""
+
+    if not project_id or not project_id.strip():
+        raise typer.BadParameter(
+            "an explicit --project-id/TINKER_PROJECT_ID is required"
+        )
+    if not os.environ.get("TINKER_API_KEY", "").strip():
+        raise typer.BadParameter("TINKER_API_KEY is required")
+    try:
+        result = asyncio.run(
+            boundary_confirm_launch.run_remote_boundary_confirmation_resume(
+                project_id=project_id,
+                run_id=run_id,
+                source_root=source_root,
+                output_root=output_root,
+                config_path=config,
+                human_approval=confirm_human_launch,
             )
         )
     except RunnerGateError as error:

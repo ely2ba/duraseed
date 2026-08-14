@@ -32,6 +32,8 @@ async def _stage_zero(
     method: str,
     output: Path,
     preflight_sha256: str,
+    a_validation_seed_namespace: str,
+    a_validation_samples_per_item: int | None,
 ) -> dict:
     parent = {
         "sampler_path": stage_a["selected_sampler_path"],
@@ -62,6 +64,8 @@ async def _stage_zero(
         sampler_path=stage_a["selected_sampler_path"],
         journal=journal,
         output=output,
+        a_validation_seed_namespace=a_validation_seed_namespace,
+        a_validation_samples_per_item=a_validation_samples_per_item,
     )
     return write_segment(
         output,
@@ -87,6 +91,8 @@ async def _train_segment(
     datums: list,
     output: Path,
     preflight_sha256: str,
+    a_validation_seed_namespace: str,
+    a_validation_samples_per_item: int | None,
 ) -> dict:
     expected = stage_b_segment_coordinates(
         inputs,
@@ -156,6 +162,8 @@ async def _train_segment(
         sampler_path=pair.sampler_path,
         journal=journal,
         output=output,
+        a_validation_seed_namespace=a_validation_seed_namespace,
+        a_validation_samples_per_item=a_validation_samples_per_item,
     )
     return write_segment(
         output,
@@ -177,6 +185,8 @@ async def run_stage_b(
     method: str,
     output: Path,
     preflight_sha256: str,
+    a_validation_seed_namespace: str = "pilot0.a_validation",
+    a_validation_samples_per_item: int | None = None,
 ) -> dict:
     datums = [sft_datum(inputs.runtime, row) for row in stage_b_sources(source)]
     segments = {
@@ -187,6 +197,8 @@ async def run_stage_b(
             method=method,
             output=output / "step-0",
             preflight_sha256=preflight_sha256,
+            a_validation_seed_namespace=a_validation_seed_namespace,
+            a_validation_samples_per_item=a_validation_samples_per_item,
         )
     }
     previous = segments["0"]
@@ -202,6 +214,8 @@ async def run_stage_b(
             datums=datums,
             output=output / f"steps-{start}-{stop}",
             preflight_sha256=preflight_sha256,
+            a_validation_seed_namespace=a_validation_seed_namespace,
+            a_validation_samples_per_item=a_validation_samples_per_item,
         )
         segments[str(stop)] = segment
         previous = segment

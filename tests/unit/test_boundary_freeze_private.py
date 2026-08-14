@@ -138,14 +138,26 @@ def _patch_primitives(monkeypatch, *, fail_combined=(), fail_selected=False):
         regenerated.append((broad, tuple(family_ids)))
         return {family_id: family_id for family_id in family_ids}
 
-    def audit(template, _config, *, root_seed, requirements=(), **_kwargs):
+    def audit_many(
+        templates,
+        family_ids,
+        _config,
+        *,
+        root_seed,
+        requirements=(),
+        **_kwargs,
+    ):
         selected = "a_test_single" in dict(requirements)
-        calls.append((template, root_seed, selected))
-        passed = template not in fail_combined and not (selected and fail_selected)
-        return FamilyCapacityAudit(template, (), 200 + len(calls), passed)
+        audits = []
+        for family_id in family_ids:
+            template = templates[family_id]
+            calls.append((template, root_seed, selected))
+            passed = template not in fail_combined and not (selected and fail_selected)
+            audits.append(FamilyCapacityAudit(template, (), 200 + len(calls), passed))
+        return tuple(audits)
 
     monkeypatch.setattr(freeze, "regenerate_family_templates", regenerate)
-    monkeypatch.setattr(freeze, "audit_family_split_capacity", audit)
+    monkeypatch.setattr(freeze, "audit_family_split_capacities", audit_many)
     monkeypatch.setattr(
         freeze,
         "build_family_panel_candidate",
@@ -331,8 +343,10 @@ def test_private_reducer_rejects_corrupt_capacity_audit_identity(monkeypatch) ->
     _patch_primitives(monkeypatch)
     monkeypatch.setattr(
         freeze,
-        "audit_family_split_capacity",
-        lambda *_args, **_kwargs: FamilyCapacityAudit("wrong-family", (), 200, True),
+        "audit_family_split_capacities",
+        lambda _templates, family_ids, *_args, **_kwargs: tuple(
+            FamilyCapacityAudit("wrong-family", (), 200, True) for _ in family_ids
+        ),
     )
     counts = {
         summary.intended_family_id: {}

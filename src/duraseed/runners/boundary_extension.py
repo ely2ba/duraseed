@@ -7,6 +7,7 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
+from duraseed.boundary_capacity import audit_family_split_capacities
 from duraseed.data.boundary import (
     BoundaryFamilySummary,
     assess_refinement_finalist_gate,
@@ -33,10 +34,7 @@ from duraseed.data.boundary_protocol import (
     build_broad_manifest,
 )
 from duraseed.data.manifests import DatasetManifest
-from duraseed.data.panel_capacity import (
-    FamilyCapacityAudit,
-    audit_family_split_capacity,
-)
+from duraseed.data.panel_capacity import FamilyCapacityAudit
 from duraseed.runners import (
     Action,
     RunPlan,
@@ -64,6 +62,7 @@ class BoundaryBlockInputs:
     confirmation_summaries: tuple[BoundaryFamilySummary, ...]
     prior_broad_manifests: tuple[DatasetManifest, ...]
     prior_confirmation_manifests: tuple[DatasetManifest, ...]
+    capacity_audits: tuple[FamilyCapacityAudit, ...] | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -147,9 +146,7 @@ async def sample_and_summarize(
     )
 
 
-def build_extension2_manifest(
-    generator_config: TCESGeneratorConfig,
-) -> DatasetManifest:
+def build_extension2_manifest(generator_config: TCESGeneratorConfig) -> DatasetManifest:
     return build_broad_manifest(
         generator_config, cohort=BOUNDARY_BROAD_EXTENSION_2_COHORT
     )
@@ -220,6 +217,9 @@ def reduce_block(
             if assess_refinement_finalist_gate(summaries[family_id]).eligible
         )
     )
+    carried = inputs.capacity_audits
+    if carried is not None and tuple(row.family_id for row in carried) != finalists:
+        raise RunnerGateError("carried capacity audits differ from Stage-2 finalists")
     provisional = build_confirmation_manifest(
         generator_config, inputs.broad_manifest, finalists
     )
@@ -229,17 +229,16 @@ def reduce_block(
         else {}
     )
     forbidden = (*inputs.broad_manifest.records, *provisional.records)
-    capacity_audits = tuple(
-        audit_family_split_capacity(
-            templates[family_id],
+    if carried is None:
+        carried = audit_family_split_capacities(
+            templates,
+            finalists,
             generator_config,
             root_seed=BOUNDARY_ENGINEERING_SEED,
             forbidden_records=forbidden,
             protected_family_ids=finalists,
         )
-        for family_id in finalists
-    )
-    cleared = tuple(row.family_id for row in capacity_audits if row.passed)
+    cleared = tuple(row.family_id for row in carried if row.passed)
     confirmation = build_confirmation_manifest(
         generator_config, inputs.broad_manifest, cleared
     )
@@ -247,10 +246,10 @@ def reduce_block(
         inputs.refinement_summaries,
         inputs.confirmation_summaries,
         refined,
-        capacity_audits,
+        carried,
     )
     return BoundaryBlockResult(
-        inputs.cohort_id, refined, confirmation, evidence, capacity_audits
+        inputs.cohort_id, refined, confirmation, evidence, carried
     )
 
 

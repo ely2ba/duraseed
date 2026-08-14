@@ -155,6 +155,32 @@ def test_fake_runtime_exercises_sampling_join_and_completed_resume(
     with pytest.raises(RunnerGateError, match="row mismatch"):
         asyncio.run(evaluate_manifest(inputs, source, **changed))
 
+    extension = asyncio.run(
+        evaluate_manifest(
+            inputs,
+            source,
+            **{
+                **arguments,
+                "output": tmp_path / "extension",
+                "sample_index_start": 2,
+            },
+        )
+    )
+    rows = [
+        json.loads(row)
+        for row in (tmp_path / "extension" / "generations.jsonl")
+        .read_text()
+        .splitlines()
+    ]
+    assert [row["sample_index"] for row in rows] == [2, 3]
+    assert {row["sampling_seed"] for row in rows}.isdisjoint(
+        json.loads(row)["sampling_seed"]
+        for row in (tmp_path / "evaluation" / "generations.jsonl")
+        .read_text()
+        .splitlines()
+    )
+    assert extension["samples_per_item"] == 2
+
 
 def _counts(target: tuple[int, int], sentinel: tuple[int, int]) -> dict:
     return {

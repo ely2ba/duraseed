@@ -7,6 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 
+from duraseed.boundary_capacity import audit_family_split_capacities
 from duraseed.config import PilotConfig
 from duraseed.data.boundary import (
     BoundaryFamilySummary,
@@ -25,7 +26,7 @@ from duraseed.data.boundary_protocol import (
 )
 from duraseed.data.boundary_sources import BoundarySourceContract
 from duraseed.data.manifests import DatasetManifest
-from duraseed.data.panel_capacity import audit_family_split_capacity
+from duraseed.data.panel_capacity import FamilyCapacityAudit
 from duraseed.run_records import GenerationRecord, RewardRecord, RunRecord, RunStatus
 from duraseed.runners import RunnerGateError, authenticate_extension1_source
 from duraseed.tasks.tces import (
@@ -90,7 +91,7 @@ def capacity_cleared_confirmation(
     generator: TCESGeneratorConfig,
     broad: DatasetManifest,
     refinement: tuple[BoundaryFamilySummary, ...],
-) -> DatasetManifest:
+) -> tuple[DatasetManifest, tuple[FamilyCapacityAudit, ...]]:
     """Apply the existing Stage-2 and split-capacity gates before paid Stage 3."""
 
     finalists = tuple(
@@ -101,28 +102,29 @@ def capacity_cleared_confirmation(
         )
     )
     if not finalists:
-        return build_confirmation_manifest(generator, broad, ())
+        return build_confirmation_manifest(generator, broad, ()), ()
     templates = reconstruct_family_templates(broad, finalists)
     provisional = build_confirmation_manifest(
         generator, broad, finalists, templates=templates
     )
     forbidden = (*broad.records, *provisional.records)
-    cleared = tuple(
-        family_id
-        for family_id in finalists
-        if audit_family_split_capacity(
-            templates[family_id],
-            generator,
-            root_seed=BOUNDARY_ENGINEERING_SEED,
-            forbidden_records=forbidden,
-            protected_family_ids=finalists,
-        ).passed
-    )
-    return build_confirmation_manifest(
+    audits = audit_family_split_capacities(
+        templates,
+        finalists,
         generator,
-        broad,
-        cleared,
-        templates={family_id: templates[family_id] for family_id in cleared},
+        root_seed=BOUNDARY_ENGINEERING_SEED,
+        forbidden_records=forbidden,
+        protected_family_ids=finalists,
+    )
+    cleared = tuple(row.family_id for row in audits if row.passed)
+    return (
+        build_confirmation_manifest(
+            generator,
+            broad,
+            cleared,
+            templates={family_id: templates[family_id] for family_id in cleared},
+        ),
+        audits,
     )
 
 

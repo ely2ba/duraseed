@@ -190,10 +190,10 @@ def test_boundary_real_mock_flow_runs_both_blocks_and_fails_freeze_closed(
     )
     monkeypatch.setattr(
         boundary_runner,
-        "audit_family_split_capacity",
-        lambda template, *_args, **_kwargs: (
-            order.append("capacity")
-            or FamilyCapacityAudit(template.intended_family, (), 1, True)
+        "audit_family_split_capacities",
+        lambda _templates, family_ids, *_args, **_kwargs: tuple(
+            order.append("capacity") or FamilyCapacityAudit(family_id, (), 1, True)
+            for family_id in family_ids
         ),
     )
     result = run_boundary_mock(generator, first, second)
@@ -232,6 +232,37 @@ def test_boundary_reducer_rejects_incomplete_family_coverage(boundary_inputs) ->
     incomplete.pop(next(key for key, value in incomplete.items() if value == 0))
     with pytest.raises(RunnerGateError, match="family-success coverage"):
         reduce_block(generator, replace(first, family_successes=incomplete))
+
+
+def test_boundary_reducer_rejects_corrupt_carried_capacity_order(
+    boundary_inputs,
+) -> None:
+    from duraseed.data.panel_capacity import FamilyCapacityAudit
+
+    generator, first, _ = boundary_inputs
+    corrupt = (FamilyCapacityAudit("wrong-family", (), 1, True),)
+    with pytest.raises(RunnerGateError, match="carried capacity audits"):
+        reduce_block(generator, replace(first, capacity_audits=corrupt))
+
+
+def test_boundary_reducer_reuses_valid_carried_capacity_audits(
+    boundary_inputs, monkeypatch
+) -> None:
+    import duraseed.runners.boundary_extension as boundary_runner
+    from duraseed.data.panel_capacity import FamilyCapacityAudit
+
+    generator, first, _ = boundary_inputs
+    finalist = first.confirmation_summaries[0].intended_family_id
+    carried = (FamilyCapacityAudit(finalist, (), 1, True),)
+    monkeypatch.setattr(
+        boundary_runner,
+        "audit_family_split_capacities",
+        lambda *_args, **_kwargs: pytest.fail("capacity was recomputed"),
+    )
+
+    result = reduce_block(generator, replace(first, capacity_audits=carried))
+
+    assert result.capacity_audits == carried
 
 
 def test_completed_extension1_handoff_authenticates() -> None:

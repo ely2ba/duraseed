@@ -6,6 +6,7 @@ from collections.abc import Mapping, Sequence
 from dataclasses import asdict
 from typing import Any
 
+from duraseed.boundary_capacity import audit_family_split_capacities
 from duraseed.data.boundary import (
     BoundaryFamilySummary,
     assess_confirmation_observation_gate,
@@ -21,7 +22,6 @@ from duraseed.data.panel_capacity import (
     PANEL_SELECTED_TEST_SINGLE_MINIMUM,
     PANEL_SPLIT_MINIMUMS,
     FamilyCapacityAudit,
-    audit_family_split_capacity,
 )
 from duraseed.data.panel_matching import (
     FamilyPanelCandidate,
@@ -174,15 +174,13 @@ def _reduce_three_cohort_panels(
         raise BoundaryFreezeReductionError("cohort finalists are ambiguous")
     config = TCESGeneratorConfig(**dict(settings.generator_kwargs))
     templates = regenerate_family_templates(config, broad, finalist_ids)
-    audits = tuple(
-        audit_family_split_capacity(
-            templates[family_id],
-            config,
-            root_seed=settings.capacity_root_seed,
-            forbidden_records=source_records,
-            protected_family_ids=finalist_ids,
-        )
-        for family_id in finalist_ids
+    audits = audit_family_split_capacities(
+        templates,
+        finalist_ids,
+        config,
+        root_seed=settings.capacity_root_seed,
+        forbidden_records=source_records,
+        protected_family_ids=finalist_ids,
     )
     if tuple(row.family_id for row in audits) != finalist_ids:
         raise BoundaryFreezeReductionError("combined capacity audit order differs")
@@ -258,19 +256,17 @@ def _reduce_three_cohort_panels(
         }
         selected = match.selected_family_ids
         selected_templates = regenerate_family_templates(config, broad, selected)
-        selected_audits = tuple(
-            audit_family_split_capacity(
-                selected_templates[family_id],
-                config,
-                root_seed=settings.capacity_root_seed,
-                requirements={
-                    **dict(PANEL_SPLIT_MINIMUMS),
-                    "a_test_single": PANEL_SELECTED_TEST_SINGLE_MINIMUM,
-                },
-                forbidden_records=source_records,
-                protected_family_ids=selected,
-            )
-            for family_id in selected
+        selected_audits = audit_family_split_capacities(
+            selected_templates,
+            selected,
+            config,
+            root_seed=settings.capacity_root_seed,
+            requirements={
+                **dict(PANEL_SPLIT_MINIMUMS),
+                "a_test_single": PANEL_SELECTED_TEST_SINGLE_MINIMUM,
+            },
+            forbidden_records=source_records,
+            protected_family_ids=selected,
         )
         if tuple(row.family_id for row in selected_audits) != selected:
             raise BoundaryFreezeReductionError("selected capacity audit order differs")

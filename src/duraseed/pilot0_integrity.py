@@ -63,7 +63,7 @@ def stage_b_segment_coordinates(
     stop: int,
     learning_rate: float,
 ) -> dict[str, Any]:
-    return segment_coordinates(
+    values = segment_coordinates(
         inputs,
         source,
         preflight_sha256,
@@ -77,6 +77,10 @@ def stage_b_segment_coordinates(
         parent_state_path=parent["state_path"],
         learning_rate=learning_rate,
     )
+    for name in ("matched_target_sha256", "matched_selection_sha256"):
+        if name in stage_a:
+            values[name] = stage_a[name]
+    return values
 
 
 def _validate_join(directory: Path, expected: dict[str, Any]) -> None:

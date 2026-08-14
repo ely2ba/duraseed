@@ -72,17 +72,17 @@ async def execute_boundary_live(
     ledgers: dict[str, TokenLedger] = {}
     action = "extension1-confirm"
     try:
-        extension1_confirmation = (
-            load_frozen_extension1_confirmation(
-                extension1_confirmation_path, source.extension1_broad_manifest
-            )
-            if extension1_confirmation_path is not None
-            else capacity_cleared_confirmation(
+        if extension1_confirmation_path is None:
+            extension1_confirmation, extension1_audits = capacity_cleared_confirmation(
                 generator,
                 source.extension1_broad_manifest,
                 source.extension1_refinement_summaries,
             )
-        )
+        else:
+            extension1_confirmation = load_frozen_extension1_confirmation(
+                extension1_confirmation_path, source.extension1_broad_manifest
+            )
+            extension1_audits = None
         audit_new_broad_cohort(
             extension2,
             (source.initial_broad_manifest, source.extension1_broad_manifest),
@@ -146,6 +146,7 @@ async def execute_boundary_live(
                 e1_summaries,
                 (source.initial_broad_manifest,),
                 (source.initial_confirmation_manifest,),
+                extension1_audits,
             ),
         )
         if extension1.confirmation_manifest != extension1_confirmation:
@@ -222,7 +223,7 @@ async def execute_boundary_live(
         refine_summaries = tuple(
             row for row in refine_summaries if row.intended_family_id in refined
         )
-        confirmation = capacity_cleared_confirmation(
+        confirmation, extension2_audits = capacity_cleared_confirmation(
             generator, extension2, refine_summaries
         )
         artifacts.write_manifest("extension2_confirmation_manifest.json", confirmation)
@@ -279,6 +280,7 @@ async def execute_boundary_live(
                     source.initial_confirmation_manifest,
                     extension1.confirmation_manifest,
                 ),
+                extension2_audits,
             ),
         )
         result = BoundaryExtensionResult(

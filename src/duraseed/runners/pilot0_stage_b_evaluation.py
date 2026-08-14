@@ -25,6 +25,8 @@ async def evaluate_stage_b_step(
     sampler_path: str,
     journal: RemoteJournal,
     output: Path,
+    a_validation_seed_namespace: str = "pilot0.a_validation",
+    a_validation_samples_per_item: int | None = None,
 ) -> dict:
     sampler = await sampler_for_path(
         inputs,
@@ -49,13 +51,25 @@ async def evaluate_stage_b_step(
         output=output / "b-validation",
     )
     if step == 0:
-        stage_a_final = stage_a["segments"]["50"]
+        stage_a_final = stage_a.get("selected_evidence")
+        if stage_a_final is None:
+            stage_a_final = stage_a["segments"]["50"]
+            return {
+                "maps_generation_sha256": maps["generation_sha256"],
+                "retention_generation_sha256": stage_a_final[
+                    "monitor_generation_sha256"
+                ],
+                "fixed_budget_a_validation_sha256": stage_a_final[
+                    "fixed_budget_a_validation_sha256"
+                ],
+                "retention_manifest_id": (
+                    source.prompt_pools.a_monitor_manifest.manifest_id
+                ),
+            }
         return {
             "maps_generation_sha256": maps["generation_sha256"],
             "retention_generation_sha256": stage_a_final["monitor_generation_sha256"],
-            "fixed_budget_a_validation_sha256": stage_a_final[
-                "fixed_budget_a_validation_sha256"
-            ],
+            "stage_a_validation_sha256": stage_a_final["stage_a_validation_sha256"],
             "retention_manifest_id": source.prompt_pools.a_monitor_manifest.manifest_id,
         }
     retention = await evaluate_manifest(
@@ -80,6 +94,11 @@ async def evaluate_stage_b_step(
         "retention_manifest_id": retention["manifest_id"],
     }
     if step == STAGE_B_GRID[-1]:
+        validation_samples = (
+            int(inputs.config.evaluation["pilot_samples_per_item"])
+            if a_validation_samples_per_item is None
+            else a_validation_samples_per_item
+        )
         validation = await evaluate_manifest(
             inputs,
             source,
@@ -91,12 +110,18 @@ async def evaluate_stage_b_step(
             checkpoint_stage="stage_b",
             training_step=step,
             label=f"seed-{source.seed}-{method}-stage-b-fixed-budget-a-validation",
-            samples_per_item=int(inputs.config.evaluation["pilot_samples_per_item"]),
+            samples_per_item=validation_samples,
             max_tokens=inputs.acquisition.selected_max_tokens,
-            seed_namespace="pilot0.a_validation",
+            seed_namespace=a_validation_seed_namespace,
             output=output / "a-validation",
         )
-        result["fixed_budget_a_validation_sha256"] = validation["generation_sha256"]
+        key = (
+            "fixed_budget_a_validation_sha256"
+            if a_validation_samples_per_item is None
+            and a_validation_seed_namespace == "pilot0.a_validation"
+            else "stage_a_validation_sha256"
+        )
+        result[key] = validation["generation_sha256"]
     return result
 
 

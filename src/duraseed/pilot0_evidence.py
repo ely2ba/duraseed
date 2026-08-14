@@ -100,6 +100,7 @@ def load_evaluation_prefix(
     directory: Path,
     samples_per_item: int,
     *,
+    sample_index_start: int = 0,
     run_id: str,
     label: str,
     manifest: DatasetManifest,
@@ -194,7 +195,9 @@ def load_evaluation_prefix(
     by_task_indices: dict[str, set[int]] = defaultdict(set)
     for generation in generations:
         by_task_indices[generation.task_id].add(generation.sample_index)
-    expected_indices = set(range(samples_per_item))
+    expected_indices = set(
+        range(sample_index_start, sample_index_start + samples_per_item)
+    )
     if any(
         values["trials"] != samples_per_item
         or by_task_indices[task_id] != expected_indices

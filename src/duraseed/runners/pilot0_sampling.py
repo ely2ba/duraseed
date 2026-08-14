@@ -74,6 +74,7 @@ async def evaluate_manifest(
     training_step: int,
     label: str,
     samples_per_item: int,
+    sample_index_start: int = 0,
     max_tokens: int,
     seed_namespace: str,
     output: Path,
@@ -114,6 +115,7 @@ async def evaluate_manifest(
     counts, sample_ids, reward_sample_ids, completed_tasks = load_evaluation_prefix(
         output,
         samples_per_item,
+        sample_index_start=sample_index_start,
         run_id=inputs.run_id,
         label=label,
         manifest=manifest,
@@ -200,6 +202,7 @@ async def evaluate_manifest(
             temperature=temperature,
             top_p=top_p,
             ledger=inputs.ledger,
+            sample_index_start=sample_index_start,
         )
         values = counts[record.task_id]
         values["panel_role"] = role
