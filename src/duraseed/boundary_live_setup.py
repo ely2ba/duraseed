@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from duraseed.boundary_live_artifacts import BoundaryLiveArtifacts
+from duraseed.boundary_live_retry import BoundaryRetryArtifacts, RETRY_MARKER
 from duraseed.data.boundary_protocol import BOUNDARY_ENGINEERING_SEED
 from duraseed.data.manifests import DatasetManifest
 from duraseed.runtime import PRICE_SNAPSHOT
@@ -25,6 +26,7 @@ def open_boundary_artifacts(
     source_contract: Any,
     extension2: DatasetManifest,
     action_caps: dict[str, Decimal],
+    refine_retry_trace: str | Path | None = None,
 ) -> BoundaryLiveArtifacts:
     if not run_id.strip() or any(character in run_id for character in "/\\"):
         raise ValueError("run_id must be a nonempty filename token")
@@ -63,8 +65,25 @@ def open_boundary_artifacts(
         tinker_cookbook_version=runtime.sdk.cookbook_version,
         deviations=["boundary calibration only; Pilot 0 not started"],
     )
-    artifacts = BoundaryLiveArtifacts(
-        Path(output_root) / run_id, preflight=preflight, new_run=run
+    directory = Path(output_root) / run_id
+    artifact_type = (
+        BoundaryRetryArtifacts
+        if refine_retry_trace is not None or (directory / RETRY_MARKER).exists()
+        else BoundaryLiveArtifacts
+    )
+    artifact_kwargs = (
+        {
+            "trace_path": (
+                Path(refine_retry_trace).resolve()
+                if refine_retry_trace is not None
+                else None
+            )
+        }
+        if artifact_type is BoundaryRetryArtifacts
+        else {}
+    )
+    artifacts = artifact_type(
+        directory, preflight=preflight, new_run=run, **artifact_kwargs
     )
     artifacts.write_manifest("extension2_broad_manifest.json", extension2)
     return artifacts

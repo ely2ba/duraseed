@@ -127,6 +127,7 @@ def boundary_live(
     config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
     authorized_cost_usd: str | None = typer.Option(None),
     confirm_human_launch: bool = typer.Option(False),
+    refine_retry_trace: Path | None = typer.Option(None),
     project_id: str | None = typer.Option(None, envvar="TINKER_PROJECT_ID"),
 ) -> None:
     """Execute the authenticated fixed $120 boundary continuation."""
@@ -154,6 +155,7 @@ def boundary_live(
                 output_root=output_root,
                 config_path=config,
                 extension1_confirmation_path=extension1_confirmation,
+                refine_retry_trace=refine_retry_trace,
             )
         )
     except RunnerGateError as error:

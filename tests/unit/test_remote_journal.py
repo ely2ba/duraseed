@@ -80,12 +80,12 @@ def test_incomplete_arm_requires_exact_reconciliation_then_fresh_attempt(
         failed_attempt=1,
         raw_billing_sha256=SHA,
         raw_billing_entry_count=1,
-        raw_usage_cutoff_utc="2026-08-14T00:00:00+00:00",
+        raw_usage_cutoff_utc="2099-08-14T00:00:00+00:00",
         cumulative_billed_usd=1.25,
         aggregate_billed_usd=1.25,
-        reconciled_at_utc="2026-08-14T01:00:00+00:00",
+        reconciled_at_utc="2099-08-14T01:00:00+00:00",
         authorizer="Ely",
-        authorized_at_utc="2026-08-14T01:01:00+00:00",
+        authorized_at_utc="2099-08-14T01:01:00+00:00",
         artifact_sha256=SHA,
     )
     resumed_ledger = _ledger()

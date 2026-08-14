@@ -52,6 +52,8 @@ class BoundaryLiveArtifacts:
         *,
         preflight: Mapping[str, Any],
         new_run: RunRecord,
+        _allow_pending: bool = False,
+        _allow_git_change: bool = False,
     ) -> None:
         self.directory = directory
         self.journal = directory / "observation_groups.jsonl"
@@ -63,7 +65,6 @@ class BoundaryLiveArtifacts:
             existing = read_run_record(directory)
             immutable = (
                 "protocol_version",
-                "git_commit",
                 "resolved_config_hash",
                 "model_id",
                 "renderer",
@@ -74,7 +75,7 @@ class BoundaryLiveArtifacts:
             )
             if any(
                 getattr(existing, name) != getattr(new_run, name) for name in immutable
-            ):
+            ) or (existing.git_commit != new_run.git_commit and not _allow_git_change):
                 raise RunnerGateError("restart run identity differs from run.json")
             if any(
                 existing.task_manifest_ids.get(name) != manifest_id
@@ -82,7 +83,7 @@ class BoundaryLiveArtifacts:
             ):
                 raise RunnerGateError("restart manifest identity differs from run.json")
             self.run = existing
-            if self.pending.exists():
+            if self.pending.exists() and not _allow_pending:
                 value = _read_json(self.pending)
                 raise RunnerGateError(
                     "ambiguous in-flight boundary group; reconcile before restart: "

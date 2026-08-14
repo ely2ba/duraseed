@@ -37,10 +37,7 @@ from duraseed.runners.boundary_extension import (
     build_extension2_manifest,
     reduce_block,
 )
-from duraseed.runtime import (
-    RuntimeBundle,
-    TokenLedger,
-)
+from duraseed.runtime import RuntimeBundle, TokenLedger
 from duraseed.run_records import RunStatus
 from duraseed.tasks.tces import TCESGeneratorConfig
 
@@ -55,6 +52,7 @@ async def execute_boundary_live(
     run_id: str,
     git_commit: str,
     extension1_confirmation_path: str | Path | None = None,
+    refine_retry_trace: str | Path | None = None,
 ) -> BoundaryExtensionResult:
     """Run four fixed paid actions; restart skips validated complete task groups."""
 
@@ -69,6 +67,7 @@ async def execute_boundary_live(
         source_contract=source.contract,
         extension2=extension2,
         action_caps=ACTION_CAPS,
+        refine_retry_trace=refine_retry_trace,
     )
     ledgers: dict[str, TokenLedger] = {}
     action = "extension1-confirm"

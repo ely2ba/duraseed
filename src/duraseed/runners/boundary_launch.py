@@ -221,6 +221,7 @@ async def run_remote_boundary(
     output_root: str | Path,
     config_path: str | Path,
     extension1_confirmation_path: str | Path,
+    refine_retry_trace: str | Path | None = None,
 ) -> Path:
     """Bind the selected M0 sampler and execute the fixed four-action chain."""
 
@@ -259,5 +260,6 @@ async def run_remote_boundary(
         run_id=run_id,
         git_commit=_git_commit(),
         extension1_confirmation_path=extension1_confirmation_path,
+        refine_retry_trace=refine_retry_trace,
     )
     return Path(output_root) / run_id
