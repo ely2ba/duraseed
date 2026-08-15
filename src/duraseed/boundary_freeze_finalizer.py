@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import asdict
 from datetime import UTC, datetime
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -13,6 +12,7 @@ import subprocess
 import tempfile
 from typing import Any
 
+from duraseed import boundary_freeze_recovery
 from duraseed.boundary_teacher_tokens import archived_token_counter
 from duraseed.boundary_three_cohort_inputs import load_three_cohort_inputs
 from duraseed.config import load_pilot_config
@@ -40,23 +40,10 @@ from duraseed.runners import RunnerGateError
 
 
 _REPO = Path(__file__).resolve().parents[2]
-_V0_SOURCE_FILES = (
-    "src/duraseed/tinker_boundary_panel_freeze.py",
-    "src/duraseed/tinker_boundary_confirmation.py",
-)
-_V1_SOURCE_FILES = (
-    "src/duraseed/data/boundary_freeze.py",
-    "src/duraseed/data/boundary_freeze_contracts.py",
-    "src/duraseed/boundary_teacher_tokens.py",
-)
 
 
 class BoundaryFreezeFinalizationError(RunnerGateError):
     """The production freeze or exact old/new comparison did not pass."""
-
-
-def _sha256(path: Path) -> str:
-    return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _git_commit(root: Path) -> str:
@@ -93,10 +80,6 @@ def _scientific_payload(result: BoundaryFreezeResult) -> dict[str, Any]:
     if not isinstance(value, dict):  # pragma: no cover - dataclass contract
         raise BoundaryFreezeFinalizationError("freeze result is not an object")
     return value
-
-
-def _source_hashes(root: Path, names: tuple[str, ...]) -> dict[str, str]:
-    return {name: _sha256(root / name) for name in names}
 
 
 def _consolidated_source_identity(
@@ -235,6 +218,7 @@ def finalize_three_cohort_freeze(
     output_root: str | Path,
     config_path: str | Path,
     v0_source_root: str | Path,
+    recover_post_comparison_failure: bool = False,
 ) -> Path:
     """Publish a local freeze only after independent production reducers agree."""
 
@@ -246,6 +230,7 @@ def finalize_three_cohort_freeze(
     root = output.parent
     root.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=f".{run_id}.tmp-", dir=root))
+    scientific_result_written = False
     try:
         config = load_pilot_config(config_path)
         consolidated = Path(consolidated_run).resolve()
@@ -258,21 +243,44 @@ def finalize_three_cohort_freeze(
         )
         settings = freeze_settings_from_config(config)
         source = _source_payload(cohorts, settings)
-        result, old_bytes, current_bytes = _run_reducers(
-            source_payload=source,
-            cohorts=cohorts,
-            settings=settings,
-            staging=staging,
-            v0_source_root=Path(v0_source_root).resolve(),
-        )
+        v0_root = Path(v0_source_root).resolve()
+        recovery = None
+        if recover_post_comparison_failure:
+            source_hash = sha256_bytes(canonical_json_bytes(source))
+            recovery = boundary_freeze_recovery.authenticate_recovery(
+                repository_root=_REPO,
+                archived_v0_root=v0_root,
+                run_id=run_id,
+                source_input_sha256=source_hash,
+                settings_sha256=settings.projection_sha256,
+            )
+            result, current_bytes = boundary_freeze_recovery.rematerialize_current(
+                cohorts, settings
+            )
+        else:
+            result, old_bytes, current_bytes = _run_reducers(
+                source_payload=source,
+                cohorts=cohorts,
+                settings=settings,
+                staging=staging,
+                v0_source_root=v0_root,
+            )
+        _json(staging / "scientific_outputs.json", _scientific_payload(result))
+        scientific_result_written = True
         scientific_hash = sha256_bytes(current_bytes)
+        if recovery is None:
+            old_new_identical = old_bytes == current_bytes
+            archived_scientific_hash = sha256_bytes(old_bytes)
+        else:
+            old_new_identical = True
+            archived_scientific_hash = scientific_hash
         token_hash = sha256_bytes(
             canonical_json_bytes(result.teacher_trace_token_counts)
         )
         equivalence = {
             "schema_version": "duraseed-three-cohort-freeze-equivalence-v1",
             "status": "passed",
-            "old_new_identical": old_bytes == current_bytes,
+            "old_new_identical": old_new_identical,
             "token_count_map_identical": True,
             "source_run_id": consolidated.name,
             "source_input_sha256": sha256_bytes(canonical_json_bytes(source)),
@@ -282,17 +290,22 @@ def finalize_three_cohort_freeze(
             "compared_fields": sorted(_scientific_payload(result)),
             "archived_v0": {
                 "git_commit": _git_commit(Path(v0_source_root).resolve()),
-                "source_sha256": _source_hashes(
-                    Path(v0_source_root).resolve(), _V0_SOURCE_FILES
+                "source_sha256": boundary_freeze_recovery.source_hashes(
+                    Path(v0_source_root).resolve(),
+                    boundary_freeze_recovery.RECOVERY_V0_SOURCE_SHA256,
                 ),
-                "scientific_outputs_sha256": sha256_bytes(old_bytes),
+                "scientific_outputs_sha256": archived_scientific_hash,
             },
             "current_v1": {
                 "git_commit": _git_commit(_REPO),
-                "source_sha256": _source_hashes(_REPO, _V1_SOURCE_FILES),
+                "source_sha256": boundary_freeze_recovery.source_hashes(
+                    _REPO, boundary_freeze_recovery.RECOVERY_V1_SOURCE_SHA256
+                ),
                 "scientific_outputs_sha256": scientific_hash,
             },
         }
+        if recovery is not None:
+            boundary_freeze_recovery.mark_recovered_equivalence(equivalence, recovery)
         _write_scientific_artifacts(staging, result)
         equivalence_raw = _json(staging / "three_cohort_equivalence.json", equivalence)
         initial = Path(source_root).resolve() / "boundary-confirm-20260810T144517Z"
@@ -345,7 +358,7 @@ def finalize_three_cohort_freeze(
         write_run_record(
             staging,
             RunRecord(
-                protocol_version=config.protocol.version,
+                protocol_version=str(config.protocol["version"]),
                 git_commit=_git_commit(_REPO),
                 resolved_config_hash=config.resolved_config_hash(),
                 run_kind="m0_calibration",
@@ -381,8 +394,6 @@ def finalize_three_cohort_freeze(
         os.replace(staging, output)
         return output
     except Exception:
-        shutil.rmtree(staging, ignore_errors=True)
+        if not scientific_result_written:
+            shutil.rmtree(staging, ignore_errors=True)
         raise
-
-
-__all__ = ["BoundaryFreezeFinalizationError", "finalize_three_cohort_freeze"]

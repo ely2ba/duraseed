@@ -50,8 +50,9 @@ def test_consolidated_checkpoint_identity_fails_closed(tmp_path, updates) -> Non
         _consolidated_source_identity(tmp_path, run, "tinker://m0/sampler")
 
 
+@pytest.mark.parametrize("recover", [False, True])
 def test_published_preflight_uses_shared_run_and_authenticated_step(
-    tmp_path, monkeypatch
+    tmp_path, monkeypatch, recover
 ) -> None:
     source_root = tmp_path / "source"
     consolidated = tmp_path / "consolidated"
@@ -87,7 +88,7 @@ def test_published_preflight_uses_shared_run_and_authenticated_step(
         intermediate_family_ids=("family",),
     )
     config = SimpleNamespace(
-        protocol=SimpleNamespace(version="protocol"),
+        protocol={"version": "protocol"},
         resolved_config_hash=lambda: "config-hash",
     )
     captured = {}
@@ -96,15 +97,38 @@ def test_published_preflight_uses_shared_run_and_authenticated_step(
     monkeypatch.setattr(finalizer, "load_three_cohort_inputs", lambda *_args: cohorts)
     monkeypatch.setattr(finalizer, "freeze_settings_from_config", lambda _: settings)
     monkeypatch.setattr(finalizer, "_source_payload", lambda *_args: {"source": 1})
-    monkeypatch.setattr(
-        finalizer,
-        "_run_reducers",
-        lambda **_kwargs: (result, b"identical", b"identical"),
-    )
+    if recover:
+        recovery = {
+            "mode": "current_v1_rematerialization_after_exact_comparison",
+            "archived_v0_scientific_hash_basis": "derived_transitively",
+        }
+        monkeypatch.setattr(
+            finalizer.boundary_freeze_recovery,
+            "authenticate_recovery",
+            lambda **_kwargs: recovery,
+        )
+        monkeypatch.setattr(
+            finalizer.boundary_freeze_recovery,
+            "rematerialize_current",
+            lambda *_args: (result, b"identical"),
+        )
+        monkeypatch.setattr(
+            finalizer,
+            "_run_reducers",
+            lambda **_kwargs: pytest.fail("recovery reran the archived reducer"),
+        )
+    else:
+        monkeypatch.setattr(
+            finalizer,
+            "_run_reducers",
+            lambda **_kwargs: (result, b"identical", b"identical"),
+        )
     monkeypatch.setattr(finalizer, "_scientific_payload", lambda _: {"field": 1})
     monkeypatch.setattr(finalizer, "_write_scientific_artifacts", lambda *_: None)
     monkeypatch.setattr(finalizer, "_git_commit", lambda _: "commit")
-    monkeypatch.setattr(finalizer, "_source_hashes", lambda *_: {})
+    monkeypatch.setattr(
+        finalizer.boundary_freeze_recovery, "source_hashes", lambda *_: {}
+    )
     monkeypatch.setattr(finalizer, "write_run_record", lambda *_: None)
     monkeypatch.setattr(finalizer.os, "replace", lambda *_: None)
 
@@ -120,6 +144,7 @@ def test_published_preflight_uses_shared_run_and_authenticated_step(
         output_root=tmp_path / "output",
         config_path=tmp_path / "config.yaml",
         v0_source_root=tmp_path / "v0",
+        recover_post_comparison_failure=recover,
     )
 
     source = captured["preflight.json"]["source"]
@@ -131,3 +156,74 @@ def test_published_preflight_uses_shared_run_and_authenticated_step(
     assert source["sampler_checkpoint_path"] == "tinker://m0/sampler"
     assert source["state_checkpoint_path"] == "tinker://m0/state"
     assert source["training_step"] == 2
+    if recover:
+        equivalence = captured["three_cohort_equivalence.json"]
+        assert equivalence["comparison_execution"] == recovery
+        assert equivalence["old_new_identical"] is True
+        assert (
+            equivalence["archived_v0"]["scientific_outputs_sha256_basis"]
+            == "derived_transitively"
+        )
+
+
+def test_post_comparison_recovery_is_bound_to_exact_incident(
+    monkeypatch,
+) -> None:
+    recovery = finalizer.boundary_freeze_recovery
+    source = {"source": "exact"}
+    source_hash = finalizer.sha256_bytes(finalizer.canonical_json_bytes(source))
+    monkeypatch.setattr(recovery, "RECOVERY_SOURCE_SHA256", source_hash)
+
+    evidence = recovery.validate_recovery(
+        run_id=recovery.RECOVERY_RUN_ID,
+        source_input_sha256=source_hash,
+        settings_sha256=recovery.RECOVERY_SETTINGS_SHA256,
+        archived_v0_commit=recovery.RECOVERY_ARCHIVED_V0_COMMIT,
+        archived_v0_source_sha256=recovery.RECOVERY_V0_SOURCE_SHA256,
+        current_v1_source_sha256=recovery.RECOVERY_V1_SOURCE_SHA256,
+        checkout_identity={
+            "initial_current_v1_git_commit": recovery.RECOVERY_CURRENT_V1_COMMIT,
+            "recovery_git_commit": "f" * 40,
+            "recovery_checkout_clean": True,
+        },
+    )
+
+    assert evidence["initial_current_v1_git_commit"] == (
+        recovery.RECOVERY_CURRENT_V1_COMMIT
+    )
+    assert evidence["archived_v0_reexecuted"] is False
+    assert evidence["current_v1_capacity_workers"] == 6
+    assert "src/duraseed/boundary_capacity.py" in recovery.RECOVERY_V1_SOURCE_SHA256
+    assert evidence["recovery_git_commit"] == "f" * 40
+    assert evidence["initial_failure_transcript_event_sha256"] == (
+        recovery.RECOVERY_TRANSCRIPT_EVENT_SHA256
+    )
+    assert evidence["initial_failure_transcript_event_line"] == 64918
+    with pytest.raises(recovery.BoundaryFreezeRecoveryError, match="source changed"):
+        recovery.validate_recovery(
+            run_id="different-run",
+            source_input_sha256=source_hash,
+            settings_sha256=recovery.RECOVERY_SETTINGS_SHA256,
+            archived_v0_commit=recovery.RECOVERY_ARCHIVED_V0_COMMIT,
+            archived_v0_source_sha256=recovery.RECOVERY_V0_SOURCE_SHA256,
+            current_v1_source_sha256=recovery.RECOVERY_V1_SOURCE_SHA256,
+            checkout_identity={
+                "initial_current_v1_git_commit": recovery.RECOVERY_CURRENT_V1_COMMIT,
+                "recovery_git_commit": "f" * 40,
+                "recovery_checkout_clean": True,
+            },
+        )
+    with pytest.raises(recovery.BoundaryFreezeRecoveryError, match="source changed"):
+        recovery.validate_recovery(
+            run_id=recovery.RECOVERY_RUN_ID,
+            source_input_sha256=source_hash,
+            settings_sha256=recovery.RECOVERY_SETTINGS_SHA256,
+            archived_v0_commit=recovery.RECOVERY_ARCHIVED_V0_COMMIT,
+            archived_v0_source_sha256=recovery.RECOVERY_V0_SOURCE_SHA256,
+            current_v1_source_sha256=recovery.RECOVERY_V1_SOURCE_SHA256,
+            checkout_identity={
+                "initial_current_v1_git_commit": recovery.RECOVERY_CURRENT_V1_COMMIT,
+                "recovery_git_commit": "f" * 40,
+                "recovery_checkout_clean": False,
+            },
+        )

@@ -210,6 +210,7 @@ def boundary_freeze_finalize(
     ),
     output_root: Path = typer.Option(Path("runs/tinker-calibration/boundary")),
     config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
+    recover_post_comparison_failure: bool = typer.Option(False),
 ) -> None:
     """Freeze three-cohort panels after exact production v0/v1 equivalence."""
 
@@ -221,6 +222,7 @@ def boundary_freeze_finalize(
             output_root=output_root,
             config_path=config,
             v0_source_root=v0_source_root,
+            recover_post_comparison_failure=recover_post_comparison_failure,
         )
     except RunnerGateError as error:
         raise typer.BadParameter(str(error)) from error
