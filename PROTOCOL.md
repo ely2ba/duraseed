@@ -4,8 +4,11 @@ Status: pre-pilot; remote boundary collection and the deterministic
 three-cohort replay are complete, but the panel freeze is unresolved. The
 replay found 49 observation-eligible candidates and selected 24 matched panel
 families; only 12/24 passed the required `a_test_single` split-capacity check,
-so no panel assignment was published. Acquisition calibration and Pilot 0 are
-stopped at this gate. An archived
+so no panel assignment was published. A later outcome-blind feasibility
+diagnostic found 31/49 families with unchanged 22/22 test capacity under
+all-candidate protection, but the prospective de-duplicate-before-match
+amendment has not yet been accepted or executed. Acquisition calibration and
+Pilot 0 are stopped at this gate. An archived
 engineering-only Tinker smoke and raw M0 audit were executed on 9 August 2026,
 and the v1 live smoke gate passed on 13 August 2026. The raw audit
 rejected the zero-update candidate on the declared format gates, so conditional
@@ -59,11 +62,25 @@ fresh seed count are chosen only after pilot variance, effect, and cost are
 measured. The first complete result is `B-S` versus `B-G` with two paired pilot
 seeds. Method breadth is cut before seed replication.
 
+The first `B-S/B-G` estimand compares two complete acquisition procedures. It
+does not isolate their update objectives: the procedures also differ in data
+source, trajectory distribution, exploration, solution exposure, token and
+compute use, and gradient statistics. Any first result is stated at that level
+and is not generalized to an intrinsic “SFT versus RL representation” effect.
+
 After that two-seed Pilot 0, variance reconnaissance extends B-S/B-G to a
 total of 3--4 paired pilot seeds. Those seed-level variance and cost estimates
 inform the mechanism/context pilot decision and any justified B-O, G-B, R-G,
 or G-U runs. Only after those gates determine the confirmatory matrix is the
 design powered and frozen, preregistered, and run on fresh confirmatory seeds.
+
+If `B-S/B-G` separates reproducibly, the first mechanism follow-up is
+supervised replay of a prospectively frozen, verifier-correct subset of
+`B-G`-generated rollouts. This directly probes the data-source-versus-objective
+ambiguity and takes priority over broad method expansion. Its exact selection,
+budget, and comparison must be frozen after the core effect is established and
+before that follow-up runs; it is not part of Pilot 0 and has no method
+identifier yet.
 
 Ordered comparisons are `G-B/G-U` for prompt targeting, `B-G/G-B` for the
 boundary teacher seed, `B-G/R-G` for targeted versus random teacher allocation,
@@ -141,7 +158,10 @@ full state.
 
 Stage B continues the same rank-32 LoRA adapter. The resulting estimand is
 conditional on continued shared-adapter low-rank adaptation; it is not presented
-as full-weight or adapter-independent plasticity.
+as full-weight or adapter-independent plasticity. If the core effect is
+reproducible, a same-model higher-rank or full-weight replication is the first
+generality test of this low-rank-space explanation. It does not precede the
+core result.
 
 ## Crossed targeted/sentinel panels
 
@@ -173,14 +193,15 @@ checks fail closed on a sentinel/training overlap.
 
 Panel membership remains unresolved until the completed three-cohort evidence
 passes the combined freeze. The allocation seed is already fixed at
-`6448342238137851489`. The core pilot and confirmatory design both require two
-matched 12-family panels so
-the target/sentinel cross-over is exactly symmetric. An 8/8 reconnaissance
-fallback may diagnose feasibility, but it cannot replace the core crossed
-comparison. Transition also requires 12 distinct non-panel intermediate
-families for the frozen Stage-A prompt pool. Fewer than 36 confirmed families
-therefore leaves Phase 3 unresolved rather than silently weakening either
-control.
+`6448342238137851489`. The current pilot design prefers two matched 12-family
+panels so the target/sentinel cross-over is exactly symmetric. The scientific
+invariants are equal crossed target/sentinel panels, adequate family breadth
+and precision, strict split separation, and no use of method outcomes in task
+construction. The number 12 is not itself an invariant. A smaller equal panel
+size cannot silently replace the current design: it would require a prospective
+power- and feasibility-based amendment before Stage A and without inspecting
+`B-S/B-G` outcomes. Transition under the current design also requires 12
+distinct non-panel intermediate families for the frozen Stage-A prompt pool.
 
 Three-cohort freeze outcome (15 August 2026): all 115 finalists passed the
 ordinary split-capacity audit and 49 were observation-eligible. Deterministic
@@ -193,6 +214,15 @@ panel artifact was published, and the frozen outcome is
 `confirmation_complete_panel_selection_unresolved`. This is structural
 feasibility evidence, not a B-S/B-G outcome; no acquisition or Pilot execution
 is authorized by it.
+
+An outcome-blind follow-up checked every observation-eligible family against
+all 49 candidates under the unchanged 22/22 `a_test_single` requirement.
+Thirty-one passed, establishing that a valid 24-family capacity-qualified pool
+exists. The failure pattern is consistent with exact algebraic duplicates
+being protected together after matching. This supports a narrow prospective
+cure—collapse exact duplicates and apply the unchanged split-capacity filter
+before matching—but is not itself a panel freeze. No panel is published and no
+acquisition begins until that amendment is accepted, implemented, and replayed.
 
 The first completed Stage-3 confirmation evaluated 38 finalists. Fifteen
 passed every frozen observation and split-capacity gate, so it did not freeze
@@ -215,7 +245,9 @@ ten-covariate panel matching, while ranks 25–36 form the distinct non-panel
 intermediate family pool required by Stage A. If the union remains below 36,
 Phase 3 stops unresolved: there is no further block, failed-family retest,
 threshold relaxation, panel or intermediate-pool shrinkage, or automatic
-teacher-dose launch. The core design remains symmetric 12/12. The complete
+teacher-dose launch under that amendment. Its preferred design remains
+symmetric 12/12; any later size change requires the separate prospective rule
+above. The complete
 pre-result amendment is recorded in
 [`docs/rfc-boundary-family-extension.md`](docs/rfc-boundary-family-extension.md).
 
@@ -431,6 +463,15 @@ specificity. Posterior-soft `Cover@0.25` and the full Cover curve are key
 secondary reliability measurements, always compared at identical sample
 budgets.
 
+At every declared Stage-A checkpoint, report target and sentinel capability
+against update progress, cumulative acquisition cost, and the relevant
+cumulative token axes. Cost never stands in for the underlying resource vector,
+which is reported separately as teacher examples, prefill tokens (cached and
+uncached where available), sampled tokens, training tokens, optimizer updates,
+and any fixed checkpoint/storage charge. This makes compute efficiency visible
+without pretending that an SFT training token and an RL rollout token are
+interchangeable.
+
 Stage B is MAPS only and continues the selected Stage-A LoRA weights with a
 fresh optimizer. Let `u` be normalized Stage-B progress, `q(u)` the MAPS score,
 and `q0=q(0)`. The primary future-learning endpoint is:
@@ -441,27 +482,51 @@ GainAUC_raw
   = absolute_auc - q0
 ```
 
-Primary stability is retained targeted Stage-A capability at the common fixed
-Stage-B budget. Headroom-normalized gain and absolute AUC are sensitivities;
-zero-shot `q0` is reported separately. Retention at matched MAPS progress is a
-reach-aware sensitivity that reports reach rate plus retention conditional on
-reaching. The main presentation is the full stability–future-learnability
-frontier. Sentinel change, A→B Cover change (`Cover_B - Cover_A`), transitions,
-Pass@k, invalid output, diversity, reward-group health, token use, cost, and the
-future auxiliary exact-task control are secondary reports.
+Primary stability is retained targeted Stage-A capability on the full
+`a_validation` population at the common fixed Stage-B budget. Let
+`a_monitor(u)` be targeted-panel Stage-A capability on the smaller `a_monitor`
+population along that normalized Stage-B trajectory. The already-sampled
+monitor curve also reports:
+
+```text
+MonitorRetentionAUC = integral a_monitor(u) du
+```
+
+This secondary trajectory summary is explicitly monitor-population evidence;
+it is not presented as a 512-item validation AUC. The full-validation
+fixed-budget endpoint remains primary. Headroom-normalized gain and absolute
+AUC are sensitivities; zero-shot `q0` is reported separately. Retention at
+matched MAPS progress is a reach-aware sensitivity that reports reach rate plus
+retention conditional on reaching.
+The main presentation is the full stability–future-learnability frontier.
+Sentinel change, A→B Cover change (`Cover_B - Cover_A`), transitions, Pass@k,
+invalid output, diversity, reward-group health, token use, cost, and the future
+auxiliary exact-task control are secondary reports. Pass@k is reported only
+when `k` is no greater than the number of independent draws actually collected;
+unsupported larger-k values are omitted rather than extrapolated.
 One greedy pass on selected final checkpoints is a post-selection robustness
 sensitivity and never participates in selection.
 
 Checkpoint matching uses validation only. After fixed-budget Pilot 0, the common
 target freezes as the minimum of the four seed-by-method step-50 targeted-panel
-posterior means, before candidate draws. The cheap monitor identifies the first
-apparent crossing; the predecessor, crossing checkpoint, and successor are
-re-evaluated on all 512 validation items with fresh independent seeds and 16
-samples/item. All candidates extend to 32 samples/item if panel-mean sampling SE
-exceeds 0.0075. Select the real in-band checkpoint closest to the target, tie to
-the earlier checkpoint. Never smooth or interpolate a checkpoint, and mark a
-method unavailable when it does not reach the band. Final tests are never used
-for calibration, panel selection, checkpoint selection, or method choice.
+exact-success posterior means, before candidate draws. The cheap monitor
+identifies the first apparent crossing; the predecessor, crossing checkpoint,
+and successor are re-evaluated on all 512 validation items with fresh
+independent seeds and 16 samples/item. All candidates extend to 32 samples/item
+if panel-mean sampling SE exceeds 0.0075. Select the real in-band checkpoint
+closest to the target, tie to the earlier checkpoint. Never smooth or
+interpolate a checkpoint, and mark a method unavailable when it does not reach
+the band. Final tests are never used for calibration, panel selection,
+checkpoint selection, or method choice.
+
+“Capability matched” in this follow-up means matched on targeted-panel
+exact-success within that frozen band; it is not a claim of globally equivalent
+behavior. Before Stage B, publish the target mean, sentinel mean, per-family
+accuracies, full Cover curve, invalid-output rate, completion-length
+distribution, supported Pass@k values, verified strategy-family diversity, and
+token surprisal for every selected origin. These are descriptive diagnostics,
+not additional matching gates: residual differences may be consequences of the
+acquisition procedure rather than nuisance variables to erase.
 
 ## Comparability
 
@@ -472,7 +537,7 @@ Comparability is contrast-specific, not a claim of globally equal compute:
 | `G-U/G-B` | RL rollout and optimization budget; differs in prompt allocation |
 | `R-G/B-G` | teacher examples/tokens/updates and RL budget; differs in teacher allocation |
 | `G-B/B-G` | boundary prompt distribution and RL budget; teacher information reported explicitly |
-| `B-S/B-G` | same boundary seed/teacher information; compare fixed budget and matched immediate capability |
+| `B-S/B-G` | same boundary seed/teacher information; compare fixed budget and targeted-panel-exact-success-matched checkpoints; complete procedures differ in data and objective |
 | `B-O/B-S` | same boundary seed; current-policy generation is the mechanism difference |
 | `B-G/B-O` | same boundary seed; objective comparison is secondary |
 

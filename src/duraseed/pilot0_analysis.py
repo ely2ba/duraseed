@@ -32,6 +32,8 @@ class Pilot0MethodSummary:
     fixed_budget_sentinel_retention: float
     fixed_budget_sentinel_change: float
     maps_auc: NormalizedAUC
+    targeted_monitor_retention_absolute_auc: float
+    sentinel_monitor_retention_absolute_auc: float
     maps_scores: tuple[float, ...]
     targeted_retention_curve: tuple[float, ...]
     sentinel_retention_curve: tuple[float, ...]
@@ -78,6 +80,32 @@ def _paired(
     ):
         raise RunnerGateError("Pilot-0 paired evidence changed its sample budget")
     return paired_before, paired_after
+
+
+def monitor_retention_summary(stage_b_retention: tuple[dict, ...]) -> dict:
+    """Absolute AUC on the common low-cost a_monitor population."""
+
+    if len(stage_b_retention) != len(STAGE_B_GRID):
+        raise RunnerGateError("monitor retention AUC is missing a Stage-B point")
+    reference = stage_b_retention[0]
+    targeted = tuple(
+        equal_item_posterior_mean(_paired(reference, result, "targeted")[1])
+        for result in stage_b_retention
+    )
+    sentinel = tuple(
+        equal_item_posterior_mean(_paired(reference, result, "sentinel")[1])
+        for result in stage_b_retention
+    )
+    return {
+        "targeted_monitor_retention_curve": targeted,
+        "sentinel_monitor_retention_curve": sentinel,
+        "targeted_monitor_retention_absolute_auc": normalized_stage_b_auc(
+            STAGE_B_GRID, targeted
+        ).absolute_auc,
+        "sentinel_monitor_retention_absolute_auc": normalized_stage_b_auc(
+            STAGE_B_GRID, sentinel
+        ).absolute_auc,
+    }
 
 
 def summarize_method(
@@ -171,6 +199,12 @@ def summarize_method(
         fixed_budget_sentinel_retention=post_sentinel,
         fixed_budget_sentinel_change=post_sentinel - pre_sentinel,
         maps_auc=normalized_stage_b_auc(STAGE_B_GRID, maps_scores),
+        targeted_monitor_retention_absolute_auc=normalized_stage_b_auc(
+            STAGE_B_GRID, target_retention
+        ).absolute_auc,
+        sentinel_monitor_retention_absolute_auc=normalized_stage_b_auc(
+            STAGE_B_GRID, sentinel_retention
+        ).absolute_auc,
         maps_scores=maps_scores,
         targeted_retention_curve=target_retention,
         sentinel_retention_curve=sentinel_retention,
@@ -203,6 +237,10 @@ def paired_primary_aggregate(
                 by_seed[seed, "B-S"].fixed_budget_targeted_retention
                 - by_seed[seed, "B-G"].fixed_budget_targeted_retention
             ),
+            "targeted_monitor_retention_absolute_auc": (
+                by_seed[seed, "B-S"].targeted_monitor_retention_absolute_auc
+                - by_seed[seed, "B-G"].targeted_monitor_retention_absolute_auc
+            ),
         }
         for seed in seeds
     )
@@ -219,10 +257,19 @@ def paired_primary_aggregate(
             row["fixed_budget_targeted_retention"] for row in differences
         )
         / 2,
+        "mean_targeted_monitor_retention_absolute_auc_difference": sum(
+            row["targeted_monitor_retention_absolute_auc"] for row in differences
+        )
+        / 2,
         "paired_seed_count": 2,
         "degrees_of_freedom": 1,
         "limitation": "variance estimate has one degree of freedom",
     }
 
 
-__all__ = ["Pilot0MethodSummary", "paired_primary_aggregate", "summarize_method"]
+__all__ = [
+    "Pilot0MethodSummary",
+    "monitor_retention_summary",
+    "paired_primary_aggregate",
+    "summarize_method",
+]

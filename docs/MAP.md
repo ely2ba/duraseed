@@ -7,7 +7,7 @@ This is the starting point for readers and contributors. The public scientific c
 - `src/duraseed/tasks/`: immutable TCES and MAPS task definitions, generators, parsers, solvers, and exact verifiers.
 - `src/duraseed/data/`: manifests, deterministic splits, leakage and sealing checks, boundary reducers, panel construction, and matching.
 - `src/duraseed/training/`: verified datum/reward builders plus teacher-dose, allocation, and Stage-A calibration reducers.
-- `src/duraseed/evaluation/analysis.py`: item-level acquisition, retention, transfer, and frontier estimands.
+- `src/duraseed/evaluation/analysis.py`: item-level acquisition, endpoint and AUC retention, transfer, and frontier estimands.
 - `src/duraseed/runtime/`: small shared Tinker boundary for clients, sampling, data conversion, checkpoints, spend accounting, and billing.
 - `src/duraseed/runners/`: thin orchestration for the next boundary and calibration gates; scientific rules remain in the modules above.
 - `duraseed_pilot_config.yaml`: machine-readable frozen configuration.
@@ -16,14 +16,17 @@ This is the starting point for readers and contributors. The public scientific c
 ## Scientific data flow
 
 1. **M0:** select one common format-capable adapter origin for all methods.
-2. **Panels:** scan TCES families, confirm boundary difficulty on held-out items, and freeze crossed target/sentinel panels.
-3. **Stage A:** acquire TCES capability through the compared post-training paths under matched information and update budgets.
-4. **Stage B:** apply the common frozen supervised MAPS probe (`shortest2_cap2`, `3e-4`, step 480) to every selected Stage-A origin.
-5. **Frontier:** combine Stage-A retention, Stage-B raw gain AUC, and specificity into the stability–future-learnability comparison.
+2. **Panels:** scan TCES families, confirm boundary difficulty on held-out items, and freeze equal crossed target/sentinel panels. The current design prefers 12/12, but strict separation, adequate breadth and precision, and no use of method outcomes are the invariants.
+3. **Stage A:** acquire TCES capability through the compared complete post-training procedures under matched information and update budgets. Plot capability against cumulative cost and the relevant token axes, and retain the separate teacher-example, prefill, sample, training-token, update, and storage resource vector.
+4. **Matching:** after fixed-budget Pilot 0, select real checkpoints matched specifically on targeted-panel exact-success and publish the full descriptive pre-B profile rather than claiming global behavioral equivalence.
+5. **Stage B:** apply the common frozen supervised MAPS probe (`shortest2_cap2`, `3e-4`, step 480) to every selected Stage-A origin.
+6. **Frontier:** combine full-`a_validation` Stage-A fixed-budget retention, secondary `a_monitor` RetentionAUC, Stage-B raw gain AUC, and specificity into the stability–future-learnability comparison.
 
 No later stage may rescan an earlier task distribution using method outcomes. Pilot and confirmatory generations use explicit seeds and authenticated manifests.
 
-After the two-seed Pilot 0, extend B-S/B-G to 3–4 paired pilot seeds for variance reconnaissance, then make the mechanism/context pilot decision. Only after those gates determine the confirmatory matrix do we freeze and power the design, preregister it, and run fresh confirmatory seeds.
+The pre-B profile includes target, sentinel, and per-family accuracy, the Cover curve, invalid-output rate, completion length, supported Pass@k, verified strategy diversity, and token surprisal. Pass@k is emitted only for `k` no larger than the collected independent draw count. These quantities describe residual differences; they are not additional matching gates.
+
+After the two-seed Pilot 0, extend B-S/B-G to 3–4 paired pilot seeds for variance reconnaissance. If a reproducible difference appears, prioritize supervised replay of a frozen verifier-correct subset of B-G rollouts before broad method expansion. Only after the mechanism decision determines the confirmatory matrix do we freeze and power the design, preregister it, and run fresh confirmatory seeds. A same-model higher-rank or full-weight replication is conditional on a result worth following up and tests whether it is specific to rank-32 LoRA.
 
 ## Evidence and provenance
 

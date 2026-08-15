@@ -39,7 +39,11 @@ comparison then splits into two paths:
 In plain terms, this compares learning from a fixed book of worked solutions
 with learning by trying solutions and receiving exact feedback. It is a
 comparison between two complete acquisition procedures, not a claim that only
-their loss functions differ.
+their loss functions differ. The procedures also differ in where their answers
+come from, which answers the model sees, and how much generation and training
+work they require. If they produce different later behavior, the first result
+will therefore be about those complete procedures—not a universal claim that
+"RL representations" are better or worse than "SFT representations."
 
 Stage A uses arithmetic-expression problems. The model must combine a given
 set of numbers, use each exactly once, and reach a target value. We look for
@@ -59,9 +63,19 @@ on a separate modular program-synthesis task. We measure two things together:
 
 Pilot 0 first compares B-S and B-G after the same fixed Stage-A duration. A
 required follow-up then selects real checkpoints at comparable Stage-A
-capability and repeats the common Stage-B probe. We reserve
-"capability-matched" claims for that follow-up: otherwise, a method that simply
-learned more in Stage A could also appear to have more skill available to lose.
+capability and repeats the common Stage-B probe. More precisely, those
+checkpoints are matched on targeted-panel exact-success. We do not pretend that
+one number makes their behavior identical. Before Stage B, we will also show
+their target, sentinel, and family-by-family accuracy; how broadly success is
+spread rather than concentrated in a few families; invalid-output rate;
+completion length; Pass@k at supported sample counts; verified strategy
+diversity; and sampled-token surprisal. These measurements reveal what remains
+different without matching away differences that may be part of the phenomenon.
+
+We will also show how Stage-A capability changes with cumulative acquisition
+tokens and cost. Prompt/prefill, sampled, and training tokens remain separate
+in the resource accounting: one dollar total is useful, but it should not hide
+the very different work performed by the two procedures.
 
 ## Why the design looks this way
 
@@ -72,15 +86,26 @@ learned more in Stage A could also appear to have more skill available to lose.
   rank, initial checkpoint, panels, and Stage-B recipe are shared across paths.
 - **Crossed panels control for family quirks.** Target and sentinel roles swap
   across paired seeds instead of relying on one lucky task split.
+- **The separation rule matters more than the number 12.** Two matched
+  12-family panels remain the preferred design. But 12 is not worth preserving
+  by weakening data separation or looking at method results. If that size is
+  genuinely infeasible, any different equal panel size must be chosen
+  prospectively from feasibility and power alone, before Stage A begins.
 - **Final tests stay sealed.** Training, calibration, checkpoint selection, and
   method decisions use separate data.
 - **Independent runs come before a scale sweep.** For the first study, learning
   the seed-to-seed variance is more valuable than spreading the budget across
-  several model sizes or adapter ranks. A larger-model replication belongs
-  after the core effect is established.
+  several model sizes or adapter ranks. If the core effect holds up, a
+  same-model higher-rank or full-weight replication is the most direct way to
+  test whether it depends on the constrained LoRA update space, if the platform
+  and budget allow it. A larger-model replication comes later.
 - **Method breadth is earned by the result.** B-S versus B-G comes first. B-O
   and the broader controls remain available, but they are added only if the
-  first results show that they answer a useful mechanism question.
+  first results show that they answer a useful mechanism question. If B-S and
+  B-G separate reproducibly, the first mechanism test will be a supervised
+  replay of a frozen, verifier-correct subset of B-G-generated answers. That
+  attacks the data-versus-objective ambiguity more directly than immediately
+  adding a wide collection of methods.
 
 Here, "future learnability" has a specific meaning: learning under this fixed
 supervised Stage-B probe. It is not presented as a universal measure of model
@@ -116,20 +141,28 @@ complete 12-family panels, no panel assignment was published.
 
 This is a genuine feasibility result for the current panel-construction rule,
 not a software failure and not a result about B-S versus B-G. Acquisition
-calibration and Pilot 0 remain stopped. The next scientific decision is whether
-a prospective revision can preserve the 12/12 crossed design and strict data
-separation without using future method outcomes to choose the families.
+calibration and Pilot 0 remain stopped. A subsequent outcome-blind diagnostic
+found that 31 of the 49 families can each supply all 22 test items even when all
+49 candidates are treated as reserved. This shows that at least 24
+capacity-qualified families exist and supports a simple prospective cure:
+collapse exact algebraic duplicates and apply the unchanged test-capacity rule
+before matching. It is not yet a frozen panel. The amendment still has to be
+accepted and executed before acquisition can start.
 
 If a valid panel construction is frozen, the remaining path is:
 
 1. calibrate the shared teacher dose, Stage-A learning rates and duration, and
    common RL setup;
 2. run the two-seed, fixed-budget B-S/B-G Pilot 0;
-3. run the required matched-capability checkpoint follow-up;
+3. run the required targeted-exact-success-matched checkpoint follow-up and
+   publish the complete pre-Stage-B profile;
 4. extend to three or four paired pilot seeds to estimate variance;
-5. decide whether B-O or any broader control adds enough scientific value;
-6. freeze and preregister the confirmatory design; and
-7. run it on fresh seeds.
+5. if a reproducible effect appears, test supervised replay of frozen,
+   verifier-correct B-G rollouts before expanding broadly across methods;
+6. decide whether B-O or any other control adds enough scientific value;
+7. freeze and preregister the confirmatory design; and
+8. run it on fresh seeds, reserving higher-rank or full-weight replication for
+   an effect worth following up.
 
 Pilot 0 has not started, no sealed test data has been opened, and no result is
 claimed for the stability–future-learnability question. Everything completed so

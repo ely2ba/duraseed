@@ -19,6 +19,7 @@ from duraseed.pilot0_contract import (
     STAGE_B_GRID,
 )
 from duraseed.pilot0_evidence import read_evaluation
+from duraseed.pilot0_analysis import monitor_retention_summary
 from duraseed.provenance import canonical_json_hash, sha256_bytes
 from duraseed.runners import RunnerGateError
 from duraseed.runners.pilot0_remote import read_segment
@@ -302,6 +303,7 @@ def summarize_matched_cell(
     target: float,
     stage_a: dict,
     stage_b_maps: tuple[dict, ...],
+    stage_b_retention: tuple[dict, ...],
     stage_b_final_retention: dict,
 ) -> dict:
     """Reduce the matched-origin endpoints without reusing fixed-budget claims."""
@@ -314,6 +316,7 @@ def summarize_matched_cell(
     pre_sentinel = panel_posterior_mean(stage_a, "sentinel")
     post_sentinel = panel_posterior_mean(stage_b_final_retention, "sentinel")
     auc = normalized_stage_b_auc(STAGE_B_GRID, maps_scores)
+    retention = monitor_retention_summary(stage_b_retention)
     return {
         "seed": seed,
         "method": method,
@@ -329,6 +332,7 @@ def summarize_matched_cell(
         "maps_absolute_auc": auc.absolute_auc,
         "raw_gain_stage_b_auc": auc.raw_gain_auc,
         "headroom_normalized_gain_stage_b_auc": auc.headroom_normalized_gain_auc,
+        **retention,
     }
 
 
@@ -351,6 +355,10 @@ def paired_matched_aggregate(cells: Iterable[dict]) -> dict:
                     "fixed_budget_targeted_retention"
                 ]
                 - right["fixed_budget_targeted_retention"],
+                "targeted_monitor_retention_absolute_auc": left[
+                    "targeted_monitor_retention_absolute_auc"
+                ]
+                - right["targeted_monitor_retention_absolute_auc"],
             }
         )
     return {
@@ -362,6 +370,10 @@ def paired_matched_aggregate(cells: Iterable[dict]) -> dict:
         / len(differences),
         "mean_fixed_budget_targeted_retention_difference": fsum(
             row["fixed_budget_targeted_retention"] for row in differences
+        )
+        / len(differences),
+        "mean_targeted_monitor_retention_absolute_auc_difference": fsum(
+            row["targeted_monitor_retention_absolute_auc"] for row in differences
         )
         / len(differences),
         "paired_seed_count": len(differences),

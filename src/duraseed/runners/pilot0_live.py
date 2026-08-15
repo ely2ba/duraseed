@@ -20,6 +20,8 @@ from duraseed.pilot0_contract import (
     validate_pilot0_inputs,
 )
 from duraseed.pilot0_evidence import read_evaluation
+from duraseed.pilot0_exposure import stage_a_exposure_report
+from duraseed.pilot0_profiles import fixed_pre_b_profiles
 from duraseed.pilot0_reporting import evidence_index, reward_group_health, usage_summary
 from duraseed.provenance import canonical_json_bytes, canonical_json_value, sha256_bytes
 from duraseed.runners import RunnerGateError
@@ -219,15 +221,15 @@ async def run_pilot0(inputs: Pilot0Inputs) -> dict:
                 _state(
                     root, "running", completed_cells=completed, ledger=_ledger(inputs)
                 )
+        cover_thresholds = tuple(
+            float(value) for value in inputs.config.evaluation["reliability_tau_report"]
+        )
         summaries = tuple(
             _summary(
                 root,
                 source.seed,
                 method,
-                tuple(
-                    float(value)
-                    for value in inputs.config.evaluation["reliability_tau_report"]
-                ),
+                cover_thresholds,
             )
             for source in inputs.seed_sources
             for method in METHODS
@@ -249,6 +251,14 @@ async def run_pilot0(inputs: Pilot0Inputs) -> dict:
             "matched_a_selection": "pending_post_pilot_target_freeze",
             "reward_group_health": reward_group_health(
                 root, tuple(source.seed for source in inputs.seed_sources)
+            ),
+            "pre_b_capability_profiles": fixed_pre_b_profiles(
+                root, inputs.seed_sources, cover_thresholds
+            ),
+            "stage_a_exposure": stage_a_exposure_report(
+                root,
+                tuple(source.seed for source in inputs.seed_sources),
+                inputs.ledger.prices,
             ),
             "token_and_cost_summary": usage_summary(inputs.ledger, budget),
             "sealed_test_access": False,

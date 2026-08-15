@@ -202,7 +202,7 @@ async def run_stage_b(
         )
     }
     previous = segments["0"]
-    for start, stop in zip(STAGE_B_GRID, STAGE_B_GRID[1:], strict=True):
+    for start, stop in zip(STAGE_B_GRID[:-1], STAGE_B_GRID[1:], strict=True):
         segment = await _train_segment(
             inputs,
             source,

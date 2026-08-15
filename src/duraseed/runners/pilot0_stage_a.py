@@ -159,7 +159,7 @@ async def _branch(
         "state_path": origin["state_path"],
     }
     segments = {}
-    for start, stop in zip(STAGE_A_GRID, STAGE_A_GRID[1:], strict=True):
+    for start, stop in zip(STAGE_A_GRID[:-1], STAGE_A_GRID[1:], strict=True):
         segment = await _branch_segment(
             inputs,
             source,

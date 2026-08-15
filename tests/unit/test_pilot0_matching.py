@@ -17,10 +17,13 @@ from duraseed.pilot0_matching import (
     build_candidate_plan,
     combine_evaluations,
     freeze_target,
+    paired_matched_aggregate,
     select_checkpoint,
+    summarize_matched_cell,
     targeted_posterior_mean,
     targeted_sampling_se,
 )
+from duraseed.pilot0_contract import STAGE_B_GRID
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.runners import RunnerGateError
 from duraseed.runners import pilot0_matched_selection
@@ -169,6 +172,38 @@ def test_combination_preserves_items_and_sampling_se() -> None:
     changed["item_counts"][0]["task_id"] = "other"
     with pytest.raises(RunnerGateError, match="changed the validation population"):
         combine_evaluations((first, changed))
+
+
+def test_matched_summary_includes_monitor_retention_auc() -> None:
+    maps = tuple(
+        {
+            "item_counts": [
+                {
+                    "task_id": "maps",
+                    "panel_role": "stage-b",
+                    "successes": index,
+                    "trials": 16,
+                }
+            ]
+        }
+        for index in range(len(STAGE_B_GRID))
+    )
+    cell = summarize_matched_cell(
+        seed=11,
+        method="B-S",
+        target=0.5,
+        stage_a=_result(8),
+        stage_b_maps=maps,
+        stage_b_retention=tuple(_result(8) for _ in STAGE_B_GRID),
+        stage_b_final_retention=_result(6),
+    )
+
+    assert cell["targeted_monitor_retention_absolute_auc"] == pytest.approx(0.5)
+    assert len(cell["targeted_monitor_retention_curve"]) == len(STAGE_B_GRID)
+    other = {**cell, "method": "B-G"}
+    cells = (cell, other, {**cell, "seed": 29}, {**other, "seed": 29})
+    aggregate = paired_matched_aggregate(cells)
+    assert aggregate["mean_targeted_monitor_retention_absolute_auc_difference"] == 0
 
 
 def test_authorization_binds_exact_preflight_and_ledger_cap() -> None:

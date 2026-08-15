@@ -18,6 +18,7 @@ from duraseed.pilot0_matching import (
     paired_matched_aggregate,
     summarize_matched_cell,
 )
+from duraseed.pilot0_profiles import matched_pre_b_profiles, matched_retention_grid
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.pilot0_reporting import evidence_index
 from duraseed.runners import RunnerGateError
@@ -269,6 +270,9 @@ async def run_matched_followup(
                         _stage_b_evaluation(stage_b, step, "b-validation")
                         for step in STAGE_B_GRID
                     ),
+                    stage_b_retention=matched_retention_grid(
+                        pilot_root, stage_b, seed, method, selected
+                    ),
                     stage_b_final_retention=_stage_b_evaluation(
                         stage_b, STAGE_B_GRID[-1], "a-validation"
                     ),
@@ -282,6 +286,7 @@ async def run_matched_followup(
         "authorization_sha256": authorization_sha256,
         "cells": cells,
         "paired_primary_contrast": paired_matched_aggregate(cells),
+        "pre_b_capability_profiles": matched_pre_b_profiles(output, selection, inputs),
         "evidence_index_sha256": _write_once(
             output / "evidence-index.json", evidence_index(output)
         ),

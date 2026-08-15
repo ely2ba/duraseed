@@ -228,6 +228,8 @@ def test_primary_analysis_uses_raw_gain_auc_and_fixed_budget_retention() -> None
     assert result.targeted_acquisition_gain > result.sentinel_acquisition_gain
     assert result.maps_auc.raw_gain_auc > 0
     assert result.fixed_budget_targeted_retention < result.pre_b_targeted_score
+    assert result.targeted_monitor_retention_absolute_auc == pytest.approx(0.7)
+    assert result.sentinel_monitor_retention_absolute_auc == pytest.approx(0.3)
     assert len(result.targeted_retention_curve) == len(STAGE_B_GRID)
     assert len(result.targeted_cover_curve) == 7
     assert next(row for row in result.targeted_cover_curve if row["tau"] == 0.25)
@@ -238,6 +240,7 @@ def test_primary_analysis_uses_raw_gain_auc_and_fixed_budget_retention() -> None
     )
     assert aggregate["degrees_of_freedom"] == 1
     assert aggregate["mean_raw_gain_stage_b_auc_difference"] == 0
+    assert aggregate["mean_targeted_monitor_retention_absolute_auc_difference"] == 0
 
 
 def test_budget_preflight_counts_frozen_full_path_and_exceeds_cap(monkeypatch) -> None:
