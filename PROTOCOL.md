@@ -6,9 +6,9 @@ replay found 49 observation-eligible candidates and selected 24 matched panel
 families; only 12/24 passed the required `a_test_single` split-capacity check,
 so no panel assignment was published. A later outcome-blind feasibility
 diagnostic found 31/49 families with unchanged 22/22 test capacity under
-all-candidate protection, but the prospective de-duplicate-before-match
-amendment has not yet been accepted or executed. Acquisition calibration and
-Pilot 0 are stopped at this gate. An archived
+all-candidate protection. The prospective de-duplicate-before-match amendment
+was accepted on 15 August 2026, but its local freeze has not yet been executed.
+Acquisition calibration and Pilot 0 are stopped at this gate. An archived
 engineering-only Tinker smoke and raw M0 audit were executed on 9 August 2026,
 and the v1 live smoke gate passed on 13 August 2026. The raw audit
 rejected the zero-update candidate on the declared format gates, so conditional
@@ -219,10 +219,16 @@ An outcome-blind follow-up checked every observation-eligible family against
 all 49 candidates under the unchanged 22/22 `a_test_single` requirement.
 Thirty-one passed, establishing that a valid 24-family capacity-qualified pool
 exists. The failure pattern is consistent with exact algebraic duplicates
-being protected together after matching. This supports a narrow prospective
-cure—collapse exact duplicates and apply the unchanged split-capacity filter
-before matching—but is not itself a panel freeze. No panel is published and no
-acquisition begins until that amendment is accepted, implemented, and replayed.
+being protected together after matching. The accepted prospective cure
+collapses the 49 fixed families into 37 exact rational-function classes, keeps
+the frozen-rank representative of each class, and applies the unchanged 22/22
+filter before matching. Matching receives only test-qualified representatives.
+The intermediate pool is separate: it takes the top 12 ordinary five-split-
+qualified representatives outside both panels and does not require
+`a_test_single`. This is not yet a panel freeze; no acquisition begins until
+the local amendment is executed and its artifact passes downstream
+authentication. The complete rule is recorded in
+[`docs/rfc-boundary-panel-algebraic-deduplication.md`](docs/rfc-boundary-panel-algebraic-deduplication.md).
 
 The first completed Stage-3 confirmation evaluated 38 finalists. Fifteen
 passed every frozen observation and split-capacity gate, so it did not freeze

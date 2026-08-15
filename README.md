@@ -146,8 +146,11 @@ found that 31 of the 49 families can each supply all 22 test items even when all
 49 candidates are treated as reserved. This shows that at least 24
 capacity-qualified families exist and supports a simple prospective cure:
 collapse exact algebraic duplicates and apply the unchanged test-capacity rule
-before matching. It is not yet a frozen panel. The amendment still has to be
-accepted and executed before acquisition can start.
+before matching. That narrow amendment is now accepted: the 49 families form
+37 exact algebraic classes. Panel families must pass the unchanged 22/22 gate;
+the 12 intermediate families retain their original, separate five-split
+eligibility rule and are selected outside both panels. The local amended freeze
+still has to finish before acquisition can start.
 
 If a valid panel construction is frozen, the remaining path is:
 

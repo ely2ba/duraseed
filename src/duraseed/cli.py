@@ -11,6 +11,10 @@ import typer
 from duraseed.config import load_pilot_config
 from duraseed.calibration_billing import reconcile_calibration_billing
 from duraseed.boundary_freeze_finalizer import finalize_three_cohort_freeze
+from duraseed.boundary_panel_amendment_finalizer import (
+    PUBLISHED_UNRESOLVED_RUN_ID,
+    finalize_boundary_panel_amendment,
+)
 from duraseed.runners import RunnerGateError, authorize_launch
 from duraseed.runners import boundary_extension as boundary
 from duraseed.runners import calibration
@@ -227,6 +231,29 @@ def boundary_freeze_finalize(
     except RunnerGateError as error:
         raise typer.BadParameter(str(error)) from error
     typer.echo(f"three-cohort freeze artifacts: {result}")
+
+
+@app.command("boundary-panel-amendment-finalize")
+def boundary_panel_amendment_finalize(
+    run_id: str = typer.Option(...),
+    source_freeze: Path = typer.Option(
+        Path("runs/tinker-calibration/boundary") / PUBLISHED_UNRESOLVED_RUN_ID
+    ),
+    output_root: Path = typer.Option(Path("runs/tinker-calibration/boundary")),
+    config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
+) -> None:
+    """Apply the accepted panel amendment using local frozen evidence only."""
+
+    try:
+        result = finalize_boundary_panel_amendment(
+            run_id=run_id,
+            source_freeze=source_freeze,
+            output_root=output_root,
+            config_path=config,
+        )
+    except RunnerGateError as error:
+        raise typer.BadParameter(str(error)) from error
+    typer.echo(f"amended boundary freeze artifacts: {result}")
 
 
 @app.command("calibration")

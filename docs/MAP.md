@@ -16,7 +16,7 @@ This is the starting point for readers and contributors. The public scientific c
 ## Scientific data flow
 
 1. **M0:** select one common format-capable adapter origin for all methods.
-2. **Panels:** scan TCES families, confirm boundary difficulty on held-out items, and freeze equal crossed target/sentinel panels. The current design prefers 12/12, but strict separation, adequate breadth and precision, and no use of method outcomes are the invariants.
+2. **Panels:** scan TCES families, confirm boundary difficulty on held-out items, and freeze equal crossed target/sentinel panels. The accepted local amendment collapses the fixed 49 candidates into 37 exact algebraic representatives, applies the unchanged 22/22 single-family gate before panel matching, and selects the separate intermediate pool from ordinary-capacity representatives outside both panels. The current design prefers 12/12, but strict separation, adequate breadth and precision, and no use of method outcomes are the invariants.
 3. **Stage A:** acquire TCES capability through the compared complete post-training procedures under matched information and update budgets. Plot capability against cumulative cost and the relevant token axes, and retain the separate teacher-example, prefill, sample, training-token, update, and storage resource vector.
 4. **Matching:** after fixed-budget Pilot 0, select real checkpoints matched specifically on targeted-panel exact-success and publish the full descriptive pre-B profile rather than claiming global behavioral equivalence.
 5. **Stage B:** apply the common frozen supervised MAPS probe (`shortest2_cap2`, `3e-4`, step 480) to every selected Stage-A origin.

@@ -49,9 +49,13 @@ def audit_family_split_capacities(
     ),
     forbidden_records: Sequence[object] = (),
     protected_family_ids: Sequence[str] = (),
+    max_workers: int | None = None,
 ) -> tuple[FamilyCapacityAudit, ...]:
-    """Audit independent families in input order with three worker processes."""
+    """Audit independent families in input order with a bounded process pool."""
 
+    workers = _CAPACITY_AUDIT_WORKERS if max_workers is None else max_workers
+    if isinstance(workers, bool) or not isinstance(workers, int) or workers < 1:
+        raise ValueError("max_workers must be a positive integer")
     ordered = tuple(family_ids)
     if len(set(ordered)) != len(ordered):
         raise ValueError("family IDs must be unique")
@@ -71,9 +75,7 @@ def audit_family_split_capacities(
         )
         for family_id in ordered
     )
-    with ProcessPoolExecutor(
-        max_workers=min(_CAPACITY_AUDIT_WORKERS, len(jobs))
-    ) as executor:
+    with ProcessPoolExecutor(max_workers=min(workers, len(jobs))) as executor:
         return tuple(executor.map(_run_family_capacity_audit, jobs))
 
 
