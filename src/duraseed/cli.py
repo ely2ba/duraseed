@@ -10,6 +10,7 @@ import typer
 
 from duraseed.config import load_pilot_config
 from duraseed.calibration_billing import reconcile_calibration_billing
+from duraseed.boundary_freeze_finalizer import finalize_three_cohort_freeze
 from duraseed.runners import RunnerGateError, authorize_launch
 from duraseed.runners import boundary_extension as boundary
 from duraseed.runners import calibration
@@ -197,6 +198,33 @@ def boundary_confirm_resume(
     except RunnerGateError as error:
         raise typer.BadParameter(str(error)) from error
     typer.echo(f"boundary artifacts: {result}")
+
+
+@app.command("boundary-freeze-finalize")
+def boundary_freeze_finalize(
+    run_id: str = typer.Option(...),
+    consolidated_run: Path = typer.Option(...),
+    v0_source_root: Path = typer.Option(...),
+    source_root: Path = typer.Option(
+        Path("frozen/v0/runs/tinker-calibration/boundary")
+    ),
+    output_root: Path = typer.Option(Path("runs/tinker-calibration/boundary")),
+    config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
+) -> None:
+    """Freeze three-cohort panels after exact production v0/v1 equivalence."""
+
+    try:
+        result = finalize_three_cohort_freeze(
+            run_id=run_id,
+            source_root=source_root,
+            consolidated_run=consolidated_run,
+            output_root=output_root,
+            config_path=config,
+            v0_source_root=v0_source_root,
+        )
+    except RunnerGateError as error:
+        raise typer.BadParameter(str(error)) from error
+    typer.echo(f"three-cohort freeze artifacts: {result}")
 
 
 @app.command("calibration")

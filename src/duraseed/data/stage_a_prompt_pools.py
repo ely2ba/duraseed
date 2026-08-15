@@ -399,11 +399,7 @@ def _direct_composite_manifests(
     ):
         raise StageAPromptPoolError("composite boundary source is malformed")
     directories = source.get("confirmation_run_directories")
-    if (
-        not isinstance(directories, list)
-        or len(directories) != 3
-        or len({str(value) for value in directories}) != 3
-    ):
+    if not isinstance(directories, list) or len(directories) != 3:
         raise StageAPromptPoolError("composite boundary source requires three cohorts")
     for value in directories:
         source_run = read_run_record(Path(str(value)).resolve())

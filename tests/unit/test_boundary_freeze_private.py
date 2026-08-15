@@ -359,3 +359,24 @@ def test_private_reducer_rejects_corrupt_capacity_audit_identity(monkeypatch) ->
             settings=freeze_settings_from_config(CONFIG),
             teacher_trace_token_counts=counts,
         )
+
+
+def test_private_reducer_counts_tokens_after_capacity_selection(monkeypatch) -> None:
+    cohorts = _cohorts()
+    _patch_primitives(monkeypatch)
+    seen = []
+
+    def count(summary, records):
+        seen.append((summary.intended_family_id, tuple(records)))
+        return {}
+
+    result = _reduce_three_cohort_panels(
+        cohorts,
+        settings=freeze_settings_from_config(CONFIG),
+        teacher_trace_token_counter=count,
+    )
+
+    assert tuple(family_id for family_id, _ in seen) == result.eligible_family_ids
+    assert result.teacher_trace_token_counts == {
+        family_id: {} for family_id in result.eligible_family_ids
+    }

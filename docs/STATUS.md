@@ -8,7 +8,7 @@
 | Replay equivalence | **DONE** | The [v0 → v1 replay](../provenance/replay-equivalence.md) completed with zero divergences. |
 | v1 rebuild, runtime, and live runners | **DONE** | Runtime and local execution paths for the smoke, boundary extension, acquisition calibration, and Pilot 0 pass locally; the [boundary extraction](rfc-boundary-protocol-extraction.md) and [calibration closure](rfc-calibration-instrument-closure.md) were equivalence-verified. |
 | Live smoke gate | **DONE** | The real remote path passed exact online/offline reward parity, stop-contract verification, full-state resume, and weights-only branching under its `$25` cap; its billing closeout was completed before the boundary launch. |
-| Boundary extension cohorts 2–3 | **IN PROGRESS** | Cohort 2 is complete. Cohort 3 broad sampling and refinement are complete and paused before confirmation; the final three-cohort panel freeze follows. |
+| Boundary extension cohorts 2–3 | **REMOTE COLLECTION DONE** | Cohorts 2 and 3 have completed broad sampling, refinement, and confirmation. The exact three-cohort replay and matched-panel freeze are now running; no downstream training has started. |
 | Teacher-dose / Stage-A calibration | **NOT STARTED** | The local `$300` execution path is ready. After the panels freeze, this gate will select teacher dose and allocation, Stage-A learning rates and duration, one common RL objective, and one shared completion cap under the [pre-Pilot estimands RFC](rfc-prepilot-estimands-and-selection.md). |
 | Pilot 0 | **NOT STARTED** | No pilot execution or sealed-test access. |
 | Variance reconnaissance | **NOT STARTED** | After Pilot 0, extend B-S/B-G to 3–4 paired pilot seeds before setting confirmatory power. |
@@ -18,8 +18,6 @@
 
 Pilot 0 has not started; no scientific result is claimed.
 
-The three live pre-Pilot gates have caps of `$25`, `$120`, and `$300`. The
-smoke completed under the first cap; the remaining boundary and acquisition
-gates therefore have a combined authorization ceiling of `$420`. Pilot 0 is
-separately capped at `$600`, and each paid gate closes with a cost
-reconciliation before the next one begins.
+The three live pre-Pilot gates have caps of `$25`, `$120`, and `$300`. Remote
+execution for the smoke and boundary gates is complete; acquisition calibration
+is the next paid gate. Pilot 0 is separately capped at `$600`.

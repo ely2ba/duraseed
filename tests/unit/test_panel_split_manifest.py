@@ -3,10 +3,19 @@ from __future__ import annotations
 from dataclasses import asdict
 from types import SimpleNamespace
 
+import pytest
+
 from duraseed.data.boundary_confirmation import build_confirmation_manifest
 from duraseed.data.boundary_protocol import build_broad_manifest
 from duraseed.data.leakage import audit_leakage
 from duraseed.data.panel_split_manifest import build_panel_split_manifest
+from duraseed.data.panel_split_production import (
+    PanelSplitEquivalenceError,
+    PanelSplitManifests,
+    build_production_panel_splits,
+    production_forbidden_records,
+    write_equivalent_panel_splits,
+)
 from duraseed.data.panels import (
     FamilyPanelArtifact,
     PanelLabel,
@@ -125,3 +134,112 @@ def test_panel_split_manifests_match_the_accepted_v0_fixture() -> None:
         8_831,
         "sha256:2f8d1a47d1eb01534cf471101a09db34bd8187b0a2d9f53d41165aa5ab6a32c0",
     )
+
+
+def test_production_pair_preserves_archived_build_order(monkeypatch) -> None:
+    import duraseed.data.panel_split_production as production
+
+    config, artifact, broad, confirmation, families = _fixture()
+    original = production.build_panel_split_manifest
+    calls = []
+
+    def capture(*args, **kwargs):
+        calls.append(
+            (
+                kwargs["split"],
+                kwargs["items_per_family"],
+                tuple(kwargs["forbidden_records"]),
+            )
+        )
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(production, "build_panel_split_manifest", capture)
+    pair = build_production_panel_splits(
+        config,
+        artifact=artifact,
+        broad_manifest=broad,
+        confirmation_manifest=confirmation,
+    )
+    source = (*broad.records, *confirmation.records)
+
+    assert [(split, count) for split, count, _ in calls] == [
+        ("a_seed_train", 16),
+        ("a_seed_gate", 8),
+    ]
+    assert calls[0][2] == source
+    assert calls[1][2] == (*source, *pair.train.records)
+    assert len(pair.train.records) == 16 * len(families)
+    assert len(pair.gate.records) == 8 * len(families)
+    assert production_forbidden_records(broad, confirmation) == source
+    assert production_forbidden_records(broad, confirmation, (broad, confirmation)) == (
+        *source,
+        *broad.records,
+        *confirmation.records,
+    )
+
+
+def test_production_equivalence_writes_only_canonical_downstream_files(
+    tmp_path,
+) -> None:
+    config, artifact, broad, confirmation, _ = _fixture()
+    pair = build_production_panel_splits(
+        config,
+        artifact=artifact,
+        broad_manifest=broad,
+        confirmation_manifest=confirmation,
+    )
+    forbidden = production_forbidden_records(broad, confirmation)
+
+    result = write_equivalent_panel_splits(
+        tmp_path,
+        old=pair,
+        new=pair,
+        artifact=artifact,
+        broad_manifest=broad,
+        confirmation_manifest=confirmation,
+        forbidden_records=forbidden,
+    )
+
+    assert {path.name for path in tmp_path.iterdir()} == {
+        "a_seed_train_manifest.json",
+        "a_seed_gate_manifest.json",
+        "panel_split_equivalence.json",
+    }
+    assert result["old_new_identical"] is True
+    assert result["comparisons"]["a_seed_train"]["complete_object_equal"] is True
+    assert result["comparisons"]["a_seed_gate"]["canonical_bytes_equal"] is True
+    assert result["a_seed_train_sha256"] == sha256_bytes(
+        (tmp_path / "a_seed_train_manifest.json").read_bytes()
+    )
+    assert result["a_seed_gate_sha256"] == sha256_bytes(
+        (tmp_path / "a_seed_gate_manifest.json").read_bytes()
+    )
+
+
+def test_production_equivalence_hard_stops_before_writing_on_divergence(
+    tmp_path,
+) -> None:
+    config, artifact, broad, confirmation, _ = _fixture()
+    pair = build_production_panel_splits(
+        config,
+        artifact=artifact,
+        broad_manifest=broad,
+        confirmation_manifest=confirmation,
+    )
+    divergent = PanelSplitManifests(
+        pair.train,
+        pair.gate.model_copy(update={"name": "divergent-v0-gate"}),
+    )
+
+    with pytest.raises(PanelSplitEquivalenceError, match="diverged"):
+        write_equivalent_panel_splits(
+            tmp_path,
+            old=divergent,
+            new=pair,
+            artifact=artifact,
+            broad_manifest=broad,
+            confirmation_manifest=confirmation,
+            forbidden_records=production_forbidden_records(broad, confirmation),
+        )
+
+    assert list(tmp_path.iterdir()) == []

@@ -16,12 +16,14 @@ from duraseed.data.stage_a_prompt_pools import (
     _build_artifact,
     _capacity_eligible_ids,
     _candidate_ranking,
+    _direct_composite_manifests,
     _flatten_additional_forbidden,
     _generate_family_records,
     _ordered_schedule,
     read_stage_a_prompt_pool_bundle,
     write_stage_a_prompt_pool_bundle,
 )
+from duraseed.run_records import RunStatus
 from duraseed.tasks.tces import TCESGeneratorConfig
 
 
@@ -236,6 +238,79 @@ def test_capacity_evidence_requires_exact_passing_split_rows() -> None:
     )
     with pytest.raises(StageAPromptPoolError, match="contradicts"):
         _capacity_eligible_ids(contradictory, requirements={"a_rl_train": 64})
+
+
+def test_composite_source_allows_two_cohorts_from_one_completed_run(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    broad_id = _sha("a")
+    confirmation_id = _sha("b")
+    cohort_ids = ["initial", "extension_1", "extension_2"]
+    initial = tmp_path / "initial-confirmation"
+    consolidated = tmp_path / "consolidated-confirmation"
+    plan = {
+        "source_kind": "three_cohort_boundary_freeze_v1",
+        "source": {
+            "source_kind": "three_cohort_boundary_freeze_v1",
+            "confirmation_run_directories": [
+                str(initial),
+                str(consolidated),
+                str(consolidated),
+            ],
+            "combined_broad_manifest_id": broad_id,
+            "combined_confirmation_manifest_id": confirmation_id,
+        },
+    }
+    broad = SimpleNamespace(
+        manifest_id=broad_id,
+        root_seed=17,
+        metadata={"cohort_ids": cohort_ids},
+    )
+    confirmation = SimpleNamespace(
+        manifest_id=confirmation_id,
+        root_seed=17,
+        metadata={
+            "cohort_ids": cohort_ids,
+            "source_broad_manifest_id": broad_id,
+        },
+    )
+    run = SimpleNamespace(
+        seed=17,
+        task_manifest_ids={
+            "boundary_composite_a_candidate": broad_id,
+            "boundary_confirmation_a_candidate": confirmation_id,
+        },
+    )
+    checked_directories = []
+
+    monkeypatch.setattr(
+        "duraseed.data.stage_a_prompt_pools._read_json", lambda _path: plan
+    )
+
+    def fake_read_run_record(path):
+        checked_directories.append(path)
+        return SimpleNamespace(
+            status=RunStatus.COMPLETED,
+            run_kind="m0_calibration",
+        )
+
+    monkeypatch.setattr(
+        "duraseed.data.stage_a_prompt_pools.read_run_record",
+        fake_read_run_record,
+    )
+    monkeypatch.setattr(
+        "duraseed.data.stage_a_prompt_pools.read_manifest",
+        lambda path, *, context: (
+            broad if path.name == "a_candidate_manifest.json" else confirmation
+        ),
+    )
+
+    assert _direct_composite_manifests(tmp_path, run) == (broad, confirmation)
+    assert checked_directories == [
+        initial.resolve(),
+        consolidated.resolve(),
+        consolidated.resolve(),
+    ]
 
 
 def test_family_record_scan_excludes_panel_overlap_without_committing_rejects(

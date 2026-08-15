@@ -130,6 +130,7 @@ class BoundaryFreezeResult:
     capacity_audits: tuple[FamilyCapacityAudit, ...]
     observation_eligible_family_ids: tuple[str, ...]
     eligible_family_ids: tuple[str, ...]
+    teacher_trace_token_counts: dict[str, dict[str, int]]
     candidates: tuple[FamilyPanelCandidate, ...]
     ranked_family_ids: tuple[str, ...]
     candidate_payload: dict[str, Any] | None

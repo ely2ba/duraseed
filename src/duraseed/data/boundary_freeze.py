@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import asdict
 from typing import Any
 
@@ -138,7 +138,11 @@ def _reduce_three_cohort_panels(
     cohorts: Sequence[BoundaryFreezeCohort],
     *,
     settings: BoundaryFreezeSettings,
-    teacher_trace_token_counts: Mapping[str, Mapping[str, int]],
+    teacher_trace_token_counts: Mapping[str, Mapping[str, int]] | None = None,
+    teacher_trace_token_counter: Callable[
+        [BoundaryFamilySummary, tuple[TCESTaskManifestRecord, ...]], Mapping[str, int]
+    ]
+    | None = None,
 ) -> BoundaryFreezeResult:
     """Private extraction of the archived reducer for completed-evidence comparison."""
 
@@ -170,6 +174,7 @@ def _reduce_three_cohort_panels(
         )
     )
     finalist_ids = tuple(row.intended_family_id for row in summaries)
+    summary_by_family = {row.intended_family_id: row for row in summaries}
     if len(finalist_ids) != len(set(finalist_ids)):
         raise BoundaryFreezeReductionError("cohort finalists are ambiguous")
     config = TCESGeneratorConfig(**dict(settings.generator_kwargs))
@@ -203,10 +208,6 @@ def _reduce_three_cohort_panels(
     eligible = tuple(
         family_id for family_id in observation if audit_by_family[family_id].passed
     )
-    if set(teacher_trace_token_counts) != set(eligible):
-        raise BoundaryFreezeReductionError(
-            "teacher token counts differ from eligible families"
-        )
     records_by_family: dict[str, list[TCESTaskManifestRecord]] = {
         family_id: [] for family_id in eligible
     }
@@ -216,11 +217,35 @@ def _reduce_three_cohort_panels(
             and record.intended_family in records_by_family
         ):
             records_by_family[record.intended_family].append(record)
+    if (teacher_trace_token_counts is None) == (teacher_trace_token_counter is None):
+        raise BoundaryFreezeReductionError(
+            "supply exactly one teacher token-count source"
+        )
+    counts = (
+        {
+            family_id: dict(
+                teacher_trace_token_counter(
+                    summary_by_family[family_id],
+                    tuple(records_by_family[family_id]),
+                )
+            )
+            for family_id in eligible
+        }
+        if teacher_trace_token_counter is not None
+        else {
+            family_id: dict(values)
+            for family_id, values in (teacher_trace_token_counts or {}).items()
+        }
+    )
+    if set(counts) != set(eligible):
+        raise BoundaryFreezeReductionError(
+            "teacher token counts differ from eligible families"
+        )
     candidates = tuple(
         build_family_panel_candidate(
-            next(row for row in summaries if row.intended_family_id == family_id),
+            summary_by_family[family_id],
             records_by_family[family_id],
-            teacher_trace_token_counts=teacher_trace_token_counts[family_id],
+            teacher_trace_token_counts=counts[family_id],
             available_disjoint_instances=audit_by_family[
                 family_id
             ].available_disjoint_instances,
@@ -328,6 +353,7 @@ def _reduce_three_cohort_panels(
         audits,
         observation,
         eligible,
+        counts,
         candidates,
         tuple(row.family_id for row in ranked),
         candidate_payload,
