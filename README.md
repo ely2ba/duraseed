@@ -1,16 +1,139 @@
 # DuraSeed
 
-DuraSeed studies the stability–plasticity trade-off induced by different post-training acquisition paths: after methods reach matched capability on one task family, do they retain it differently while learning the next one? The study uses deterministic, exact-verifier TCES and MAPS environments with `Qwen/Qwen3.5-9B-Base`, rank-32 LoRA adapters, and Tinker for explicitly authorized remote execution.
+A model can reach the same score in more than one way. That does not necessarily
+mean the different training methods leave it in the same condition.
+
+One method might produce a skill that survives later training better. Another
+might leave the model more ready to learn what comes next. If we only look at
+the score immediately after training, we cannot see either difference.
+
+DuraSeed asks a simple question:
+
+> When two post-training methods teach the same model the same new skill to a
+> comparable level, do they differ in how well that skill lasts and how easily
+> the model learns the next skill?
+
+This matters because useful models are rarely trained once and left alone.
+They are fine-tuned, updated, and adapted again. A method that looks best on
+today's benchmark may be a worse foundation for tomorrow's training if it
+causes more forgetting or makes the next task harder to learn.
+
+The study is deliberately narrow: one base model, rank-32 LoRA adapters, and
+two synthetic task families with exact answers. This lets us measure the
+trade-off without relying on a judge model or debating whether an answer was
+mostly right. The goal is not to declare one training method universally
+better. It is to find out whether the path used to acquire a skill can change
+what happens when the model is trained again.
+
+## The first comparison
+
+Every run begins from the same format-capable `Qwen/Qwen3.5-9B-Base`
+checkpoint and receives the same initial boundary-teacher training. The first
+comparison then splits into two paths:
+
+- **B-S** continues with supervised fine-tuning on a fixed set of correct,
+  solver-generated answers.
+- **B-G** learns from its own sampled attempts, scored by an exact verifier,
+  using group-relative reinforcement learning.
+
+In plain terms, this compares learning from a fixed book of worked solutions
+with learning by trying solutions and receiving exact feedback. It is a
+comparison between two complete acquisition procedures, not a claim that only
+their loss functions differ.
+
+Stage A uses arithmetic-expression problems. The model must combine a given
+set of numbers, use each exactly once, and reach a target value. We look for
+strategy families near the model's current ability boundary: hard enough to
+leave room for learning, but not so hard that every answer is wrong.
+
+Those families are divided into two closely matched 12-family panels. One is
+trained while the other is held out as a sentinel, and their roles reverse
+across paired seeds. This helps distinguish retention of the taught skill from
+broader changes that affect everything.
+
+After Stage A, every checkpoint receives the same Stage-B supervised training
+on a separate modular program-synthesis task. We measure two things together:
+
+1. how much of the Stage-A skill remains as Stage B progresses; and
+2. how quickly the model learns Stage B under the same training recipe.
+
+Pilot 0 first compares B-S and B-G after the same fixed Stage-A duration. A
+required follow-up then selects real checkpoints at comparable Stage-A
+capability and repeats the common Stage-B probe. We reserve
+"capability-matched" claims for that follow-up: otherwise, a method that simply
+learned more in Stage A could also appear to have more skill available to lose.
+
+## Why the design looks this way
+
+- **Exact tasks keep the measurement honest.** The generators, solvers, and
+  verifiers are deterministic, so correctness does not depend on subjective
+  grading.
+- **One common origin keeps the comparison interpretable.** The model, adapter
+  rank, initial checkpoint, panels, and Stage-B recipe are shared across paths.
+- **Crossed panels control for family quirks.** Target and sentinel roles swap
+  across paired seeds instead of relying on one lucky task split.
+- **Final tests stay sealed.** Training, calibration, checkpoint selection, and
+  method decisions use separate data.
+- **Independent runs come before a scale sweep.** For the first study, learning
+  the seed-to-seed variance is more valuable than spreading the budget across
+  several model sizes or adapter ranks. A larger-model replication belongs
+  after the core effect is established.
+- **Method breadth is earned by the result.** B-S versus B-G comes first. B-O
+  and the broader controls remain available, but they are added only if the
+  first results show that they answer a useful mechanism question.
+
+Here, "future learnability" has a specific meaning: learning under this fixed
+supervised Stage-B probe. It is not presented as a universal measure of model
+plasticity.
 
 ## Where things stand
 
-Most of the groundwork is now finished. The project has been rebuilt in a clean public repository, the original tasks, verifiers, and analysis have been replayed with zero differences, and the remaining pre-pilot workflows pass locally. Earlier calibration established the common M0 starting point, selected the canonical training format, froze the MAPS recipe at `shortest2_cap2` with learning rate `3e-4` through step 480, and identified 15 eligible families in the first boundary cohort.
+Most of the groundwork is finished. The project has been rebuilt in a clean
+public repository, the original tasks, verifiers, and analysis replay with zero
+differences, and the code paths for the remaining pre-pilot gates pass their
+local tests. Earlier calibration established the common M0 starting point,
+selected the canonical training format, froze the MAPS recipe at
+`shortest2_cap2` with learning rate `3e-4` through step 480, and identified 15
+eligible families in the first boundary cohort.
 
-The first live engineering smoke has now passed on real remote execution. It exercised training and sampling end to end, reproduced verifier rewards exactly online and offline, confirmed the stop contract, and successfully tested both full-state resume and weights-only branching. This remains an engineering result, but it clears an important practical risk before the longer experiments begin.
+The live engineering smoke passed on real remote execution. It exercised
+training and sampling end to end, reproduced verifier rewards exactly online
+and offline, confirmed the stop contract, and tested both full-state resume and
+weights-only branching. This is an engineering result, not evidence for the
+research hypothesis.
 
-Remote data collection for the boundary extension is now complete. Cohort 2 and Cohort 3 have both finished broad sampling, refinement, and confirmation, leaving 15 locked passers from the first cohort, 21 observation-eligible families from Cohort 2, and 13 from Cohort 3 before the final combined-capacity check. The project is now replaying all three cohorts together to freeze two matched 12-family panels. Acquisition calibration follows: it will choose the shared teacher dose and data allocation, Stage-A learning rates and duration, one common RL setup, and one common completion limit.
+Remote data collection for the boundary search is complete. Cohorts 2 and 3
+both finished broad sampling, refinement, and confirmation. The final
+three-cohort replay also completed and reproduced the old and new reducers
+exactly.
 
-Only once those gates are complete and frozen will Pilot 0 begin. Pilot 0 has not started, no sealed test data has been opened, and no scientific result is claimed yet.
+That replay found 49 observation-eligible families, comfortably above the 36
+needed to form two panels plus an intermediate pool. The matching step selected
+24 families for the two panels. But the final, stricter data-separation check
+found that only 12 of those 24 could supply all 22 required single-family test
+items; the other 12 could supply none. Because the core design requires two
+complete 12-family panels, no panel assignment was published.
+
+This is a genuine feasibility result for the current panel-construction rule,
+not a software failure and not a result about B-S versus B-G. Acquisition
+calibration and Pilot 0 remain stopped. The next scientific decision is whether
+a prospective revision can preserve the 12/12 crossed design and strict data
+separation without using future method outcomes to choose the families.
+
+If a valid panel construction is frozen, the remaining path is:
+
+1. calibrate the shared teacher dose, Stage-A learning rates and duration, and
+   common RL setup;
+2. run the two-seed, fixed-budget B-S/B-G Pilot 0;
+3. run the required matched-capability checkpoint follow-up;
+4. extend to three or four paired pilot seeds to estimate variance;
+5. decide whether B-O or any broader control adds enough scientific value;
+6. freeze and preregister the confirmatory design; and
+7. run it on fresh seeds.
+
+Pilot 0 has not started, no sealed test data has been opened, and no result is
+claimed for the stability–future-learnability question. Everything completed so
+far is calibration, feasibility evidence, and experiment preparation.
 
 ## Repository layout
 

@@ -1,14 +1,20 @@
 # DuraSeed pre-calibration protocol
 
-Status: pre-pilot; the boundary extension is in progress. An archived
+Status: pre-pilot; remote boundary collection and the deterministic
+three-cohort replay are complete, but the panel freeze is unresolved. The
+replay found 49 observation-eligible candidates and selected 24 matched panel
+families; only 12/24 passed the required `a_test_single` split-capacity check,
+so no panel assignment was published. Acquisition calibration and Pilot 0 are
+stopped at this gate. An archived
 engineering-only Tinker smoke and raw M0 audit were executed on 9 August 2026,
 and the v1 live smoke gate passed on 13 August 2026. The raw audit
 rejected the zero-update candidate on the declared format gates, so conditional
 task-agnostic format training was required. A common trainable M0 has now been
 selected. The renderer and common TCES completion cap are now fixed at
-`role_colon` with the DuraSeed answer/role stops and 4096 tokens. Task
-difficulty, panels, and training settings remain unresolved. Pilot 0 has not
-started, and no scientific result has been produced.
+`role_colon` with the DuraSeed answer/role stops and 4096 tokens. MAPS task
+difficulty and its Stage-B recipe are fixed; TCES panel membership and
+Stage-A acquisition settings remain unresolved. Pilot 0 has not started, and
+no result for the stability–future-learnability hypothesis has been produced.
 
 This file is the public authoritative scientific contract, with
 `duraseed_pilot_config.yaml` as its machine-readable counterpart. They become
@@ -165,14 +171,28 @@ optimization data. Sentinel families enter none of it and are evaluated at M0,
 post-seed, post-A, and throughout Stage B. Existing family-disjointness leakage
 checks fail closed on a sentinel/training overlap.
 
-Panel membership and allocation seed remain unresolved until the M0 scan. The
-core pilot and confirmatory design both require two matched 12-family panels so
+Panel membership remains unresolved until the completed three-cohort evidence
+passes the combined freeze. The allocation seed is already fixed at
+`6448342238137851489`. The core pilot and confirmatory design both require two
+matched 12-family panels so
 the target/sentinel cross-over is exactly symmetric. An 8/8 reconnaissance
 fallback may diagnose feasibility, but it cannot replace the core crossed
 comparison. Transition also requires 12 distinct non-panel intermediate
 families for the frozen Stage-A prompt pool. Fewer than 36 confirmed families
 therefore leaves Phase 3 unresolved rather than silently weakening either
 control.
+
+Three-cohort freeze outcome (15 August 2026): all 115 finalists passed the
+ordinary split-capacity audit and 49 were observation-eligible. Deterministic
+matching selected 24 panel candidates, but the final selected-panel audit
+passed only 12/24. Each failure was isolated to `a_test_single`: 0 of 22
+required items were available after the full 176-index scan, while the other
+five protected splits passed. The other 12 candidates supplied all 22/22 test
+items. The old and current reducers and teacher-token maps agreed exactly. No
+panel artifact was published, and the frozen outcome is
+`confirmation_complete_panel_selection_unresolved`. This is structural
+feasibility evidence, not a B-S/B-G outcome; no acquisition or Pilot execution
+is authorized by it.
 
 The first completed Stage-3 confirmation evaluated 38 finalists. Fifteen
 passed every frozen observation and split-capacity gate, so it did not freeze
