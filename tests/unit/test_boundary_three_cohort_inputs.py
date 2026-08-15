@@ -75,6 +75,8 @@ def _evidence():
             assigned_family_id=record.intended_family,
             stop_reason="stop",
             reward=0.0,
+            completion_token_ids=(1,),
+            completion_logprobs=(-0.1,),
         )
         for index in range(4)
     )

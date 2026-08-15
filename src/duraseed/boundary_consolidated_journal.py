@@ -19,14 +19,17 @@ ACTION_INDICES = {
 }
 
 
-def _rows(path: Path, model, label: str):
+def _projection_rows(path: Path, label: str):
     try:
-        return tuple(
-            model.model_validate_json(line)
-            for line in path.read_text(encoding="utf-8").splitlines()
-            if line.strip()
-        )
-    except (OSError, ValueError) as error:
+        with path.open("r", encoding="utf-8") as handle:
+            for line in handle:
+                if not line.strip():
+                    continue
+                value = json.loads(line)
+                if not isinstance(value, dict):
+                    raise TypeError("projection row is not an object")
+                yield value
+    except (OSError, TypeError, json.JSONDecodeError) as error:
         raise RunnerGateError(f"invalid {label} rows") from error
 
 
@@ -45,8 +48,12 @@ def load_consolidated_journal(
     generations = {action: [] for action in manifests}
     rewards = {action: [] for action in manifests}
     task_ids = {action: set() for action in manifests}
-    all_generations: list[GenerationRecord] = []
-    all_rewards: list[RewardRecord] = []
+    projected_g = iter(
+        _projection_rows(directory / "generations.jsonl", "generation projection")
+    )
+    projected_r = iter(
+        _projection_rows(directory / "rewards.jsonl", "reward projection")
+    )
     sample_ids: set[str] = set()
     reward_ids: set[str] = set()
     try:
@@ -59,11 +66,19 @@ def load_consolidated_journal(
         try:
             value = json.loads(line)
             action, task_id = value["action"], value["task_id"]
+            raw_g = value["generations"]
+            raw_r = value["rewards"]
+            if any(next(projected_g, None) != row for row in raw_g) or any(
+                next(projected_r, None) != row for row in raw_r
+            ):
+                raise RunnerGateError(
+                    "consolidated projections differ from the group journal"
+                )
             group_g = tuple(
-                GenerationRecord.model_validate(row) for row in value["generations"]
+                GenerationRecord.model_validate_json(json.dumps(row)) for row in raw_g
             )
             group_r = tuple(
-                RewardRecord.model_validate(row) for row in value["rewards"]
+                RewardRecord.model_validate_json(json.dumps(row)) for row in raw_r
             )
         except (KeyError, TypeError, ValueError, json.JSONDecodeError) as error:
             raise RunnerGateError(
@@ -99,13 +114,7 @@ def load_consolidated_journal(
         reward_ids.update(row.reward_id for row in group_r)
         generations[action].extend(group_g)
         rewards[action].extend(group_r)
-        all_generations.extend(group_g)
-        all_rewards.extend(group_r)
-    projected_g = _rows(
-        directory / "generations.jsonl", GenerationRecord, "generation projection"
-    )
-    projected_r = _rows(directory / "rewards.jsonl", RewardRecord, "reward projection")
-    if tuple(all_generations) != projected_g or tuple(all_rewards) != projected_r:
+    if next(projected_g, None) is not None or next(projected_r, None) is not None:
         raise RunnerGateError("consolidated projections differ from the group journal")
     return (
         {key: tuple(value) for key, value in generations.items()},
