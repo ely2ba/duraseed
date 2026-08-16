@@ -61,6 +61,22 @@ on a separate modular program-synthesis task. We measure two things together:
 1. how much of the Stage-A skill remains as Stage B progresses; and
 2. how quickly the model learns Stage B under the same training recipe.
 
+Recent work asks several nearby questions. [SFT Memorizes, RL
+Generalizes](https://arxiv.org/abs/2501.17161) compares how behavior acquired
+through SFT and RL generalizes to unseen variants. [RL's
+Razor](https://arxiv.org/abs/2509.04259) and [Retaining by
+Doing](https://arxiv.org/abs/2510.18874) study how well a model's pre-existing
+abilities survive while it learns a new task, while [continual post-training
+work](https://arxiv.org/abs/2507.05386) follows learned tasks through a longer
+sequence. Other results show that a checkpoint's current score need not predict
+how well it responds to [the training that comes
+next](https://arxiv.org/abs/2602.01058). To our knowledge, the less-studied
+combination is the one DuraSeed targets: checkpoints produced by two complete
+acquisition procedures, compared at similar Stage-A capability, then exposed
+to exactly the same, separate Stage-B training while we measure both retention
+of Stage A and learning of Stage B. This is the distinction—not a claim that
+sequential forgetting or model plasticity has gone unstudied.
+
 Pilot 0 first compares B-S and B-G after the same fixed Stage-A duration. A
 required follow-up then selects real checkpoints at comparable Stage-A
 capability and repeats the common Stage-B probe. More precisely, those
