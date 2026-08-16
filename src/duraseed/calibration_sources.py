@@ -41,8 +41,10 @@ _BOUNDARY_FILES = (
     "three_cohort_equivalence.json",
 )
 
-# Filled only after the completed-evidence three-cohort reduction is accepted.
-ACCEPTED_BOUNDARY_FREEZE_EQUIVALENCE_SHA256: str | None = None
+# Accepted completed three-cohort reduction used by the amended production panels.
+ACCEPTED_BOUNDARY_FREEZE_EQUIVALENCE_SHA256: str | None = (
+    "sha256:e003fe85289f29915e25582b22ae582182b89185ea66f0d74fdcb4a202653f15"
+)
 # Accepted §10.1 decision and authorization, stored under provenance/.
 ACCEPTED_MAX_TOKEN_SPECIFICATION_SHA256: str | None = (
     "sha256:801a43db3bfcd6b025757601ef49321409a328893d46b68290a3cbd32a452c00"

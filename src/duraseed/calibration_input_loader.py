@@ -19,8 +19,10 @@ from duraseed.runners import RunnerGateError
 from duraseed.training.teacher_allocation_sources import TeacherAllocationSources
 
 
-# Filled only after the user accepts the narrow RFC and committed equivalence note.
-ACCEPTED_PANEL_SPLIT_AUTHORIZATION_SHA256: str | None = None
+# Accepted exact archived-v0/current-v1 production split authorization.
+ACCEPTED_PANEL_SPLIT_AUTHORIZATION_SHA256: str | None = (
+    "sha256:420421f8bf0d8fbac08791d72b908e627f6a4ed845834d91b818eac0ab064e12"
+)
 
 
 @dataclass(frozen=True, slots=True)

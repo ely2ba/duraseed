@@ -165,8 +165,12 @@ collapse exact algebraic duplicates and apply the unchanged test-capacity rule
 before matching. That narrow amendment is now accepted: the 49 families form
 37 exact algebraic classes. Panel families must pass the unchanged 22/22 gate;
 the 12 intermediate families retain their original, separate five-split
-eligibility rule and are selected outside both panels. The local amended freeze
-still has to finish before acquisition can start.
+eligibility rule and are selected outside both panels. The amended freeze has
+now completed: all 37 representatives passed the unchanged capacity audit, two
+disjoint 12-family panels and 12 separate intermediate families were frozen,
+and the archived and current production split builders produced byte-identical
+train and gate manifests. Acquisition calibration is the next experimental
+stage; it has not started yet.
 
 If a valid panel construction is frozen, the remaining path is:
 

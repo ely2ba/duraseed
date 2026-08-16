@@ -1,14 +1,14 @@
 # DuraSeed pre-calibration protocol
 
-Status: pre-pilot; remote boundary collection and the deterministic
-three-cohort replay are complete, but the panel freeze is unresolved. The
-replay found 49 observation-eligible candidates and selected 24 matched panel
-families; only 12/24 passed the required `a_test_single` split-capacity check,
-so no panel assignment was published. A later outcome-blind feasibility
-diagnostic found 31/49 families with unchanged 22/22 test capacity under
-all-candidate protection. The prospective de-duplicate-before-match amendment
-was accepted on 15 August 2026, but its local freeze has not yet been executed.
-Acquisition calibration and Pilot 0 are stopped at this gate. An archived
+Status: pre-pilot; remote boundary collection, the deterministic three-cohort
+replay, and the amended panel freeze are complete. The original match-first
+rule failed structurally, after which the prospectively accepted
+de-duplicate-before-match rule reduced 49 observation-eligible families to 37
+exact algebraic representatives. All 37 passed the unchanged 22/22 test
+capacity requirement; two disjoint 12-family panels and 12 separate
+intermediate families are now frozen. The archived and current production
+split builders produced byte-identical train and gate manifests. Acquisition
+calibration is the next experimental gate; Pilot 0 has not started. An archived
 engineering-only Tinker smoke and raw M0 audit were executed on 9 August 2026,
 and the v1 live smoke gate passed on 13 August 2026. The raw audit
 rejected the zero-update candidate on the declared format gates, so conditional
@@ -191,8 +191,8 @@ optimization data. Sentinel families enter none of it and are evaluated at M0,
 post-seed, post-A, and throughout Stage B. Existing family-disjointness leakage
 checks fail closed on a sentinel/training overlap.
 
-Panel membership remains unresolved until the completed three-cohort evidence
-passes the combined freeze. The allocation seed is already fixed at
+Panel membership is frozen by the completed amended three-cohort construction.
+The allocation seed is fixed at
 `6448342238137851489`. The current pilot design prefers two matched 12-family
 panels so the target/sentinel cross-over is exactly symmetric. The scientific
 invariants are equal crossed target/sentinel panels, adequate family breadth
@@ -225,9 +225,11 @@ the frozen-rank representative of each class, and applies the unchanged 22/22
 filter before matching. Matching receives only test-qualified representatives.
 The intermediate pool is separate: it takes the top 12 ordinary five-split-
 qualified representatives outside both panels and does not require
-`a_test_single`. This is not yet a panel freeze; no acquisition begins until
-the local amendment is executed and its artifact passes downstream
-authentication. The complete rule is recorded in
+`a_test_single`. The amended freeze subsequently passed: all 37
+representatives met the unchanged requirements, the matcher froze two
+disjoint 12-family panels, and 12 separate ordinary-capacity-qualified
+intermediates were retained. The production prompt and split build also passed
+exact archived/current equivalence. The complete rule is recorded in
 [`docs/rfc-boundary-panel-algebraic-deduplication.md`](docs/rfc-boundary-panel-algebraic-deduplication.md).
 
 The first completed Stage-3 confirmation evaluated 38 finalists. Fifteen

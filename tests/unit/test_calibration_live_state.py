@@ -5,8 +5,13 @@ from pathlib import Path
 
 import pytest
 
-from duraseed.calibration_input_loader import load_calibration_source_objects
-from duraseed.calibration_sources import load_max_token_evidence
+from duraseed.calibration_input_loader import (
+    ACCEPTED_PANEL_SPLIT_AUTHORIZATION_SHA256,
+)
+from duraseed.calibration_sources import (
+    ACCEPTED_BOUNDARY_FREEZE_EQUIVALENCE_SHA256,
+    load_max_token_evidence,
+)
 from duraseed.calibration_state import (
     artifact,
     checkpoint,
@@ -199,17 +204,13 @@ def test_accepted_max_token_artifacts_authenticate_frozen_source() -> None:
     assert value.apply_to_methods == ALL_METHODS
 
 
-def test_panel_source_stays_closed_until_final_three_cohort_equivalence(
-    tmp_path: Path,
-) -> None:
-    with pytest.raises(RunnerGateError, match="RFC/equivalence is not accepted"):
-        load_calibration_source_objects(
-            config=None,  # type: ignore[arg-type]
-            boundary_directory=tmp_path,
-            source_directory=tmp_path,
-            panel_split_authorization_path=tmp_path / "authorization.json",
-            panel_split_equivalence_path=tmp_path / "equivalence.json",
-        )
+def test_completed_panel_sources_are_pinned() -> None:
+    assert ACCEPTED_BOUNDARY_FREEZE_EQUIVALENCE_SHA256 == (
+        "sha256:e003fe85289f29915e25582b22ae582182b89185ea66f0d74fdcb4a202653f15"
+    )
+    assert ACCEPTED_PANEL_SPLIT_AUTHORIZATION_SHA256 == (
+        "sha256:420421f8bf0d8fbac08791d72b908e627f6a4ed845834d91b818eac0ab064e12"
+    )
 
 
 def test_max_token_loader_authenticates_one_source_then_common_apply_to(
