@@ -11,7 +11,7 @@ from duraseed.data.manifests import TCESTaskManifestRecord
 from duraseed.run_records import GenerationRecord, RewardRecord, TrainingMetricRecord
 from duraseed.runners import RunnerGateError
 from duraseed.runners.calibration_live import CalibrationLiveInputs
-from duraseed.tasks.tces import enumerate_task, generate_teacher_trace
+from duraseed.runners.solver_teacher_cache import solver_teacher_completion
 from duraseed.training.sft import build_teacher_dose_records
 from duraseed.training.teacher_dose import (
     TeacherDoseAssessment,
@@ -86,11 +86,7 @@ def teacher_records(
             raise RunnerGateError("teacher training manifest is not TCES")
         if record.intended_family not in families:
             continue
-        enumeration = enumerate_task(record.to_task())
-        expression = enumeration.family_representatives.get(record.intended_family)
-        if not enumeration.complete or expression is None:
-            raise RunnerGateError("teacher task lacks its intended-family solution")
-        completions.append((record, generate_teacher_trace(expression)))
+        completions.append((record, solver_teacher_completion(record)))
     return build_teacher_dose_records(
         source_manifest=manifest,
         solver_completions=completions,

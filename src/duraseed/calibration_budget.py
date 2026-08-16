@@ -8,19 +8,17 @@ import math
 from typing import Any
 
 from duraseed.data.io import atomic_write_bytes
+from duraseed.data.manifests import TCESTaskManifestRecord
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.runners import RunnerGateError
 from duraseed.runners.stage_a_evidence import (
-    boundary_sources,
     ordered_pools,
     scheduled_records,
-    solver_sources,
 )
 from duraseed.runners.teacher_dose_evidence import (
     cyclic_batch,
     gate_records,
     teacher_families,
-    teacher_records,
 )
 from duraseed.runtime import PRICE_SNAPSHOT, TokenBudget, UsageQuantities
 from duraseed.runtime.data import SUPERVISED_MAX_LENGTH
@@ -89,20 +87,20 @@ def _sample(inputs: Any, records: tuple, samples: int) -> TokenBudget:
     )
 
 
-def _sft_length(inputs: Any, record: Any) -> int:
-    model_input, _ = inputs.runtime.renderer.build_supervised_example(
-        [
-            {"role": "user", "content": record.prompt_text},
-            {"role": "assistant", "content": record.verified_completion_text},
-        ],
-        train_on_what=inputs.runtime.sdk.train_on_what.LAST_ASSISTANT_MESSAGE,
-    )
-    full_length = int(model_input.length)
-    if full_length > SUPERVISED_MAX_LENGTH:
-        raise ValueError(
-            "supervised source would be truncated by the 1024-token contract"
-        )
-    return full_length - 1
+_SFT_TOKENS_PER_DATUM = SUPERVISED_MAX_LENGTH - 1
+
+
+def _teacher_source_count(inputs: Any, families: tuple[str, ...], dose: int) -> int:
+    records = inputs.teacher_sources.target_train_manifest.records
+    if any(not isinstance(row, TCESTaskManifestRecord) for row in records):
+        raise RunnerGateError("teacher training manifest is not TCES")
+    by_family = {
+        family: sum(row.intended_family == family for row in records)
+        for family in families
+    }
+    if any(count < dose for count in by_family.values()):
+        raise RunnerGateError("teacher training manifest cannot supply configured dose")
+    return len(families) * dose
 
 
 def _cyclic_train(lengths: list[int], updates: int) -> int:
@@ -127,8 +125,8 @@ def teacher_dose_budget(
         budgets.append(_sample(inputs, gate_records(inputs, verification_sentinel), 1))
     remaining_training_arms = 0
     for dose in inputs.config.teacher_dose.demonstrations_per_family:
-        sources = teacher_records(inputs, calibration_target, dose)
-        lengths = [_sft_length(inputs, row) for row in sources]
+        source_count = _teacher_source_count(inputs, calibration_target, dose)
+        lengths = [_SFT_TOKENS_PER_DATUM] * source_count
         arm = _plus(
             TokenBudget(0, 0, _cyclic_train(lengths, updates)),
             _sample(
@@ -145,10 +143,8 @@ def teacher_dose_budget(
                 remaining_training_arms += 1
     verification_trains = []
     for dose in inputs.config.teacher_dose.demonstrations_per_family:
-        lengths = [
-            _sft_length(inputs, row)
-            for row in teacher_records(inputs, verification_target, dose)
-        ]
+        source_count = _teacher_source_count(inputs, verification_target, dose)
+        lengths = [_SFT_TOKENS_PER_DATUM] * source_count
         verification_trains.append(_cyclic_train(lengths, updates))
     verification = _plus(
         TokenBudget(0, 0, max(verification_trains)),
@@ -195,13 +191,9 @@ def stage_a_budget(
     if completed:
         return _cost(TokenBudget(0, 0, 0), 0.0)
     pools = ordered_pools(inputs.prompt_pools)
-    solvers = {
-        row.task_id: row
-        for row in solver_sources(inputs.prompt_pools.a_rl_train_manifest)
-    }
-    boundary = [
-        _sft_length(inputs, row) for row in boundary_sources(inputs, selected_dose)
-    ]
+    targeted_families, _ = teacher_families(inputs, 17)
+    boundary_count = _teacher_source_count(inputs, targeted_families, selected_dose)
+    boundary = [_SFT_TOKENS_PER_DATUM] * boundary_count
     budgets = [
         TokenBudget(
             0,
@@ -218,7 +210,7 @@ def stage_a_budget(
         records = scheduled_records(
             pools, inputs.prompt_pools.artifact.bs_slot_order, schedule_step
         )
-        bs_train += sum(_sft_length(inputs, solvers[row.task_id]) for row in records)
+        bs_train += len(records) * _SFT_TOKENS_PER_DATUM
     budgets.append(TokenBudget(0, 0, bs_train))
     bg_prefill = bg_sample = bg_train = 0
     bg_schedule = (*range(1, 11),) * len(STAGE_A_LEARNING_RATE_GRIDS["B-G"])

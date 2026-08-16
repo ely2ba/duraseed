@@ -15,13 +15,14 @@ from duraseed.run_records import append_jsonl
 from duraseed.runners import RunnerGateError
 from duraseed.runners.calibration_live import CalibrationLiveInputs
 from duraseed.runners.remote_journal import RemoteJournal
+from duraseed.runners.solver_teacher_cache import solver_teacher_completion
 from duraseed.runtime import (
     SampleObservation,
     SamplingCoordinates,
     SamplingTask,
     sample_seeded,
 )
-from duraseed.tasks.tces import enumerate_task, generate_teacher_trace, render_prompt
+from duraseed.tasks.tces import render_prompt
 from duraseed.training.sft import (
     VerifiedSourceRecord,
     build_solver_teacher_record,
@@ -34,11 +35,7 @@ CALIBRATION_SEED = 17
 
 
 def _completion(record: TCESTaskManifestRecord) -> str:
-    enumeration = enumerate_task(record.to_task())
-    expression = enumeration.family_representatives.get(record.intended_family)
-    if not enumeration.complete or expression is None:
-        raise RunnerGateError("Stage-A task lacks its intended-family solution")
-    return generate_teacher_trace(expression)
+    return solver_teacher_completion(record)
 
 
 def solver_sources(manifest: DatasetManifest) -> tuple[VerifiedSourceRecord, ...]:
