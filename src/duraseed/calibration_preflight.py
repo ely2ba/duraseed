@@ -6,6 +6,34 @@ from typing import Any
 
 from duraseed.provenance import canonical_json_value
 from duraseed.runners import RunnerGateError
+from duraseed.teacher_exposure_spec import (
+    LIFETIME_CALIBRATION_CAP_USD,
+    ORIGINAL_TEACHER_CAP_USD,
+    REPAIR_AGGREGATE_CAP_USD,
+    REPAIR_STAGE_A_CAP_USD,
+    REPAIR_SPEC,
+    REPAIR_TEACHER_CAP_USD,
+    REPAIR_TEACHER_TOKEN_CEILINGS,
+)
+
+
+def validate_repair_allocation(inputs: Any) -> None:
+    child_cap = (
+        inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
+    )
+    parent_spend = inputs.parent_teacher_evidence.parent_billed_usd
+    teacher_limits = inputs.teacher_ledger.limits
+    if (
+        inputs.teacher_ledger.authorized_usd != REPAIR_TEACHER_CAP_USD
+        or inputs.stage_a_ledger.authorized_usd != REPAIR_STAGE_A_CAP_USD
+        or child_cap != REPAIR_AGGREGATE_CAP_USD
+        or (teacher_limits.prefill, teacher_limits.sample, teacher_limits.train)
+        != REPAIR_TEACHER_TOKEN_CEILINGS
+        or parent_spend + child_cap > LIFETIME_CALIBRATION_CAP_USD
+        or parent_spend + inputs.teacher_ledger.authorized_usd
+        > ORIGINAL_TEACHER_CAP_USD
+    ):
+        raise ValueError("calibration repair allocations exceed a frozen cap")
 
 
 def calibration_preflight(inputs: Any, schema_version: str) -> dict[str, Any]:
@@ -18,8 +46,15 @@ def calibration_preflight(inputs: Any, schema_version: str) -> dict[str, Any]:
                 "teacher-dose": inputs.teacher_ledger.authorized_usd,
                 "teacher-allocation": 0,
                 "stage-a": inputs.stage_a_ledger.authorized_usd,
-                "total": 300,
+                "total": REPAIR_AGGREGATE_CAP_USD,
             },
+            "lifetime_calibration_cap_usd": 300,
+            "lifetime_worst_case_usd": (
+                inputs.parent_teacher_evidence.parent_billed_usd
+                + REPAIR_AGGREGATE_CAP_USD
+            ),
+            "teacher_exposure_repair": REPAIR_SPEC,
+            "parent_calibration": inputs.parent_teacher_evidence.lineage,
             "resolved_config_hash": inputs.config.resolved_config_hash(),
             "model_id": inputs.config.tinker.model_id,
             "renderer": inputs.config.tinker.renderer_name,
@@ -77,9 +112,15 @@ def validate_restart_reconciliations(inputs: Any, preflight_sha256: str) -> None
         or sum(maxima.values()) > aggregate
         or maxima["teacher-dose"] > inputs.teacher_ledger.authorized_usd
         or maxima["stage-a"] > inputs.stage_a_ledger.authorized_usd
-        or aggregate > 300
+        or aggregate
+        > inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
+        or inputs.parent_teacher_evidence.parent_billed_usd + aggregate > 300
     ):
         raise RunnerGateError("restart reconciliation differs from this launch")
 
 
-__all__ = ["calibration_preflight", "validate_restart_reconciliations"]
+__all__ = [
+    "calibration_preflight",
+    "validate_repair_allocation",
+    "validate_restart_reconciliations",
+]

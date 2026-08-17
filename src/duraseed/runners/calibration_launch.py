@@ -9,12 +9,12 @@ from types import SimpleNamespace
 
 from duraseed.calibration_attempts import load_reconciled_restart
 from duraseed.calibration_budget import calibration_allocation
+from duraseed.calibration_parent import PARENT_RUN_ID, load_calibration_parent
 from duraseed.calibration_completion import completed_calibration
 from duraseed.calibration_input_loader import (
     ACCEPTED_PANEL_SPLIT_AUTHORIZATION_SHA256,
     load_calibration_source_objects,
 )
-from duraseed.calibration_launch_auth import authenticate_precalibration_billing
 from duraseed.calibration_preflight import (
     calibration_preflight,
     validate_restart_reconciliations,
@@ -24,6 +24,9 @@ from duraseed.calibration_state import SCHEMA_VERSION
 from duraseed.calibration_sources import (
     authenticate_calibration_sources,
     load_max_token_evidence,
+)
+from duraseed.calibration_teacher_terminal import (
+    existing_teacher_exposure_terminal,
 )
 from duraseed.config import load_pilot_config
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
@@ -97,15 +100,19 @@ async def run_remote_calibration(
 ) -> Path:
     """Authenticate every byte locally, then construct and run the real SDK path."""
 
-    if not run_id.strip() or any(value in run_id for value in "/\\"):
+    if (
+        not run_id.strip()
+        or any(value in run_id for value in "/\\")
+        or run_id == PARENT_RUN_ID
+    ):
         raise RunnerGateError("run_id must be one nonempty filename token")
     if not project_id.strip():
         raise RunnerGateError("an explicit Tinker project_id is required")
     config = load_pilot_config(config_path)
-    billing = authenticate_precalibration_billing(
+    parent = load_calibration_parent(
+        Path(output_root) / PARENT_RUN_ID,
         billing_reconciliation_path,
         raw_billing_path,
-        boundary_directory=boundary_directory,
         project_id=project_id,
     )
     loaded = load_calibration_source_objects(
@@ -144,13 +151,13 @@ async def run_remote_calibration(
             "live_smoke_passed": source_evidence.smoke.runtime_diagnostic_passed,
             "human_approval": human_approval,
             "remaining_balance_verified": (
-                billing.remaining_balance_usd - plan.remote_cost_cap_usd
-                >= billing.protected_reserve_usd
+                parent.remaining_balance_usd - plan.remote_cost_cap_usd
+                >= parent.protected_reserve_usd
             ),
         },
     )
     if authorization.authorized_cost_usd != plan.remote_cost_cap_usd:
-        raise RunnerGateError("calibration authorization is not exactly $300")
+        raise RunnerGateError("calibration authorization differs from the repair cap")
     restarts = tuple(
         load_reconciled_restart(artifact, raw) for artifact, raw in restart_evidence
     )
@@ -189,8 +196,9 @@ async def run_remote_calibration(
         m0_state_path=source_evidence.m0_state_path,
         panel_split_authorization_sha256=loaded.authorization_sha256,
         panel_split_equivalence_sha256=loaded.equivalence_sha256,
-        precalibration_billing_sha256=billing.artifact_sha256,
-        precalibration_raw_billing_sha256=billing.raw_billing_sha256,
+        precalibration_billing_sha256=parent.parent_billing_sha256,
+        precalibration_raw_billing_sha256=parent.parent_raw_billing_sha256,
+        parent_teacher_evidence=parent,
         reconciled_restarts=restarts,
     )
     preflight_sha256 = sha256_bytes(
@@ -201,6 +209,11 @@ async def run_remote_calibration(
     if any(row.failed_tinker_session_id not in prior_sessions for row in restarts):
         raise RunnerGateError("restart failed session is absent from run lineage")
     if completed_calibration(local_inputs, root):
+        return root
+    if (
+        existing_teacher_exposure_terminal(root, preflight_sha256, local_inputs)
+        is not None
+    ):
         return root
     sdk = load_sdk()
     service = create_service(
@@ -230,8 +243,9 @@ async def run_remote_calibration(
         max_tokens=max_tokens,
         panel_split_authorization_sha256=loaded.authorization_sha256,
         panel_split_equivalence_sha256=loaded.equivalence_sha256,
-        precalibration_billing_sha256=billing.artifact_sha256,
-        precalibration_raw_billing_sha256=billing.raw_billing_sha256,
+        precalibration_billing_sha256=parent.parent_billing_sha256,
+        precalibration_raw_billing_sha256=parent.parent_raw_billing_sha256,
+        parent_teacher_evidence=parent,
         reconciled_restarts=restarts,
     )
     await run_live_calibration(inputs)

@@ -10,7 +10,8 @@
 | Live smoke gate | **DONE** | The real remote path passed exact online/offline reward parity, stop-contract verification, full-state resume, and weights-only branching under its `$25` cap; its billing closeout was completed before the boundary launch. |
 | Boundary extension cohorts 2–3 | **REMOTE COLLECTION DONE** | Cohorts 2 and 3 completed broad sampling, refinement, and confirmation. |
 | Three-cohort panel freeze | **DONE** | The [accepted amendment](rfc-boundary-panel-algebraic-deduplication.md) reduced the fixed 49 to 37 exact algebraic representatives. All 37 passed the unchanged capacity audit; disjoint 12/12 panels and 12 separate intermediates were frozen. Archived and current production split builders then produced byte-identical 384-row train and 192-row gate manifests. |
-| Teacher-dose / Stage-A calibration | **READY TO LAUNCH** | Frozen panel and prompt sources authenticate. The lag-cleared provider usage export and protected-reserve reconciliation pass; the existing execution path remains capped at `$300`. |
+| Teacher-exposure calibration | **CURRENT LIVE GATE** | The first run is sealed as failed diagnostic evidence: dose 2 / `1e-4` / 16 updates passed seed 17 but failed the opposite seed-37 format gate through learned nontermination. The implemented [bounded repair](rfc-teacher-exposure-progressive-repair.md) fixes dose, LR, decoder, panels, and gates; it checks updates 4/8/12 on exactly the two orientations. |
+| Stage-A calibration | **NOT STARTED** | Begins only if one teacher-exposure checkpoint passes every existing gate in both orientations. |
 | Pilot 0 | **NOT STARTED** | No pilot execution or sealed-test access. |
 | Variance reconnaissance | **NOT STARTED** | After Pilot 0, extend B-S/B-G to 3–4 paired pilot seeds before setting confirmatory power. |
 | Mechanism/context pilot decision | **NOT STARTED** | If B-S/B-G separates reproducibly, first test supervised replay of a prospectively frozen verifier-correct subset of B-G rollouts; then use the reconnaissance to decide whether B-O or optional G-B/R-G/G-U adds enough value. |
@@ -21,6 +22,7 @@ Pilot 0 has not started; no B-S/B-G stability–future-learnability result is
 claimed.
 
 The three live pre-Pilot gates have caps of `$25`, `$120`, and `$300`. Remote
-execution for the smoke and boundary gates is complete; acquisition calibration
-would be the next paid gate only after the panel design is resolved. Pilot 0 is
-separately capped at `$600`.
+execution for the smoke and boundary gates is complete. The first acquisition-
+calibration attempt stopped at teacher-seed verification; its terminal artifact
+is retained unchanged. The bounded repair is now the current acquisition-
+calibration gate. Pilot 0 is separately capped at `$600` and remains unstarted.

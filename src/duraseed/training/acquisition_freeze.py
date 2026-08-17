@@ -50,6 +50,7 @@ class TeacherDoseRecipe:
     decision: TeacherDoseDecision
     selected_learning_rate: float
     evidence: TeacherDoseLiveEvidence
+    selected_updates: int = 16
 
 
 @dataclass(frozen=True, slots=True)

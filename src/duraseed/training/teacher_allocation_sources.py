@@ -10,6 +10,7 @@ from duraseed.data.leakage import audit_leakage
 from duraseed.data.manifests import DatasetManifest, TCESTaskManifestRecord
 from duraseed.data.panels import FamilyPanelArtifact
 from duraseed.provenance import canonical_json_hash
+from duraseed.teacher_exposure_spec import REPAIR_CHECKPOINT_UPDATES
 
 
 RANDOM_FAMILY_ROWS = 16
@@ -74,7 +75,11 @@ def validate_teacher_allocation_sources(
         type(source.selected_dose) is not int
         or source.selected_dose
         not in source.config.teacher_dose.demonstrations_per_family
-        or source.optimizer_updates != source.config.teacher_dose.calibration_updates
+        or source.optimizer_updates
+        not in {
+            source.config.teacher_dose.calibration_updates,
+            *REPAIR_CHECKPOINT_UPDATES,
+        }
     ):
         raise TeacherAllocationSourceError("teacher-dose recipe is off protocol")
     return source
@@ -111,7 +116,10 @@ def validate_teacher_allocation_base_sources(
     ):
         _require_tces_manifest(manifest, split=split, root_seed=source.config.seed)
 
-    if source.optimizer_updates != source.config.teacher_dose.calibration_updates:
+    if source.optimizer_updates not in {
+        source.config.teacher_dose.calibration_updates,
+        *REPAIR_CHECKPOINT_UPDATES,
+    }:
         raise TeacherAllocationSourceError("teacher-dose update count is off protocol")
     panel_families = frozenset(panel_ids)
     train_counts = Counter(

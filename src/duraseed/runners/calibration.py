@@ -44,12 +44,13 @@ from duraseed.training.teacher_dose import (
     decide_teacher_dose,
 )
 from duraseed.training.sft import VerifiedSourceRecord
+from duraseed.teacher_exposure_spec import REPAIR_AGGREGATE_CAP_USD
 
 
 FROZEN_MAPS_PROFILE = "shortest2_cap2"
 FROZEN_MAPS_LEARNING_RATE = 3e-4
 FROZEN_MAPS_UPDATES = 480
-CALIBRATION_REMOTE_COST_CAP_USD = Decimal("300")
+CALIBRATION_REMOTE_COST_CAP_USD = Decimal(str(REPAIR_AGGREGATE_CAP_USD))
 
 
 @dataclass(frozen=True, slots=True)
@@ -136,7 +137,7 @@ def build_plan(config: PilotConfig) -> RunPlan:
     )
     return RunPlan(
         name="calibration",
-        actions=(Action("acquisition-calibration", Decimal("300")),),
+        actions=(Action("acquisition-calibration", CALIBRATION_REMOTE_COST_CAP_USD),),
         launch_preconditions=(
             "panel_frozen",
             "live_smoke_passed",
@@ -146,7 +147,8 @@ def build_plan(config: PilotConfig) -> RunPlan:
         dry_run_command=f"{command} --dry-run",
         mock_command=("uv run pytest tests/unit/test_acquisition_calibration_flow.py"),
         authorization_command=(
-            f"{command} --authorize --authorized-cost-usd 300 {gates}"
+            f"{command} --authorize --authorized-cost-usd "
+            f"{CALIBRATION_REMOTE_COST_CAP_USD} {gates}"
         ),
     )
 

@@ -25,6 +25,7 @@ async def sample_gate(
     group_size: int,
     sampler_path: str,
     checkpoint_stage: str,
+    training_step: int | None = None,
     role: str,
     output_directory: Path,
     journal: RemoteJournal,
@@ -67,7 +68,11 @@ async def sample_gate(
                 (
                     inputs.m0_training_step
                     if checkpoint_stage == "m0"
-                    else inputs.config.teacher_dose.calibration_updates
+                    else (
+                        inputs.config.teacher_dose.calibration_updates
+                        if training_step is None
+                        else training_step
+                    )
                 ),
                 sampler_path,
                 inputs.m0_sampler_path,

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+from itertools import zip_longest
 import json
 from pathlib import Path
 from typing import Any
@@ -11,6 +13,7 @@ from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.run_records import GenerationRecord, RewardRecord, TrainingMetricRecord
 from duraseed.runners import RunnerGateError
 from duraseed.training.stage_a_calibration import STAGE_A_LEARNING_RATE_GRIDS
+from duraseed.training.teacher_exposure import REPAIR_CHECKPOINT_UPDATES
 
 
 def _json(path: Path) -> Any:
@@ -63,40 +66,73 @@ def _accepted_attempt(arm: Path) -> Path:
     return attempt
 
 
-def _join(attempt: Path) -> dict[str, int]:
-    generations = tuple(
-        GenerationRecord.model_validate_json(canonical_json_bytes(row))
-        for row in _jsonl(attempt / "generations.jsonl")
+def _join_paths(
+    generation_path: Path,
+    reward_path: Path,
+    *,
+    training_step: int | None = None,
+) -> dict[str, int]:
+    seen = set()
+    count = 0
+    try:
+        with (
+            generation_path.open("rb") as generations,
+            reward_path.open("rb") as rewards,
+        ):
+            for generation_raw, reward_raw in zip_longest(generations, rewards):
+                if generation_raw is None or reward_raw is None:
+                    raise ValueError
+                generation = GenerationRecord.model_validate_json(generation_raw)
+                reward = RewardRecord.model_validate_json(reward_raw)
+                if (
+                    generation.sample_id in seen
+                    or generation.sample_id != reward.sample_id
+                    or generation.task_id != reward.task_id
+                    or generation.reward != reward.reward
+                    or (
+                        training_step is not None
+                        and generation.training_step != training_step
+                    )
+                ):
+                    raise ValueError
+                seen.add(generation.sample_id)
+                count += 1
+    except (OSError, ValueError) as error:
+        raise RunnerGateError(
+            "accepted calibration generation/reward join differs"
+        ) from error
+    return {"generation_count": count, "reward_count": count}
+
+
+def _join(attempt: Path, *, training_step: int | None = None) -> dict[str, int]:
+    return _join_paths(
+        attempt / "generations.jsonl",
+        attempt / "rewards.jsonl",
+        training_step=training_step,
     )
-    rewards = tuple(
-        RewardRecord.model_validate_json(canonical_json_bytes(row))
-        for row in _jsonl(attempt / "rewards.jsonl")
-    )
-    by_generation = {row.sample_id: row for row in generations}
-    by_reward = {row.sample_id: row for row in rewards}
-    if (
-        len(by_generation) != len(generations)
-        or len(by_reward) != len(rewards)
-        or set(by_generation) != set(by_reward)
-        or any(
-            by_generation[key].task_id != by_reward[key].task_id
-            or by_generation[key].reward != by_reward[key].reward
-            for key in by_generation
-        )
-    ):
-        raise RunnerGateError("accepted calibration generation/reward join differs")
-    return {"generation_count": len(generations), "reward_count": len(rewards)}
 
 
 def _raw_streams(root: Path) -> list[dict[str, Any]]:
     values = []
     for path in sorted(root.rglob("*.jsonl")):
-        rows = _jsonl(path)
+        digest = hashlib.sha256()
+        row_count = 0
+        try:
+            with path.open("rb") as source:
+                for line in source:
+                    if not line.endswith(b"\n"):
+                        raise RunnerGateError(
+                            f"calibration stream is not durably terminated: {path}"
+                        )
+                    digest.update(line)
+                    row_count += 1
+        except OSError as error:
+            raise RunnerGateError(f"missing calibration stream: {path.name}") from error
         values.append(
             {
                 "path": path.relative_to(root).as_posix(),
-                "row_count": len(rows),
-                "sha256": sha256_bytes(path.read_bytes()),
+                "row_count": row_count,
+                "sha256": f"sha256:{digest.hexdigest()}",
             }
         )
     return values
@@ -127,20 +163,18 @@ def _teacher_metrics(attempt: Path, expected_steps: int) -> int:
         TrainingMetricRecord.model_validate_json(canonical_json_bytes(row))
         for row in _jsonl(attempt / "metrics.jsonl")
     )
-    if expected_steps != 16 or tuple(row.training_step for row in rows) != tuple(
-        range(1, 17)
-    ):
-        raise RunnerGateError("teacher-dose attempt lacks exact 16-step metrics")
+    if tuple(row.training_step for row in rows) != tuple(range(1, expected_steps + 1)):
+        raise RunnerGateError("teacher-dose attempt lacks its exact step metrics")
     return len(rows)
 
 
 def _stage_metrics(attempt: Path, expected_boundary_steps: int) -> int:
     rows = _jsonl(attempt / "metrics.jsonl")
     boundary = tuple(row for row in rows if row.get("subphase") == "boundary-seed")
-    if expected_boundary_steps != 16 or tuple(
-        row.get("step") for row in boundary
-    ) != tuple(range(1, 17)):
-        raise RunnerGateError("Stage-A origin lacks exact 16-step metrics")
+    if tuple(row.get("step") for row in boundary) != tuple(
+        range(1, expected_boundary_steps + 1)
+    ):
+        raise RunnerGateError("Stage-A origin lacks exact boundary-step metrics")
     branch_rows = tuple(row for row in rows if "method" in row)
     expected_rates = {
         method: tuple(float(value) for value in rates)
@@ -159,7 +193,11 @@ def _stage_metrics(attempt: Path, expected_boundary_steps: int) -> int:
                 selected[method] += 1
             elif steps != tuple(range(1, 11)):
                 raise RunnerGateError("Stage-A branch metric schedule differs")
-    if selected != {"B-S": 1, "B-G": 1} or len(branch_rows) != 156 or len(rows) != 172:
+    if (
+        selected != {"B-S": 1, "B-G": 1}
+        or len(branch_rows) != 156
+        or len(rows) != expected_boundary_steps + 156
+    ):
         raise RunnerGateError("Stage-A selected continuation schedule differs")
     return len(rows)
 
@@ -179,9 +217,42 @@ def seal_calibration_action(
         )
         if not arms:
             raise RunnerGateError("teacher-dose action has no completed arms")
+        progressive = all(arm.name.startswith("trajectory-seed-") for arm in arms)
+        if progressive and tuple(arm.name for arm in arms) != (
+            "trajectory-seed-17",
+            "trajectory-seed-37",
+        ):
+            raise RunnerGateError("teacher exposure omits a completed orientation")
         for arm in arms:
             attempt = _accepted_attempt(arm)
-            joined = _join(attempt)
+            if progressive:
+                expected = tuple(
+                    value
+                    for value in REPAIR_CHECKPOINT_UPDATES
+                    if value <= teacher_updates
+                )
+                observed = tuple(
+                    sorted(
+                        int(path.name.removeprefix("checkpoint-"))
+                        for path in attempt.glob("checkpoint-*")
+                        if path.is_dir()
+                    )
+                )
+                if observed != expected:
+                    raise RunnerGateError("teacher exposure checkpoint streams differ")
+                joined = {"generation_count": 0, "reward_count": 0}
+                for updates in observed:
+                    point = _join(
+                        attempt / f"checkpoint-{updates}", training_step=updates
+                    )
+                    if point != {"generation_count": 864, "reward_count": 864}:
+                        raise RunnerGateError(
+                            "teacher exposure checkpoint gate is incomplete"
+                        )
+                    for key in joined:
+                        joined[key] += point[key]
+            else:
+                joined = _join(attempt)
             if not arm.name.startswith("baseline-"):
                 metric_count += _teacher_metrics(attempt, teacher_updates)
             accepted.append({"arm_id": arm.name, "attempt": attempt.name, **joined})

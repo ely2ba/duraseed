@@ -40,7 +40,10 @@ def _validate_run(inputs: Any, root: Path) -> None:
         or not sessions
         or run.tinker_session_id != sessions[0]
         or not run.tinker_training_run_ids
-        or run.cost_usd > 300
+        or run.authorized_cost_usd
+        != inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
+        or run.reserved_cost_usd != run.authorized_cost_usd
+        or run.cost_usd > run.authorized_cost_usd
     ):
         raise RunnerGateError("completed calibration RunRecord identity differs")
     required = read(root / "billing-reconciliation-required.json")
@@ -49,7 +52,13 @@ def _validate_run(inputs: Any, root: Path) -> None:
         or required.get("run_id") != inputs.run_id
         or required.get("project_id") != inputs.project_id
         or required.get("session_ids") != list(sessions)
-        or required.get("aggregate_cap_usd") != 300
+        or required.get("aggregate_cap_usd") != run.authorized_cost_usd
+        or required.get("parent_run_id") != inputs.parent_teacher_evidence.parent_run_id
+        or required.get("parent_billing_sha256")
+        != inputs.parent_teacher_evidence.parent_billing_sha256
+        or required.get("parent_billed_usd")
+        != inputs.parent_teacher_evidence.parent_billed_usd
+        or required.get("lifetime_calibration_cap_usd") != 300
         or required.get("action_caps_usd")
         != {
             "teacher-dose": inputs.teacher_ledger.authorized_usd,
@@ -73,6 +82,7 @@ def completed_calibration(inputs: Any, root: Path) -> bool:
     state, artifacts = existing(root, preflight_sha256)
     if state["status"] != "completed":
         return False
+    teacher_updates = int(artifacts["teacher-dose"]["recipe"]["selected_updates"])
     for action, directory, ledger in (
         ("teacher-dose", root / "teacher-dose-arms", inputs.teacher_ledger),
         ("stage-a", root / "stage-a-arms", inputs.stage_a_ledger),
@@ -82,7 +92,7 @@ def completed_calibration(inputs: Any, root: Path) -> bool:
             action,
             directory,
             artifacts[action],
-            teacher_updates=inputs.config.teacher_dose.calibration_updates,
+            teacher_updates=teacher_updates,
         )
         hydrate_attempt_ledger(directory, ledger)
     _validate_run(inputs, root)

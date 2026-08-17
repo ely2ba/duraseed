@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from decimal import Decimal, ROUND_CEILING
-import math
 from typing import Any
 
 from duraseed.data.io import atomic_write_bytes
@@ -24,6 +23,18 @@ from duraseed.runtime import PRICE_SNAPSHOT, TokenBudget, UsageQuantities
 from duraseed.runtime.data import SUPERVISED_MAX_LENGTH
 from duraseed.tasks.tces import render_prompt
 from duraseed.training.stage_a_calibration import STAGE_A_LEARNING_RATE_GRIDS
+from duraseed.teacher_exposure_spec import (
+    REPAIR_AGGREGATE_CAP_USD,
+    REPAIR_CHECKPOINT_UPDATES,
+    REPAIR_DOSE,
+    REPAIR_SEEDS,
+    REPAIR_STAGE_A_CAP_USD,
+    REPAIR_TEACHER_CAP_USD,
+    REPAIR_TEACHER_TOKEN_CEILINGS,
+)
+
+
+REPAIR_TEACHER_TOKENS = TokenBudget(*REPAIR_TEACHER_TOKEN_CEILINGS)
 
 
 @dataclass(frozen=True, slots=True)
@@ -39,7 +50,7 @@ class CalibrationAllocation:
     stage_a_tokens: TokenBudget
     teacher_cap_usd: float
     stage_a_cap_usd: float
-    aggregate_cap_usd: float = 300.0
+    aggregate_cap_usd: float = REPAIR_AGGREGATE_CAP_USD
 
 
 def _safe_arm(value: str) -> str:
@@ -162,6 +173,51 @@ def teacher_dose_budget(
     return _cost(_plus(*budgets), remaining_training_arms * 0.05)
 
 
+def teacher_exposure_budget(
+    inputs: Any, completed_arm_ids: frozenset[str] = frozenset()
+) -> CalibrationBudget:
+    """Bound the remaining two-orientation 4/8/12 repair trajectories."""
+
+    budgets = []
+    for seed in REPAIR_SEEDS:
+        if f"trajectory-seed-{seed}" in completed_arm_ids:
+            continue
+        targeted, sentinel = teacher_families(inputs, seed)
+        source_count = _teacher_source_count(inputs, targeted, REPAIR_DOSE)
+        training = TokenBudget(
+            0,
+            0,
+            _cyclic_train(
+                [_SFT_TOKENS_PER_DATUM] * source_count,
+                REPAIR_CHECKPOINT_UPDATES[-1],
+            ),
+        )
+        evaluations = [
+            _sample(
+                inputs,
+                gate_records(inputs, targeted),
+                inputs.config.teacher_dose.gate_samples_per_item,
+            )
+            for _ in REPAIR_CHECKPOINT_UPDATES
+        ]
+        evaluations.extend(
+            _sample(inputs, gate_records(inputs, sentinel), 1)
+            for _ in REPAIR_CHECKPOINT_UPDATES
+        )
+        budgets.append(_plus(training, *evaluations))
+    fixed = float(
+        Decimal(len(budgets) * len(REPAIR_CHECKPOINT_UPDATES)) * Decimal("0.05")
+    )
+    result = _cost(_plus(*budgets), fixed)
+    if not completed_arm_ids and (
+        result.tokens != REPAIR_TEACHER_TOKENS
+        or result.fixed_storage_usd != 0.3
+        or result.upper_bound_usd > REPAIR_TEACHER_CAP_USD
+    ):
+        raise RunnerGateError("teacher-exposure workload differs from its hard ceiling")
+    return result
+
+
 def _monitor(inputs: Any, role: str) -> tuple:
     artifact = inputs.prompt_pools.artifact
     families = (
@@ -184,7 +240,11 @@ def _monitor(inputs: Any, role: str) -> tuple:
 
 
 def stage_a_budget(
-    inputs: Any, selected_dose: int, *, completed: bool = False
+    inputs: Any,
+    selected_dose: int,
+    *,
+    teacher_updates: int | None = None,
+    completed: bool = False,
 ) -> CalibrationBudget:
     """Bound the complete indivisible six-screen/two-continuation Stage-A run."""
 
@@ -198,7 +258,12 @@ def stage_a_budget(
         TokenBudget(
             0,
             0,
-            _cyclic_train(boundary, inputs.config.teacher_dose.calibration_updates),
+            _cyclic_train(
+                boundary,
+                inputs.config.teacher_dose.calibration_updates
+                if teacher_updates is None
+                else teacher_updates,
+            ),
         )
     ]
     targeted, sentinel = _monitor(inputs, "targeted"), _monitor(inputs, "sentinel")
@@ -238,34 +303,24 @@ def stage_a_budget(
 
 
 def calibration_allocation(inputs: Any) -> CalibrationAllocation:
-    """Allocate the one `$300` launch from complete local workload bounds."""
+    """Allocate the accepted repair plus the unchanged conservative Stage-A."""
 
-    teacher = teacher_dose_budget(inputs)
-    stage = tuple(
-        stage_a_budget(inputs, dose)
-        for dose in inputs.config.teacher_dose.demonstrations_per_family
-    )
-    stage_tokens = TokenBudget(
-        max(row.tokens.prefill for row in stage),
-        max(row.tokens.sample for row in stage),
-        max(row.tokens.train for row in stage),
-    )
-    stage_envelope = _cost(stage_tokens, max(row.fixed_storage_usd for row in stage))
+    teacher = teacher_exposure_budget(inputs)
+    stage = stage_a_budget(inputs, REPAIR_DOSE)
     teacher_cap = _cent_ceiling(teacher.upper_bound_usd)
-    stage_cap = _cent_ceiling(stage_envelope.upper_bound_usd)
+    stage_cap = _cent_ceiling(stage.upper_bound_usd)
     if (
-        not all(
-            math.isfinite(value) and value >= 0 for value in (teacher_cap, stage_cap)
-        )
-        or teacher_cap + stage_cap > 300
+        teacher.tokens != REPAIR_TEACHER_TOKENS
+        or teacher_cap != REPAIR_TEACHER_CAP_USD
+        or stage_cap != REPAIR_STAGE_A_CAP_USD
+        or teacher_cap + stage_cap != REPAIR_AGGREGATE_CAP_USD
     ):
         raise RunnerGateError(
-            "complete teacher-dose plus worst-case Stage-A workload exceeds "
-            "the aggregate $300 calibration cap"
+            "repair plus Stage-A workload differs from its frozen caps"
         )
     return CalibrationAllocation(
         teacher.tokens,
-        stage_tokens,
+        stage.tokens,
         teacher_cap,
         stage_cap,
     )
@@ -324,4 +379,5 @@ __all__ = [
     "require_remaining_budget",
     "stage_a_budget",
     "teacher_dose_budget",
+    "teacher_exposure_budget",
 ]

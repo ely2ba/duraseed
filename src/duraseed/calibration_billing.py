@@ -8,10 +8,18 @@ import json
 from pathlib import Path
 from typing import Any
 
+from duraseed.calibration_parent import PARENT_BILLED_USD, PARENT_RUN_ID
 from duraseed.data.io import atomic_write_bytes
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.run_records import RunStatus, read_run_record, write_run_record
 from duraseed.runners import RunnerGateError
+from duraseed.teacher_exposure_spec import (
+    LIFETIME_CALIBRATION_CAP_USD,
+    ORIGINAL_TEACHER_CAP_USD,
+    REPAIR_AGGREGATE_CAP_USD,
+    REPAIR_STAGE_A_CAP_USD,
+    REPAIR_TEACHER_CAP_USD,
+)
 
 
 def _object(path: Path, label: str) -> tuple[dict[str, Any], bytes]:
@@ -49,6 +57,37 @@ def _utc(value: Any, label: str) -> datetime:
     return result.astimezone(UTC)
 
 
+def _run_has_authorized_terminal(
+    root: Path, required: dict[str, Any], run: Any
+) -> bool:
+    if run.status is RunStatus.COMPLETED:
+        return (
+            required.get("run_status") == RunStatus.COMPLETED.value
+            and required.get("terminal_status") is None
+            and required.get("terminal_sha256") is None
+        )
+    if run.status is not RunStatus.FAILED:
+        return False
+    terminal_path = root / "teacher-dose-terminal.json"
+    preflight_path = root / "preflight.json"
+    if not terminal_path.exists() or not preflight_path.exists():
+        return False
+    terminal, terminal_raw = _object(terminal_path, "teacher-exposure terminal")
+    from duraseed.calibration_teacher_terminal import (
+        existing_teacher_exposure_terminal,
+    )
+
+    return (
+        required.get("run_status") == RunStatus.FAILED.value
+        and required.get("terminal_status") == "no_stable_checkpoint"
+        and required.get("terminal_sha256") == sha256_bytes(terminal_raw)
+        and terminal.get("preflight_sha256")
+        == sha256_bytes(preflight_path.read_bytes())
+        and existing_teacher_exposure_terminal(root, terminal["preflight_sha256"])
+        is not None
+    )
+
+
 def reconcile_calibration_billing(
     run_directory: str | Path,
     reconciliation_path: str | Path,
@@ -60,6 +99,7 @@ def reconcile_calibration_billing(
     required, _ = _object(
         root / "billing-reconciliation-required.json", "billing requirement"
     )
+    preflight, _ = _object(root / "preflight.json", "preflight")
     reconciliation, reconciliation_raw = _object(
         Path(reconciliation_path), "billing reconciliation"
     )
@@ -82,6 +122,7 @@ def reconcile_calibration_billing(
     }:
         raise RunnerGateError("billing reconciliation omits the two action totals")
     action_caps = required.get("action_caps_usd")
+    parent_lineage = preflight.get("parent_calibration")
     if not isinstance(action_caps, dict) or set(action_caps) != {
         "teacher-dose",
         "stage-a",
@@ -91,6 +132,14 @@ def reconcile_calibration_billing(
     stage_a = _decimal(action_costs["stage-a"], "Stage-A billed spend")
     teacher_cap = _decimal(action_caps["teacher-dose"], "teacher-dose action cap")
     stage_a_cap = _decimal(action_caps["stage-a"], "Stage-A action cap")
+    child_cap = _decimal(required.get("aggregate_cap_usd"), "aggregate cap")
+    parent_spend = _decimal(required.get("parent_billed_usd"), "parent spend")
+    lifetime_cap = _decimal(
+        required.get("lifetime_calibration_cap_usd"), "lifetime calibration cap"
+    )
+    required_reserve = _decimal(
+        required.get("protected_reserve_usd"), "required protected reserve"
+    )
     aggregate = _decimal(reconciliation.get("aggregate_billed_usd"), "aggregate spend")
     balance = _decimal(reconciliation.get("remaining_balance_usd"), "remaining balance")
     reserve = _decimal(reconciliation.get("protected_reserve_usd"), "protected reserve")
@@ -101,8 +150,9 @@ def reconcile_calibration_billing(
         reconciliation.get("schema_version")
         != "duraseed-calibration-final-reconciliation-v1"
         or reconciliation.get("status") != "billing_reconciled"
-        or run.status is not RunStatus.COMPLETED
+        or not _run_has_authorized_terminal(root, required, run)
         or finished is None
+        or required.get("schema_version") != "duraseed-calibration-billing-required-v1"
         or required.get("status") != "pending"
         or reconciliation.get("run_id") != root.name
         or reconciliation.get("project_id") != run.project_id
@@ -112,15 +162,25 @@ def reconcile_calibration_billing(
         or reconciliation.get("raw_billing_entry_count") != len(events)
         or cutoff < finished.astimezone(UTC)
         or reconciled < cutoff
-        or _decimal(required.get("aggregate_cap_usd"), "aggregate cap")
-        != Decimal("300")
-        or teacher_cap + stage_a_cap > Decimal("300")
+        or teacher_cap != Decimal(str(REPAIR_TEACHER_CAP_USD))
+        or stage_a_cap != Decimal(str(REPAIR_STAGE_A_CAP_USD))
+        or child_cap != Decimal(str(REPAIR_AGGREGATE_CAP_USD))
+        or child_cap != teacher_cap + stage_a_cap
+        or parent_spend != Decimal(str(PARENT_BILLED_USD))
+        or required.get("parent_run_id") != PARENT_RUN_ID
+        or not isinstance(parent_lineage, dict)
+        or required.get("parent_billing_sha256") != parent_lineage.get("billing_sha256")
+        or lifetime_cap != Decimal(str(LIFETIME_CALIBRATION_CAP_USD))
+        or parent_spend + child_cap > lifetime_cap
         or teacher > teacher_cap
+        or parent_spend + teacher > Decimal(str(ORIGINAL_TEACHER_CAP_USD))
         or stage_a > stage_a_cap
         or aggregate != teacher + stage_a
-        or aggregate > Decimal("300")
+        or aggregate > child_cap
+        or parent_spend + aggregate > lifetime_cap
         or reconciliation.get("protected_reserve_survives") is not True
-        or balance < reserve
+        or reserve != required_reserve
+        or balance < required_reserve
     ):
         raise RunnerGateError("calibration billing reconciliation is incomplete")
     destination = root / "billing-reconciliation.json"

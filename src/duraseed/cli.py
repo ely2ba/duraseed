@@ -267,7 +267,7 @@ def calibration_runner(
     confirm_human_approval: bool = typer.Option(False),
     confirm_remaining_balance: bool = typer.Option(False),
 ) -> None:
-    """Print calibration gates or authorize the one `$300` acquisition launch."""
+    """Print gates or authorize the bounded acquisition-repair launch."""
 
     resolved = load_pilot_config(config)
     if dry_run and not execute:
@@ -313,7 +313,7 @@ def calibration_live(
     restart_raw_billing: list[Path] = typer.Option([]),
     project_id: str | None = typer.Option(None, envvar="TINKER_PROJECT_ID"),
 ) -> None:
-    """Execute one authenticated `$300` acquisition-calibration launch."""
+    """Execute one authenticated bounded acquisition-repair launch."""
 
     if not project_id or not project_id.strip():
         raise typer.BadParameter(

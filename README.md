@@ -169,13 +169,36 @@ eligibility rule and are selected outside both panels. The amended freeze has
 now completed: all 37 representatives passed the unchanged capacity audit, two
 disjoint 12-family panels and 12 separate intermediate families were frozen,
 and the archived and current production split builders produced byte-identical
-train and gate manifests. Acquisition calibration is the next experimental
-stage; it has not started yet.
+train and gate manifests.
 
-If a valid panel construction is frozen, the remaining path is:
+The first acquisition-calibration run then reached teacher-seed verification.
+At dose 2 and learning rate `1e-4`, the seed-17 orientation passed, but the same
+16-update recipe failed the format gate in the opposite seed-37 orientation.
+The failed checkpoint had learned to continue generating repetitive text until
+the 4096-token cap on many target and sentinel samples. This was learned
+nontermination, not a transient API or checkpoint-loading failure. The failed
+run is sealed and retained as immutable diagnostic evidence; it is not being
+rewritten or counted as a Stage-A or Pilot result.
 
-1. calibrate the shared teacher dose, Stage-A learning rates and duration, and
-   common RL setup;
+The accepted repair is deliberately small. It keeps dose 2, learning rate
+`1e-4`, the decoder, panels, and every existing gate fixed. It runs exactly one
+progressive trajectory in each of the two panel orientations and evaluates the
+predeclared checkpoints at updates 4, 8, and 12. The earliest update that
+passes every gate in both orientations is frozen. If none passes, calibration
+stops for a new scientific decision; there is no automatic dose, learning-rate,
+or duration sweep. A third calibration seed pair is not added. Instead, Pilot
+0's independent seeds provide the next replication, with a pre-method
+warm-start health check that stops the whole Pilot before B-S or B-G if either
+origin fails. This is a bounded repair to a shared nuisance recipe, not a new
+hypothesis test. The repair implementation has passed its local checks and is
+the current acquisition-calibration action; Stage A and Pilot 0 have not
+started. The fixed decision is recorded in the
+[teacher-exposure repair amendment](docs/rfc-teacher-exposure-progressive-repair.md).
+
+With the valid panel construction frozen, the remaining path is:
+
+1. complete the bounded teacher-exposure repair, then calibrate Stage-A
+   learning rates, duration, and the common RL setup;
 2. run the two-seed, fixed-budget B-S/B-G Pilot 0;
 3. run the required targeted-exact-success-matched checkpoint follow-up and
    publish the complete pre-Stage-B profile;

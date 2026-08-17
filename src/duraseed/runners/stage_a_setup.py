@@ -53,6 +53,7 @@ async def build_boundary_seed(
     output: Path,
     dose: int,
     teacher_learning_rate: float,
+    teacher_updates: int,
     journal: RemoteJournal,
     checkpoint_suffix: str = "",
 ) -> tuple[str, str]:
@@ -72,7 +73,7 @@ async def build_boundary_seed(
     journal.complete({"operation": "restore-boundary-origin"})
     runtime = bind_model(inputs.runtime.sdk, inputs.runtime.service, client)
     datums = [sft_datum(runtime, row) for row in boundary_sources(inputs, dose)]
-    for step in range(1, inputs.config.teacher_dose.calibration_updates + 1):
+    for step in range(1, teacher_updates + 1):
         batch = _batch(datums, step)
         journal.begin(
             "boundary-seed-update",
@@ -97,7 +98,7 @@ async def build_boundary_seed(
         journal.complete({"operation": "boundary-seed-update", "step": step})
     journal.begin(
         "save-boundary-pair",
-        {"step": inputs.config.teacher_dose.calibration_updates},
+        {"step": teacher_updates},
         {
             "prefill_tokens": 0,
             "sample_tokens": 0,
@@ -210,6 +211,7 @@ async def build_origin(
     *,
     selected_dose: int,
     teacher_learning_rate: float,
+    teacher_updates: int,
     checkpoint_suffix: str,
 ) -> StageAOriginEvidence:
     """Build origin evidence inside one indivisible Stage-A attempt."""
@@ -219,6 +221,7 @@ async def build_origin(
         output,
         selected_dose,
         teacher_learning_rate,
+        teacher_updates,
         journal,
         checkpoint_suffix,
     )

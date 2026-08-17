@@ -8,7 +8,12 @@ exact algebraic representatives. All 37 passed the unchanged 22/22 test
 capacity requirement; two disjoint 12-family panels and 12 separate
 intermediate families are now frozen. The archived and current production
 split builders produced byte-identical train and gate manifests. Acquisition
-calibration is the next experimental gate; Pilot 0 has not started. An archived
+calibration then stopped at teacher-seed cross-orientation verification: the
+dose-2 / `1e-4` / 16-update coordinate passed seed 17 but failed the unchanged
+format gate at seed 37 through learned nontermination. That terminal run is
+immutable diagnostic evidence. A bounded progressive-exposure repair is
+accepted, implemented, and is the current live gate; Stage A and Pilot 0 have
+not started. An archived
 engineering-only Tinker smoke and raw M0 audit were executed on 9 August 2026,
 and the v1 live smoke gate passed on 13 August 2026. The raw audit
 rejected the zero-update candidate on the declared format gates, so conditional
@@ -29,6 +34,8 @@ invariants remain fixed now.
 The pre-Pilot endpoint, checkpoint-selection, and claim-scope correction is
 recorded in
 [`docs/rfc-prepilot-estimands-and-selection.md`](docs/rfc-prepilot-estimands-and-selection.md).
+The accepted teacher-exposure repair is recorded in
+[`docs/rfc-teacher-exposure-progressive-repair.md`](docs/rfc-teacher-exposure-progressive-repair.md).
 
 ## Question
 
@@ -274,11 +281,11 @@ intermediate pool.
 
 ## Teacher seed calibration
 
-The dose grid is `[1, 2, 4, 8, 16]` exact solver demonstrations per targeted
-family. Select the smallest dose meeting every unseen `a_seed_gate` criterion,
-then verify that exact dose on a second seed; a verification failure does not
-authorize automatic escalation. Calibration uses training seeds 17 and 37,
-which remain disjoint from engineering, Pilot, and confirmatory seeds.
+The original calibration screened `[1, 2, 4, 8, 16]` exact solver
+demonstrations per targeted family and selected the smallest dose meeting every
+unseen `a_seed_gate` criterion, followed by verification in the opposite panel
+orientation. Calibration seeds 17 and 37 remain disjoint from engineering,
+Pilot, and confirmatory seeds.
 
 Before teacher-dose calibration, the completed panel evidence must also support
 the frozen Stage-A prompt pools: 12 boundary, 12 intermediate, and 12
@@ -288,15 +295,25 @@ resulting `a_rl_train` and `a_monitor` manifests are frozen first. Teacher
 in their exclusion set, and the same prompt-pool bundle is reused by Stage A.
 Failure of this local capacity or disjointness gate stops before remote spend.
 
-Every dose/LR arm starts weights-only from the same selected M0 with a fresh
-optimizer, uses a nested deterministic teacher prefix, and receives 16
-canonical-cyclic updates of batch size 32. This fixes optimization exposure
-while varying unique teacher information. At each dose, evaluate all configured
-teacher-seed SFT learning rates. Stop after the first dose with a passing arm;
-the same-dose tie-break is the smallest passing learning rate. Interruption of
-this bounded calibration reruns the affected arm rather than adding a recovery
-framework. Calibration seed 17 and verification seed 37 target opposite sides
-of the crossed frozen panels.
+The first formal run found a passing dose-2 / `1e-4` candidate when its
+16-update seed-17 arm passed. At that same coordinate, the seed-37 orientation
+failed format compliance: many target and sentinel generations repeated until
+the shared 4096-token cap. Inspection identified learned nontermination at the
+trained checkpoint rather than a transient request, checkpoint, parser, or
+verifier problem. The terminal run and artifacts remain immutable diagnostic
+evidence, and the 16-update coordinate is rejected.
+
+The accepted repair fixes dose 2, learning rate `1e-4`, batch size 32, the
+nested deterministic teacher data, renderer, decoder, panels, samples, and all
+existing gates. Exactly two fresh progressive trajectories are run, with seed
+17 and seed 37 targeting opposite sides of the crossed panels. Each starts
+weights-only from the same selected M0 with a fresh optimizer. Checkpoints are
+evaluated at the predeclared updates 4, 8, and 12. Freeze the earliest update
+that passes every gate in both orientations. If no common checkpoint passes by
+update 12, stop for a new prospective scientific decision; do not automatically
+change dose or learning rate, extend the update grid, add seeds, or weaken a
+gate. Interruption reruns only the affected trajectory rather than creating a
+recovery framework.
 
 Each gate uses eight unseen items per family and eight samples per item. The
 declared gates are mixed-group rate at least 0.30, family reachability at least
@@ -308,6 +325,12 @@ catastrophic-regression safeguard, not equivalence or noninferiority.
 The safeguard uses one paired seeded completion on each of all 96 sentinel gate
 items; it is deliberately a catastrophe screen, not a precision equivalence
 test. Candidate calibration checkpoints are sampler-only with seven-day TTL.
+No third calibration verification pair is added. The two crossed orientations
+complete this nuisance-recipe calibration. Pilot 0 supplies the next independent
+replication with seeds 11 and 29: before B-S or B-G begins, both reconstructed
+warm starts must pass the unchanged health gate. Failure of either stops the
+whole Pilot without a substitute seed. This repair is not a B-S/B-G comparison
+or a test of the stability–future-learnability hypothesis.
 
 The targeted-versus-random teacher comparison uses the fixed
 `core_family_v1` allocation policy after dose selection. Each orientation has
@@ -338,10 +361,11 @@ tokenizer. It writes `random_teacher_a_seed_train.json` and
 
 After teacher-dose selection, `duraseed tinker calibrate stage-a
 TEACHER_DOSE_RUN` reconstructs the seed-17 boundary origin from the non-expiring
-M0 using the selected dose, teacher learning rate, and the same 16
-canonical-cyclic batch-32 updates. The reconstructed sampler and full state are
-saved non-expiring. Every subsequent B-S and B-G arm branches weights-only from
-that one state with a fresh optimizer and the frozen 0.50/0.25/0.25
+M0 using the selected dose, teacher learning rate, and the selected common
+teacher-exposure count with canonical-cyclic batch-32 updates. The reconstructed
+sampler and full state are saved non-expiring. Every subsequent B-S and B-G arm
+branches weights-only from that one state with a fresh optimizer and the frozen
+0.50/0.25/0.25
 boundary/intermediate/broad-random prompt schedule.
 
 B-S screens `[1e-4, 3e-4, 1e-3]`; B-G screens `[1e-5, 3e-5, 1e-4]`. All six

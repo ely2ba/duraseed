@@ -134,11 +134,11 @@ def test_calibration_authorization_and_maps_freeze() -> None:
         human_approval=True,
         remaining_balance_verified=True,
     )
-    with pytest.raises(RunnerGateError, match=r"\$300"):
-        authorize_calibration(CONFIG, execute=True, authorized_cost_usd="301", **ready)
+    with pytest.raises(RunnerGateError, match=r"\$199\.36"):
+        authorize_calibration(CONFIG, execute=True, authorized_cost_usd="200", **ready)
     assert authorize_calibration(
-        CONFIG, execute=True, authorized_cost_usd="300", **ready
-    ).authorized_cost_usd == Decimal("300")
+        CONFIG, execute=True, authorized_cost_usd="199.36", **ready
+    ).authorized_cost_usd == Decimal("199.36")
     drifted = CONFIG.model_copy(
         update={
             "stage_b": CONFIG.stage_b.model_copy(update={"selected_max_updates": 640})
@@ -151,35 +151,23 @@ def test_calibration_authorization_and_maps_freeze() -> None:
 def test_calibration_cap_is_allocated_from_complete_local_bounds(monkeypatch) -> None:
     import duraseed.calibration_budget as budget
 
-    teacher = CalibrationBudget(TokenBudget(1, 2, 3), 1.0, 80.0)
-    stages = {
-        1: CalibrationBudget(TokenBudget(4, 5, 6), 2.0, 190.0),
-        2: CalibrationBudget(TokenBudget(7, 8, 9), 3.0, 220.0),
-    }
-    inputs = SimpleNamespace(
-        config=SimpleNamespace(
-            teacher_dose=SimpleNamespace(demonstrations_per_family=(1, 2))
-        )
+    teacher = CalibrationBudget(
+        TokenBudget(684_720, 21_233_664, 785_664), 0.3, 44.262501312
     )
-    monkeypatch.setattr(budget, "teacher_dose_budget", lambda _inputs: teacher)
-    monkeypatch.setattr(budget, "stage_a_budget", lambda _inputs, dose: stages[dose])
+    stage = CalibrationBudget(TokenBudget(7, 8, 9), 4.9, 155.08044458)
+    inputs = SimpleNamespace()
+    monkeypatch.setattr(budget, "teacher_exposure_budget", lambda _inputs: teacher)
+    monkeypatch.setattr(budget, "stage_a_budget", lambda _inputs, dose: stage)
 
     allocation = calibration_allocation(inputs)
-    expected_stage = 3.01
     assert (allocation.teacher_cap_usd, allocation.stage_a_cap_usd) == (
-        80,
-        expected_stage,
+        44.27,
+        155.09,
     )
     assert allocation.stage_a_tokens == TokenBudget(7, 8, 9)
-    assert allocation.aggregate_cap_usd == 300
-    monkeypatch.setattr(
-        budget,
-        "teacher_dose_budget",
-        lambda _inputs: CalibrationBudget(TokenBudget(0, 0, 0), 0.8, 0.8),
-    )
-    fixed_cap = calibration_allocation(inputs).teacher_cap_usd
-    fixed = TokenLedger(TokenBudget(0, 0, 0), fixed_cap)
-    for _ in range(16):
+    assert allocation.aggregate_cap_usd == 199.36
+    fixed = TokenLedger(TokenBudget(0, 0, 0), allocation.teacher_cap_usd)
+    for _ in range(6):
         fixed.reserve_call(TokenBudget(0, 0, 0), fixed_usd=0.05)
         fixed.settle_call(TokenBudget(0, 0, 0))
     assert fixed.committed_cost_usd <= fixed.authorized_usd
@@ -195,8 +183,10 @@ def test_calibration_cap_is_allocated_from_complete_local_bounds(monkeypatch) ->
 
     monkeypatch.setattr(
         budget,
-        "teacher_dose_budget",
-        lambda _inputs: CalibrationBudget(TokenBudget(1, 2, 3), 1.0, 298.0),
+        "teacher_exposure_budget",
+        lambda _inputs: CalibrationBudget(
+            TokenBudget(684_720, 21_233_664, 785_664), 0.3, 44.28
+        ),
     )
-    with pytest.raises(RunnerGateError, match=r"aggregate \$300"):
+    with pytest.raises(RunnerGateError, match="frozen caps"):
         calibration_allocation(inputs)

@@ -39,12 +39,15 @@ async def collect_stage_a(
     *,
     selected_dose: int,
     teacher_learning_rate: float,
+    teacher_updates: int | None = None,
     preflight_sha256: str,
 ) -> tuple[StageALiveEvidence, CommonRLFreezeEvidence]:
     """Never splice stochastic evidence across Stage-A training clients."""
 
     if inputs.stage_a_ledger.authorized_usd <= 0:
         raise RunnerGateError("Stage-A collector requires its preflight ledger")
+    if teacher_updates is None:
+        teacher_updates = inputs.config.teacher_dose.calibration_updates
     if (
         inputs.prompt_pools.a_rl_train_manifest
         != inputs.teacher_sources.a_rl_train_manifest
@@ -67,7 +70,12 @@ async def collect_stage_a(
     )
     completed = "complete-bounded-stage-a" in attempts.completed_arm_ids
     budget_preflight = require_remaining_budget(
-        stage_a_budget(inputs, selected_dose, completed=completed),
+        stage_a_budget(
+            inputs,
+            selected_dose,
+            teacher_updates=teacher_updates,
+            completed=completed,
+        ),
         inputs.stage_a_ledger,
         prior_billed_usd=attempts.prior_billed_usd,
     )
@@ -90,6 +98,7 @@ async def collect_stage_a(
         attempt.journal,
         selected_dose=selected_dose,
         teacher_learning_rate=teacher_learning_rate,
+        teacher_updates=teacher_updates,
         checkpoint_suffix=f"-{attempt.directory.name}",
     )
     pools = ordered_pools(inputs.prompt_pools)

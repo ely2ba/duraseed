@@ -8,6 +8,9 @@ import json
 from pathlib import Path
 from typing import Any
 
+from duraseed.calibration_billing_requirement import (
+    calibration_billing_requirement,
+)
 from duraseed.data.io import atomic_write_bytes
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.run_records import (
@@ -103,8 +106,12 @@ def start_calibration_run(inputs: Any, root: Path) -> RunRecord:
         started_at=now,
         updated_at=now,
         project_id=inputs.project_id,
-        authorized_cost_usd=300.0,
-        reserved_cost_usd=300.0,
+        authorized_cost_usd=(
+            inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
+        ),
+        reserved_cost_usd=(
+            inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
+        ),
         price_snapshot_id=PRICE_SNAPSHOT.snapshot_id,
         tinker_sdk_version=inputs.runtime.sdk.sdk_version,
         tinker_cookbook_version=inputs.runtime.sdk.cookbook_version,
@@ -163,6 +170,14 @@ def _ttl_paths(
             path = evidence.get("sampler_path") if isinstance(evidence, dict) else None
             if isinstance(path, str):
                 candidates.append(path)
+            points = evidence.get("points") if isinstance(evidence, dict) else None
+            if isinstance(points, list):
+                candidates.extend(
+                    row["sampler_path"]
+                    for row in points
+                    if isinstance(row, dict)
+                    and isinstance(row.get("sampler_path"), str)
+                )
         return {
             None: (inputs.m0_sampler_path, inputs.m0_state_path),
             CANDIDATE_TTL_SECONDS: tuple(candidates),
@@ -278,8 +293,14 @@ def finish_calibration_run(
             default=0.0,
         ),
     )
-    if cost > 300:
-        raise RunnerGateError("combined calibration spend exceeds $300")
+    child_cap = (
+        inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
+    )
+    if (
+        cost > child_cap
+        or cost + inputs.parent_teacher_evidence.parent_billed_usd > 300
+    ):
+        raise RunnerGateError("child or lifetime calibration spend exceeds its cap")
     deviations = ["billing reconciliation required after remote completion"]
     if error:
         deviations.append(error)
@@ -333,24 +354,11 @@ def finish_calibration_run(
             }
         ),
     )
-    if status is RunStatus.COMPLETED:
-        sessions = _json(root / "session-lineage.json")["session_ids"]
+    billing = calibration_billing_requirement(inputs, root, status, finished, cost)
+    if billing is not None:
         _write_exact(
             root / "billing-reconciliation-required.json",
-            {
-                "schema_version": "duraseed-calibration-billing-required-v1",
-                "status": "pending",
-                "run_id": inputs.run_id,
-                "project_id": inputs.project_id,
-                "session_ids": sessions,
-                "execution_finished_at_utc": finished.isoformat(),
-                "local_observed_cost_usd": cost,
-                "action_caps_usd": {
-                    "teacher-dose": inputs.teacher_ledger.authorized_usd,
-                    "stage-a": inputs.stage_a_ledger.authorized_usd,
-                },
-                "aggregate_cap_usd": 300,
-            },
+            billing,
         )
 
 

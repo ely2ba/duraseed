@@ -80,16 +80,26 @@ def teacher_records(
     inputs: CalibrationLiveInputs, families: tuple[str, ...], dose: int
 ):
     manifest = inputs.teacher_sources.target_train_manifest
-    completions = []
+    eligible = []
     for record in manifest.records:
         if not isinstance(record, TCESTaskManifestRecord):
             raise RunnerGateError("teacher training manifest is not TCES")
-        if record.intended_family not in families:
-            continue
-        completions.append((record, solver_teacher_completion(record)))
+        if record.intended_family in families:
+            eligible.append(record)
+    selected = []
+    counts: dict[str, int] = {}
+    for record in sorted(
+        eligible, key=lambda row: (row.intended_family, row.item_index, row.task_id)
+    ):
+        count = counts.get(record.intended_family, 0)
+        if count < dose:
+            selected.append(record)
+            counts[record.intended_family] = count + 1
     return build_teacher_dose_records(
         source_manifest=manifest,
-        solver_completions=completions,
+        solver_completions=(
+            (record, solver_teacher_completion(record)) for record in selected
+        ),
         selected_families=families,
         demonstrations_per_family=dose,
     )

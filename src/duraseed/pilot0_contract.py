@@ -223,8 +223,8 @@ def validate_pilot0_inputs(inputs: Pilot0Inputs) -> Pilot0Inputs:
         or selected_dose not in inputs.config.teacher_dose.demonstrations_per_family
         or inputs.teacher_recipe.selected_learning_rate
         not in inputs.config.tinker.learning_rates.teacher_seed_sft.grid
-        or inputs.teacher_recipe.evidence.verification_arm.learning_rate
-        != inputs.teacher_recipe.selected_learning_rate
+        or inputs.teacher_recipe.selected_updates
+        != inputs.config.teacher_dose.calibration_updates
         or set(learning_rates)
         != {
             "static_sft",
