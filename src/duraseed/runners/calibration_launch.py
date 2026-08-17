@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from decimal import Decimal
 import importlib
 from pathlib import Path
 import subprocess
@@ -9,7 +10,11 @@ from types import SimpleNamespace
 
 from duraseed.calibration_attempts import load_reconciled_restart
 from duraseed.calibration_budget import calibration_allocation
-from duraseed.calibration_parent import PARENT_RUN_ID, load_calibration_parent
+from duraseed.calibration_parent import (
+    PARENT_RUN_ID,
+    CalibrationParentEvidence,
+    load_calibration_parent,
+)
 from duraseed.calibration_completion import completed_calibration
 from duraseed.calibration_input_loader import (
     ACCEPTED_PANEL_SPLIT_AUTHORIZATION_SHA256,
@@ -47,6 +52,14 @@ from duraseed.runtime import (
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
+
+
+def _remaining_balance_verified(
+    parent: CalibrationParentEvidence, cost_cap: Decimal
+) -> bool:
+    remaining = Decimal(str(parent.remaining_balance_usd))
+    reserve = Decimal(str(parent.protected_reserve_usd))
+    return remaining - cost_cap >= reserve
 
 
 def _git_commit() -> str:
@@ -150,9 +163,8 @@ async def run_remote_calibration(
             ),
             "live_smoke_passed": source_evidence.smoke.runtime_diagnostic_passed,
             "human_approval": human_approval,
-            "remaining_balance_verified": (
-                parent.remaining_balance_usd - plan.remote_cost_cap_usd
-                >= parent.protected_reserve_usd
+            "remaining_balance_verified": _remaining_balance_verified(
+                parent, plan.remote_cost_cap_usd
             ),
         },
     )

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from decimal import Decimal
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -22,6 +23,7 @@ from duraseed.run_records import (
     write_run_record,
 )
 from duraseed.runners import RunnerGateError
+from duraseed.runners.calibration_launch import _remaining_balance_verified
 from duraseed.runners.teacher_dose_evidence import teacher_families, teacher_records
 from duraseed.runtime import TokenBudget, TokenLedger
 from duraseed.teacher_exposure_spec import REPAIR_SPEC
@@ -253,6 +255,15 @@ def test_final_reconciler_accepts_child_cap_and_enforces_lifetime(
     )
     with pytest.raises(RunnerGateError, match="incomplete"):
         reconcile_calibration_billing(root, reconciliation, raw)
+
+
+def test_repair_authorization_compares_float_balance_to_decimal_cap() -> None:
+    parent = SimpleNamespace(
+        remaining_balance_usd=4922.30,
+        protected_reserve_usd=984.46,
+    )
+
+    assert _remaining_balance_verified(parent, Decimal("199.36"))
 
 
 def test_failed_handoff_is_emitted_only_for_exact_no_stable_terminal(
