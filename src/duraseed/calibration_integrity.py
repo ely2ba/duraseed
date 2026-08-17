@@ -65,11 +65,12 @@ def _accepted_attempt(arm: Path) -> Path:
 
 def _join(attempt: Path) -> dict[str, int]:
     generations = tuple(
-        GenerationRecord.model_validate(row)
+        GenerationRecord.model_validate_json(canonical_json_bytes(row))
         for row in _jsonl(attempt / "generations.jsonl")
     )
     rewards = tuple(
-        RewardRecord.model_validate(row) for row in _jsonl(attempt / "rewards.jsonl")
+        RewardRecord.model_validate_json(canonical_json_bytes(row))
+        for row in _jsonl(attempt / "rewards.jsonl")
     )
     by_generation = {row.sample_id: row for row in generations}
     by_reward = {row.sample_id: row for row in rewards}
@@ -123,7 +124,7 @@ def _control_files(root: Path, accepted: list[dict[str, Any]]) -> list[dict[str,
 
 def _teacher_metrics(attempt: Path, expected_steps: int) -> int:
     rows = tuple(
-        TrainingMetricRecord.model_validate(row)
+        TrainingMetricRecord.model_validate_json(canonical_json_bytes(row))
         for row in _jsonl(attempt / "metrics.jsonl")
     )
     if expected_steps != 16 or tuple(row.training_step for row in rows) != tuple(

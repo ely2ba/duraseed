@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from duraseed.calibration_attempts import ArmAttempt, ArmAttempts
+from duraseed.provenance import canonical_json_bytes
 from duraseed.run_records import TrainingMetricRecord, append_jsonl
 from duraseed.runners.calibration_live import CalibrationLiveInputs
 from duraseed.runners.teacher_dose_evidence import (
@@ -45,7 +46,9 @@ async def baseline_attempt(
 ) -> TeacherBaseline:
     arm = attempts.open(f"baseline-seed-{seed}")
     if arm.completed:
-        return TEACHER_BASELINE.validate_python(arm.completed_payload)
+        return TEACHER_BASELINE.validate_json(
+            canonical_json_bytes(arm.completed_payload)
+        )
     assert arm.journal is not None
     _, sentinel = teacher_families(inputs, seed)
     arm.journal.begin(
@@ -87,7 +90,7 @@ async def teacher_arm_attempt(
 ) -> TeacherDoseArmEvidence:
     arm = attempts.open(_arm_id(seed, dose, learning_rate))
     if arm.completed:
-        raw = RAW_TEACHER_ARM.validate_python(arm.completed_payload)
+        raw = RAW_TEACHER_ARM.validate_json(canonical_json_bytes(arm.completed_payload))
         return TeacherDoseArmEvidence(learning_rate, assess_arm(inputs, raw))
     raw = await _execute_arm(
         inputs,
