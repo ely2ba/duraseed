@@ -64,6 +64,8 @@ def calibration_billing_requirement(
         "parent_run_id": parent.parent_run_id,
         "parent_billing_sha256": parent.parent_billing_sha256,
         "parent_billed_usd": parent.parent_billed_usd,
+        "prior_repair": parent.prior_repair_lineage,
+        "prior_repair_teacher_cap_usd": parent.prior_repair_teacher_cap_usd,
         "protected_reserve_usd": parent.protected_reserve_usd,
         "lifetime_calibration_cap_usd": 300,
     }

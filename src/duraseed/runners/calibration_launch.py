@@ -49,6 +49,7 @@ from duraseed.runtime import (
     create_service,
     load_sdk,
 )
+from duraseed.teacher_exposure_spec import PRIOR_REPAIR_RUN_ID
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
@@ -59,7 +60,8 @@ def _remaining_balance_verified(
 ) -> bool:
     remaining = Decimal(str(parent.remaining_balance_usd))
     reserve = Decimal(str(parent.protected_reserve_usd))
-    return remaining - cost_cap >= reserve
+    prior_repair = Decimal(str(parent.prior_repair_teacher_cap_usd))
+    return remaining - prior_repair - cost_cap >= reserve
 
 
 def _git_commit() -> str:
@@ -116,7 +118,7 @@ async def run_remote_calibration(
     if (
         not run_id.strip()
         or any(value in run_id for value in "/\\")
-        or run_id == PARENT_RUN_ID
+        or run_id in {PARENT_RUN_ID, PRIOR_REPAIR_RUN_ID}
     ):
         raise RunnerGateError("run_id must be one nonempty filename token")
     if not project_id.strip():

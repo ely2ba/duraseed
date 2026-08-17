@@ -58,6 +58,10 @@ def _validate_run(inputs: Any, root: Path) -> None:
         != inputs.parent_teacher_evidence.parent_billing_sha256
         or required.get("parent_billed_usd")
         != inputs.parent_teacher_evidence.parent_billed_usd
+        or required.get("prior_repair")
+        != inputs.parent_teacher_evidence.prior_repair_lineage
+        or required.get("prior_repair_teacher_cap_usd")
+        != inputs.parent_teacher_evidence.prior_repair_teacher_cap_usd
         or required.get("lifetime_calibration_cap_usd") != 300
         or required.get("action_caps_usd")
         != {

@@ -42,15 +42,19 @@ ROOT = Path(__file__).resolve().parents[2]
 CONFIG = load_pilot_config(ROOT / "duraseed_pilot_config.yaml")
 SHA_A = "sha256:" + "a" * 64
 SHA_B = "sha256:" + "b" * 64
+PRIOR_LINEAGE = {
+    "run_id": "acquisition-calibration-repair-20260817T092320Z",
+    "charged_teacher_cap_usd": 44.27,
+}
 
 
 def _trajectory(seed: int, passing: tuple[bool, ...]) -> ExposureTrajectoryEvidence:
-    updates = (4, 8, 12)[: len(passing)]
+    updates = (6, 10, 14)[: len(passing)]
     points = tuple(
         ExposurePointEvidence(
             step,
-            "tinker://dose-2/sampler",
-            _assessment(2, seed=seed, passing=passed),
+            "tinker://dose-8/sampler",
+            _assessment(8, seed=seed, passing=passed),
         )
         for step, passed in zip(updates, passing, strict=True)
     )
@@ -74,12 +78,12 @@ def test_progressive_selector_chooses_earliest_joint_pass_and_stays_compact() ->
     selected = select_teacher_exposure(evidence)
 
     assert selected.status == "selected"
-    assert selected.selected_updates == 8
-    assert selected.recipe is not None and selected.recipe.selected_updates == 8
+    assert selected.selected_updates == 10
+    assert selected.recipe is not None and selected.recipe.selected_updates == 10
     assert b"generations" not in canonical_json_bytes(evidence)
 
 
-def test_progressive_selector_fails_closed_at_twelve_and_rejects_duplicates() -> None:
+def test_progressive_selector_fails_closed_at_fourteen_and_rejects_duplicates() -> None:
     first = _trajectory(17, (False, False, False))
     second = _trajectory(37, (False, False, False))
     assert select_teacher_exposure(_evidence(first, second)).status == (
@@ -106,7 +110,7 @@ def test_exposure_point_rejects_a_mislabeled_training_step() -> None:
             gate_manifest=fixture["gate_manifest"],
             m0_sampler_path=fixture["m0_sampler_checkpoint_path"],
             seed=17,
-            updates=4,
+            updates=6,
             sampler_path=fixture["seeded_sampler_checkpoint_path"],
             target_generations=fixture["targeted_generations"],
             target_rewards=fixture["targeted_rewards"],
@@ -134,7 +138,7 @@ def test_teacher_record_prefilter_is_identical_and_solves_only_selected_dose(
         return original(record)
 
     monkeypatch.setattr(module, "solver_teacher_completion", counted)
-    records = teacher_records(inputs, families, 2)
+    records = teacher_records(inputs, families, 8)
     expected = tuple(
         row.task_id
         for family in sorted(families)
@@ -145,7 +149,7 @@ def test_teacher_record_prefilter_is_identical_and_solves_only_selected_dose(
                 if value.intended_family == family
             ),
             key=lambda value: (value.item_index, value.task_id),
-        )[:2]
+        )[:8]
     )
 
     assert tuple(row.task_id for row in records) == expected
@@ -173,8 +177,8 @@ def _run(root: Path, status: RunStatus) -> RunRecord:
         finished_at=finished,
         cost_usd=3.0,
         project_id="project",
-        authorized_cost_usd=199.36,
-        reserved_cost_usd=199.36,
+        authorized_cost_usd=208.44,
+        reserved_cost_usd=208.44,
     )
     write_run_record(root, run)
     return run
@@ -192,11 +196,13 @@ def _required(run_status: str, **changes: object) -> dict[str, object]:
         "terminal_status": None,
         "terminal_sha256": None,
         "local_observed_cost_usd": 3.0,
-        "action_caps_usd": {"teacher-dose": 44.27, "stage-a": 155.09},
-        "aggregate_cap_usd": 199.36,
+        "action_caps_usd": {"teacher-dose": 53.35, "stage-a": 155.09},
+        "aggregate_cap_usd": 208.44,
         "parent_run_id": PARENT_RUN_ID,
         "parent_billing_sha256": SHA_A,
         "parent_billed_usd": PARENT_BILLED_USD,
+        "prior_repair": PRIOR_LINEAGE,
+        "prior_repair_teacher_cap_usd": 44.27,
         "protected_reserve_usd": 984.46,
         "lifetime_calibration_cap_usd": 300,
     }
@@ -219,7 +225,12 @@ def test_final_reconciler_accepts_child_cap_and_enforces_lifetime(
         canonical_json_bytes(_required("completed"))
     )
     (root / "preflight.json").write_bytes(
-        canonical_json_bytes({"parent_calibration": {"billing_sha256": SHA_A}})
+        canonical_json_bytes(
+            {
+                "parent_calibration": {"billing_sha256": SHA_A},
+                "prior_repair": PRIOR_LINEAGE,
+            }
+        )
     )
     raw = tmp_path / "raw.json"
     raw.write_bytes(canonical_json_bytes({"data": [{"session_id": "session-child"}]}))
@@ -261,9 +272,10 @@ def test_repair_authorization_compares_float_balance_to_decimal_cap() -> None:
     parent = SimpleNamespace(
         remaining_balance_usd=4922.30,
         protected_reserve_usd=984.46,
+        prior_repair_teacher_cap_usd=44.27,
     )
 
-    assert _remaining_balance_verified(parent, Decimal("199.36"))
+    assert _remaining_balance_verified(parent, Decimal("208.44"))
 
 
 def test_failed_handoff_is_emitted_only_for_exact_no_stable_terminal(
@@ -277,12 +289,14 @@ def test_failed_handoff_is_emitted_only_for_exact_no_stable_terminal(
     inputs = SimpleNamespace(
         run_id="child",
         project_id="project",
-        teacher_ledger=TokenLedger(TokenBudget(0, 0, 0), 44.27),
+        teacher_ledger=TokenLedger(TokenBudget(0, 0, 0), 53.35),
         stage_a_ledger=TokenLedger(TokenBudget(0, 0, 0), 155.09),
         parent_teacher_evidence=SimpleNamespace(
             parent_run_id=PARENT_RUN_ID,
             parent_billing_sha256=SHA_A,
             parent_billed_usd=PARENT_BILLED_USD,
+            prior_repair_lineage=PRIOR_LINEAGE,
+            prior_repair_teacher_cap_usd=44.27,
             protected_reserve_usd=984.46,
         ),
     )

@@ -1,8 +1,11 @@
 # Progressive teacher-exposure repair
 
-Status: accepted prospectively by Ely on 17 August 2026, after the failed
-teacher-seed verification and before Stage A or Pilot 0. Implementation and
-launch state are tracked separately in [`STATUS.md`](STATUS.md).
+Status: executed and stopped without a joint pass on 17 August 2026, before
+Stage A or Pilot 0. Checkpoint 8 was the last complete assessment in both
+orientations. Seed-17 checkpoint 12 completed its target panel but could no
+longer pass format; collection stopped before finishing its sentinel panel or
+launching seed-37 checkpoint 12. The successor decision is the
+[dose-8 M1 amendment](rfc-teacher-seed-dose8-low-repetition.md).
 
 ## Why this amendment exists
 

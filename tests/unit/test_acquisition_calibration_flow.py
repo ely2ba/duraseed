@@ -134,11 +134,11 @@ def test_calibration_authorization_and_maps_freeze() -> None:
         human_approval=True,
         remaining_balance_verified=True,
     )
-    with pytest.raises(RunnerGateError, match=r"\$199\.36"):
-        authorize_calibration(CONFIG, execute=True, authorized_cost_usd="200", **ready)
+    with pytest.raises(RunnerGateError, match=r"\$208\.44"):
+        authorize_calibration(CONFIG, execute=True, authorized_cost_usd="209", **ready)
     assert authorize_calibration(
-        CONFIG, execute=True, authorized_cost_usd="199.36", **ready
-    ).authorized_cost_usd == Decimal("199.36")
+        CONFIG, execute=True, authorized_cost_usd="208.44", **ready
+    ).authorized_cost_usd == Decimal("208.44")
     drifted = CONFIG.model_copy(
         update={
             "stage_b": CONFIG.stage_b.model_copy(update={"selected_max_updates": 640})
@@ -152,7 +152,7 @@ def test_calibration_cap_is_allocated_from_complete_local_bounds(monkeypatch) ->
     import duraseed.calibration_budget as budget
 
     teacher = CalibrationBudget(
-        TokenBudget(684_720, 21_233_664, 785_664), 0.3, 44.262501312
+        TokenBudget(684_720, 21_233_664, 916_608), 0.3, 44.454072384
     )
     stage = CalibrationBudget(TokenBudget(7, 8, 9), 4.9, 155.08044458)
     inputs = SimpleNamespace()
@@ -161,11 +161,11 @@ def test_calibration_cap_is_allocated_from_complete_local_bounds(monkeypatch) ->
 
     allocation = calibration_allocation(inputs)
     assert (allocation.teacher_cap_usd, allocation.stage_a_cap_usd) == (
-        44.27,
+        53.35,
         155.09,
     )
     assert allocation.stage_a_tokens == TokenBudget(7, 8, 9)
-    assert allocation.aggregate_cap_usd == 199.36
+    assert allocation.aggregate_cap_usd == 208.44
     fixed = TokenLedger(TokenBudget(0, 0, 0), allocation.teacher_cap_usd)
     for _ in range(6):
         fixed.reserve_call(TokenBudget(0, 0, 0), fixed_usd=0.05)
@@ -185,7 +185,7 @@ def test_calibration_cap_is_allocated_from_complete_local_bounds(monkeypatch) ->
         budget,
         "teacher_exposure_budget",
         lambda _inputs: CalibrationBudget(
-            TokenBudget(684_720, 21_233_664, 785_664), 0.3, 44.28
+            TokenBudget(684_720, 21_233_664, 916_608), 0.3, 44.46
         ),
     )
     with pytest.raises(RunnerGateError, match="frozen caps"):

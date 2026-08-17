@@ -10,10 +10,14 @@ import math
 from pathlib import Path
 from typing import Any
 
+from duraseed.calibration_prior_repair import load_prior_repair
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.runners import RunnerGateError
 from duraseed.runtime import PRICE_SNAPSHOT, UsageQuantities, parse_billing_usage
-from duraseed.teacher_exposure_spec import REPAIR_AGGREGATE_CAP_USD
+from duraseed.teacher_exposure_spec import (
+    PRIOR_REPAIR_CHILD_AUTHORIZATION_USD,
+    PRIOR_REPAIR_TEACHER_CAP_USD,
+)
 
 
 PARENT_RUN_ID = "acquisition-calibration-20260816T082800Z"
@@ -30,7 +34,6 @@ PARENT_RAW_BILLING_SHA256 = (
     "sha256:9dcb9c6083226d9363fe5f46c50c20f041645bd15ddbae1e58827ca7e93b96bc"
 )
 PARENT_BILLED_USD = 11.510623512
-CHILD_AUTHORIZATION_USD = REPAIR_AGGREGATE_CAP_USD
 PROTECTED_RESERVE_USD = 984.46
 PARENT_BILLING_CUTOFF = "2026-08-17T08:00:00Z"
 PARENT_SESSION_ID = "9e923e2f-e347-54b9-8787-111aa907dd39"
@@ -72,6 +75,8 @@ class CalibrationParentEvidence:
     parent_billed_usd: float
     remaining_balance_usd: float
     protected_reserve_usd: float
+    prior_repair_lineage: dict[str, object]
+    prior_repair_teacher_cap_usd: float
     baselines: tuple[tuple[int, ParentBaseline], ...]
 
     def baseline(self, seed: int) -> ParentBaseline:
@@ -97,6 +102,13 @@ class CalibrationParentEvidence:
             "raw_billing_sha256": self.parent_raw_billing_sha256,
             "billed_usd": self.parent_billed_usd,
         }
+
+    @property
+    def lifetime_sunk_usd(self) -> float:
+        return float(
+            Decimal(str(self.parent_billed_usd))
+            + Decimal(str(self.prior_repair_teacher_cap_usd))
+        )
 
 
 def _object(path: Path, label: str) -> tuple[dict[str, Any], bytes]:
@@ -220,15 +232,16 @@ def _billing(
         or reconciliation.get("remaining_balance_usd") != 4922.30
         or reconciliation.get("protected_reserve_usd") != PROTECTED_RESERVE_USD
         or reconciliation.get("protected_reserve_survives") is not True
-        or reconciliation.get("new_run_authorization_usd") != CHILD_AUTHORIZATION_USD
+        or reconciliation.get("new_run_authorization_usd")
+        != PRIOR_REPAIR_CHILD_AUTHORIZATION_USD
         or reconciliation.get("lifetime_calibration_cap_usd") != 300
         or not math.isclose(
             reconciliation.get("lifetime_worst_case_usd", -1),
-            PARENT_BILLED_USD + CHILD_AUTHORIZATION_USD,
+            PARENT_BILLED_USD + PRIOR_REPAIR_CHILD_AUTHORIZATION_USD,
             rel_tol=0,
             abs_tol=1e-12,
         )
-        or 4922.30 - CHILD_AUTHORIZATION_USD < PROTECTED_RESERVE_USD
+        or 4922.30 - PRIOR_REPAIR_CHILD_AUTHORIZATION_USD < PROTECTED_RESERVE_USD
         or not isinstance(reconciliation.get("authorizer"), str)
         or not reconciliation["authorizer"].strip()
         or reconciled.tzinfo is None
@@ -283,6 +296,18 @@ def load_calibration_parent(
     billing_hash, raw_hash, billed = _billing(
         Path(reconciliation_path), Path(raw_billing_path), project_id=project_id
     )
+    parent_lineage = {
+        "run_id": PARENT_RUN_ID,
+        "preflight_sha256": PARENT_PREFLIGHT_SHA256,
+        "terminal_sha256": PARENT_TERMINAL_SHA256,
+        "integrity_sha256": PARENT_INTEGRITY_SHA256,
+        "baseline_hashes": {
+            str(seed): hashes for seed, hashes in _BASELINE_HASHES.items()
+        },
+        "billing_sha256": billing_hash,
+        "raw_billing_sha256": raw_hash,
+        "billed_usd": billed,
+    }
     return CalibrationParentEvidence(
         PARENT_RUN_ID,
         PARENT_PREFLIGHT_SHA256,
@@ -294,6 +319,8 @@ def load_calibration_parent(
         billed,
         4922.30,
         PROTECTED_RESERVE_USD,
+        load_prior_repair(root, project_id=project_id, parent_lineage=parent_lineage),
+        PRIOR_REPAIR_TEACHER_CAP_USD,
         tuple((seed, _baseline(root, seed)) for seed in (17, 37)),
     )
 

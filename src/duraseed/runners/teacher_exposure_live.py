@@ -113,7 +113,8 @@ async def collect_teacher_exposure(
             )
             ladder = tuple(point.updates for point in trajectory.points)
             if trajectory.seed != seed or ladder not in tuple(
-                REPAIR_CHECKPOINT_UPDATES[:stop] for stop in range(1, 4)
+                REPAIR_CHECKPOINT_UPDATES[:stop]
+                for stop in range(1, len(REPAIR_CHECKPOINT_UPDATES) + 1)
             ):
                 raise RunnerGateError("completed teacher-exposure evidence differs")
             trajectories[seed] = trajectory

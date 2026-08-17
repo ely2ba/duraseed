@@ -21,7 +21,7 @@ def validate_repair_allocation(inputs: Any) -> None:
     child_cap = (
         inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
     )
-    parent_spend = inputs.parent_teacher_evidence.parent_billed_usd
+    parent_spend = inputs.parent_teacher_evidence.lifetime_sunk_usd
     teacher_limits = inputs.teacher_ledger.limits
     if (
         inputs.teacher_ledger.authorized_usd != REPAIR_TEACHER_CAP_USD
@@ -50,11 +50,12 @@ def calibration_preflight(inputs: Any, schema_version: str) -> dict[str, Any]:
             },
             "lifetime_calibration_cap_usd": 300,
             "lifetime_worst_case_usd": (
-                inputs.parent_teacher_evidence.parent_billed_usd
+                inputs.parent_teacher_evidence.lifetime_sunk_usd
                 + REPAIR_AGGREGATE_CAP_USD
             ),
             "teacher_exposure_repair": REPAIR_SPEC,
             "parent_calibration": inputs.parent_teacher_evidence.lineage,
+            "prior_repair": inputs.parent_teacher_evidence.prior_repair_lineage,
             "resolved_config_hash": inputs.config.resolved_config_hash(),
             "model_id": inputs.config.tinker.model_id,
             "renderer": inputs.config.tinker.renderer_name,
@@ -114,7 +115,7 @@ def validate_restart_reconciliations(inputs: Any, preflight_sha256: str) -> None
         or maxima["stage-a"] > inputs.stage_a_ledger.authorized_usd
         or aggregate
         > inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
-        or inputs.parent_teacher_evidence.parent_billed_usd + aggregate > 300
+        or inputs.parent_teacher_evidence.lifetime_sunk_usd + aggregate > 300
     ):
         raise RunnerGateError("restart reconciliation differs from this launch")
 

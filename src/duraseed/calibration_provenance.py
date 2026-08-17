@@ -298,7 +298,7 @@ def finish_calibration_run(
     )
     if (
         cost > child_cap
-        or cost + inputs.parent_teacher_evidence.parent_billed_usd > 300
+        or cost + inputs.parent_teacher_evidence.lifetime_sunk_usd > 300
     ):
         raise RunnerGateError("child or lifetime calibration spend exceeds its cap")
     deviations = ["billing reconciliation required after remote completion"]

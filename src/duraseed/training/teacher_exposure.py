@@ -1,4 +1,4 @@
-"""Frozen progressive repair for the failed 16-update teacher exposure."""
+"""Frozen M1 amendment for teacher exposure."""
 
 from __future__ import annotations
 
@@ -148,7 +148,10 @@ def select_teacher_exposure(
         or len(ladders) != 1
         or not ladders
         or next(iter(ladders))
-        not in tuple(REPAIR_CHECKPOINT_UPDATES[:stop] for stop in range(1, 4))
+        not in tuple(
+            REPAIR_CHECKPOINT_UPDATES[:stop]
+            for stop in range(1, len(REPAIR_CHECKPOINT_UPDATES) + 1)
+        )
     ):
         raise RunnerGateError("teacher exposure checkpoint ladder differs")
     if any(
@@ -188,7 +191,8 @@ def select_teacher_exposure(
         return TeacherExposureSelection(
             "no_stable_checkpoint",
             None,
-            "no checkpoint through update 12 passed all existing gates in both orientations",
+            "no checkpoint through update "
+            f"{REPAIR_CHECKPOINT_UPDATES[-1]} passed all existing gates in both orientations",
             None,
         )
     decision = TeacherDoseDecision(

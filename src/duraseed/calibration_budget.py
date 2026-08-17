@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from decimal import Decimal, ROUND_CEILING
+import math
 from typing import Any
 
 from duraseed.data.io import atomic_write_bytes
@@ -30,6 +31,8 @@ from duraseed.teacher_exposure_spec import (
     REPAIR_SEEDS,
     REPAIR_STAGE_A_CAP_USD,
     REPAIR_TEACHER_CAP_USD,
+    REPAIR_TEACHER_HEADROOM_MULTIPLIER,
+    REPAIR_TEACHER_PINNED_UPPER_USD,
     REPAIR_TEACHER_TOKEN_CEILINGS,
 )
 
@@ -176,7 +179,7 @@ def teacher_dose_budget(
 def teacher_exposure_budget(
     inputs: Any, completed_arm_ids: frozenset[str] = frozenset()
 ) -> CalibrationBudget:
-    """Bound the remaining two-orientation 4/8/12 repair trajectories."""
+    """Bound the remaining two-orientation M1 repair trajectories."""
 
     budgets = []
     for seed in REPAIR_SEEDS:
@@ -212,7 +215,12 @@ def teacher_exposure_budget(
     if not completed_arm_ids and (
         result.tokens != REPAIR_TEACHER_TOKENS
         or result.fixed_storage_usd != 0.3
-        or result.upper_bound_usd > REPAIR_TEACHER_CAP_USD
+        or not math.isclose(
+            result.upper_bound_usd,
+            REPAIR_TEACHER_PINNED_UPPER_USD,
+            rel_tol=0,
+            abs_tol=1e-12,
+        )
     ):
         raise RunnerGateError("teacher-exposure workload differs from its hard ceiling")
     return result
@@ -307,7 +315,9 @@ def calibration_allocation(inputs: Any) -> CalibrationAllocation:
 
     teacher = teacher_exposure_budget(inputs)
     stage = stage_a_budget(inputs, REPAIR_DOSE)
-    teacher_cap = _cent_ceiling(teacher.upper_bound_usd)
+    teacher_cap = _cent_ceiling(
+        teacher.upper_bound_usd * REPAIR_TEACHER_HEADROOM_MULTIPLIER
+    )
     stage_cap = _cent_ceiling(stage.upper_bound_usd)
     if (
         teacher.tokens != REPAIR_TEACHER_TOKENS

@@ -180,25 +180,33 @@ nontermination, not a transient API or checkpoint-loading failure. The failed
 run is sealed and retained as immutable diagnostic evidence; it is not being
 rewritten or counted as a Stage-A or Pilot result.
 
-The accepted repair is deliberately small. It keeps dose 2, learning rate
-`1e-4`, the decoder, panels, and every existing gate fixed. It runs exactly one
-progressive trajectory in each of the two panel orientations and evaluates the
-predeclared checkpoints at updates 4, 8, and 12. The earliest update that
-passes every gate in both orientations is frozen. If none passes, calibration
-stops for a new scientific decision; there is no automatic dose, learning-rate,
-or duration sweep. A third calibration seed pair is not added. Instead, Pilot
-0's independent seeds provide the next replication, with a pre-method
-warm-start health check that stops the whole Pilot before B-S or B-G if either
-origin fails. This is a bounded repair to a shared nuisance recipe, not a new
-hypothesis test. The repair implementation has passed its local checks and is
-the current acquisition-calibration action; Stage A and Pilot 0 have not
-started. The fixed decision is recorded in the
-[teacher-exposure repair amendment](docs/rfc-teacher-exposure-progressive-repair.md).
+The bounded dose-2 repair has now also stopped without a checkpoint passing
+every gate in both orientations. At update 4, both orientations failed format
+and the mixed-group-rate gate. At update 8, both recovered format but still
+failed the mixed-group-rate gate. Seed 17 then reached the mixed-group gate at
+update 12 but missed the format gate by three outputs (742/768 rather than the
+required 745/768). Collection was manually stopped at a no-pending-call
+boundary after 67/96 sentinel generations because that checkpoint could no
+longer pass; seed 37 update 12 was never launched. The incomplete checkpoint is
+not treated as an assessment. All raw evidence is retained, the run is marked
+interrupted, and authoritative billing reconciliation remains pending.
+
+The next and only teacher-seed amendment tests the still-unobserved
+high-diversity, low-repetition region: dose 8, learning rate `1e-4`, and one
+continuous trajectory evaluated at updates 6, 10, and 14 in each orientation.
+The decoder, panels, manifests, and every gate remain unchanged. The earliest
+checkpoint passing all gates in both orientations is selected; if none does,
+the run hard-stops rather than opening another seed, dose, learning-rate, or
+duration sweep. This is still calibration of a shared nuisance recipe, not a
+result about B-S or B-G. It is the current acquisition-calibration action;
+Stage-A method calibration and Pilot 0 have not started. The exact rule is
+frozen in the
+[dose-8 M1 amendment](docs/rfc-teacher-seed-dose8-low-repetition.md).
 
 With the valid panel construction frozen, the remaining path is:
 
-1. complete the bounded teacher-exposure repair, then calibrate Stage-A
-   learning rates, duration, and the common RL setup;
+1. run the single dose-8 teacher warm-start amendment; if it passes, calibrate
+   Stage-A learning rates, duration, and the common RL setup;
 2. run the two-seed, fixed-budget B-S/B-G Pilot 0;
 3. run the required targeted-exact-success-matched checkpoint follow-up and
    publish the complete pre-Stage-B profile;

@@ -10,10 +10,12 @@ intermediate families are now frozen. The archived and current production
 split builders produced byte-identical train and gate manifests. Acquisition
 calibration then stopped at teacher-seed cross-orientation verification: the
 dose-2 / `1e-4` / 16-update coordinate passed seed 17 but failed the unchanged
-format gate at seed 37 through learned nontermination. That terminal run is
-immutable diagnostic evidence. A bounded progressive-exposure repair is
-accepted, implemented, and is the current live gate; Stage A and Pilot 0 have
-not started. An archived
+format gate at seed 37 through learned nontermination. A bounded dose-2
+progressive repair also found no joint 4/8/12-update pass and was stopped at a
+no-pending-call boundary. Both runs are calibration evidence, not method
+outcomes. One final bounded warm-start amendment is accepted: dose 8, `1e-4`,
+and continuous checkpoints 6/10/14 in the same two orientations, with every
+gate unchanged. Stage A and Pilot 0 have not started. An archived
 engineering-only Tinker smoke and raw M0 audit were executed on 9 August 2026,
 and the v1 live smoke gate passed on 13 August 2026. The raw audit
 rejected the zero-update candidate on the declared format gates, so conditional
@@ -36,6 +38,8 @@ recorded in
 [`docs/rfc-prepilot-estimands-and-selection.md`](docs/rfc-prepilot-estimands-and-selection.md).
 The accepted teacher-exposure repair is recorded in
 [`docs/rfc-teacher-exposure-progressive-repair.md`](docs/rfc-teacher-exposure-progressive-repair.md).
+The subsequent dose-8 low-repetition amendment is recorded in
+[`docs/rfc-teacher-seed-dose8-low-repetition.md`](docs/rfc-teacher-seed-dose8-low-repetition.md).
 
 ## Question
 
@@ -303,17 +307,27 @@ trained checkpoint rather than a transient request, checkpoint, parser, or
 verifier problem. The terminal run and artifacts remain immutable diagnostic
 evidence, and the 16-update coordinate is rejected.
 
-The accepted repair fixes dose 2, learning rate `1e-4`, batch size 32, the
-nested deterministic teacher data, renderer, decoder, panels, samples, and all
-existing gates. Exactly two fresh progressive trajectories are run, with seed
-17 and seed 37 targeting opposite sides of the crossed panels. Each starts
-weights-only from the same selected M0 with a fresh optimizer. Checkpoints are
-evaluated at the predeclared updates 4, 8, and 12. Freeze the earliest update
-that passes every gate in both orientations. If no common checkpoint passes by
-update 12, stop for a new prospective scientific decision; do not automatically
-change dose or learning rate, extend the update grid, add seeds, or weaken a
-gate. Interruption reruns only the affected trajectory rather than creating a
-recovery framework.
+The first bounded repair fixed dose 2, learning rate `1e-4`, batch size 32,
+renderer, decoder, panels, samples, and all existing gates. Its two continuous
+crossed trajectories found no common 4/8/12-update pass. At update 8, both
+orientations passed format but failed the mixed-group gate. At update 12, the
+complete seed-17 target panel passed mixed-group and family reachability but
+missed format by three responses (`742/768` versus `745/768`). Because a joint
+pass was then impossible, collection stopped at a no-pending-call boundary
+after 67 of 96 seed-17 sentinel samples; seed-37 update 12 was never launched.
+That partial checkpoint is not a completed gate assessment.
+
+The accepted M1 amendment keeps the same learning rate, batch, renderer,
+decoder, panels, samples, and gates, but uses dose 8: 96 distinct verified
+teacher traces per orientation. Exactly two fresh progressive trajectories are
+run, with seed 17 and seed 37 targeting opposite crossed panels. Each starts
+weights-only from M0 with a fresh optimizer. Checkpoints are evaluated at
+updates 6, 10, and 14, corresponding to mean per-trace presentations of 2,
+3.33, and 4.67. Freeze the earliest checkpoint that passes every gate in both
+orientations. If none passes by update 14, stop: do not add a dose, learning
+rate, checkpoint, seed, decoding change, or gate relaxation. This amendment
+tests a high-diversity, low-repetition nuisance recipe; it does not identify a
+causal mechanism.
 
 Each gate uses eight unseen items per family and eight samples per item. The
 declared gates are mixed-group rate at least 0.30, family reachability at least
@@ -329,7 +343,7 @@ No third calibration verification pair is added. The two crossed orientations
 complete this nuisance-recipe calibration. Pilot 0 supplies the next independent
 replication with seeds 11 and 29: before B-S or B-G begins, both reconstructed
 warm starts must pass the unchanged health gate. Failure of either stops the
-whole Pilot without a substitute seed. This repair is not a B-S/B-G comparison
+whole Pilot without a substitute seed. Neither repair is a B-S/B-G comparison
 or a test of the stability–future-learnability hypothesis.
 
 The targeted-versus-random teacher comparison uses the fixed

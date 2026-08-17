@@ -12,6 +12,7 @@ from duraseed.data.io import atomic_write_bytes
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.run_records import RunStatus, read_run_record
 from duraseed.runners import RunnerGateError
+from duraseed.teacher_exposure_spec import REPAIR_CHECKPOINT_UPDATES
 
 
 TERMINAL_FILE = "teacher-dose-terminal.json"
@@ -65,7 +66,10 @@ def existing_teacher_exposure_terminal(
             inputs,
             root,
             RunStatus.FAILED,
-            error="teacher exposure found no stable checkpoint through update 12",
+            error=(
+                "teacher exposure found no stable checkpoint through update "
+                f"{REPAIR_CHECKPOINT_UPDATES[-1]}"
+            ),
         )
     return {"state": state, "terminal": terminal}
 
@@ -105,7 +109,10 @@ def finish_teacher_exposure_terminal(
         raise RunnerGateError("teacher-exposure terminal artifact changed")
     atomic_write_bytes(path, payload)
     terminal_hash = sha256_bytes(payload)
-    error = "teacher exposure found no stable checkpoint through update 12"
+    error = (
+        "teacher exposure found no stable checkpoint through update "
+        f"{REPAIR_CHECKPOINT_UPDATES[-1]}"
+    )
     atomic_write_bytes(
         root / "state.json",
         canonical_json_bytes(

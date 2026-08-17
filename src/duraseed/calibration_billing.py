@@ -16,6 +16,7 @@ from duraseed.runners import RunnerGateError
 from duraseed.teacher_exposure_spec import (
     LIFETIME_CALIBRATION_CAP_USD,
     ORIGINAL_TEACHER_CAP_USD,
+    PRIOR_REPAIR_TEACHER_CAP_USD,
     REPAIR_AGGREGATE_CAP_USD,
     REPAIR_STAGE_A_CAP_USD,
     REPAIR_TEACHER_CAP_USD,
@@ -123,6 +124,7 @@ def reconcile_calibration_billing(
         raise RunnerGateError("billing reconciliation omits the two action totals")
     action_caps = required.get("action_caps_usd")
     parent_lineage = preflight.get("parent_calibration")
+    prior_lineage = preflight.get("prior_repair")
     if not isinstance(action_caps, dict) or set(action_caps) != {
         "teacher-dose",
         "stage-a",
@@ -134,6 +136,9 @@ def reconcile_calibration_billing(
     stage_a_cap = _decimal(action_caps["stage-a"], "Stage-A action cap")
     child_cap = _decimal(required.get("aggregate_cap_usd"), "aggregate cap")
     parent_spend = _decimal(required.get("parent_billed_usd"), "parent spend")
+    prior_spend = _decimal(
+        required.get("prior_repair_teacher_cap_usd"), "prior repair spend floor"
+    )
     lifetime_cap = _decimal(
         required.get("lifetime_calibration_cap_usd"), "lifetime calibration cap"
     )
@@ -170,14 +175,18 @@ def reconcile_calibration_billing(
         or required.get("parent_run_id") != PARENT_RUN_ID
         or not isinstance(parent_lineage, dict)
         or required.get("parent_billing_sha256") != parent_lineage.get("billing_sha256")
+        or not isinstance(prior_lineage, dict)
+        or required.get("prior_repair") != prior_lineage
+        or prior_spend != Decimal(str(PRIOR_REPAIR_TEACHER_CAP_USD))
+        or prior_lineage.get("charged_teacher_cap_usd") != PRIOR_REPAIR_TEACHER_CAP_USD
         or lifetime_cap != Decimal(str(LIFETIME_CALIBRATION_CAP_USD))
-        or parent_spend + child_cap > lifetime_cap
+        or parent_spend + prior_spend + child_cap > lifetime_cap
         or teacher > teacher_cap
-        or parent_spend + teacher > Decimal(str(ORIGINAL_TEACHER_CAP_USD))
+        or parent_spend + prior_spend + teacher > Decimal(str(ORIGINAL_TEACHER_CAP_USD))
         or stage_a > stage_a_cap
         or aggregate != teacher + stage_a
         or aggregate > child_cap
-        or parent_spend + aggregate > lifetime_cap
+        or parent_spend + prior_spend + aggregate > lifetime_cap
         or reconciliation.get("protected_reserve_survives") is not True
         or reserve != required_reserve
         or balance < required_reserve
