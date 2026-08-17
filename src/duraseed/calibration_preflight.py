@@ -7,13 +7,12 @@ from typing import Any
 from duraseed.provenance import canonical_json_value
 from duraseed.runners import RunnerGateError
 from duraseed.teacher_exposure_spec import (
+    DIRECT_M0_AGGREGATE_CAP_USD,
+    DIRECT_M0_STAGE_A_CAP_USD,
+    DIRECT_M0_STAGE_A_TOKEN_CEILINGS,
+    DIRECT_M0_TEACHER_CAP_USD,
     LIFETIME_CALIBRATION_CAP_USD,
     ORIGINAL_TEACHER_CAP_USD,
-    REPAIR_AGGREGATE_CAP_USD,
-    REPAIR_STAGE_A_CAP_USD,
-    REPAIR_SPEC,
-    REPAIR_TEACHER_CAP_USD,
-    REPAIR_TEACHER_TOKEN_CEILINGS,
 )
 
 
@@ -23,20 +22,25 @@ def validate_repair_allocation(inputs: Any) -> None:
     )
     parent_spend = inputs.parent_teacher_evidence.lifetime_sunk_usd
     teacher_limits = inputs.teacher_ledger.limits
+    stage_a_limits = inputs.stage_a_ledger.limits
     if (
-        inputs.teacher_ledger.authorized_usd != REPAIR_TEACHER_CAP_USD
-        or inputs.stage_a_ledger.authorized_usd != REPAIR_STAGE_A_CAP_USD
-        or child_cap != REPAIR_AGGREGATE_CAP_USD
+        inputs.teacher_ledger.authorized_usd != DIRECT_M0_TEACHER_CAP_USD
+        or inputs.stage_a_ledger.authorized_usd != DIRECT_M0_STAGE_A_CAP_USD
+        or child_cap != DIRECT_M0_AGGREGATE_CAP_USD
         or (teacher_limits.prefill, teacher_limits.sample, teacher_limits.train)
-        != REPAIR_TEACHER_TOKEN_CEILINGS
+        != (0, 0, 0)
+        or (stage_a_limits.prefill, stage_a_limits.sample, stage_a_limits.train)
+        != DIRECT_M0_STAGE_A_TOKEN_CEILINGS
         or parent_spend + child_cap > LIFETIME_CALIBRATION_CAP_USD
-        or parent_spend + inputs.teacher_ledger.authorized_usd
-        > ORIGINAL_TEACHER_CAP_USD
+        or parent_spend > ORIGINAL_TEACHER_CAP_USD
     ):
-        raise ValueError("calibration repair allocations exceed a frozen cap")
+        raise ValueError("direct-M0 calibration allocations exceed a frozen cap")
 
 
 def calibration_preflight(inputs: Any, schema_version: str) -> dict[str, Any]:
+    child_cap = (
+        inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
+    )
     return canonical_json_value(
         {
             "schema_version": schema_version,
@@ -46,16 +50,19 @@ def calibration_preflight(inputs: Any, schema_version: str) -> dict[str, Any]:
                 "teacher-dose": inputs.teacher_ledger.authorized_usd,
                 "teacher-allocation": 0,
                 "stage-a": inputs.stage_a_ledger.authorized_usd,
-                "total": REPAIR_AGGREGATE_CAP_USD,
+                "total": child_cap,
             },
-            "lifetime_calibration_cap_usd": 300,
+            "lifetime_calibration_cap_usd": LIFETIME_CALIBRATION_CAP_USD,
             "lifetime_worst_case_usd": (
-                inputs.parent_teacher_evidence.lifetime_sunk_usd
-                + REPAIR_AGGREGATE_CAP_USD
+                inputs.parent_teacher_evidence.lifetime_sunk_usd + child_cap
             ),
-            "teacher_exposure_repair": REPAIR_SPEC,
+            "stage_a_origin": "direct-m0",
             "parent_calibration": inputs.parent_teacher_evidence.lineage,
             "prior_repair": inputs.parent_teacher_evidence.prior_repair_lineage,
+            "interrupted_m1": inputs.parent_teacher_evidence.m1_lineage,
+            "boundary_config_sha256": inputs.sources.boundary_config_sha256,
+            "current_config_sha256": inputs.sources.current_config_sha256,
+            "nonprotocol_config_sha256": inputs.sources.nonprotocol_config_sha256,
             "resolved_config_hash": inputs.config.resolved_config_hash(),
             "model_id": inputs.config.tinker.model_id,
             "renderer": inputs.config.tinker.renderer_name,
@@ -80,8 +87,6 @@ def calibration_preflight(inputs: Any, schema_version: str) -> dict[str, Any]:
             "source_manifest_ids": {
                 "a_rl_train": inputs.prompt_pools.a_rl_train_manifest.manifest_id,
                 "a_monitor": inputs.prompt_pools.a_monitor_manifest.manifest_id,
-                "a_seed_train": inputs.teacher_sources.target_train_manifest.manifest_id,
-                "a_seed_gate": inputs.teacher_sources.gate_manifest.manifest_id,
             },
         }
     )
@@ -115,7 +120,8 @@ def validate_restart_reconciliations(inputs: Any, preflight_sha256: str) -> None
         or maxima["stage-a"] > inputs.stage_a_ledger.authorized_usd
         or aggregate
         > inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
-        or inputs.parent_teacher_evidence.lifetime_sunk_usd + aggregate > 300
+        or inputs.parent_teacher_evidence.lifetime_sunk_usd + aggregate
+        > LIFETIME_CALIBRATION_CAP_USD
     ):
         raise RunnerGateError("restart reconciliation differs from this launch")
 

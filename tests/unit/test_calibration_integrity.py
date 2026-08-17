@@ -5,9 +5,17 @@ import json
 from pathlib import Path
 from types import SimpleNamespace
 
+import pytest
+
 from duraseed.calibration_integrity import seal_calibration_action
 from duraseed.provenance import canonical_json_bytes
-from duraseed.run_records import GenerationRecord, RewardRecord, write_jsonl
+from duraseed.run_records import (
+    GenerationRecord,
+    RewardRecord,
+    TrainingMetricRecord,
+    append_jsonl,
+    write_jsonl,
+)
 from duraseed.runners.teacher_dose_arms import baseline_attempt
 from duraseed.runners.teacher_dose_evidence import TEACHER_BASELINE, TeacherBaseline
 from duraseed.schemas import VerificationFailure, VerificationResult
@@ -90,3 +98,46 @@ def test_completed_baseline_replays_json_arrays_without_remote_work() -> None:
     observed = asyncio.run(baseline_attempt(SimpleNamespace(), attempts, seed=17))
 
     assert observed == baseline
+
+
+@pytest.mark.parametrize(("screen_only", "expected_count"), ((False, 140), (True, 60)))
+def test_direct_m0_stage_a_integrity_has_exact_branch_metrics_and_no_seed(
+    tmp_path: Path, screen_only: bool, expected_count: int
+) -> None:
+    arm = tmp_path / "complete-bounded-stage-a"
+    attempt = arm / "attempt-0001"
+    attempt.mkdir(parents=True)
+    write_jsonl(attempt / "generations.jsonl", ())
+    write_jsonl(attempt / "rewards.jsonl", ())
+    (attempt / "remote-call-state.json").write_bytes(
+        canonical_json_bytes({"pending": None})
+    )
+    (arm / "coordinate.json").write_bytes(canonical_json_bytes({"arm_id": arm.name}))
+    (arm / "completed.json").write_bytes(
+        canonical_json_bytes({"arm_id": arm.name, "attempt": 1})
+    )
+    grids = {"B-S": (1e-4, 3e-4, 1e-3), "B-G": (1e-5, 3e-5, 1e-4)}
+    for method, rates in grids.items():
+        for index, rate in enumerate(rates):
+            final = not screen_only and index == 0
+            for step in range(1, 51 if final else 11):
+                metric = TrainingMetricRecord(
+                    phase="stage_a", training_step=step, metrics={"loss": 0.5}
+                )
+                append_jsonl(
+                    attempt / "metrics.jsonl",
+                    {
+                        **metric.model_dump(mode="json"),
+                        "method": method,
+                        "learning_rate": rate,
+                    },
+                )
+
+    integrity = seal_calibration_action(
+        "stage-a",
+        tmp_path,
+        teacher_updates=0,
+        stage_a_screen_only=screen_only,
+    )
+
+    assert integrity["accepted_metric_count"] == expected_count

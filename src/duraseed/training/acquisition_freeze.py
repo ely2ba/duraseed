@@ -15,8 +15,8 @@ from duraseed.training.stage_a_calibration import (
     StageALearningRateDecisionStatus,
     StageAScreenEvidence,
     decide_stage_a_duration,
-    select_stage_a_learning_rate,
 )
+from duraseed.training.stage_a_direct import select_direct_m0_learning_rate
 from duraseed.training.teacher_dose import (
     GateStatus,
     TeacherDoseAssessment,
@@ -322,8 +322,8 @@ def freeze_acquisition(
     common_rl: CommonRLFreezeEvidence,
 ) -> AcquisitionFreeze:
     decisions: tuple[StageALearningRateDecision, ...] = (
-        select_stage_a_learning_rate("B-S", stage_a.bs_screens),
-        select_stage_a_learning_rate("B-G", stage_a.bg_screens),
+        select_direct_m0_learning_rate("B-S", stage_a.bs_screens),
+        select_direct_m0_learning_rate("B-G", stage_a.bg_screens),
     )
     if any(
         row.status is not StageALearningRateDecisionStatus.SELECTED for row in decisions

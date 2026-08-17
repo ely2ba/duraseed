@@ -12,13 +12,9 @@ from duraseed.runners import RunnerGateError
 from duraseed.runtime import TokenLedger
 
 
-SCHEMA_VERSION = "duraseed-acquisition-calibration-v1"
-ACTION_ORDER = ("teacher-dose", "teacher-allocation", "stage-a")
-ACTION_FILES = {
-    "teacher-dose": "teacher-dose.json",
-    "teacher-allocation": "teacher-allocation.json",
-    "stage-a": "acquisition-freeze.json",
-}
+SCHEMA_VERSION = "duraseed-acquisition-calibration-v2"
+ACTION_ORDER = ("stage-a",)
+ACTION_FILES = {"stage-a": "acquisition-freeze.json"}
 
 
 def artifact(

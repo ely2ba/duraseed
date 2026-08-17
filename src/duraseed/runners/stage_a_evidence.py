@@ -175,6 +175,7 @@ async def evaluate_panel(
     origin_sampler_path: str,
     journal: RemoteJournal,
     method: Literal["B-S", "B-G"] | None = None,
+    checkpoint_stage: Literal["m0", "stage_a"] = "stage_a",
 ) -> tuple[SampleObservation, ...]:
     observations = []
     for record in _monitor_records(inputs.prompt_pools, role):
@@ -210,7 +211,7 @@ async def evaluate_panel(
                 inputs.run_id,
                 label,
                 "evaluation",
-                "stage_a",
+                checkpoint_stage,
                 training_step,
                 sampler_path,
                 origin_sampler_path,

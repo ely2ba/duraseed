@@ -5,14 +5,14 @@
 seed: 11
 
 protocol:
-  version: duraseed-prepilot-v5
-  status: pre-calibration
+  version: duraseed-prepilot-v6
+  status: direct-m0-stage-a-calibration
   question: >-
     When LLM post-training procedures reach comparable immediate capability,
     do they leave different stability–future-learnability profiles—different
     retention of the newly acquired skill and different efficiency in learning
     the next skill under a fixed supervised adaptation probe?
-  method_summary: three context controls plus three core stability-future-learnability methods
+  method_summary: two core direct-M0 acquisition procedures plus one optional context control and one conditional mechanism pilot
   measured_property: joint stability and future learning efficiency under a fixed supervised Stage-B probe with continued low-rank adaptation
   primary_stage_b_metric: raw_gain_stage_b_auc
   primary_outcomes:
@@ -42,65 +42,49 @@ protocol:
   methods:
     - code: G-U
       role: context_control
-      execution_phase: initial_pilot
+      execution_phase: optional_pilot
+      origin: m0
       teacher_source: none
       acquisition: uniform_prompt_rl
-    - code: G-B
-      role: context_control
-      execution_phase: initial_pilot
-      teacher_source: none
-      acquisition: boundary_weighted_rl
-    - code: R-G
-      role: context_control
-      execution_phase: initial_pilot
-      teacher_source: random_fixed_budget
-      acquisition: boundary_weighted_rl
     - code: B-S
       role: core_stability_future_learnability
       execution_phase: initial_pilot
-      teacher_source: boundary
+      origin: m0
+      teacher_source: fixed_verified_solver
       acquisition: static_sft
     - code: B-O
-      role: core_stability_future_learnability
-      execution_phase: later_pilot
-      teacher_source: boundary
+      role: conditional_mechanism
+      execution_phase: conditional_mechanism_pilot
+      origin: m0
+      teacher_source: none
       acquisition: verified_iterative_on_policy_sft
     - code: B-G
       role: core_stability_future_learnability
       execution_phase: initial_pilot
-      teacher_source: boundary
+      origin: m0
+      teacher_source: none
       acquisition: boundary_weighted_rl
   candidate_contrasts:
-    - left: G-B
-      right: G-U
-      matched: [rl_rollout_budget, optimization_budget]
-      matched_stage_a_performance: false
-      qualification: null
-    - left: B-G
-      right: R-G
-      matched: [teacher_tokens, selected_family_count, rl_rollout_tokens, optimizer_updates]
-      matched_stage_a_performance: false
-      qualification: null
-    - left: B-G
-      right: G-B
-      matched: [boundary_prompt_distribution, rl_budget]
-      matched_stage_a_performance: false
-      qualification: teacher information differs and is reported explicitly
     - left: B-S
       right: B-G
-      matched: [teacher_information]
+      matched: [m0_origin, targeted_prompt_allocation, adapter_rank, renderer, completion_cap]
       matched_stage_a_performance: true
-      qualification: null
+      qualification: complete procedures differ in data source, trajectory distribution, exploration, objective, token use, and compute
+    - left: B-G
+      right: G-U
+      matched: [m0_origin, rl_configuration, rollout_budget, optimization_budget]
+      matched_stage_a_performance: false
+      qualification: optional prompt-allocation control; prompt allocation differs
     - left: B-O
       right: B-S
-      matched: [boundary_teacher_seed, stage_a_performance]
+      matched: [m0_origin, stage_a_performance]
       matched_stage_a_performance: true
-      qualification: consolidation data source differs
+      qualification: conditional mechanism comparison; current-policy and fixed-solver data differ
     - left: B-G
       right: B-O
-      matched: [current_policy_generation_budget_where_practical]
+      matched: [m0_origin, stage_a_performance]
       matched_stage_a_performance: true
-      qualification: no claim of globally equal compute
+      qualification: conditional secondary objective comparison; no claim of equal data or globally equal compute
 
 tasks:
   tces:

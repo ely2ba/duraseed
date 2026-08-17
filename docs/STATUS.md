@@ -10,11 +10,11 @@
 | Live smoke gate | **DONE** | The real remote path passed exact online/offline reward parity, stop-contract verification, full-state resume, and weights-only branching under its `$25` cap; its billing closeout was completed before the boundary launch. |
 | Boundary extension cohorts 2–3 | **REMOTE COLLECTION DONE** | Cohorts 2 and 3 completed broad sampling, refinement, and confirmation. |
 | Three-cohort panel freeze | **DONE** | The [accepted amendment](rfc-boundary-panel-algebraic-deduplication.md) reduced the fixed 49 to 37 exact algebraic representatives. All 37 passed the unchanged capacity audit; disjoint 12/12 panels and 12 separate intermediates were frozen. Archived and current production split builders then produced byte-identical 384-row train and 192-row gate manifests. |
-| Teacher-exposure calibration | **CURRENT GATE — M1** | The first run remains failed diagnostic evidence. The [dose-2 bounded repair](rfc-teacher-exposure-progressive-repair.md) also found no joint pass: update 8 was the last complete checkpoint in both orientations and passed format but failed the mixed-group-rate gate; seed-17 update 12 passed the mixed-group-rate gate but missed format by 3/768, so collection stopped after 67/96 sentinel generations and seed-37 update 12 was never launched. The run is truthfully marked interrupted, raw evidence is retained, and billing is pending. The current gate is the accepted [dose-8 M1 amendment](rfc-teacher-seed-dose8-low-repetition.md): one `1e-4` continuous 6/10/14-update trajectory in each orientation with unchanged panels, decoder, manifests, and gates. |
-| Stage-A calibration | **NOT STARTED** | Begins only if one teacher-exposure checkpoint passes every existing gate in both orientations. |
+| Teacher-exposure calibration | **RETIRED AFTER THREE BOUNDED FAILURES** | The original dose-2 run, [progressive repair](rfc-teacher-exposure-progressive-repair.md), and [dose-8 M1](rfc-teacher-seed-dose8-low-repetition.md) found no checkpoint passing every gate in both orientations. M1 failed jointly at updates 6 and 10; seed-17 update 14 had only 586 valid answer tags after 640 target samples, so even perfect remaining samples could not reach 745/768. It was stopped safely before seed-37 update 14. Raw evidence is retained; none is a method outcome. The [direct-M0 amendment](rfc-direct-m0-stage-a-origin.md) retires the task-specific seed without weakening a gate. |
+| Stage-A calibration | **CURRENT GATE — DIRECT M0** | B-S and B-G now branch weights-only from the same M0 with fresh optimizers. The existing 10-update LR screen is also B-G's rollout-health check; no new calibration campaign is added. |
 | Pilot 0 | **NOT STARTED** | No pilot execution or sealed-test access. |
 | Variance reconnaissance | **NOT STARTED** | After Pilot 0, extend B-S/B-G to 3–4 paired pilot seeds before setting confirmatory power. |
-| Mechanism/context pilot decision | **NOT STARTED** | If B-S/B-G separates reproducibly, first test supervised replay of a prospectively frozen verifier-correct subset of B-G rollouts; then use the reconnaissance to decide whether B-O or optional G-B/R-G/G-U adds enough value. |
+| Mechanism/context pilot decision | **NOT STARTED** | If B-S/B-G separates reproducibly, first test supervised replay of a prospectively frozen verifier-correct subset of B-G rollouts; then decide whether conditional B-O or optional G-U adds enough value. G-B is a duplicate of direct-M0 B-G and R-G's teacher-allocation question is retired. |
 | Preregistration | **NOT STARTED** | Begins only after variance reconnaissance and the mechanism/context decision freeze and power the confirmatory design. |
 | Confirmatory study | **NOT STARTED** | Requires the preregistered design and separate authorization. |
 
@@ -22,9 +22,8 @@ Pilot 0 has not started; no B-S/B-G stability–future-learnability result is
 claimed.
 
 The three pre-Pilot gates have caps of `$25`, `$120`, and `$300`. Remote
-execution for the smoke and boundary gates is complete. The first acquisition-
-calibration attempt and the bounded dose-2 repair are both stopped; the first
-run's terminal artifact and all raw repair evidence remain unchanged. The
-repair run's authoritative billing reconciliation is pending. The dose-8 M1
-amendment is the current acquisition-calibration gate. Pilot 0 is separately
-capped at `$600` and remains unstarted.
+execution for the smoke and boundary gates is complete. All three teacher-
+exposure attempts are stopped and retained as calibration evidence. Stage-A
+calibration from M0 is the current acquisition-calibration gate; its Stage-A-
+only launch cap is `$153.32` inside the unchanged `$300` lifetime acquisition-
+calibration cap. Pilot 0 is separately capped at `$600` and remains unstarted.

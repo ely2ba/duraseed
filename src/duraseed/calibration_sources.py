@@ -52,6 +52,12 @@ ACCEPTED_MAX_TOKEN_SPECIFICATION_SHA256: str | None = (
 ACCEPTED_MAX_TOKEN_AUTHORIZATION_SHA256: str | None = (
     "sha256:a89bab743f2a70f116b5b4bb1c5767836984550f127ebc3801ed0d69c1905c93"
 )
+ACCEPTED_BOUNDARY_CONFIG_SHA256 = (
+    "sha256:6d0caf9912e1cbafecb1103fe9e4999f62ab9fae4f9d2ee71f34b86f177748c1"
+)
+ACCEPTED_NONPROTOCOL_CONFIG_SHA256 = (
+    "sha256:9ed41168a43609be90878fa624565a60cb202c8be99937fcf3aa78acccce45ca"
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -63,6 +69,15 @@ class CalibrationSourceEvidence:
     m0_sampler_path: str
     m0_state_path: str
     m0_training_step: int
+    boundary_config_sha256: str
+    current_config_sha256: str
+    nonprotocol_config_sha256: str
+
+
+def _nonprotocol_config_hash(config: PilotConfig) -> str:
+    payload = config.model_dump(mode="json")
+    payload.pop("protocol", None)
+    return canonical_json_hash(payload)
 
 
 def _object(path: Path, label: str) -> tuple[dict[str, Any], bytes]:
@@ -249,6 +264,9 @@ def authenticate_calibration_sources(
     confirmation = DatasetManifest.model_validate_json(
         (boundary / "a_candidate_confirmation_manifest.json").read_bytes()
     )
+    current_config_hash = config.resolved_config_hash()
+    current_nonprotocol_hash = _nonprotocol_config_hash(config)
+    source_nonprotocol_hash = _nonprotocol_config_hash(teacher_sources.config)
     if (
         ACCEPTED_BOUNDARY_FREEZE_EQUIVALENCE_SHA256 is None
         or sha256_bytes(equivalence_raw) != ACCEPTED_BOUNDARY_FREEZE_EQUIVALENCE_SHA256
@@ -262,11 +280,12 @@ def authenticate_calibration_sources(
         or run.model_id != MODEL_ID
         or run.renderer != RENDERER_NAME
         or run.lora_rank != LORA_RANK
-        or run.resolved_config_hash != config.resolved_config_hash()
+        or run.resolved_config_hash != ACCEPTED_BOUNDARY_CONFIG_SHA256
+        or current_nonprotocol_hash != ACCEPTED_NONPROTOCOL_CONFIG_SHA256
+        or source_nonprotocol_hash != ACCEPTED_NONPROTOCOL_CONFIG_SHA256
         or run.project_id != project_id
         or run.parent_tinker_checkpoint_path != state
         or panel.m0_checkpoint_path != sampler
-        or teacher_sources.config != config
         or teacher_sources.panel != panel
         or teacher_sources.broad_manifest != broad
         or teacher_sources.confirmation_manifest != confirmation
@@ -295,6 +314,9 @@ def authenticate_calibration_sources(
         sampler,
         state,
         step,
+        run.resolved_config_hash,
+        current_config_hash,
+        current_nonprotocol_hash,
     )
 
 

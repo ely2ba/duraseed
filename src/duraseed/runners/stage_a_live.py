@@ -7,6 +7,7 @@ from pathlib import Path
 from pydantic import TypeAdapter
 
 from duraseed.calibration_attempts import ArmAttempts
+from duraseed.calibration_stage_a_terminal import StageAScientificFailure
 from duraseed.calibration_budget import (
     persist_budget_preflight,
     require_remaining_budget,
@@ -25,29 +26,55 @@ from duraseed.training.acquisition_freeze import (
 )
 from duraseed.training.stage_a_calibration import (
     STAGE_A_LEARNING_RATE_GRIDS,
+    StageADurationDecisionStatus,
     StageALearningRateDecisionStatus,
-    select_stage_a_learning_rate,
+    decide_stage_a_duration,
 )
+from duraseed.training.stage_a_direct import select_direct_m0_learning_rate
 
 
-_COMPLETED = TypeAdapter(tuple[StageALiveEvidence, CommonRLFreezeEvidence])
+_COMPLETED = TypeAdapter(tuple[StageALiveEvidence, CommonRLFreezeEvidence | None])
+
+
+def _resolve_completed(
+    evidence: StageALiveEvidence,
+    common_rl: CommonRLFreezeEvidence | None,
+) -> tuple[StageALiveEvidence, CommonRLFreezeEvidence]:
+    decisions = tuple(
+        select_direct_m0_learning_rate(method, screens)
+        for method, screens in (
+            ("B-S", evidence.bs_screens),
+            ("B-G", evidence.bg_screens),
+        )
+    )
+    if any(
+        row.status is not StageALearningRateDecisionStatus.SELECTED for row in decisions
+    ):
+        raise StageAScientificFailure(
+            "no_eligible_learning_rate", evidence, decisions, None
+        )
+    duration = decide_stage_a_duration(decisions, evidence.final_evidence)
+    if duration.status is not StageADurationDecisionStatus.FROZEN:
+        raise StageAScientificFailure(
+            "duration_gate_failed", evidence, decisions, duration
+        )
+    if common_rl is None:
+        raise StageAScientificFailure(
+            "common_rl_gate_failed", evidence, decisions, duration
+        )
+    return evidence, common_rl
 
 
 async def collect_stage_a(
     inputs: CalibrationLiveInputs,
     output: Path,
     *,
-    selected_dose: int,
-    teacher_learning_rate: float,
-    teacher_updates: int | None = None,
     preflight_sha256: str,
 ) -> tuple[StageALiveEvidence, CommonRLFreezeEvidence]:
     """Never splice stochastic evidence across Stage-A training clients."""
 
     if inputs.stage_a_ledger.authorized_usd <= 0:
         raise RunnerGateError("Stage-A collector requires its preflight ledger")
-    if teacher_updates is None:
-        teacher_updates = inputs.config.teacher_dose.calibration_updates
     if (
         inputs.prompt_pools.a_rl_train_manifest
         != inputs.teacher_sources.a_rl_train_manifest
@@ -56,7 +83,7 @@ async def collect_stage_a(
         or inputs.prompt_pools.artifact.family_panel_artifact_id
         != canonical_json_hash(inputs.teacher_sources.panel)
     ):
-        raise RunnerGateError("Stage-A prompt pools differ from teacher-dose sources")
+        raise RunnerGateError("Stage-A prompt pools differ from authenticated sources")
     attempts = ArmAttempts(
         output,
         inputs.stage_a_ledger,
@@ -72,8 +99,6 @@ async def collect_stage_a(
     budget_preflight = require_remaining_budget(
         stage_a_budget(
             inputs,
-            selected_dose,
-            teacher_updates=teacher_updates,
             completed=completed,
         ),
         inputs.stage_a_ledger,
@@ -90,16 +115,14 @@ async def collect_stage_a(
     )
     attempt = attempts.open("complete-bounded-stage-a")
     if attempt.completed:
-        return _COMPLETED.validate_python(attempt.completed_payload)
+        return _resolve_completed(
+            *_COMPLETED.validate_python(attempt.completed_payload)
+        )
     assert attempt.journal is not None
     origin = await build_origin(
         inputs,
         attempt.directory,
         attempt.journal,
-        selected_dose=selected_dose,
-        teacher_learning_rate=teacher_learning_rate,
-        teacher_updates=teacher_updates,
-        checkpoint_suffix=f"-{attempt.directory.name}",
     )
     pools = ordered_pools(inputs.prompt_pools)
     sources = {
@@ -123,13 +146,16 @@ async def collect_stage_a(
             screens[method].append(evidence)
             branches[(method, learning_rate)] = branch
     decisions = tuple(
-        select_stage_a_learning_rate(method, screens[method])
+        select_direct_m0_learning_rate(method, screens[method])
         for method in ("B-S", "B-G")
     )
+    evidence = StageALiveEvidence(tuple(screens["B-S"]), tuple(screens["B-G"]), ())
     if any(
         row.status is not StageALearningRateDecisionStatus.SELECTED for row in decisions
     ):
-        raise RunnerGateError("Stage-A learning-rate screen did not select both arms")
+        attempts.complete(attempt, (evidence, None))
+        attempts.assert_no_unused_reconciliations()
+        return _resolve_completed(evidence, None)
     finals = []
     for decision in decisions:
         learning_rate = decision.selected_learning_rate
@@ -148,15 +174,27 @@ async def collect_stage_a(
             )
         )
     bg = next(row for row in finals if row.evidence.method == "B-G")
-    common_rl = common_rl_freeze(bg)
     evidence = StageALiveEvidence(
         tuple(screens["B-S"]),
         tuple(screens["B-G"]),
         tuple(row.evidence for row in finals),
     )
+    duration = decide_stage_a_duration(decisions, evidence.final_evidence)
+    if duration.status is not StageADurationDecisionStatus.FROZEN:
+        attempts.complete(attempt, (evidence, None))
+        attempts.assert_no_unused_reconciliations()
+        return _resolve_completed(evidence, None)
+    try:
+        common_rl = common_rl_freeze(bg)
+    except RunnerGateError as error:
+        attempts.complete(attempt, (evidence, None))
+        attempts.assert_no_unused_reconciliations()
+        raise StageAScientificFailure(
+            "common_rl_gate_failed", evidence, decisions, duration
+        ) from error
     attempts.complete(attempt, (evidence, common_rl))
     attempts.assert_no_unused_reconciliations()
-    return evidence, common_rl
+    return _resolve_completed(evidence, common_rl)
 
 
 __all__ = ["collect_stage_a"]

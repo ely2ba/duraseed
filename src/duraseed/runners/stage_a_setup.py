@@ -13,21 +13,13 @@ from duraseed.run_records import (
 )
 from duraseed.runners.calibration_live import CalibrationLiveInputs
 from duraseed.runners.remote_journal import RemoteJournal
-from duraseed.runners.stage_a_evidence import boundary_sources, evaluate_panel
+from duraseed.runners.stage_a_evidence import evaluate_panel
 from duraseed.runners.stage_a_updates import (
     Branch,
     grouped_rl_update,
     supervised_update,
 )
-from duraseed.runtime import (
-    apply_update,
-    bind_model,
-    create_sampler,
-    restore_checkpoint,
-    save_checkpoint,
-    save_sampler_checkpoint,
-    sft_datum,
-)
+from duraseed.runtime import create_sampler, save_sampler_checkpoint
 
 
 CANDIDATE_TTL_SECONDS = 7 * 24 * 60 * 60
@@ -41,88 +33,6 @@ class StageAOriginEvidence:
     target_rewards: tuple[RewardRecord, ...]
     sentinel_generations: tuple[GenerationRecord, ...]
     sentinel_rewards: tuple[RewardRecord, ...]
-
-
-def _batch(values: list[object], step: int, size: int = 32) -> list[object]:
-    start = (step - 1) * size
-    return [values[(start + offset) % len(values)] for offset in range(size)]
-
-
-async def build_boundary_seed(
-    inputs: CalibrationLiveInputs,
-    output: Path,
-    dose: int,
-    teacher_learning_rate: float,
-    teacher_updates: int,
-    journal: RemoteJournal,
-    checkpoint_suffix: str = "",
-) -> tuple[str, str]:
-    journal.begin(
-        "restore-boundary-origin",
-        {"dose": dose, "learning_rate": teacher_learning_rate},
-        {"prefill_tokens": 0, "sample_tokens": 0, "train_tokens": 0},
-    )
-    client = await restore_checkpoint(
-        inputs.runtime,
-        inputs.m0_state_path,
-        full_state=False,
-        ledger=inputs.stage_a_ledger,
-        user_metadata={"gate": "stage-a-boundary-seed", "seed": "17"},
-    )
-    append_jsonl(output / "branch-events.jsonl", {"event": "boundary-restored"})
-    journal.complete({"operation": "restore-boundary-origin"})
-    runtime = bind_model(inputs.runtime.sdk, inputs.runtime.service, client)
-    datums = [sft_datum(runtime, row) for row in boundary_sources(inputs, dose)]
-    for step in range(1, teacher_updates + 1):
-        batch = _batch(datums, step)
-        journal.begin(
-            "boundary-seed-update",
-            {"step": step},
-            {
-                "prefill_tokens": 0,
-                "sample_tokens": 0,
-                "train_tokens": sum(int(row.model_input.length) for row in batch),
-            },
-        )
-        values = await apply_update(
-            runtime,
-            batch,
-            loss_fn="cross_entropy",
-            learning_rate=teacher_learning_rate,
-            ledger=inputs.stage_a_ledger,
-        )
-        append_jsonl(
-            output / "metrics.jsonl",
-            {"subphase": "boundary-seed", "step": step, "metrics": values},
-        )
-        journal.complete({"operation": "boundary-seed-update", "step": step})
-    journal.begin(
-        "save-boundary-pair",
-        {"step": teacher_updates},
-        {
-            "prefill_tokens": 0,
-            "sample_tokens": 0,
-            "train_tokens": 0,
-            "fixed_usd": 1.0,
-        },
-    )
-    pair = await save_checkpoint(
-        runtime,
-        name=f"{inputs.run_id}-boundary-seed-17{checkpoint_suffix}",
-        ttl_seconds=None,
-        ledger=inputs.stage_a_ledger,
-        reserved_storage_usd=1.0,
-    )
-    append_jsonl(
-        output / "checkpoints.jsonl",
-        {
-            "kind": "boundary-seed",
-            "sampler": pair.sampler_path,
-            "state": pair.state_path,
-        },
-    )
-    journal.complete({"operation": "save-boundary-pair"})
-    return pair.sampler_path, pair.state_path
 
 
 async def create_recorded_sampler(
@@ -208,23 +118,10 @@ async def build_origin(
     inputs: CalibrationLiveInputs,
     output: Path,
     journal: RemoteJournal,
-    *,
-    selected_dose: int,
-    teacher_learning_rate: float,
-    teacher_updates: int,
-    checkpoint_suffix: str,
 ) -> StageAOriginEvidence:
-    """Build origin evidence inside one indivisible Stage-A attempt."""
+    """Evaluate the frozen M0 once as the common direct Stage-A origin."""
 
-    sampler_path, state_path = await build_boundary_seed(
-        inputs,
-        output,
-        selected_dose,
-        teacher_learning_rate,
-        teacher_updates,
-        journal,
-        checkpoint_suffix,
-    )
+    sampler_path, state_path = inputs.m0_sampler_path, inputs.m0_state_path
     sampler = await create_recorded_sampler(inputs, sampler_path, output, journal)
     target = await evaluate_panel(
         inputs,
@@ -233,10 +130,11 @@ async def build_origin(
         role="targeted",
         samples_per_item=2,
         sampler_path=sampler_path,
-        training_step=0,
+        training_step=inputs.m0_training_step,
         label="origin-target",
         origin_sampler_path=sampler_path,
         journal=journal,
+        checkpoint_stage="m0",
     )
     sentinel = await evaluate_panel(
         inputs,
@@ -245,10 +143,11 @@ async def build_origin(
         role="sentinel",
         samples_per_item=1,
         sampler_path=sampler_path,
-        training_step=0,
+        training_step=inputs.m0_training_step,
         label="origin-sentinel",
         origin_sampler_path=sampler_path,
         journal=journal,
+        checkpoint_stage="m0",
     )
     return StageAOriginEvidence(
         sampler_path,
@@ -261,7 +160,6 @@ async def build_origin(
 
 
 __all__ = [
-    "build_boundary_seed",
     "build_origin",
     "create_recorded_sampler",
     "run_update",

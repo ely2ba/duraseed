@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -346,7 +347,8 @@ def test_stage_a_collector_runs_all_six_screens_and_both_continuations(
             )
             updates.append((method, learning_rate, step))
         branches.append(branch)
-        return _screen(method, learning_rate, set(range(40))), branch
+        evidence = _screen(method, learning_rate, set(range(40)))
+        return replace(evidence, metrics=tuple(branch.metrics)), branch
 
     async def final(
         inputs, origin, output, journal, *, method, learning_rate, branch, **kwargs
@@ -386,8 +388,6 @@ def test_stage_a_collector_runs_all_six_screens_and_both_continuations(
         live.collect_stage_a(
             inputs,
             tmp_path,
-            selected_dose=1,
-            teacher_learning_rate=1e-4,
             preflight_sha256="sha256:" + "a" * 64,
         )
     )

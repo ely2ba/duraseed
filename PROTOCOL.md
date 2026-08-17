@@ -8,22 +8,22 @@ exact algebraic representatives. All 37 passed the unchanged 22/22 test
 capacity requirement; two disjoint 12-family panels and 12 separate
 intermediate families are now frozen. The archived and current production
 split builders produced byte-identical train and gate manifests. Acquisition
-calibration then stopped at teacher-seed cross-orientation verification: the
-dose-2 / `1e-4` / 16-update coordinate passed seed 17 but failed the unchanged
-format gate at seed 37 through learned nontermination. A bounded dose-2
-progressive repair also found no joint 4/8/12-update pass and was stopped at a
-no-pending-call boundary. Both runs are calibration evidence, not method
-outcomes. One final bounded warm-start amendment is accepted: dose 8, `1e-4`,
-and continuous checkpoints 6/10/14 in the same two orientations, with every
-gate unchanged. Stage A and Pilot 0 have not started. An archived
-engineering-only Tinker smoke and raw M0 audit were executed on 9 August 2026,
-and the v1 live smoke gate passed on 13 August 2026. The raw audit
+calibration then made three bounded attempts to construct a common task-
+specific teacher warm start. None produced a checkpoint passing the frozen
+gates in both panel orientations. The final dose-8 M1 attempt was stopped at a
+no-pending-call boundary once seed-17 update 14 could no longer pass format;
+seed-37 update 14 was not launched. Before Stage A or Pilot 0, the shared
+teacher warm start was prospectively retired. The core B-S and B-G procedures
+now branch directly from the same M0. Stage A and Pilot 0 have not started. An
+archived engineering-only Tinker smoke and raw M0 audit were executed on 9
+August 2026, and the v1 live smoke gate passed on 13 August 2026. The raw audit
 rejected the zero-update candidate on the declared format gates, so conditional
 task-agnostic format training was required. A common trainable M0 has now been
 selected. The renderer and common TCES completion cap are now fixed at
 `role_colon` with the DuraSeed answer/role stops and 4096 tokens. MAPS task
-difficulty and its Stage-B recipe are fixed; TCES panel membership and
-Stage-A acquisition settings remain unresolved. Pilot 0 has not started, and
+difficulty and its Stage-B recipe are fixed; TCES panel membership is frozen,
+while Stage-A learning rates, duration, and common RL settings remain
+unresolved. Pilot 0 has not started, and
 no result for the stability–future-learnability hypothesis has been produced.
 
 This file is the public authoritative scientific contract, with
@@ -40,6 +40,8 @@ The accepted teacher-exposure repair is recorded in
 [`docs/rfc-teacher-exposure-progressive-repair.md`](docs/rfc-teacher-exposure-progressive-repair.md).
 The subsequent dose-8 low-repetition amendment is recorded in
 [`docs/rfc-teacher-seed-dose8-low-repetition.md`](docs/rfc-teacher-seed-dose8-low-repetition.md).
+Its superseding direct-M0 decision is recorded in
+[`docs/rfc-direct-m0-stage-a-origin.md`](docs/rfc-direct-m0-stage-a-origin.md).
 
 ## Question
 
@@ -61,17 +63,17 @@ RL trainability.
 | Method | Acquisition procedure | Scientific role | Execution phase |
 |---|---|---|---|
 | `G-U` | uniform-prompt RL | context/acquisition control | exploratory pilot |
-| `G-B` | boundary-weighted RL without teacher seeding | context/acquisition control | exploratory pilot |
-| `R-G` | random fixed-budget teacher seeding, then RL | context/acquisition control | exploratory pilot |
-| `B-S` | boundary seed, then fixed offline solver-teacher SFT | core stability–future-learnability | first end-to-end result |
-| `B-O` | boundary seed, then refreshed verified current-policy SFT | core stability–future-learnability | mechanism pilot after first result |
-| `B-G` | boundary seed, then group-relative RL | core stability–future-learnability | first end-to-end result |
+| `B-S` | fixed offline solver-teacher SFT directly from M0 | core stability–future-learnability | first end-to-end result |
+| `B-O` | refreshed verified current-policy SFT directly from M0 | conditional mechanism pilot | after a reproducible core result |
+| `B-G` | boundary-weighted group-relative RL directly from M0 | core stability–future-learnability | first end-to-end result |
 
-All six paths remain supported. They are not all automatically confirmatory.
-The default confirmatory priority is `B-S/B-O/B-G`, but the final matrix and
-fresh seed count are chosen only after pilot variance, effect, and cost are
-measured. The first complete result is `B-S` versus `B-G` with two paired pilot
-seeds. Method breadth is cut before seed replication.
+The first complete result is `B-S` versus `B-G` with two paired pilot seeds.
+`G-U` remains an optional prompt-allocation control and `B-O` a conditional
+mechanism pilot. The old `G-B` identifier is retired because direct-M0 `B-G`
+is the same procedure; `R-G` and its targeted-versus-random teacher-allocation
+question are retired with the task-specific seed. The final confirmatory
+matrix and fresh seed count are chosen only after pilot variance, effect, and
+cost are measured. Method breadth is cut before seed replication.
 
 The first `B-S/B-G` estimand compares two complete acquisition procedures. It
 does not isolate their update objectives: the procedures also differ in data
@@ -81,8 +83,8 @@ and is not generalized to an intrinsic “SFT versus RL representation” effect
 
 After that two-seed Pilot 0, variance reconnaissance extends B-S/B-G to a
 total of 3--4 paired pilot seeds. Those seed-level variance and cost estimates
-inform the mechanism/context pilot decision and any justified B-O, G-B, R-G,
-or G-U runs. Only after those gates determine the confirmatory matrix is the
+inform the mechanism/context pilot decision and any justified B-O or G-U runs.
+Only after those gates determine the confirmatory matrix is the
 design powered and frozen, preregistered, and run on fresh confirmatory seeds.
 
 If `B-S/B-G` separates reproducibly, the first mechanism follow-up is
@@ -93,11 +95,11 @@ budget, and comparison must be frozen after the core effect is established and
 before that follow-up runs; it is not part of Pilot 0 and has no method
 identifier yet.
 
-Ordered comparisons are `G-B/G-U` for prompt targeting, `B-G/G-B` for the
-boundary teacher seed, `B-G/R-G` for targeted versus random teacher allocation,
-`B-S/B-G` for offline SFT versus group-relative RL, `B-O/B-S` for refreshed
-current-policy data, and `B-G/B-O` as a secondary objective comparison. These
-are candidate pilot comparisons, not a frozen confirmatory set.
+The ordered core comparison is `B-S/B-G`: fixed solver-teacher SFT versus
+boundary-weighted group-relative RL as complete acquisition procedures. If
+later justified, `B-G/G-U` tests prompt targeting, `B-O/B-S` tests refreshed
+current-policy data, and `B-G/B-O` is a secondary objective comparison. These
+optional comparisons are not a frozen confirmatory set.
 
 ## Common initialization
 
@@ -161,11 +163,11 @@ would have censored 4/128 answer completions, including one exact success;
 of $0.33878 and conservative accounting of $1.50 pending billing. This remains
 calibration evidence, not a Pilot-0 result.
 
-Every method declares the same M0 state. `G-U/G-B` branch directly from M0;
-`R-G` uses a distinct random-teacher child; `B-S/B-O/B-G` share the same
-boundary-teacher child within a training seed. Scientific branches and Stage B
-restore weights only so optimizer state is fresh; interruption recovery uses
-full state.
+Every active method declares the same M0 state. `B-S`, `B-G`, and any later
+`G-U` or `B-O` arm branch weights-only directly from M0 with a fresh optimizer.
+There is no task-specific teacher checkpoint between M0 and Stage A.
+Interruption recovery uses full state; Stage B again restores only the selected
+Stage-A weights so its optimizer is fresh.
 
 Stage B continues the same rank-32 LoRA adapter. The resulting estimand is
 conditional on continued shared-adapter low-rank adaptation; it is not presented
@@ -199,8 +201,8 @@ after duration selection.
 Panel A is targeted and Panel B sentinel for half the seed blocks; the assignment
 is reversed for the other half. Targeted families may enter Stage-A teacher and
 optimization data. Sentinel families enter none of it and are evaluated at M0,
-post-seed, post-A, and throughout Stage B. Existing family-disjointness leakage
-checks fail closed on a sentinel/training overlap.
+post-A, and throughout Stage B. Existing family-disjointness leakage checks
+fail closed on a sentinel/training overlap.
 
 Panel membership is frozen by the completed amended three-cohort construction.
 The allocation seed is fixed at
@@ -283,104 +285,54 @@ oriented to minimize maximum and then mean panel imbalance across the ten
 covariates; ranked eligible families 25–36 remain outside both panels as the
 intermediate pool.
 
-## Teacher seed calibration
+## Retired teacher warm-start calibration
 
-The original calibration screened `[1, 2, 4, 8, 16]` exact solver
-demonstrations per targeted family and selected the smallest dose meeting every
-unseen `a_seed_gate` criterion, followed by verification in the opposite panel
-orientation. Calibration seeds 17 and 37 remain disjoint from engineering,
-Pilot, and confirmatory seeds.
+The original design placed a common task-specific solver-teacher SFT checkpoint
+between M0 and every core Stage-A branch. Three bounded pre-Pilot attempts found
+no checkpoint that passed the frozen health gates in both crossed panel
+orientations.
 
-Before teacher-dose calibration, the completed panel evidence must also support
-the frozen Stage-A prompt pools: 12 boundary, 12 intermediate, and 12
-broad-random families with the declared training and monitor capacities. The
-resulting `a_rl_train` and `a_monitor` manifests are frozen first. Teacher
-`a_seed_train` and `a_seed_gate` records are then generated with those manifests
-in their exclusion set, and the same prompt-pool bundle is reused by Stage A.
-Failure of this local capacity or disjointness gate stops before remote spend.
+The first run selected dose 2 / `1e-4` at update 16 in seed 17, but the same
+coordinate learned repetitive nontermination in seed 37 and failed format. A
+progressive dose-2 repair found no joint 4/8/12-update pass: update 8 passed
+format in both orientations but remained below the mixed-group gate, and the
+complete seed-17 update-12 target assessment missed format by three responses
+(`742/768` versus `745/768`). It was stopped before completing an assessment
+that could not pass.
 
-The first formal run found a passing dose-2 / `1e-4` candidate when its
-16-update seed-17 arm passed. At that same coordinate, the seed-37 orientation
-failed format compliance: many target and sentinel generations repeated until
-the shared 4096-token cap. Inspection identified learned nontermination at the
-trained checkpoint rather than a transient request, checkpoint, parser, or
-verifier problem. The terminal run and artifacts remain immutable diagnostic
-evidence, and the 16-update coordinate is rejected.
+The final M1 amendment tested 96 distinct traces per orientation at dose 8 /
+`1e-4`, with checkpoints 6/10/14. At update 6, seed 17 and seed 37 respectively
+had `21/96` and `11/96` mixed groups and `663/768` and `711/768` valid-format
+outputs. At update 10 they had `25/96` and `17/96` mixed groups; seed 17 missed
+format at `741/768`, while seed 37 passed format but reached only 7/12 families.
+At seed-17 update 14, 586 of the first 640 target samples had valid answer tags;
+even 128 perfect remaining samples could reach only 714/768, below the required
+745. M1 was stopped safely and seed-37 update 14 was not launched.
 
-The first bounded repair fixed dose 2, learning rate `1e-4`, batch size 32,
-renderer, decoder, panels, samples, and all existing gates. Its two continuous
-crossed trajectories found no common 4/8/12-update pass. At update 8, both
-orientations passed format but failed the mixed-group gate. At update 12, the
-complete seed-17 target panel passed mixed-group and family reachability but
-missed format by three responses (`742/768` versus `745/768`). Because a joint
-pass was then impossible, collection stopped at a no-pending-call boundary
-after 67 of 96 seed-17 sentinel samples; seed-37 update 12 was never launched.
-That partial checkpoint is not a completed gate assessment.
+These observations are failed nuisance-recipe feasibility evidence, not a
+B-S/B-G comparison and not evidence that SFT warm starts are generally
+unstable. Before any Stage-A or Pilot outcome, the direct-M0 amendment retired
+the task-specific seed rather than lowering a gate or opening another recipe
+search. It also retired `R-G` and its teacher-allocation question. The old
+teacher-dose, repair, and allocation records remain preserved as historical
+artifacts but no longer gate the experiment.
 
-The accepted M1 amendment keeps the same learning rate, batch, renderer,
-decoder, panels, samples, and gates, but uses dose 8: 96 distinct verified
-teacher traces per orientation. Exactly two fresh progressive trajectories are
-run, with seed 17 and seed 37 targeting opposite crossed panels. Each starts
-weights-only from M0 with a fresh optimizer. Checkpoints are evaluated at
-updates 6, 10, and 14, corresponding to mean per-trace presentations of 2,
-3.33, and 4.67. Freeze the earliest checkpoint that passes every gate in both
-orientations. If none passes by update 14, stop: do not add a dose, learning
-rate, checkpoint, seed, decoding change, or gate relaxation. This amendment
-tests a high-diversity, low-repetition nuisance recipe; it does not identify a
-causal mechanism.
-
-Each gate uses eight unseen items per family and eight samples per item. The
-declared gates are mixed-group rate at least 0.30, family reachability at least
-0.60, all-one saturation at most 0.20, format compliance at least 0.97, clean
-leakage, and operationally finite training. The non-targeted safeguard rejects
-only an observed sentinel equal-item drop greater than 10 percentage points and
-reports its paired standard error and approximate 95% interval. This is a broad
-catastrophic-regression safeguard, not equivalence or noninferiority.
-The safeguard uses one paired seeded completion on each of all 96 sentinel gate
-items; it is deliberately a catastrophe screen, not a precision equivalence
-test. Candidate calibration checkpoints are sampler-only with seven-day TTL.
-No third calibration verification pair is added. The two crossed orientations
-complete this nuisance-recipe calibration. Pilot 0 supplies the next independent
-replication with seeds 11 and 29: before B-S or B-G begins, both reconstructed
-warm starts must pass the unchanged health gate. Failure of either stops the
-whole Pilot without a substitute seed. Neither repair is a B-S/B-G comparison
-or a test of the stability–future-learnability hypothesis.
-
-The targeted-versus-random teacher comparison uses the fixed
-`core_family_v1` allocation policy after dose selection. Each orientation has
-12 targeted and 12 distinct random families with exactly the selected dose
-per family. Families match exactly on operand count, tree depth, canonical
-operator multiset, noncommutative-operation count, the full ordered `I/F`
-intermediate profile, and concise teacher-trace format. Actual `role_colon`
-`LAST_ASSISTANT_MESSAGE` masks define supervised prompt and target tokens: the
-aggregate prompt count is exact, target-token totals differ by at most 2%, and
-optimizer updates are equal. Target magnitude, valid-family multiplicity, and
-teacher-target length are balance diagnostics only, with no post-hoc cutoff.
-
-Every random candidate family supplies a deterministic 16-item
-`a_seed_train` pool and must be disjoint from both panels in its complete set
-of valid solution families. Candidate templates expand in first-appearance
-order from the authenticated broad `a_candidate` stream, up to its frozen
-8,192-template ceiling; freeze the smallest prefix that satisfies both crossed
-orientations. Infeasible or bounded-search-exhausted matching makes `R-G`
-unavailable. It never authorizes coarser strata or relaxed information budgets.
-
-After dose selection, `duraseed tinker calibrate teacher-allocation
-TEACHER_DOSE_RUN` performs this freeze entirely locally with the pinned
-tokenizer. It writes `random_teacher_a_seed_train.json` and
-`teacher_allocation_audit.json` under `TEACHER_DOSE_RUN/teacher_allocation`;
-`crossed_teacher_allocations.json` is written only when both orientations pass.
+The M0 boundary evidence supports direct RL without claiming certainty about a
+live rollout. Across all 24 frozen panel families, predicted informative group-
+size-8 probability ranges from 0.581 to 0.883, with median 0.739 and mean
+0.7485; none is below 0.50. A separate held-out one-draw M0 check observed
+17/192 verified successes across 10/24 family blocks. The scan predictions are
+therefore treated as feasibility evidence, while the Stage-A B-G screen below
+provides the realized rollout-health gate.
 
 ## Stage-A learning-rate and duration calibration
 
-After teacher-dose selection, `duraseed tinker calibrate stage-a
-TEACHER_DOSE_RUN` reconstructs the seed-17 boundary origin from the non-expiring
-M0 using the selected dose, teacher learning rate, and the selected common
-teacher-exposure count with canonical-cyclic batch-32 updates. The reconstructed
-sampler and full state are saved non-expiring. Every subsequent B-S and B-G arm
-branches weights-only from that one state with a fresh optimizer and the frozen
-0.50/0.25/0.25
-boundary/intermediate/broad-random prompt schedule.
+Stage-A calibration branches every B-S and B-G coordinate weights-only from the
+same non-expiring M0 with a fresh optimizer. Both use the frozen 0.50/0.25/0.25
+boundary/intermediate/broad-random prompt schedule. B-S trains on a fixed,
+verified solver-teacher corpus; B-G samples its own attempts and applies the
+common verifier-scored group-relative objective. There is no shared task-
+specific training before this split.
 
 B-S screens `[1e-4, 3e-4, 1e-3]`; B-G screens `[1e-5, 3e-5, 1e-4]`. All six
 arms train to update 10 and are evaluated on the same 96 targeted and 96
@@ -391,6 +343,16 @@ of the best targeted gain. Only the two selected arms continue to update 50.
 Update 25 is a training-metric waypoint only: it creates no checkpoint and no
 generation evaluation because it is not consumed by the frozen reducer.
 
+The existing step-10 evaluations are also the operational health checks. Every
+arm must retain at least 0.97 wrapper compliance, at most 0.50 absolute length-
+stop rate, at most a 0.10 increase from paired M0, finite metrics, and clean
+leakage. These already-sampled summaries expose the looping failure mode in
+B-S without adding a checkpoint or remote request. In addition, every B-G
+update must contain at least one mixed reward group, and an eligible B-G screen
+arm must average a mixed-group rate of at least 0.20 across updates 1--10. If no
+LR in either complete grid is eligible, calibration stops once for a separate
+prospective decision; it does not revive teacher seeding or extend the screen.
+
 At update 50, the targeted panel uses two paired samples per item and the
 sentinel panel one. B-G uses official importance sampling, group-mean
 advantages without standard-deviation normalization, 16 prompt groups of eight
@@ -400,10 +362,10 @@ bounded run. The final 50-update duration freezes only if the predeclared pure
 reducer passes both methods. Failure does not authorize step 100, a larger LR
 grid, or another recovery framework. Candidate samplers have seven-day TTL and
 no candidate full states are saved. The default command is a credential-free
-preflight; execution requires one exact `$300` acquisition-calibration
-authorization. Authenticated local sources deterministically allocate that
-envelope between teacher-dose and worst-case Stage-A bounds before any service
-is constructed. This is Phase-4 calibration, not Pilot 0.
+preflight; the direct-M0 Stage-A-only launch requires one exact `$153.32`
+authorization inside the unchanged `$300` lifetime acquisition-calibration
+cap. Authenticated local sources must verify that bound before any service is
+constructed. This is Phase-4 calibration, not Pilot 0.
 
 The same acquisition-calibration freeze also selects one common RL
 objective/configuration before any multi-method run. If the entropy-collapse
@@ -580,14 +542,12 @@ Comparability is contrast-specific, not a claim of globally equal compute:
 
 | Contrast | Required match or qualification |
 |---|---|
-| `G-U/G-B` | RL rollout and optimization budget; differs in prompt allocation |
-| `R-G/B-G` | teacher examples/tokens/updates and RL budget; differs in teacher allocation |
-| `G-B/B-G` | boundary prompt distribution and RL budget; teacher information reported explicitly |
-| `B-S/B-G` | same boundary seed/teacher information; compare fixed budget and targeted-panel-exact-success-matched checkpoints; complete procedures differ in data and objective |
-| `B-O/B-S` | same boundary seed; current-policy generation is the mechanism difference |
-| `B-G/B-O` | same boundary seed; objective comparison is secondary |
+| `B-S/B-G` | same M0, panels, prompt allocation, adapter rank, renderer, and cap; compare fixed-budget and targeted-panel-exact-success-matched checkpoints; complete procedures differ in data, objective, exploration, and resource use |
+| `B-G/G-U` | same M0 and RL configuration; differs in prompt allocation; optional only |
+| `B-O/B-S` | same M0 and matched Stage-A performance; current-policy generation is the mechanism difference |
+| `B-G/B-O` | same M0 and matched Stage-A performance; objective comparison is secondary |
 
-All methods use common model, rank, renderer, completion cap, task manifests,
+All methods use common model, M0, rank, renderer, completion cap, task manifests,
 and declared seed namespaces. Exact teacher and rollout accounting is preserved.
 The M0-derived Stage-A prompt allocation remains fixed throughout training; no
 method-specific boundary rescan is allowed. B-O additionally records accepted-

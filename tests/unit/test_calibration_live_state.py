@@ -45,25 +45,18 @@ def test_completed_action_prefix_resumes_by_hash_and_rejects_mutation(
 ) -> None:
     preflight = SHA_A
     checkpoint(tmp_path, preflight)
-    for action, cost in (
-        ("teacher-dose", 75.5),
-        ("teacher-allocation", 0),
-        ("stage-a", 224.5),
-    ):
-        commit_action(
-            tmp_path,
-            action,
-            artifact(action, cost, preflight_sha256=preflight, result=action),
-            preflight,
-        )
+    commit_action(
+        tmp_path,
+        "stage-a",
+        artifact("stage-a", 153.32, preflight_sha256=preflight, result="stage-a"),
+        preflight,
+    )
 
     state, values = existing(tmp_path, preflight)
     assert state["status"] == "completed"
-    assert tuple(values) == ("teacher-dose", "teacher-allocation", "stage-a")
-    changed = artifact(
-        "teacher-dose", 149, preflight_sha256=preflight, result="teacher-dose"
-    )
-    write(tmp_path / "teacher-dose.json", changed)
+    assert tuple(values) == ("stage-a",)
+    changed = artifact("stage-a", 149, preflight_sha256=preflight, result="stage-a")
+    write(tmp_path / "acquisition-freeze.json", changed)
     with pytest.raises(RunnerGateError, match="hash mismatch"):
         existing(tmp_path, preflight)
 
@@ -72,17 +65,13 @@ def test_action_artifacts_require_committed_state_and_dependency_prefix(
     tmp_path: Path,
 ) -> None:
     write(
-        tmp_path / "teacher-dose.json",
-        artifact("teacher-dose", 75.5, preflight_sha256=SHA_A),
+        tmp_path / "acquisition-freeze.json",
+        artifact("stage-a", 153.32, preflight_sha256=SHA_A),
     )
     with pytest.raises(RunnerGateError, match="without its committed state"):
         existing(tmp_path, SHA_A)
     write(tmp_path / "state.json", {"preflight_sha256": SHA_A, "artifact_sha256": {}})
-    write(
-        tmp_path / "acquisition-freeze.json",
-        artifact("stage-a", 224.5, preflight_sha256=SHA_A),
-    )
-    with pytest.raises(RunnerGateError, match="dependency prefix"):
+    with pytest.raises(RunnerGateError, match="commit-intent"):
         existing(tmp_path, SHA_A)
 
 

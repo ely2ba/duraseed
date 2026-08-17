@@ -44,13 +44,13 @@ from duraseed.training.teacher_dose import (
     decide_teacher_dose,
 )
 from duraseed.training.sft import VerifiedSourceRecord
-from duraseed.teacher_exposure_spec import REPAIR_AGGREGATE_CAP_USD
+from duraseed.teacher_exposure_spec import DIRECT_M0_AGGREGATE_CAP_USD
 
 
 FROZEN_MAPS_PROFILE = "shortest2_cap2"
 FROZEN_MAPS_LEARNING_RATE = 3e-4
 FROZEN_MAPS_UPDATES = 480
-CALIBRATION_REMOTE_COST_CAP_USD = Decimal(str(REPAIR_AGGREGATE_CAP_USD))
+CALIBRATION_REMOTE_COST_CAP_USD = Decimal(str(DIRECT_M0_AGGREGATE_CAP_USD))
 
 
 @dataclass(frozen=True, slots=True)
@@ -229,7 +229,7 @@ def preflight_text(config: PilotConfig) -> str:
             f"Mock: {plan.mock_command}",
             f"Authorization only (does not execute): {plan.authorization_command}",
             (
-                "Required freezes: teacher dose/allocation; Stage-A LR/duration; "
+                "Required freezes: direct-M0 Stage-A LR/duration; "
                 "one common RL configuration after the entropy-collapse gate; "
                 "one shared max-tokens value after the acquisition truncation gate"
             ),

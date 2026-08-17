@@ -1,4 +1,4 @@
-"""Exact post-run billing handoff for the bounded calibration repair."""
+"""Exact post-run billing handoff for direct-M0 Stage-A calibration."""
 
 from __future__ import annotations
 
@@ -23,16 +23,26 @@ def calibration_billing_requirement(
     """Return a handoff for success or the exact scientific no-stable terminal."""
 
     terminal_status = terminal_sha256 = None
-    terminal_path = root / "teacher-dose-terminal.json"
+    stage_a_path = root / "stage-a-terminal.json"
+    teacher_path = root / "teacher-dose-terminal.json"
+    terminal_path = stage_a_path if stage_a_path.exists() else teacher_path
     if status.value == "failed" and terminal_path.exists():
         try:
             terminal = json.loads(terminal_path.read_bytes())
         except (OSError, json.JSONDecodeError):
             return None
+        accepted = {
+            "duraseed-stage-a-terminal-v1": {
+                "no_eligible_learning_rate",
+                "duration_gate_failed",
+                "common_rl_gate_failed",
+            },
+            "duraseed-teacher-exposure-terminal-v2": {"no_stable_checkpoint"},
+        }
         if (
             not isinstance(terminal, dict)
-            or terminal.get("schema_version") != "duraseed-teacher-exposure-terminal-v2"
-            or terminal.get("status") != "no_stable_checkpoint"
+            or terminal.get("status")
+            not in accepted.get(terminal.get("schema_version"), set())
             or terminal.get("run_id") != inputs.run_id
         ):
             return None
@@ -42,9 +52,7 @@ def calibration_billing_requirement(
         return None
     sessions = json.loads((root / "session-lineage.json").read_bytes())["session_ids"]
     parent = inputs.parent_teacher_evidence
-    child_cap = (
-        inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
-    )
+    child_cap = inputs.stage_a_ledger.authorized_usd
     return {
         "schema_version": "duraseed-calibration-billing-required-v1",
         "status": "pending",
@@ -56,16 +64,15 @@ def calibration_billing_requirement(
         "terminal_status": terminal_status,
         "terminal_sha256": terminal_sha256,
         "local_observed_cost_usd": cost,
-        "action_caps_usd": {
-            "teacher-dose": inputs.teacher_ledger.authorized_usd,
-            "stage-a": inputs.stage_a_ledger.authorized_usd,
-        },
+        "action_caps_usd": {"stage-a": inputs.stage_a_ledger.authorized_usd},
         "aggregate_cap_usd": child_cap,
         "parent_run_id": parent.parent_run_id,
         "parent_billing_sha256": parent.parent_billing_sha256,
         "parent_billed_usd": parent.parent_billed_usd,
         "prior_repair": parent.prior_repair_lineage,
         "prior_repair_teacher_cap_usd": parent.prior_repair_teacher_cap_usd,
+        "interrupted_m1": parent.m1_lineage,
+        "interrupted_m1_teacher_cap_usd": parent.m1_teacher_cap_usd,
         "protected_reserve_usd": parent.protected_reserve_usd,
         "lifetime_calibration_cap_usd": 300,
     }

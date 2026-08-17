@@ -30,9 +30,7 @@ from duraseed.calibration_sources import (
     authenticate_calibration_sources,
     load_max_token_evidence,
 )
-from duraseed.calibration_teacher_terminal import (
-    existing_teacher_exposure_terminal,
-)
+from duraseed.calibration_stage_a_terminal import existing_stage_a_terminal
 from duraseed.config import load_pilot_config
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.runners import RunnerGateError, authorize_launch
@@ -49,7 +47,7 @@ from duraseed.runtime import (
     create_service,
     load_sdk,
 )
-from duraseed.teacher_exposure_spec import PRIOR_REPAIR_RUN_ID
+from duraseed.teacher_exposure_spec import M1_RUN_ID, PRIOR_REPAIR_RUN_ID
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
@@ -60,8 +58,10 @@ def _remaining_balance_verified(
 ) -> bool:
     remaining = Decimal(str(parent.remaining_balance_usd))
     reserve = Decimal(str(parent.protected_reserve_usd))
-    prior_repair = Decimal(str(parent.prior_repair_teacher_cap_usd))
-    return remaining - prior_repair - cost_cap >= reserve
+    post_parent_sunk = Decimal(str(parent.lifetime_sunk_usd)) - Decimal(
+        str(parent.parent_billed_usd)
+    )
+    return remaining - post_parent_sunk - cost_cap >= reserve
 
 
 def _git_commit() -> str:
@@ -118,7 +118,7 @@ async def run_remote_calibration(
     if (
         not run_id.strip()
         or any(value in run_id for value in "/\\")
-        or run_id in {PARENT_RUN_ID, PRIOR_REPAIR_RUN_ID}
+        or run_id in {PARENT_RUN_ID, PRIOR_REPAIR_RUN_ID, M1_RUN_ID}
     ):
         raise RunnerGateError("run_id must be one nonempty filename token")
     if not project_id.strip():
@@ -171,7 +171,9 @@ async def run_remote_calibration(
         },
     )
     if authorization.authorized_cost_usd != plan.remote_cost_cap_usd:
-        raise RunnerGateError("calibration authorization differs from the repair cap")
+        raise RunnerGateError(
+            "calibration authorization differs from the direct-M0 cap"
+        )
     restarts = tuple(
         load_reconciled_restart(artifact, raw) for artifact, raw in restart_evidence
     )
@@ -222,12 +224,9 @@ async def run_remote_calibration(
     prior_sessions = read_calibration_session_ids(root)
     if any(row.failed_tinker_session_id not in prior_sessions for row in restarts):
         raise RunnerGateError("restart failed session is absent from run lineage")
-    if completed_calibration(local_inputs, root):
+    if existing_stage_a_terminal(root, preflight_sha256, local_inputs) is not None:
         return root
-    if (
-        existing_teacher_exposure_terminal(root, preflight_sha256, local_inputs)
-        is not None
-    ):
+    if completed_calibration(local_inputs, root):
         return root
     sdk = load_sdk()
     service = create_service(

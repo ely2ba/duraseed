@@ -168,13 +168,11 @@ def _teacher_metrics(attempt: Path, expected_steps: int) -> int:
     return len(rows)
 
 
-def _stage_metrics(attempt: Path, expected_boundary_steps: int) -> int:
+def _stage_metrics(attempt: Path, *, screen_only: bool) -> int:
     rows = _jsonl(attempt / "metrics.jsonl")
     boundary = tuple(row for row in rows if row.get("subphase") == "boundary-seed")
-    if tuple(row.get("step") for row in boundary) != tuple(
-        range(1, expected_boundary_steps + 1)
-    ):
-        raise RunnerGateError("Stage-A origin lacks exact boundary-step metrics")
+    if boundary:
+        raise RunnerGateError("direct-M0 Stage-A contains boundary-seed metrics")
     branch_rows = tuple(row for row in rows if "method" in row)
     expected_rates = {
         method: tuple(float(value) for value in rates)
@@ -193,17 +191,23 @@ def _stage_metrics(attempt: Path, expected_boundary_steps: int) -> int:
                 selected[method] += 1
             elif steps != tuple(range(1, 11)):
                 raise RunnerGateError("Stage-A branch metric schedule differs")
+    expected_selected = {"B-S": 0, "B-G": 0} if screen_only else {"B-S": 1, "B-G": 1}
+    expected_count = 60 if screen_only else 140
     if (
-        selected != {"B-S": 1, "B-G": 1}
-        or len(branch_rows) != 156
-        or len(rows) != expected_boundary_steps + 156
+        selected != expected_selected
+        or len(branch_rows) != expected_count
+        or len(rows) != expected_count
     ):
         raise RunnerGateError("Stage-A selected continuation schedule differs")
     return len(rows)
 
 
 def seal_calibration_action(
-    action: str, root: Path, *, teacher_updates: int
+    action: str,
+    root: Path,
+    *,
+    teacher_updates: int,
+    stage_a_screen_only: bool = False,
 ) -> dict[str, Any]:
     """Validate accepted joins/steps and bind every raw JSONL byte stream."""
 
@@ -260,7 +264,7 @@ def seal_calibration_action(
         arm = root / "complete-bounded-stage-a"
         attempt = _accepted_attempt(arm)
         accepted.append({"arm_id": arm.name, "attempt": attempt.name, **_join(attempt)})
-        metric_count = _stage_metrics(attempt, teacher_updates)
+        metric_count = _stage_metrics(attempt, screen_only=stage_a_screen_only)
     else:
         raise ValueError("unknown calibration integrity action")
     result = {

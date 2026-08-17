@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, replace
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -24,8 +24,12 @@ from duraseed.calibration_provenance import (
     verify_action_ttls,
 )
 from duraseed.calibration_sources import CalibrationSourceEvidence
+from duraseed.calibration_stage_a_terminal import (
+    StageAScientificFailure,
+    existing_stage_a_terminal,
+    finish_stage_a_terminal,
+)
 from duraseed.calibration_state import (
-    ACTION_FILES,
     SCHEMA_VERSION,
     artifact as _artifact,
     checkpoint as _checkpoint,
@@ -35,22 +39,16 @@ from duraseed.calibration_state import (
     usage as _usage,
     write as _write,
 )
-from duraseed.calibration_teacher_terminal import (
-    existing_teacher_exposure_terminal,
-    finish_teacher_exposure_terminal,
-)
 from duraseed.config import PilotConfig
 from duraseed.data.stage_a_prompt_pools import StageAPromptPoolBundle
 from duraseed.provenance import sha256_bytes, validate_sha256_id
 from duraseed.run_records import RunStatus
 from duraseed.runners import RunnerGateError
-from duraseed.runtime import RuntimeBundle, TokenLedger, teacher_token_measurer
+from duraseed.runtime import RuntimeBundle, TokenLedger
 from duraseed.training.acquisition_freeze import (
     MaxTokenFreezeEvidence,
     freeze_acquisition,
 )
-from duraseed.training.teacher_exposure import REPAIR_CHECKPOINT_UPDATES
-from duraseed.training.teacher_allocation_freeze import build_teacher_allocation_freeze
 from duraseed.training.teacher_allocation_sources import TeacherAllocationSources
 
 
@@ -103,7 +101,6 @@ class CalibrationLiveInputs:
 
 async def run_live_calibration(inputs: CalibrationLiveInputs) -> dict[str, Any]:
     from duraseed.runners.stage_a_live import collect_stage_a
-    from duraseed.runners.teacher_exposure_live import collect_teacher_exposure
 
     if (
         inputs.smoke.protocol_max_tokens != inputs.config.tinker.max_sampled_tokens
@@ -130,7 +127,7 @@ async def run_live_calibration(inputs: CalibrationLiveInputs) -> dict[str, Any]:
         raise RunnerGateError("calibration restart preflight changed")
     _write(preflight_path, preflight)
     preflight_sha256 = sha256_bytes(preflight_path.read_bytes())
-    terminal = existing_teacher_exposure_terminal(root, preflight_sha256, inputs)
+    terminal = existing_stage_a_terminal(root, preflight_sha256, inputs)
     if terminal is not None:
         return terminal
     validate_restart_reconciliations(inputs, preflight_sha256)
@@ -145,24 +142,13 @@ async def run_live_calibration(inputs: CalibrationLiveInputs) -> dict[str, Any]:
     )
     run = start_calibration_run(inputs, root)
     state, artifacts = _checkpoint(root, preflight_sha256)
-    if "teacher-dose" in artifacts:
-        selected_updates = int(artifacts["teacher-dose"]["recipe"]["selected_updates"])
-        validate_action_ttl_audit("teacher-dose", root / "teacher-dose-arms", inputs)
-        validate_committed_action(
-            "teacher-dose",
-            root / "teacher-dose-arms",
-            artifacts["teacher-dose"],
-            teacher_updates=selected_updates,
-        )
-        hydrate_attempt_ledger(root / "teacher-dose-arms", inputs.teacher_ledger)
     if "stage-a" in artifacts:
-        selected_updates = int(artifacts["teacher-dose"]["recipe"]["selected_updates"])
         validate_action_ttl_audit("stage-a", root / "stage-a-arms", inputs)
         validate_committed_action(
             "stage-a",
             root / "stage-a-arms",
             artifacts["stage-a"],
-            teacher_updates=selected_updates,
+            teacher_updates=0,
         )
         hydrate_attempt_ledger(root / "stage-a-arms", inputs.stage_a_ledger)
     if state["status"] == "completed":
@@ -170,92 +156,16 @@ async def run_live_calibration(inputs: CalibrationLiveInputs) -> dict[str, Any]:
             finish_calibration_run(inputs, root, RunStatus.COMPLETED)
         return {"state": state, "artifacts": artifacts}
     try:
-        if "teacher-dose" not in artifacts:
-            evidence, selection = await collect_teacher_exposure(
-                inputs,
-                root / "teacher-dose-arms",
-                preflight_sha256=preflight_sha256,
-            )
-            teacher_updates = (
-                selection.selected_updates or REPAIR_CHECKPOINT_UPDATES[-1]
-            )
-            integrity = seal_calibration_action(
-                "teacher-dose",
-                root / "teacher-dose-arms",
-                teacher_updates=teacher_updates,
-            )
-            await verify_action_ttls("teacher-dose", root / "teacher-dose-arms", inputs)
-            ttl_hash = sha256_bytes(
-                (root / "teacher-dose-arms/checkpoint-ttl-audit.json").read_bytes()
-            )
-            if selection.recipe is None:
-                return finish_teacher_exposure_terminal(
-                    inputs,
-                    root,
-                    preflight_sha256=preflight_sha256,
-                    evidence=evidence,
-                    selection=selection,
-                    integrity=integrity,
-                    ttl_audit_sha256=ttl_hash,
-                )
-            recipe = selection.recipe
-            artifacts["teacher-dose"] = _artifact(
-                "teacher-dose",
-                inputs.teacher_ledger.authorized_usd,
-                preflight_sha256=preflight_sha256,
-                recipe=recipe,
-                integrity=integrity,
-                checkpoint_ttl_audit_sha256=ttl_hash,
-                usage=_usage(inputs.teacher_ledger),
-            )
-            state, artifacts = _commit_action(
-                root,
-                "teacher-dose",
-                artifacts["teacher-dose"],
-                preflight_sha256,
-            )
-        recipe = artifacts["teacher-dose"]["recipe"]
-        selected_dose = int(recipe["decision"]["selected_dose"])
-        selected_updates = int(recipe["selected_updates"])
-        if "teacher-allocation" not in artifacts:
-            sources = replace(
-                inputs.teacher_sources,
-                selected_dose=selected_dose,
-                optimizer_updates=selected_updates,
-            )
-            allocation = build_teacher_allocation_freeze(
-                sources=sources,
-                token_measurer=teacher_token_measurer(inputs.runtime),
-            )
-            if not allocation.selected:
-                raise RunnerGateError("teacher allocation did not freeze")
-            artifacts["teacher-allocation"] = _artifact(
-                "teacher-allocation",
-                0,
-                preflight_sha256=preflight_sha256,
-                selected_dose=selected_dose,
-                selected_updates=selected_updates,
-                result=allocation,
-            )
-            state, artifacts = _commit_action(
-                root,
-                "teacher-allocation",
-                artifacts["teacher-allocation"],
-                preflight_sha256,
-            )
         if "stage-a" not in artifacts:
             evidence, common_rl = await collect_stage_a(
                 inputs,
                 root / "stage-a-arms",
-                selected_dose=selected_dose,
-                teacher_learning_rate=float(recipe["selected_learning_rate"]),
-                teacher_updates=selected_updates,
                 preflight_sha256=preflight_sha256,
             )
             integrity = seal_calibration_action(
                 "stage-a",
                 root / "stage-a-arms",
-                teacher_updates=selected_updates,
+                teacher_updates=0,
             )
             await verify_action_ttls("stage-a", root / "stage-a-arms", inputs)
             freeze = freeze_acquisition(
@@ -265,12 +175,7 @@ async def run_live_calibration(inputs: CalibrationLiveInputs) -> dict[str, Any]:
                 "stage-a",
                 inputs.stage_a_ledger.authorized_usd,
                 preflight_sha256=preflight_sha256,
-                dose=selected_dose,
-                teacher_updates=selected_updates,
-                teacher_learning_rate=recipe["selected_learning_rate"],
-                allocation_sha256=sha256_bytes(
-                    (root / ACTION_FILES["teacher-allocation"]).read_bytes()
-                ),
+                origin="direct-m0",
                 freeze=freeze,
                 integrity=integrity,
                 checkpoint_ttl_audit_sha256=sha256_bytes(
@@ -287,14 +192,50 @@ async def run_live_calibration(inputs: CalibrationLiveInputs) -> dict[str, Any]:
         state, artifacts = _checkpoint(root, preflight_sha256)
         finish_calibration_run(inputs, root, RunStatus.COMPLETED)
         return {"state": state, "artifacts": artifacts}
+    except StageAScientificFailure as failure:
+        try:
+            integrity = seal_calibration_action(
+                "stage-a",
+                root / "stage-a-arms",
+                teacher_updates=0,
+                stage_a_screen_only=failure.screen_only,
+            )
+            await verify_action_ttls(
+                "stage-a",
+                root / "stage-a-arms",
+                inputs,
+                stage_a_screen_only=failure.screen_only,
+            )
+            return finish_stage_a_terminal(
+                inputs,
+                root,
+                preflight_sha256=preflight_sha256,
+                failure=failure,
+                integrity=integrity,
+                ttl_audit_sha256=sha256_bytes(
+                    (root / "stage-a-arms/checkpoint-ttl-audit.json").read_bytes()
+                ),
+            )
+        except BaseException as error:
+            _record_interruption(inputs, root, preflight_sha256, error)
+            raise
     except BaseException as error:
-        state, _ = _existing(root, preflight_sha256)
-        state.update(status="interrupted", error=f"{type(error).__name__}: {error}")
-        _write(root / "state.json", state)
-        finish_calibration_run(
-            inputs,
-            root,
-            RunStatus.INTERRUPTED,
-            error=f"{type(error).__name__}: {error}",
-        )
+        _record_interruption(inputs, root, preflight_sha256, error)
         raise
+
+
+def _record_interruption(
+    inputs: CalibrationLiveInputs,
+    root: Path,
+    preflight_sha256: str,
+    error: BaseException,
+) -> None:
+    state, _ = _existing(root, preflight_sha256)
+    state.update(status="interrupted", error=f"{type(error).__name__}: {error}")
+    _write(root / "state.json", state)
+    finish_calibration_run(
+        inputs,
+        root,
+        RunStatus.INTERRUPTED,
+        error=f"{type(error).__name__}: {error}",
+    )

@@ -14,12 +14,12 @@ from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.run_records import RunStatus, read_run_record, write_run_record
 from duraseed.runners import RunnerGateError
 from duraseed.teacher_exposure_spec import (
+    DIRECT_M0_AGGREGATE_CAP_USD,
+    DIRECT_M0_STAGE_A_CAP_USD,
     LIFETIME_CALIBRATION_CAP_USD,
+    M1_TEACHER_CAP_USD,
     ORIGINAL_TEACHER_CAP_USD,
     PRIOR_REPAIR_TEACHER_CAP_USD,
-    REPAIR_AGGREGATE_CAP_USD,
-    REPAIR_STAGE_A_CAP_USD,
-    REPAIR_TEACHER_CAP_USD,
 )
 
 
@@ -69,8 +69,21 @@ def _run_has_authorized_terminal(
         )
     if run.status is not RunStatus.FAILED:
         return False
-    terminal_path = root / "teacher-dose-terminal.json"
+    stage_a_path = root / "stage-a-terminal.json"
     preflight_path = root / "preflight.json"
+    if stage_a_path.exists() and preflight_path.exists():
+        terminal, terminal_raw = _object(stage_a_path, "Stage-A terminal")
+        preflight_sha256 = sha256_bytes(preflight_path.read_bytes())
+        from duraseed.calibration_stage_a_terminal import existing_stage_a_terminal
+
+        return (
+            required.get("run_status") == RunStatus.FAILED.value
+            and required.get("terminal_status") == terminal.get("status")
+            and required.get("terminal_sha256") == sha256_bytes(terminal_raw)
+            and terminal.get("preflight_sha256") == preflight_sha256
+            and existing_stage_a_terminal(root, preflight_sha256) is not None
+        )
+    terminal_path = root / "teacher-dose-terminal.json"
     if not terminal_path.exists() or not preflight_path.exists():
         return False
     terminal, terminal_raw = _object(terminal_path, "teacher-exposure terminal")
@@ -117,27 +130,23 @@ def reconcile_calibration_billing(
         if isinstance(row, dict) and isinstance(row.get("session_id"), str)
     }
     action_costs = reconciliation.get("action_billed_usd")
-    if not isinstance(action_costs, dict) or set(action_costs) != {
-        "teacher-dose",
-        "stage-a",
-    }:
-        raise RunnerGateError("billing reconciliation omits the two action totals")
+    if not isinstance(action_costs, dict) or set(action_costs) != {"stage-a"}:
+        raise RunnerGateError("billing reconciliation omits the Stage-A total")
     action_caps = required.get("action_caps_usd")
     parent_lineage = preflight.get("parent_calibration")
     prior_lineage = preflight.get("prior_repair")
-    if not isinstance(action_caps, dict) or set(action_caps) != {
-        "teacher-dose",
-        "stage-a",
-    }:
-        raise RunnerGateError("billing requirement omits the two action caps")
-    teacher = _decimal(action_costs["teacher-dose"], "teacher-dose billed spend")
+    m1_lineage = preflight.get("interrupted_m1")
+    if not isinstance(action_caps, dict) or set(action_caps) != {"stage-a"}:
+        raise RunnerGateError("billing requirement omits the Stage-A cap")
     stage_a = _decimal(action_costs["stage-a"], "Stage-A billed spend")
-    teacher_cap = _decimal(action_caps["teacher-dose"], "teacher-dose action cap")
     stage_a_cap = _decimal(action_caps["stage-a"], "Stage-A action cap")
     child_cap = _decimal(required.get("aggregate_cap_usd"), "aggregate cap")
     parent_spend = _decimal(required.get("parent_billed_usd"), "parent spend")
     prior_spend = _decimal(
         required.get("prior_repair_teacher_cap_usd"), "prior repair spend floor"
+    )
+    m1_spend = _decimal(
+        required.get("interrupted_m1_teacher_cap_usd"), "M1 spend floor"
     )
     lifetime_cap = _decimal(
         required.get("lifetime_calibration_cap_usd"), "lifetime calibration cap"
@@ -167,10 +176,9 @@ def reconcile_calibration_billing(
         or reconciliation.get("raw_billing_entry_count") != len(events)
         or cutoff < finished.astimezone(UTC)
         or reconciled < cutoff
-        or teacher_cap != Decimal(str(REPAIR_TEACHER_CAP_USD))
-        or stage_a_cap != Decimal(str(REPAIR_STAGE_A_CAP_USD))
-        or child_cap != Decimal(str(REPAIR_AGGREGATE_CAP_USD))
-        or child_cap != teacher_cap + stage_a_cap
+        or stage_a_cap != Decimal(str(DIRECT_M0_STAGE_A_CAP_USD))
+        or child_cap != Decimal(str(DIRECT_M0_AGGREGATE_CAP_USD))
+        or child_cap != stage_a_cap
         or parent_spend != Decimal(str(PARENT_BILLED_USD))
         or required.get("parent_run_id") != PARENT_RUN_ID
         or not isinstance(parent_lineage, dict)
@@ -179,14 +187,18 @@ def reconcile_calibration_billing(
         or required.get("prior_repair") != prior_lineage
         or prior_spend != Decimal(str(PRIOR_REPAIR_TEACHER_CAP_USD))
         or prior_lineage.get("charged_teacher_cap_usd") != PRIOR_REPAIR_TEACHER_CAP_USD
+        or not isinstance(m1_lineage, dict)
+        or required.get("interrupted_m1") != m1_lineage
+        or m1_spend != Decimal(str(M1_TEACHER_CAP_USD))
+        or m1_lineage.get("charged_teacher_cap_usd") != M1_TEACHER_CAP_USD
         or lifetime_cap != Decimal(str(LIFETIME_CALIBRATION_CAP_USD))
-        or parent_spend + prior_spend + child_cap > lifetime_cap
-        or teacher > teacher_cap
-        or parent_spend + prior_spend + teacher > Decimal(str(ORIGINAL_TEACHER_CAP_USD))
+        or parent_spend + prior_spend + m1_spend + child_cap > lifetime_cap
+        or parent_spend + prior_spend + m1_spend
+        > Decimal(str(ORIGINAL_TEACHER_CAP_USD))
         or stage_a > stage_a_cap
-        or aggregate != teacher + stage_a
+        or aggregate != stage_a
         or aggregate > child_cap
-        or parent_spend + prior_spend + aggregate > lifetime_cap
+        or parent_spend + prior_spend + m1_spend + aggregate > lifetime_cap
         or reconciliation.get("protected_reserve_survives") is not True
         or reserve != required_reserve
         or balance < required_reserve

@@ -11,7 +11,6 @@ from typing import Any
 
 from duraseed.calibration_input_loader import load_calibration_source_objects
 from duraseed.calibration_integrity import seal_calibration_action
-from duraseed.calibration_state import SCHEMA_VERSION
 from duraseed.config import load_pilot_config
 from duraseed.data.io import atomic_write_bytes
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
@@ -32,6 +31,7 @@ from duraseed.training.teacher_dose import (
 
 TERMINAL_FILE = "teacher-dose-terminal.json"
 TERMINAL_SCHEMA = "duraseed-teacher-dose-terminal-v1"
+LEGACY_STATE_SCHEMA = "duraseed-acquisition-calibration-v1"
 
 
 def _object(path: Path) -> dict[str, Any]:
@@ -170,7 +170,7 @@ def finalize_teacher_verification_failure(
     run = read_run_record(run_directory)
     if (
         preflight.get("run_id") != run_directory.name
-        or state.get("schema_version") != SCHEMA_VERSION
+        or state.get("schema_version") != LEGACY_STATE_SCHEMA
         or state.get("preflight_sha256") != preflight_sha256
         or state.get("completed_actions") != []
         or state.get("artifact_sha256") != {}
@@ -249,7 +249,7 @@ def finalize_teacher_verification_failure(
         run_directory / "state.json",
         canonical_json_bytes(
             {
-                "schema_version": SCHEMA_VERSION,
+                "schema_version": LEGACY_STATE_SCHEMA,
                 "status": "failed",
                 "completed_actions": [],
                 "artifact_sha256": {},

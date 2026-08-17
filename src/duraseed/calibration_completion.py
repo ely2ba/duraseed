@@ -24,8 +24,6 @@ def _validate_run(inputs: Any, root: Path) -> None:
     manifests = {
         "a_monitor": inputs.prompt_pools.a_monitor_manifest.manifest_id,
         "a_rl_train": inputs.prompt_pools.a_rl_train_manifest.manifest_id,
-        "a_seed_gate": inputs.teacher_sources.gate_manifest.manifest_id,
-        "a_seed_train": inputs.teacher_sources.target_train_manifest.manifest_id,
     }
     if (
         run.status is not RunStatus.COMPLETED
@@ -40,8 +38,7 @@ def _validate_run(inputs: Any, root: Path) -> None:
         or not sessions
         or run.tinker_session_id != sessions[0]
         or not run.tinker_training_run_ids
-        or run.authorized_cost_usd
-        != inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
+        or run.authorized_cost_usd != inputs.stage_a_ledger.authorized_usd
         or run.reserved_cost_usd != run.authorized_cost_usd
         or run.cost_usd > run.authorized_cost_usd
     ):
@@ -62,12 +59,12 @@ def _validate_run(inputs: Any, root: Path) -> None:
         != inputs.parent_teacher_evidence.prior_repair_lineage
         or required.get("prior_repair_teacher_cap_usd")
         != inputs.parent_teacher_evidence.prior_repair_teacher_cap_usd
+        or required.get("interrupted_m1") != inputs.parent_teacher_evidence.m1_lineage
+        or required.get("interrupted_m1_teacher_cap_usd")
+        != inputs.parent_teacher_evidence.m1_teacher_cap_usd
         or required.get("lifetime_calibration_cap_usd") != 300
         or required.get("action_caps_usd")
-        != {
-            "teacher-dose": inputs.teacher_ledger.authorized_usd,
-            "stage-a": inputs.stage_a_ledger.authorized_usd,
-        }
+        != {"stage-a": inputs.stage_a_ledger.authorized_usd}
         or float(required.get("local_observed_cost_usd", -1)) < run.cost_usd
     ):
         raise RunnerGateError("completed calibration billing handoff differs")
@@ -86,19 +83,12 @@ def completed_calibration(inputs: Any, root: Path) -> bool:
     state, artifacts = existing(root, preflight_sha256)
     if state["status"] != "completed":
         return False
-    teacher_updates = int(artifacts["teacher-dose"]["recipe"]["selected_updates"])
-    for action, directory, ledger in (
-        ("teacher-dose", root / "teacher-dose-arms", inputs.teacher_ledger),
-        ("stage-a", root / "stage-a-arms", inputs.stage_a_ledger),
-    ):
-        validate_action_ttl_audit(action, directory, inputs)
-        validate_committed_action(
-            action,
-            directory,
-            artifacts[action],
-            teacher_updates=teacher_updates,
-        )
-        hydrate_attempt_ledger(directory, ledger)
+    directory = root / "stage-a-arms"
+    validate_action_ttl_audit("stage-a", directory, inputs)
+    validate_committed_action(
+        "stage-a", directory, artifacts["stage-a"], teacher_updates=0
+    )
+    hydrate_attempt_ledger(directory, inputs.stage_a_ledger)
     _validate_run(inputs, root)
     return True
 

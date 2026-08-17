@@ -25,13 +25,15 @@ from duraseed.runtime.data import SUPERVISED_MAX_LENGTH
 from duraseed.tasks.tces import render_prompt
 from duraseed.training.stage_a_calibration import STAGE_A_LEARNING_RATE_GRIDS
 from duraseed.teacher_exposure_spec import (
-    REPAIR_AGGREGATE_CAP_USD,
+    DIRECT_M0_AGGREGATE_CAP_USD,
+    DIRECT_M0_STAGE_A_CAP_USD,
+    DIRECT_M0_STAGE_A_FIXED_USD,
+    DIRECT_M0_STAGE_A_PINNED_UPPER_USD,
+    DIRECT_M0_STAGE_A_TOKEN_CEILINGS,
+    DIRECT_M0_TEACHER_CAP_USD,
     REPAIR_CHECKPOINT_UPDATES,
     REPAIR_DOSE,
     REPAIR_SEEDS,
-    REPAIR_STAGE_A_CAP_USD,
-    REPAIR_TEACHER_CAP_USD,
-    REPAIR_TEACHER_HEADROOM_MULTIPLIER,
     REPAIR_TEACHER_PINNED_UPPER_USD,
     REPAIR_TEACHER_TOKEN_CEILINGS,
 )
@@ -53,7 +55,7 @@ class CalibrationAllocation:
     stage_a_tokens: TokenBudget
     teacher_cap_usd: float
     stage_a_cap_usd: float
-    aggregate_cap_usd: float = REPAIR_AGGREGATE_CAP_USD
+    aggregate_cap_usd: float = DIRECT_M0_AGGREGATE_CAP_USD
 
 
 def _safe_arm(value: str) -> str:
@@ -249,9 +251,7 @@ def _monitor(inputs: Any, role: str) -> tuple:
 
 def stage_a_budget(
     inputs: Any,
-    selected_dose: int,
     *,
-    teacher_updates: int | None = None,
     completed: bool = False,
 ) -> CalibrationBudget:
     """Bound the complete indivisible six-screen/two-continuation Stage-A run."""
@@ -259,21 +259,7 @@ def stage_a_budget(
     if completed:
         return _cost(TokenBudget(0, 0, 0), 0.0)
     pools = ordered_pools(inputs.prompt_pools)
-    targeted_families, _ = teacher_families(inputs, 17)
-    boundary_count = _teacher_source_count(inputs, targeted_families, selected_dose)
-    boundary = [_SFT_TOKENS_PER_DATUM] * boundary_count
-    budgets = [
-        TokenBudget(
-            0,
-            0,
-            _cyclic_train(
-                boundary,
-                inputs.config.teacher_dose.calibration_updates
-                if teacher_updates is None
-                else teacher_updates,
-            ),
-        )
-    ]
+    budgets = []
     targeted, sentinel = _monitor(inputs, "targeted"), _monitor(inputs, "sentinel")
     budgets.extend((_sample(inputs, targeted, 2), _sample(inputs, sentinel, 1)))
     bs_train = 0
@@ -306,30 +292,32 @@ def stage_a_budget(
             _sample(inputs, sentinel, 2),
         )
     )
-    fixed = 1.0 + 8 * 0.05 + len(bg_schedule) * 0.05
+    fixed = 8 * 0.05 + len(bg_schedule) * 0.05
     return _cost(_plus(*budgets), fixed)
 
 
 def calibration_allocation(inputs: Any) -> CalibrationAllocation:
-    """Allocate the accepted repair plus the unchanged conservative Stage-A."""
+    """Allocate only the direct-M0 Stage-A calibration."""
 
-    teacher = teacher_exposure_budget(inputs)
-    stage = stage_a_budget(inputs, REPAIR_DOSE)
-    teacher_cap = _cent_ceiling(
-        teacher.upper_bound_usd * REPAIR_TEACHER_HEADROOM_MULTIPLIER
-    )
+    teacher_tokens = TokenBudget(0, 0, 0)
+    stage = stage_a_budget(inputs)
+    teacher_cap = DIRECT_M0_TEACHER_CAP_USD
     stage_cap = _cent_ceiling(stage.upper_bound_usd)
     if (
-        teacher.tokens != REPAIR_TEACHER_TOKENS
-        or teacher_cap != REPAIR_TEACHER_CAP_USD
-        or stage_cap != REPAIR_STAGE_A_CAP_USD
-        or teacher_cap + stage_cap != REPAIR_AGGREGATE_CAP_USD
-    ):
-        raise RunnerGateError(
-            "repair plus Stage-A workload differs from its frozen caps"
+        stage.tokens != TokenBudget(*DIRECT_M0_STAGE_A_TOKEN_CEILINGS)
+        or stage.fixed_storage_usd != DIRECT_M0_STAGE_A_FIXED_USD
+        or not math.isclose(
+            stage.upper_bound_usd,
+            DIRECT_M0_STAGE_A_PINNED_UPPER_USD,
+            rel_tol=0,
+            abs_tol=1e-12,
         )
+        or stage_cap != DIRECT_M0_STAGE_A_CAP_USD
+        or teacher_cap + stage_cap != DIRECT_M0_AGGREGATE_CAP_USD
+    ):
+        raise RunnerGateError("direct-M0 Stage-A workload differs from its frozen cap")
     return CalibrationAllocation(
-        teacher.tokens,
+        teacher_tokens,
         stage.tokens,
         teacher_cap,
         stage_cap,

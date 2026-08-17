@@ -26,7 +26,12 @@ from duraseed.runners import RunnerGateError
 from duraseed.runners.calibration_launch import _remaining_balance_verified
 from duraseed.runners.teacher_dose_evidence import teacher_families, teacher_records
 from duraseed.runtime import TokenBudget, TokenLedger
-from duraseed.teacher_exposure_spec import REPAIR_SPEC
+from duraseed.teacher_exposure_spec import (
+    DIRECT_M0_AGGREGATE_CAP_USD,
+    DIRECT_M0_STAGE_A_CAP_USD,
+    M1_TEACHER_CAP_USD,
+    REPAIR_SPEC,
+)
 from duraseed.training.teacher_exposure import (
     ExposurePointEvidence,
     ExposureTrajectoryEvidence,
@@ -45,6 +50,10 @@ SHA_B = "sha256:" + "b" * 64
 PRIOR_LINEAGE = {
     "run_id": "acquisition-calibration-repair-20260817T092320Z",
     "charged_teacher_cap_usd": 44.27,
+}
+M1_LINEAGE = {
+    "run_id": "acquisition-calibration-m1-20260817T140815Z",
+    "charged_teacher_cap_usd": M1_TEACHER_CAP_USD,
 }
 
 
@@ -177,8 +186,8 @@ def _run(root: Path, status: RunStatus) -> RunRecord:
         finished_at=finished,
         cost_usd=3.0,
         project_id="project",
-        authorized_cost_usd=208.44,
-        reserved_cost_usd=208.44,
+        authorized_cost_usd=DIRECT_M0_AGGREGATE_CAP_USD,
+        reserved_cost_usd=DIRECT_M0_AGGREGATE_CAP_USD,
     )
     write_run_record(root, run)
     return run
@@ -196,13 +205,15 @@ def _required(run_status: str, **changes: object) -> dict[str, object]:
         "terminal_status": None,
         "terminal_sha256": None,
         "local_observed_cost_usd": 3.0,
-        "action_caps_usd": {"teacher-dose": 53.35, "stage-a": 155.09},
-        "aggregate_cap_usd": 208.44,
+        "action_caps_usd": {"stage-a": DIRECT_M0_STAGE_A_CAP_USD},
+        "aggregate_cap_usd": DIRECT_M0_AGGREGATE_CAP_USD,
         "parent_run_id": PARENT_RUN_ID,
         "parent_billing_sha256": SHA_A,
         "parent_billed_usd": PARENT_BILLED_USD,
         "prior_repair": PRIOR_LINEAGE,
         "prior_repair_teacher_cap_usd": 44.27,
+        "interrupted_m1": M1_LINEAGE,
+        "interrupted_m1_teacher_cap_usd": M1_TEACHER_CAP_USD,
         "protected_reserve_usd": 984.46,
         "lifetime_calibration_cap_usd": 300,
     }
@@ -229,6 +240,7 @@ def test_final_reconciler_accepts_child_cap_and_enforces_lifetime(
             {
                 "parent_calibration": {"billing_sha256": SHA_A},
                 "prior_repair": PRIOR_LINEAGE,
+                "interrupted_m1": M1_LINEAGE,
             }
         )
     )
@@ -245,7 +257,7 @@ def test_final_reconciler_accepts_child_cap_and_enforces_lifetime(
                 "session_ids": ["session-child"],
                 "raw_billing_sha256": sha256_bytes(raw.read_bytes()),
                 "raw_billing_entry_count": 1,
-                "action_billed_usd": {"teacher-dose": 1, "stage-a": 2},
+                "action_billed_usd": {"stage-a": 3},
                 "aggregate_billed_usd": 3,
                 "remaining_balance_usd": 4000,
                 "protected_reserve_usd": 984.46,
@@ -272,10 +284,12 @@ def test_repair_authorization_compares_float_balance_to_decimal_cap() -> None:
     parent = SimpleNamespace(
         remaining_balance_usd=4922.30,
         protected_reserve_usd=984.46,
-        prior_repair_teacher_cap_usd=44.27,
+        parent_billed_usd=PARENT_BILLED_USD,
+        lifetime_sunk_usd=PARENT_BILLED_USD + 44.27 + M1_TEACHER_CAP_USD,
     )
 
-    assert _remaining_balance_verified(parent, Decimal("208.44"))
+    assert _remaining_balance_verified(parent, Decimal("153.32"))
+    assert not _remaining_balance_verified(parent, Decimal("3884.69"))
 
 
 def test_failed_handoff_is_emitted_only_for_exact_no_stable_terminal(
@@ -289,14 +303,16 @@ def test_failed_handoff_is_emitted_only_for_exact_no_stable_terminal(
     inputs = SimpleNamespace(
         run_id="child",
         project_id="project",
-        teacher_ledger=TokenLedger(TokenBudget(0, 0, 0), 53.35),
-        stage_a_ledger=TokenLedger(TokenBudget(0, 0, 0), 155.09),
+        teacher_ledger=TokenLedger(TokenBudget(0, 0, 0), 0),
+        stage_a_ledger=TokenLedger(TokenBudget(0, 0, 0), 153.32),
         parent_teacher_evidence=SimpleNamespace(
             parent_run_id=PARENT_RUN_ID,
             parent_billing_sha256=SHA_A,
             parent_billed_usd=PARENT_BILLED_USD,
             prior_repair_lineage=PRIOR_LINEAGE,
             prior_repair_teacher_cap_usd=44.27,
+            m1_lineage=M1_LINEAGE,
+            m1_teacher_cap_usd=M1_TEACHER_CAP_USD,
             protected_reserve_usd=984.46,
         ),
     )
@@ -322,3 +338,5 @@ def test_failed_handoff_is_emitted_only_for_exact_no_stable_terminal(
     assert requirement is not None
     assert requirement["run_status"] == "failed"
     assert requirement["terminal_status"] == "no_stable_checkpoint"
+    assert requirement["interrupted_m1"] == M1_LINEAGE
+    assert requirement["interrupted_m1_teacher_cap_usd"] == M1_TEACHER_CAP_USD

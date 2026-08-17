@@ -28,10 +28,10 @@ what happens when the model is trained again.
 ## The first comparison
 
 Every run begins from the same format-capable `Qwen/Qwen3.5-9B-Base`
-checkpoint and receives the same initial boundary-teacher training. The first
-comparison then splits into two paths:
+checkpoint, called M0. The first comparison then splits directly into two
+paths:
 
-- **B-S** continues with supervised fine-tuning on a fixed set of correct,
+- **B-S** uses supervised fine-tuning on a fixed set of correct,
   solver-generated answers.
 - **B-G** learns from its own sampled attempts, scored by an exact verifier,
   using group-relative reinforcement learning.
@@ -116,9 +116,10 @@ the very different work performed by the two procedures.
   test whether it depends on the constrained LoRA update space, if the platform
   and budget allow it. A larger-model replication comes later.
 - **Method breadth is earned by the result.** B-S versus B-G comes first. B-O
-  and the broader controls remain available, but they are added only if the
-  first results show that they answer a useful mechanism question. If B-S and
-  B-G separate reproducibly, the first mechanism test will be a supervised
+  remains a conditional mechanism pilot and G-U remains an optional prompt-
+  allocation control. The old G-B arm is now identical to B-G and the old R-G
+  teacher-allocation contrast no longer exists, so both are retired. If B-S
+  and B-G separate reproducibly, the first mechanism test will be a supervised
   replay of a frozen, verifier-correct subset of B-G-generated answers. That
   attacks the data-versus-objective ambiguity more directly than immediately
   adding a wide collection of methods.
@@ -155,12 +156,12 @@ found that only 12 of those 24 could supply all 22 required single-family test
 items; the other 12 could supply none. Because the core design requires two
 complete 12-family panels, no panel assignment was published.
 
-This is a genuine feasibility result for the current panel-construction rule,
-not a software failure and not a result about B-S versus B-G. Acquisition
-calibration and Pilot 0 remain stopped. A subsequent outcome-blind diagnostic
-found that 31 of the 49 families can each supply all 22 test items even when all
-49 candidates are treated as reserved. This shows that at least 24
-capacity-qualified families exist and supports a simple prospective cure:
+This was a genuine feasibility result for the original panel-construction rule,
+not a software failure and not a result about B-S versus B-G. At that point,
+acquisition calibration and Pilot 0 remained stopped. A subsequent outcome-
+blind diagnostic found that 31 of the 49 families can each supply all 22 test
+items even when all 49 candidates are treated as reserved. This shows that at
+least 24 capacity-qualified families exist and supports a simple prospective cure:
 collapse exact algebraic duplicates and apply the unchanged test-capacity rule
 before matching. That narrow amendment is now accepted: the 49 families form
 37 exact algebraic classes. Panel families must pass the unchanged 22/22 gate;
@@ -171,49 +172,50 @@ disjoint 12-family panels and 12 separate intermediate families were frozen,
 and the archived and current production split builders produced byte-identical
 train and gate manifests.
 
-The first acquisition-calibration run then reached teacher-seed verification.
-At dose 2 and learning rate `1e-4`, the seed-17 orientation passed, but the same
-16-update recipe failed the format gate in the opposite seed-37 orientation.
-The failed checkpoint had learned to continue generating repetitive text until
-the 4096-token cap on many target and sentinel samples. This was learned
-nontermination, not a transient API or checkpoint-loading failure. The failed
-run is sealed and retained as immutable diagnostic evidence; it is not being
-rewritten or counted as a Stage-A or Pilot result.
+Three bounded attempts to construct a shared task-specific teacher warm start
+found no checkpoint that passed in both panel orientations. The first dose-2
+run produced learned nontermination in seed 37. A progressive dose-2 repair
+found formatted but reward-sparse checkpoints at update 8; seed 17 then met the
+mixed-group gate at update 12 but missed format by three of 768 samples. The
+final dose-8 M1 attempt also failed: updates 6 and 10 did not pass the joint
+capability and format gates, and by 640 of 768 seed-17 target samples at update
+14 it had 586 valid answer tags, making the required 745 mathematically
+unreachable. It was stopped safely before collecting the unnecessary seed-37
+update-14 assessment. These runs remain pre-Pilot feasibility evidence, not a
+result about B-S, B-G, or the DuraSeed hypothesis.
 
-The bounded dose-2 repair has now also stopped without a checkpoint passing
-every gate in both orientations. At update 4, both orientations failed format
-and the mixed-group-rate gate. At update 8, both recovered format but still
-failed the mixed-group-rate gate. Seed 17 then reached the mixed-group gate at
-update 12 but missed the format gate by three outputs (742/768 rather than the
-required 745/768). Collection was manually stopped at a no-pending-call
-boundary after 67/96 sentinel generations because that checkpoint could no
-longer pass; seed 37 update 12 was never launched. The incomplete checkpoint is
-not treated as an assessment. All raw evidence is retained, the run is marked
-interrupted, and authoritative billing reconciliation remains pending.
+Before Stage A or Pilot 0, the task-specific warm start was therefore retired.
+B-S and B-G now branch weights-only and with fresh optimizers directly from the
+same M0. This removes an unstable nuisance intervention and makes the common
+origin literal. It does not turn the study into a loss-only comparison: B-S
+receives fixed solver trajectories, while B-G generates and learns from its
+own verifier-scored attempts. The frozen panels, prompt allocation, capability-
+matched follow-up, Stage-B probe, outcomes, and claim scope are unchanged.
 
-The next and only teacher-seed amendment tests the still-unobserved
-high-diversity, low-repetition region: dose 8, learning rate `1e-4`, and one
-continuous trajectory evaluated at updates 6, 10, and 14 in each orientation.
-The decoder, panels, manifests, and every gate remain unchanged. The earliest
-checkpoint passing all gates in both orientations is selected; if none does,
-the run hard-stops rather than opening another seed, dose, learning-rate, or
-duration sweep. This is still calibration of a shared nuisance recipe, not a
-result about B-S or B-G. It is the current acquisition-calibration action;
-Stage-A method calibration and Pilot 0 have not started. The exact rule is
-frozen in the
-[dose-8 M1 amendment](docs/rfc-teacher-seed-dose8-low-repetition.md).
+The frozen M0 boundary evidence supports this route. Predicted informative
+group-size-8 probability across all 24 panel families ranges from 0.581 to
+0.883, with median 0.739 and mean 0.7485; no family is below 0.50. Because
+those are scan-based predictions rather than guarantees about live training,
+the existing 10-update B-G learning-rate screen is also the direct-M0 rollout-
+health check. There is no extra calibration campaign: each update must contain
+a mixed group, each eligible screen arm must average a mixed-group rate of at
+least 0.20 across updates 1--10, and failure of the complete LR grid stops once
+rather than reviving the warm-start ladder. The decision is recorded in the
+[direct-M0 amendment](docs/rfc-direct-m0-stage-a-origin.md).
 
-With the valid panel construction frozen, the remaining path is:
+With the valid panel construction and direct-M0 origin frozen, the remaining
+path is:
 
-1. run the single dose-8 teacher warm-start amendment; if it passes, calibrate
-   Stage-A learning rates, duration, and the common RL setup;
+1. calibrate Stage-A learning rates, duration, and the common RL setup directly
+   from M0;
 2. run the two-seed, fixed-budget B-S/B-G Pilot 0;
 3. run the required targeted-exact-success-matched checkpoint follow-up and
    publish the complete pre-Stage-B profile;
 4. extend to three or four paired pilot seeds to estimate variance;
 5. if a reproducible effect appears, test supervised replay of frozen,
    verifier-correct B-G rollouts before expanding broadly across methods;
-6. decide whether B-O or any other control adds enough scientific value;
+6. decide whether conditional B-O or optional G-U adds enough scientific
+   value;
 7. freeze and preregister the confirmatory design; and
 8. run it on fresh seeds, reserving higher-rank or full-weight replication for
    an effect worth following up.
