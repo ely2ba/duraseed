@@ -25,6 +25,9 @@ mostly right. The goal is not to declare one training method universally
 better. It is to find out whether the path used to acquire a skill can change
 what happens when the model is trained again.
 
+> **Research support:** This project was made possible in part by a generous
+> **$5,000 research grant from [Thinking Machines Lab](https://thinkingmachines.ai/)**.
+
 ## Study at a glance
 
 ```mermaid
@@ -270,6 +273,21 @@ These checks are local and credential-free. Remote Tinker access requires a sepa
 ## Research scope
 
 The design compares acquisition paths under one base model, one adapter rank, synthetic exact tasks, and one frozen supervised Stage-B probe. Any eventual inference is conditional on those choices. Calibration outcomes and engineering checks are not results for the stability–plasticity hypothesis.
+
+## Development note
+
+This is both a research project and a learning experience for me. I use Codex
+for much of the implementation work. Agent-assisted development—at least in
+its 2026 form—can make a project like this possible for one person, but it can
+also create code bloat and more scaffolding than a compact hand-written project
+would need. I have made a deliberate effort to keep that under control by
+narrowing the experimental design, removing obsolete paths, and keeping only
+the machinery needed to make the science executable and auditable.
+
+Constructive input is welcome, whether it concerns the scientific design,
+statistics, implementation, or unnecessary complexity. Please feel free to
+[open an issue](https://github.com/ely2ba/duraseed/issues) with criticism,
+questions, or suggestions.
 
 ## License
 
