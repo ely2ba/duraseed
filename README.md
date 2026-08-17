@@ -25,7 +25,38 @@ mostly right. The goal is not to declare one training method universally
 better. It is to find out whether the path used to acquire a skill can change
 what happens when the model is trained again.
 
-## The first comparison
+## Study at a glance
+
+```mermaid
+flowchart LR
+    M0["M0<br/>shared task-cold origin"]
+    BS["B-S<br/>fixed solver SFT"]
+    BG["B-G<br/>on-policy verifier RL"]
+    F["Fixed-duration comparison"]
+    C["Capability-matched follow-up"]
+    SB["Same Stage-B SFT probe"]
+    O["Stage-A retention<br/>+ Stage-B learning"]
+
+    M0 --> BS
+    M0 --> BG
+    BS --> F
+    BG --> F
+    BS --> C
+    BG --> C
+    F --> SB
+    C --> SB
+    SB --> O
+```
+
+- **Shared:** M0, model, LoRA rank, panels, renderer, output cap, and
+  Stage-B recipe.
+- **Different:** the complete B-S and B-G acquisition procedures.
+- **Measured afterward:** retention, future learning, behavior profiles,
+  tokens, and cost.
+
+## The experiment
+
+### Stage A: two acquisition paths
 
 Every run begins from the same format-capable `Qwen/Qwen3.5-9B-Base`
 checkpoint, called M0. The first comparison then splits directly into two
@@ -55,11 +86,17 @@ trained while the other is held out as a sentinel, and their roles reverse
 across paired seeds. This helps distinguish retention of the taught skill from
 broader changes that affect everything.
 
+### Stage B: one common downstream probe
+
 After Stage A, every checkpoint receives the same Stage-B supervised training
-on a separate modular program-synthesis task. We measure two things together:
+on a separate modular program-synthesis task. Stage B continues the learned
+Stage-A LoRA weights with a fresh optimizer; it does not attach a new adapter.
+We measure two things together:
 
 1. how much of the Stage-A skill remains as Stage B progresses; and
 2. how quickly the model learns Stage B under the same training recipe.
+
+### Scientific positioning
 
 Recent work asks several nearby questions. [SFT Memorizes, RL
 Generalizes](https://arxiv.org/abs/2501.17161) compares how behavior acquired
@@ -77,6 +114,8 @@ to exactly the same, separate Stage-B training while we measure both retention
 of Stage A and learning of Stage B. This is the distinction—not a claim that
 sequential forgetting or model plasticity has gone unstudied.
 
+### Analysis and reporting
+
 Pilot 0 first compares B-S and B-G after the same fixed Stage-A duration. A
 required follow-up then selects real checkpoints at comparable Stage-A
 capability and repeats the common Stage-B probe. More precisely, those
@@ -93,7 +132,7 @@ tokens and cost. Prompt/prefill, sampled, and training tokens remain separate
 in the resource accounting: one dollar total is useful, but it should not hide
 the very different work performed by the two procedures.
 
-## Why the design looks this way
+## Design safeguards
 
 - **Exact tasks keep the measurement honest.** The generators, solvers, and
   verifiers are deterministic, so correctness does not depend on subjective
@@ -128,101 +167,76 @@ Here, "future learnability" has a specific meaning: learning under this fixed
 supervised Stage-B probe. It is not presented as a universal measure of model
 plasticity.
 
-## Where things stand
+---
 
-Most of the groundwork is finished. The project has been rebuilt in a clean
-public repository, the original tasks, verifiers, and analysis replay with zero
-differences, and the code paths for the remaining pre-pilot gates pass their
-local tests. Earlier calibration established the common M0 starting point,
-selected the canonical training format, froze the MAPS recipe at
-`shortest2_cap2` with learning rate `3e-4` through step 480, and identified 15
-eligible families in the first boundary cohort.
+## Current status
 
-The live engineering smoke passed on real remote execution. It exercised
-training and sampling end to end, reproduced verifier rewards exactly online
-and offline, confirmed the stop contract, and tested both full-state resume and
-weights-only branching. This is an engineering result, not evidence for the
-research hypothesis.
+### Done
 
-Remote data collection for the boundary search is complete. Cohorts 2 and 3
-both finished broad sampling, refinement, and confirmation. The final
-three-cohort replay also completed and reproduced the old and new reducers
-exactly.
+- The clean repository reproduces the preserved task, verifier, and analysis
+  implementation with zero scientific divergences.
+- The remote engineering smoke passed training, sampling, reward parity, stop
+  behavior, resume, and weights-only branching end to end.
+- Two disjoint 12-family panels and a separate 12-family intermediate pool are
+  frozen and authenticated.
+- The unstable task-specific teacher warm start was retired after three bounded
+  attempts.
 
-That replay found 49 observation-eligible families, comfortably above the 36
-needed to form two panels plus an intermediate pool. The matching step selected
-24 families for the two panels. But the final, stricter data-separation check
-found that only 12 of those 24 could supply all 22 required single-family test
-items; the other 12 could supply none. Because the core design requires two
-complete 12-family panels, no panel assignment was published.
+### Now
 
-This was a genuine feasibility result for the original panel-construction rule,
-not a software failure and not a result about B-S versus B-G. At that point,
-acquisition calibration and Pilot 0 remained stopped. A subsequent outcome-
-blind diagnostic found that 31 of the 49 families can each supply all 22 test
-items even when all 49 candidates are treated as reserved. This shows that at
-least 24 capacity-qualified families exist and supports a simple prospective cure:
-collapse exact algebraic duplicates and apply the unchanged test-capacity rule
-before matching. That narrow amendment is now accepted: the 49 families form
-37 exact algebraic classes. Panel families must pass the unchanged 22/22 gate;
-the 12 intermediate families retain their original, separate five-split
-eligibility rule and are selected outside both panels. The amended freeze has
-now completed: all 37 representatives passed the unchanged capacity audit, two
-disjoint 12-family panels and 12 separate intermediate families were frozen,
-and the archived and current production split builders produced byte-identical
-train and gate manifests.
+Direct-M0 Stage-A calibration is running. It selects the learning rate,
+duration, and common RL setup before any B-S/B-G Pilot comparison.
 
-Three bounded attempts to construct a shared task-specific teacher warm start
-found no checkpoint that passed in both panel orientations. The first dose-2
-run produced learned nontermination in seed 37. A progressive dose-2 repair
-found formatted but reward-sparse checkpoints at update 8; seed 17 then met the
-mixed-group gate at update 12 but missed format by three of 768 samples. The
-final dose-8 M1 attempt also failed: updates 6 and 10 did not pass the joint
-capability and format gates, and by 640 of 768 seed-17 target samples at update
-14 it had 586 valid answer tags, making the required 745 mathematically
-unreachable. It was stopped safely before collecting the unnecessary seed-37
-update-14 assessment. These runs remain pre-Pilot feasibility evidence, not a
-result about B-S, B-G, or the DuraSeed hypothesis.
+### Not started
 
-Before Stage A or Pilot 0, the task-specific warm start was therefore retired.
-B-S and B-G now branch weights-only and with fresh optimizers directly from the
-same M0. This removes an unstable nuisance intervention and makes the common
-origin literal. It does not turn the study into a loss-only comparison: B-S
-receives fixed solver trajectories, while B-G generates and learns from its
-own verifier-scored attempts. The frozen panels, prompt allocation, capability-
-matched follow-up, Stage-B probe, outcomes, and claim scope are unchanged.
+Pilot 0 has not begun, no B-S/B-G comparison result exists, and final tests
+remain sealed.
 
-The frozen M0 boundary evidence supports this route. Predicted informative
-group-size-8 probability across all 24 panel families ranges from 0.581 to
-0.883, with median 0.739 and mean 0.7485; no family is below 0.50. Because
-those are scan-based predictions rather than guarantees about live training,
-the existing 10-update B-G learning-rate screen is also the direct-M0 rollout-
-health check. There is no extra calibration campaign: each update must contain
-a mixed group, each eligible screen arm must average a mixed-group rate of at
-least 0.20 across updates 1--10, and failure of the complete LR grid stops once
-rather than reviving the warm-start ladder. The decision is recorded in the
+### Why the origin changed
+
+The original panel rule failed because exact algebraic duplicates consumed
+single-family test capacity. An outcome-blind amendment collapsed 49 eligible
+families into 37 exact algebraic classes before matching. All 37 representatives
+passed the unchanged capacity audit, and the archived and current split builders
+then produced byte-identical train and gate manifests. The panel amendment is
+documented separately in the repository's decision records.
+
+The proposed shared task-specific teacher warm start then failed three bounded
+feasibility attempts in different ways: learned nontermination, formatted but
+reward-sparse checkpoints, and a final dose-8 checkpoint whose format gate
+became mathematically unreachable. The attempts stopped without opening Pilot
+outcomes or extending the ladder indefinitely. They are feasibility evidence,
+not results about B-S, B-G, or the DuraSeed hypothesis.
+
+B-S and B-G now branch weights-only, with fresh optimizers, directly from the
+same M0. M0 is task-cold for TCES but is not an untouched pretrained model: it
+already received the shared task-agnostic format training. This makes the
+acquisition origin literal while preserving the complete-procedures framing.
+The decision is recorded in the
 [direct-M0 amendment](docs/rfc-direct-m0-stage-a-origin.md).
 
-With the valid panel construction and direct-M0 origin frozen, the remaining
-path is:
+Frozen boundary evidence supports trying B-G from M0: predicted informative
+group-size-8 probability across the 24 panel families ranges from 0.581 to
+0.883, with median 0.739 and no family below 0.50. Because those are predictions,
+the live calibration still requires realized rollout health through both the
+10-update screen and the selected 50-update duration. It does not authorize a
+new warm-start ladder if that bounded calibration fails.
 
-1. calibrate Stage-A learning rates, duration, and the common RL setup directly
-   from M0;
-2. run the two-seed, fixed-budget B-S/B-G Pilot 0;
-3. run the required targeted-exact-success-matched checkpoint follow-up and
-   publish the complete pre-Stage-B profile;
-4. extend to three or four paired pilot seeds to estimate variance;
-5. if a reproducible effect appears, test supervised replay of frozen,
-   verifier-correct B-G rollouts before expanding broadly across methods;
-6. decide whether conditional B-O or optional G-U adds enough scientific
-   value;
-7. freeze and preregister the confirmatory design; and
-8. run it on fresh seeds, reserving higher-rank or full-weight replication for
-   an effect worth following up.
+### Next milestones
+
+1. Finish direct-M0 Stage-A calibration.
+2. Run the two-seed B-S/B-G Pilot 0 at fixed duration, then run the required
+   capability-matched follow-up and publish the complete pre-Stage-B profile.
+3. Extend to three or four paired seeds to estimate variance. Only then decide
+   whether supervised replay, conditional B-O, or optional G-U is warranted.
+4. Freeze and preregister the confirmatory design, run it on fresh seeds, and
+   reserve higher-rank or full-weight replication for an effect worth pursuing.
 
 Pilot 0 has not started, no sealed test data has been opened, and no result is
 claimed for the stability–future-learnability question. Everything completed so
 far is calibration, feasibility evidence, and experiment preparation.
+
+---
 
 ## Repository layout
 
