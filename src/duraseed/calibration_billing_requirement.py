@@ -36,6 +36,7 @@ def calibration_billing_requirement(
                 "no_eligible_learning_rate",
                 "duration_gate_failed",
                 "common_rl_gate_failed",
+                "update_health_failed",
             },
             "duraseed-teacher-exposure-terminal-v2": {"no_stable_checkpoint"},
         }
@@ -73,6 +74,10 @@ def calibration_billing_requirement(
         "prior_repair_teacher_cap_usd": parent.prior_repair_teacher_cap_usd,
         "interrupted_m1": parent.m1_lineage,
         "interrupted_m1_teacher_cap_usd": parent.m1_teacher_cap_usd,
+        "prior_direct_stage_a": getattr(parent, "prior_stage_a_lineage", None),
+        "prior_direct_stage_a_charge_usd": getattr(
+            parent, "prior_stage_a_charge_usd", 0
+        ),
         "protected_reserve_usd": parent.protected_reserve_usd,
         "lifetime_calibration_cap_usd": 300,
     }

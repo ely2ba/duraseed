@@ -22,12 +22,17 @@ from duraseed.training.stage_a_calibration import (
     StageADurationDecisionStatus,
     StageALearningRateDecisionStatus,
 )
+from duraseed.training.stage_a_update_health import (
+    StageAUpdateHealthFailureEvidence,
+    parse_stage_a_update_health_failure,
+)
 
 
 TerminalStatus = Literal[
     "no_eligible_learning_rate",
     "duration_gate_failed",
     "common_rl_gate_failed",
+    "update_health_failed",
 ]
 TERMINAL_FILE = "stage-a-terminal.json"
 TERMINAL_SCHEMA = "duraseed-stage-a-terminal-v1"
@@ -35,6 +40,7 @@ _STATUSES = {
     "no_eligible_learning_rate",
     "duration_gate_failed",
     "common_rl_gate_failed",
+    "update_health_failed",
 }
 
 
@@ -58,6 +64,14 @@ class StageAScientificFailure(Exception):
     def screen_only(self) -> bool:
         return self.status == "no_eligible_learning_rate"
 
+    @property
+    def update_health_failure(self) -> StageAUpdateHealthFailureEvidence | None:
+        return (
+            parse_stage_a_update_health_failure(self.evidence)
+            if self.status == "update_health_failed"
+            else None
+        )
+
 
 def _object(path: Path) -> dict[str, Any]:
     try:
@@ -70,6 +84,15 @@ def _object(path: Path) -> dict[str, Any]:
 
 
 def _validate_failure(failure: StageAScientificFailure) -> None:
+    if failure.status == "update_health_failed":
+        evidence = parse_stage_a_update_health_failure(failure.evidence)
+        if (
+            not isinstance(evidence, StageAUpdateHealthFailureEvidence)
+            or failure.decisions
+            or failure.duration is not None
+        ):
+            raise ValueError("invalid Stage-A update-health terminal")
+        return
     methods = tuple(row.method for row in failure.decisions)
     selected = all(
         row.status is StageALearningRateDecisionStatus.SELECTED
@@ -115,17 +138,24 @@ def existing_stage_a_terminal(
     run = read_run_record(root)
     status = terminal.get("status")
     screen_only = status == "no_eligible_learning_rate"
+    update_health = (
+        parse_stage_a_update_health_failure(terminal.get("evidence"))
+        if status == "update_health_failed"
+        else None
+    )
     integrity = seal_calibration_action(
         "stage-a",
         root / "stage-a-arms",
         teacher_updates=0,
         stage_a_screen_only=screen_only,
+        stage_a_update_health_failure=update_health,
     )
     ttl = validate_action_ttl_audit(
         "stage-a",
         root / "stage-a-arms",
         inputs,
         stage_a_screen_only=screen_only,
+        stage_a_update_health_failure=update_health,
     )
     digest = sha256_bytes(path.read_bytes())
     if (

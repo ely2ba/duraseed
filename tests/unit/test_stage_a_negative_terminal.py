@@ -189,7 +189,7 @@ def test_negative_terminal_resume_does_not_construct_remote_service(
         remaining_balance_usd=4922.30,
         protected_reserve_usd=984.46,
         parent_billed_usd=PARENT_BILLED_USD,
-        lifetime_sunk_usd=PARENT_BILLED_USD + 44.27 + 53.35,
+        lifetime_sunk_usd=PARENT_BILLED_USD + 44.27 + 53.35 + 51.876308513,
         parent_billing_sha256="sha256:" + "a" * 64,
         parent_raw_billing_sha256="sha256:" + "b" * 64,
     )
@@ -209,7 +209,7 @@ def test_negative_terminal_resume_does_not_construct_remote_service(
         teacher_tokens=TokenBudget(0, 0, 0),
         stage_a_tokens=TokenBudget(1, 1, 1),
         teacher_cap_usd=0,
-        stage_a_cap_usd=153.32,
+        stage_a_cap_usd=107.84,
     )
     modules = {
         "tinker_cookbook.tokenizer_utils": SimpleNamespace(
@@ -271,7 +271,7 @@ def test_negative_terminal_resume_does_not_construct_remote_service(
             billing_reconciliation_path="billing",
             raw_billing_path="raw-billing",
             project_id="project",
-            authorized_cost_usd="153.32",
+            authorized_cost_usd="107.84",
             human_approval=True,
         )
     )

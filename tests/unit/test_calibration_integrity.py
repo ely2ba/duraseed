@@ -19,6 +19,10 @@ from duraseed.run_records import (
 from duraseed.runners.teacher_dose_arms import baseline_attempt
 from duraseed.runners.teacher_dose_evidence import TEACHER_BASELINE, TeacherBaseline
 from duraseed.schemas import VerificationFailure, VerificationResult
+from duraseed.training.stage_a_update_health import (
+    StageAUpdateHealthFailureEvidence,
+    write_stage_a_update_health_failure,
+)
 
 
 def _records() -> tuple[GenerationRecord, RewardRecord]:
@@ -141,3 +145,123 @@ def test_direct_m0_stage_a_integrity_has_exact_branch_metrics_and_no_seed(
     )
 
     assert integrity["accepted_metric_count"] == expected_count
+
+
+@pytest.mark.parametrize(("screen_only", "expected_count"), ((False, 100), (True, 20)))
+def test_amended_stage_a_integrity_has_only_the_two_fixed_continuous_branches(
+    tmp_path: Path, screen_only: bool, expected_count: int
+) -> None:
+    arm = tmp_path / "complete-bounded-stage-a"
+    attempt = arm / "attempt-0001"
+    attempt.mkdir(parents=True)
+    write_jsonl(attempt / "generations.jsonl", ())
+    write_jsonl(attempt / "rewards.jsonl", ())
+    (attempt / "remote-call-state.json").write_bytes(
+        canonical_json_bytes({"pending": None})
+    )
+    (arm / "coordinate.json").write_bytes(canonical_json_bytes({"arm_id": arm.name}))
+    (arm / "completed.json").write_bytes(
+        canonical_json_bytes({"arm_id": arm.name, "attempt": 1})
+    )
+    for method, rate in (("B-S", 1e-4), ("B-G", 1e-5)):
+        for step in range(1, (10 if screen_only else 50) + 1):
+            metric = TrainingMetricRecord(
+                phase="stage_a", training_step=step, metrics={"loss": 0.5}
+            )
+            append_jsonl(
+                attempt / "metrics.jsonl",
+                {
+                    **metric.model_dump(mode="json"),
+                    "method": method,
+                    "learning_rate": rate,
+                },
+            )
+
+    integrity = seal_calibration_action(
+        "stage-a",
+        tmp_path,
+        teacher_updates=0,
+        stage_a_screen_only=screen_only,
+    )
+
+    assert integrity["accepted_metric_count"] == expected_count
+
+
+def test_update_health_terminal_seals_exact_partial_metrics_and_rollouts(
+    tmp_path: Path,
+) -> None:
+    arm = tmp_path / "complete-bounded-stage-a"
+    attempt = arm / "attempt-0001"
+    attempt.mkdir(parents=True)
+    generation, reward = _records()
+    generations = []
+    rewards = []
+    for group in range(16):
+        for sample in range(8):
+            sample_id = f"group-{group}-sample-{sample}"
+            generations.append(
+                generation.model_copy(
+                    update={
+                        "sample_id": sample_id,
+                        "sample_index": sample,
+                        "purpose": "training",
+                        "checkpoint_stage": "stage_a",
+                        "training_step": 7,
+                        "sampler_checkpoint_path": "tinker://bg/step-7",
+                        "task_id": f"group-{group}",
+                        "source_split": "a_rl_train",
+                        "method": "B-G",
+                        "origin_sampler_checkpoint_path": "tinker://m0/sampler",
+                        "item_index": group,
+                    }
+                )
+            )
+            rewards.append(
+                reward.model_copy(
+                    update={
+                        "reward_id": f"reward-{sample_id}",
+                        "sample_id": sample_id,
+                        "task_id": f"group-{group}",
+                    }
+                )
+            )
+    write_jsonl(attempt / "generations.jsonl", generations)
+    write_jsonl(attempt / "rewards.jsonl", rewards)
+    (attempt / "remote-call-state.json").write_bytes(
+        canonical_json_bytes({"pending": None})
+    )
+    (arm / "coordinate.json").write_bytes(canonical_json_bytes({"arm_id": arm.name}))
+    failure = StageAUpdateHealthFailureEvidence(
+        "B-G", 1e-5, 7, "screen", "zero_mixed_group", 6, False, 16, 128, 0, 16, 0
+    )
+    (arm / "completed.json").write_bytes(
+        canonical_json_bytes(
+            {"arm_id": arm.name, "attempt": 1, "evidence": (failure, None)}
+        )
+    )
+    write_stage_a_update_health_failure(attempt, failure)
+    for method, learning_rate, final_step in (("B-S", 1e-4, 10), ("B-G", 1e-5, 6)):
+        for step in range(1, final_step + 1):
+            append_jsonl(
+                attempt / "metrics.jsonl",
+                {
+                    **TrainingMetricRecord(
+                        phase="stage_a", training_step=step, metrics={"loss": 0.5}
+                    ).model_dump(mode="json"),
+                    "method": method,
+                    "learning_rate": learning_rate,
+                },
+            )
+
+    integrity = seal_calibration_action(
+        "stage-a",
+        tmp_path,
+        teacher_updates=0,
+        stage_a_update_health_failure=failure,
+    )
+
+    assert integrity["accepted_metric_count"] == 16
+    assert any(
+        row["path"].endswith("update-health-failure.json")
+        for row in integrity["control_files"]
+    )

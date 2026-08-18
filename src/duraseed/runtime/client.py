@@ -10,6 +10,7 @@ import math
 from typing import Any, Literal
 
 from duraseed.runtime.ledger import TokenBudget, TokenLedger
+from duraseed.training_metric_errors import NonFiniteTrainingMetricError
 
 
 TINKER_VERSION = "0.25.0"
@@ -160,7 +161,7 @@ def _metrics(prefix: str, response: Any) -> dict[str, float]:
         except (TypeError, ValueError) as error:
             raise RuntimeError(f"non-numeric Tinker metric {prefix}.{name}") from error
         if not math.isfinite(numeric):
-            raise RuntimeError(f"non-finite Tinker metric {prefix}.{name}")
+            raise NonFiniteTrainingMetricError(f"{prefix}.{name}")
         result[f"{prefix}.{name}"] = numeric
     return result
 
@@ -173,8 +174,6 @@ async def apply_update(
     learning_rate: float,
     ledger: TokenLedger,
 ) -> dict[str, float]:
-    """Apply either an SFT or RL update under one pre-call reservation."""
-
     if not datums:
         raise ValueError("an update requires at least one datum")
     if (

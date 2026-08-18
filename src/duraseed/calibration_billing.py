@@ -14,11 +14,14 @@ from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.run_records import RunStatus, read_run_record, write_run_record
 from duraseed.runners import RunnerGateError
 from duraseed.teacher_exposure_spec import (
+    AMENDED_AGGREGATE_CAP_USD,
+    AMENDED_STAGE_A_CAP_USD,
     DIRECT_M0_AGGREGATE_CAP_USD,
     DIRECT_M0_STAGE_A_CAP_USD,
     LIFETIME_CALIBRATION_CAP_USD,
     M1_TEACHER_CAP_USD,
     ORIGINAL_TEACHER_CAP_USD,
+    PRIOR_DIRECT_STAGE_A_CHARGE_USD,
     PRIOR_REPAIR_TEACHER_CAP_USD,
 )
 
@@ -136,6 +139,7 @@ def reconcile_calibration_billing(
     parent_lineage = preflight.get("parent_calibration")
     prior_lineage = preflight.get("prior_repair")
     m1_lineage = preflight.get("interrupted_m1")
+    prior_stage_a_lineage = preflight.get("prior_direct_stage_a")
     if not isinstance(action_caps, dict) or set(action_caps) != {"stage-a"}:
         raise RunnerGateError("billing requirement omits the Stage-A cap")
     stage_a = _decimal(action_costs["stage-a"], "Stage-A billed spend")
@@ -147,6 +151,10 @@ def reconcile_calibration_billing(
     )
     m1_spend = _decimal(
         required.get("interrupted_m1_teacher_cap_usd"), "M1 spend floor"
+    )
+    prior_stage_a_spend = _decimal(
+        required.get("prior_direct_stage_a_charge_usd", 0),
+        "prior direct Stage-A spend bound",
     )
     lifetime_cap = _decimal(
         required.get("lifetime_calibration_cap_usd"), "lifetime calibration cap"
@@ -160,6 +168,26 @@ def reconcile_calibration_billing(
     cutoff = _utc(reconciliation.get("raw_usage_cutoff_utc"), "raw usage cutoff")
     reconciled = _utc(reconciliation.get("reconciled_at_utc"), "reconciliation time")
     finished = run.finished_at
+    amended = stage_a_cap == Decimal(
+        str(AMENDED_STAGE_A_CAP_USD)
+    ) and child_cap == Decimal(str(AMENDED_AGGREGATE_CAP_USD))
+    legacy = stage_a_cap == Decimal(
+        str(DIRECT_M0_STAGE_A_CAP_USD)
+    ) and child_cap == Decimal(str(DIRECT_M0_AGGREGATE_CAP_USD))
+    prior_stage_a_valid = (
+        amended
+        and isinstance(prior_stage_a_lineage, dict)
+        and required.get("prior_direct_stage_a") == prior_stage_a_lineage
+        and prior_stage_a_spend == Decimal(str(PRIOR_DIRECT_STAGE_A_CHARGE_USD))
+        and prior_stage_a_lineage.get("charged_stage_a_usd")
+        == PRIOR_DIRECT_STAGE_A_CHARGE_USD
+        and prior_stage_a_lineage.get("pending_remote_calls") == 0
+    ) or (
+        legacy
+        and prior_stage_a_lineage is None
+        and required.get("prior_direct_stage_a") is None
+        and prior_stage_a_spend == 0
+    )
     if (
         reconciliation.get("schema_version")
         != "duraseed-calibration-final-reconciliation-v1"
@@ -176,8 +204,7 @@ def reconcile_calibration_billing(
         or reconciliation.get("raw_billing_entry_count") != len(events)
         or cutoff < finished.astimezone(UTC)
         or reconciled < cutoff
-        or stage_a_cap != Decimal(str(DIRECT_M0_STAGE_A_CAP_USD))
-        or child_cap != Decimal(str(DIRECT_M0_AGGREGATE_CAP_USD))
+        or not (amended or legacy)
         or child_cap != stage_a_cap
         or parent_spend != Decimal(str(PARENT_BILLED_USD))
         or required.get("parent_run_id") != PARENT_RUN_ID
@@ -191,14 +218,17 @@ def reconcile_calibration_billing(
         or required.get("interrupted_m1") != m1_lineage
         or m1_spend != Decimal(str(M1_TEACHER_CAP_USD))
         or m1_lineage.get("charged_teacher_cap_usd") != M1_TEACHER_CAP_USD
+        or not prior_stage_a_valid
         or lifetime_cap != Decimal(str(LIFETIME_CALIBRATION_CAP_USD))
-        or parent_spend + prior_spend + m1_spend + child_cap > lifetime_cap
+        or parent_spend + prior_spend + m1_spend + prior_stage_a_spend + child_cap
+        > lifetime_cap
         or parent_spend + prior_spend + m1_spend
         > Decimal(str(ORIGINAL_TEACHER_CAP_USD))
         or stage_a > stage_a_cap
         or aggregate != stage_a
         or aggregate > child_cap
-        or parent_spend + prior_spend + m1_spend + aggregate > lifetime_cap
+        or parent_spend + prior_spend + m1_spend + prior_stage_a_spend + aggregate
+        > lifetime_cap
         or reconciliation.get("protected_reserve_survives") is not True
         or reserve != required_reserve
         or balance < required_reserve

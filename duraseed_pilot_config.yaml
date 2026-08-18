@@ -5,8 +5,8 @@
 seed: 11
 
 protocol:
-  version: duraseed-prepilot-v6
-  status: direct-m0-stage-a-calibration
+  version: duraseed-prepilot-v7
+  status: stage-a-answer-tag-correction-finalization
   question: >-
     When LLM post-training procedures reach comparable immediate capability,
     do they leave different stability–future-learnability profiles—different

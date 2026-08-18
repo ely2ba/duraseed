@@ -9,10 +9,15 @@ from pathlib import Path
 from typing import Any
 
 from duraseed.data.io import atomic_write_bytes
+from duraseed.calibration_update_health import validate_update_health_attempt
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.run_records import GenerationRecord, RewardRecord, TrainingMetricRecord
 from duraseed.runners import RunnerGateError
 from duraseed.training.stage_a_calibration import STAGE_A_LEARNING_RATE_GRIDS
+from duraseed.training.stage_a_update_health import (
+    UPDATE_HEALTH_FILE,
+    StageAUpdateHealthFailureEvidence,
+)
 from duraseed.training.teacher_exposure import REPAIR_CHECKPOINT_UPDATES
 
 
@@ -155,6 +160,14 @@ def _control_files(root: Path, accepted: list[dict[str, Any]]) -> list[dict[str,
                     f"accepted calibration control file is missing: {path.name}"
                 ) from error
             values.append({"path": path.relative_to(root).as_posix(), "sha256": digest})
+        health = attempt / UPDATE_HEALTH_FILE
+        if health.exists():
+            values.append(
+                {
+                    "path": health.relative_to(root).as_posix(),
+                    "sha256": sha256_bytes(health.read_bytes()),
+                }
+            )
     return values
 
 
@@ -168,16 +181,54 @@ def _teacher_metrics(attempt: Path, expected_steps: int) -> int:
     return len(rows)
 
 
-def _stage_metrics(attempt: Path, *, screen_only: bool) -> int:
+def _stage_metrics(
+    attempt: Path,
+    *,
+    screen_only: bool,
+    update_health_failure: StageAUpdateHealthFailureEvidence | None = None,
+) -> int:
     rows = _jsonl(attempt / "metrics.jsonl")
     boundary = tuple(row for row in rows if row.get("subphase") == "boundary-seed")
     if boundary:
         raise RunnerGateError("direct-M0 Stage-A contains boundary-seed metrics")
     branch_rows = tuple(row for row in rows if "method" in row)
+    if update_health_failure is not None:
+        if len(branch_rows) != len(rows):
+            raise RunnerGateError("Stage-A update-health metrics contain another phase")
+        return validate_update_health_attempt(attempt, rows, update_health_failure)
+    try:
+        coordinates = {
+            (row.get("method"), float(row["learning_rate"])) for row in branch_rows
+        }
+    except (KeyError, TypeError, ValueError) as error:
+        raise RunnerGateError("Stage-A branch metric coordinate differs") from error
+    amended = {("B-S", 1e-4), ("B-G", 1e-5)}
+    if coordinates == amended:
+        final_step = 10 if screen_only else 50
+        expected_steps = tuple(range(1, final_step + 1))
+        for method, rate in amended:
+            steps = tuple(
+                row.get("training_step")
+                for row in branch_rows
+                if row.get("method") == method
+                and float(row.get("learning_rate")) == rate
+            )
+            if steps != expected_steps:
+                raise RunnerGateError("Stage-A amended branch metric schedule differs")
+        expected_count = 20 if screen_only else 100
+        if len(branch_rows) != expected_count or len(rows) != expected_count:
+            raise RunnerGateError("Stage-A amended branch metric schedule differs")
+        return len(rows)
+
     expected_rates = {
         method: tuple(float(value) for value in rates)
         for method, rates in STAGE_A_LEARNING_RATE_GRIDS.items()
     }
+    expected_coordinates = {
+        (method, rate) for method, rates in expected_rates.items() for rate in rates
+    }
+    if coordinates != expected_coordinates:
+        raise RunnerGateError("Stage-A branch metric coordinate differs")
     selected = {"B-S": 0, "B-G": 0}
     for method, rates in expected_rates.items():
         for rate in rates:
@@ -208,6 +259,7 @@ def seal_calibration_action(
     *,
     teacher_updates: int,
     stage_a_screen_only: bool = False,
+    stage_a_update_health_failure: StageAUpdateHealthFailureEvidence | None = None,
 ) -> dict[str, Any]:
     """Validate accepted joins/steps and bind every raw JSONL byte stream."""
 
@@ -264,7 +316,11 @@ def seal_calibration_action(
         arm = root / "complete-bounded-stage-a"
         attempt = _accepted_attempt(arm)
         accepted.append({"arm_id": arm.name, "attempt": attempt.name, **_join(attempt)})
-        metric_count = _stage_metrics(attempt, screen_only=stage_a_screen_only)
+        metric_count = _stage_metrics(
+            attempt,
+            screen_only=stage_a_screen_only,
+            update_health_failure=stage_a_update_health_failure,
+        )
     else:
         raise ValueError("unknown calibration integrity action")
     result = {

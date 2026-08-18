@@ -47,8 +47,8 @@ from duraseed.runners import RunnerGateError
 from duraseed.runtime import RuntimeBundle, TokenLedger
 from duraseed.training.acquisition_freeze import (
     MaxTokenFreezeEvidence,
-    freeze_acquisition,
 )
+from duraseed.training.acquisition_freeze_amended import freeze_amended_acquisition
 from duraseed.training.teacher_allocation_sources import TeacherAllocationSources
 
 
@@ -100,7 +100,7 @@ class CalibrationLiveInputs:
 
 
 async def run_live_calibration(inputs: CalibrationLiveInputs) -> dict[str, Any]:
-    from duraseed.runners.stage_a_live import collect_stage_a
+    from duraseed.runners.stage_a_amended_live import collect_amended_stage_a
 
     if (
         inputs.smoke.protocol_max_tokens != inputs.config.tinker.max_sampled_tokens
@@ -157,7 +157,7 @@ async def run_live_calibration(inputs: CalibrationLiveInputs) -> dict[str, Any]:
         return {"state": state, "artifacts": artifacts}
     try:
         if "stage-a" not in artifacts:
-            evidence, common_rl = await collect_stage_a(
+            evidence, common_rl = await collect_amended_stage_a(
                 inputs,
                 root / "stage-a-arms",
                 preflight_sha256=preflight_sha256,
@@ -168,7 +168,7 @@ async def run_live_calibration(inputs: CalibrationLiveInputs) -> dict[str, Any]:
                 teacher_updates=0,
             )
             await verify_action_ttls("stage-a", root / "stage-a-arms", inputs)
-            freeze = freeze_acquisition(
+            freeze = freeze_amended_acquisition(
                 evidence, inputs.smoke, inputs.max_tokens, common_rl
             )
             artifacts["stage-a"] = _artifact(
@@ -199,12 +199,14 @@ async def run_live_calibration(inputs: CalibrationLiveInputs) -> dict[str, Any]:
                 root / "stage-a-arms",
                 teacher_updates=0,
                 stage_a_screen_only=failure.screen_only,
+                stage_a_update_health_failure=failure.update_health_failure,
             )
             await verify_action_ttls(
                 "stage-a",
                 root / "stage-a-arms",
                 inputs,
                 stage_a_screen_only=failure.screen_only,
+                stage_a_update_health_failure=failure.update_health_failure,
             )
             return finish_stage_a_terminal(
                 inputs,

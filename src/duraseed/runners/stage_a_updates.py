@@ -2,21 +2,23 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from math import fsum
 from pathlib import Path
 from typing import Literal
 
 from duraseed.data.stage_a_prompt_pools import PromptPoolStratum
-from duraseed.calibration_seeds import ephemeral_sampler_path
-from duraseed.calibration_seeds import stage_a_group_seeds as _explicit_group_seeds
+from duraseed.calibration_seeds import (
+    ephemeral_sampler_path,
+    stage_a_group_seeds as _explicit_group_seeds,
+)
 from duraseed.run_records import TrainingMetricRecord, append_jsonl
-from duraseed.runners import RunnerGateError
 from duraseed.runners.calibration_live import CalibrationLiveInputs
 from duraseed.runners.remote_journal import RemoteJournal
+from duraseed.runners.stage_a_branch import Branch
 from duraseed.runners.stage_a_evidence import scheduled_records
+from duraseed.runners.stage_a_update_failure import apply_grouped_update_or_fail
+from duraseed.runners.stage_a_update_failure import update_health_failure
 from duraseed.runtime import (
-    RuntimeBundle,
     SampleObservation,
     SamplingCoordinates,
     SamplingTask,
@@ -32,21 +34,8 @@ from duraseed.tasks.tces import render_prompt
 from duraseed.training.grpo import grouped_reward_diagnostics
 from duraseed.training.sft import VerifiedSourceRecord
 
-
 CALIBRATION_SEED = 17
 GROUP_SIZE = 8
-
-
-@dataclass(slots=True)
-class Branch:
-    method: Literal["B-S", "B-G"]
-    learning_rate: float
-    runtime: RuntimeBundle
-    metrics: list[TrainingMetricRecord] = field(default_factory=list)
-    surprisal_by_step: dict[int, float] = field(default_factory=dict)
-    unique_completions_by_step: dict[int, set[str]] = field(default_factory=dict)
-    valid_families_by_step: dict[int, set[str]] = field(default_factory=dict)
-    successful_completions_by_step: dict[int, set[str]] = field(default_factory=dict)
 
 
 async def restore_branch(
@@ -258,23 +247,28 @@ async def grouped_rl_update(
             append_jsonl(output / "rewards.jsonl", row.reward)
         journal.complete({"operation": "stage-a-rl-group", "row_count": len(rows)})
     if mixed == 0:
-        raise RunnerGateError(f"B-G step {step} produced no mixed reward group")
+        raise update_health_failure(
+            output,
+            branch,
+            step,
+            reason="zero_mixed_group",
+            mixed=mixed,
+            all_zero=all_zero,
+            all_one=all_one,
+            optimizer_update_completed=False,
+        )
     datums = rl_datums(branch.runtime, mixed_rows, advantages)
-    journal.begin(
-        "stage-a-rl-update",
-        {"learning_rate": branch.learning_rate, "step": step},
-        {
-            "prefill_tokens": 0,
-            "sample_tokens": 0,
-            "train_tokens": sum(int(row.model_input.length) for row in datums),
-        },
-    )
-    values = await apply_update(
-        branch.runtime,
+    values = await apply_grouped_update_or_fail(
+        inputs,
+        branch,
+        step,
+        output,
+        journal,
         datums,
-        loss_fn="importance_sampling",
-        learning_rate=branch.learning_rate,
-        ledger=inputs.stage_a_ledger,
+        apply_update,
+        mixed=mixed,
+        all_zero=all_zero,
+        all_one=all_one,
     )
     values.update(
         mixed_group_rate=mixed / len(records),

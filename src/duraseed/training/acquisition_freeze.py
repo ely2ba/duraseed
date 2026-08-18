@@ -17,6 +17,7 @@ from duraseed.training.stage_a_calibration import (
     decide_stage_a_duration,
 )
 from duraseed.training.stage_a_direct import select_direct_m0_learning_rate
+from duraseed.training.stage_a_amended_evidence import AmendedStageADurationDecision
 from duraseed.training.teacher_dose import (
     GateStatus,
     TeacherDoseAssessment,
@@ -260,7 +261,7 @@ class CommonRLFreezeEvidence:
 @dataclass(frozen=True, slots=True)
 class AcquisitionFreeze:
     learning_rates: dict[str, float]
-    duration: StageADurationDecision
+    duration: StageADurationDecision | AmendedStageADurationDecision
     selected_max_tokens: int
     max_tokens_apply_to: tuple[str, ...]
     live_smoke: LiveSmokeCalibrationEvidence

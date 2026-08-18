@@ -44,13 +44,13 @@ from duraseed.training.teacher_dose import (
     decide_teacher_dose,
 )
 from duraseed.training.sft import VerifiedSourceRecord
-from duraseed.teacher_exposure_spec import DIRECT_M0_AGGREGATE_CAP_USD
+from duraseed.teacher_exposure_spec import AMENDED_AGGREGATE_CAP_USD
 
 
 FROZEN_MAPS_PROFILE = "shortest2_cap2"
 FROZEN_MAPS_LEARNING_RATE = 3e-4
 FROZEN_MAPS_UPDATES = 480
-CALIBRATION_REMOTE_COST_CAP_USD = Decimal(str(DIRECT_M0_AGGREGATE_CAP_USD))
+CALIBRATION_REMOTE_COST_CAP_USD = Decimal(str(AMENDED_AGGREGATE_CAP_USD))
 
 
 @dataclass(frozen=True, slots=True)

@@ -11,7 +11,7 @@
 | Boundary extension cohorts 2–3 | **REMOTE COLLECTION DONE** | Cohorts 2 and 3 completed broad sampling, refinement, and confirmation. |
 | Three-cohort panel freeze | **DONE** | The [accepted amendment](rfc-boundary-panel-algebraic-deduplication.md) reduced the fixed 49 to 37 exact algebraic representatives. All 37 passed the unchanged capacity audit; disjoint 12/12 panels and 12 separate intermediates were frozen. Archived and current production split builders then produced byte-identical 384-row train and 192-row gate manifests. |
 | Teacher-exposure calibration | **RETIRED AFTER THREE BOUNDED FAILURES** | The original dose-2 run, [progressive repair](rfc-teacher-exposure-progressive-repair.md), and [dose-8 M1](rfc-teacher-seed-dose8-low-repetition.md) found no checkpoint passing every gate in both orientations. M1 failed jointly at updates 6 and 10; seed-17 update 14 had only 586 valid answer tags after 640 target samples, so even perfect remaining samples could not reach 745/768. It was stopped safely before seed-37 update 14. Raw evidence is retained; none is a method outcome. The [direct-M0 amendment](rfc-direct-m0-stage-a-origin.md) retires the task-specific seed without weakening a gate. |
-| Stage-A calibration | **CURRENT GATE — DIRECT M0** | B-S and B-G now branch weights-only from the same M0 with fresh optimizers. The existing 10-update LR screen is also B-G's rollout-health check; no new calibration campaign is added. |
+| Stage-A calibration | **CURRENT GATE — ONE TWO-ARM FINALIZATION** | The six-arm direct-M0 screen completed, but its `no_eligible_learning_rate` decision used an outer-wrapper rule that contradicted the prompt, teacher targets, and verifier. The [accepted correction](rfc-stage-a-answer-tag-contract.md) preserves the raw record, selects B-S `1e-4` and B-G `1e-5` from the sealed screens, and permits exactly one continuous M0-to-update-50 finalization. Failure of either arm ends the TCES route. |
 | Pilot 0 | **NOT STARTED** | No pilot execution or sealed-test access. |
 | Variance reconnaissance | **NOT STARTED** | After Pilot 0, extend B-S/B-G to 3–4 paired pilot seeds before setting confirmatory power. |
 | Mechanism/context pilot decision | **NOT STARTED** | If B-S/B-G separates reproducibly, first test supervised replay of a prospectively frozen verifier-correct subset of B-G rollouts; then decide whether conditional B-O or optional G-U adds enough value. G-B is a duplicate of direct-M0 B-G and R-G's teacher-allocation question is retired. |
@@ -23,7 +23,11 @@ claimed.
 
 The three pre-Pilot gates have caps of `$25`, `$120`, and `$300`. Remote
 execution for the smoke and boundary gates is complete. All three teacher-
-exposure attempts are stopped and retained as calibration evidence. Stage-A
-calibration from M0 is the current acquisition-calibration gate; its Stage-A-
-only launch cap is `$153.32` inside the unchanged `$300` lifetime acquisition-
-calibration cap. Pilot 0 is separately capped at `$600` and remains unstarted.
+exposure attempts are stopped and retained as calibration evidence. The
+completed direct-M0 screen ran under its `$153.32` Stage-A-only cap. Its raw
+billing export now exactly matches the local observed token totals; the next
+launch still charges its larger `$51.876308513` committed ceiling. The two-arm
+finalization is capped at `$107.84`, for a conservative lifetime maximum of
+`$268.846932025` and `$31.153067975` headroom under the unchanged `$300`
+acquisition-calibration cap. Pilot 0 is separately capped at `$600` and remains
+unstarted.

@@ -184,11 +184,17 @@ plasticity.
   frozen and authenticated.
 - The unstable task-specific teacher warm start was retired after three bounded
   attempts.
+- The six-arm direct-M0 learning-rate screen completed. Its recorded
+  `no_eligible_learning_rate` decision was invalidated by a task/gate contract
+  mismatch; the underlying generations, rewards, and training records remain
+  preserved.
 
 ### Now
 
-Direct-M0 Stage-A calibration is running. It selects the learning rate,
-duration, and common RL setup before any B-S/B-G Pilot comparison.
+The corrected screen reduction has frozen `1e-4` for B-S and `1e-5` for B-G.
+Exactly one two-arm run will now recreate those branches continuously from M0
+through update 50. If either arm fails the corrected final gate, the TCES route
+ends rather than opening another calibration ladder.
 
 ### Not started
 
@@ -225,9 +231,25 @@ the live calibration still requires realized rollout health through both the
 10-update screen and the selected 50-update duration. It does not authorize a
 new warm-start ladder if that bounded calibration fails.
 
+The direct-M0 screen then exposed a measurement error rather than an absence of
+usable learning rates. The TCES prompt requests a concise derivation before one
+final answer tag, the B-S teacher supplies exactly that form, and the verifier
+allows derivation outside the tag. The screen's old format reducer nevertheless
+required the whole completion to begin with `<answer>`, making every
+teacher-style B-S answer fail by construction. The raw terminal record is kept,
+but its `no_eligible_learning_rate` decision is not scientifically valid.
+
+The [answer-tag contract correction](docs/rfc-stage-a-answer-tag-contract.md)
+replaces that metric with verifier-valid tag retention: on the targeted panel,
+the trained arm must remain within 0.10 of its paired M0 valid-tag rate. Invalid
+and length-stopped
+outputs still score zero and remain reported outcomes. No prompt, teacher,
+verifier, decoder, task, panel, or learning-rate grid changed.
+
 ### Next milestones
 
-1. Finish direct-M0 Stage-A calibration.
+1. Run the single selected B-S/B-G M0-to-update-50 finalization. If either arm
+   fails, stop the TCES acquisition route.
 2. Run the two-seed B-S/B-G Pilot 0 at fixed duration, then run the required
    capability-matched follow-up and publish the complete pre-Stage-B profile.
 3. Extend to three or four paired seeds to estimate variance. Only then decide

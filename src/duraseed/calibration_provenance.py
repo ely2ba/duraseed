@@ -8,9 +8,8 @@ import json
 from pathlib import Path
 from typing import Any
 
-from duraseed.calibration_billing_requirement import (
-    calibration_billing_requirement,
-)
+from duraseed.calibration_billing_requirement import calibration_billing_requirement
+from duraseed.calibration_update_health import update_health_checkpoint_paths
 from duraseed.data.io import atomic_write_bytes
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.run_records import (
@@ -21,6 +20,7 @@ from duraseed.run_records import (
 )
 from duraseed.runners import RunnerGateError
 from duraseed.runtime import PRICE_SNAPSHOT, set_and_verify_ttl
+from duraseed.training.stage_a_update_health import StageAUpdateHealthFailureEvidence
 
 
 CANDIDATE_TTL_SECONDS = 7 * 24 * 60 * 60
@@ -159,6 +159,7 @@ def _ttl_paths(
     inputs: Any,
     *,
     stage_a_screen_only: bool = False,
+    stage_a_update_health_failure: StageAUpdateHealthFailureEvidence | None = None,
 ) -> dict[int | None, tuple[str, ...]]:
     if action != "stage-a":
         raise ValueError("direct-M0 calibration has only a Stage-A TTL action")
@@ -172,8 +173,35 @@ def _ttl_paths(
         for row in rows
         if "method" in row and isinstance(row.get("sampler"), str)
     )
-    expected_count = 6 if stage_a_screen_only else 8
-    if len(candidates) != expected_count or len(set(candidates)) != expected_count:
+    if stage_a_update_health_failure is not None:
+        return {
+            CANDIDATE_TTL_SECONDS: update_health_checkpoint_paths(
+                rows, stage_a_update_health_failure
+            )
+        }
+    old_count = 6 if stage_a_screen_only else 8
+    amended_count = 2 if stage_a_screen_only else 4
+    if len(candidates) == amended_count:
+        expected = {
+            ("B-S", 1e-4, step) for step in ((10,) if stage_a_screen_only else (10, 50))
+        } | {
+            ("B-G", 1e-5, step) for step in ((10,) if stage_a_screen_only else (10, 50))
+        }
+        try:
+            observed = {
+                (row["method"], float(row["learning_rate"]), int(row["step"]))
+                for row in rows
+                if "method" in row and isinstance(row.get("sampler"), str)
+            }
+        except (KeyError, TypeError, ValueError) as error:
+            raise RunnerGateError(
+                "Stage-A amended checkpoint lineage differs"
+            ) from error
+        if observed != expected:
+            raise RunnerGateError("Stage-A amended checkpoint lineage differs")
+    elif len(candidates) != old_count:
+        raise RunnerGateError("Stage-A checkpoint lineage omits a candidate")
+    if len(set(candidates)) != len(candidates):
         raise RunnerGateError("Stage-A checkpoint lineage omits a candidate")
     return {CANDIDATE_TTL_SECONDS: candidates}
 
@@ -184,13 +212,18 @@ async def verify_action_ttls(
     inputs: Any,
     *,
     stage_a_screen_only: bool = False,
+    stage_a_update_health_failure: StageAUpdateHealthFailureEvidence | None = None,
 ) -> dict[str, Any]:
     """Set and verify every retained source/candidate TTL before action commit."""
 
     path = root / "checkpoint-ttl-audit.json"
     if path.exists():
         return validate_action_ttl_audit(
-            action, root, inputs, stage_a_screen_only=stage_a_screen_only
+            action,
+            root,
+            inputs,
+            stage_a_screen_only=stage_a_screen_only,
+            stage_a_update_health_failure=stage_a_update_health_failure,
         )
     marker = root / "ttl-verification-pending.json"
     if marker.exists():
@@ -203,7 +236,11 @@ async def verify_action_ttls(
     )
     rows = []
     for ttl_seconds, paths in _ttl_paths(
-        action, root, inputs, stage_a_screen_only=stage_a_screen_only
+        action,
+        root,
+        inputs,
+        stage_a_screen_only=stage_a_screen_only,
+        stage_a_update_health_failure=stage_a_update_health_failure,
     ).items():
         if not paths:
             continue
@@ -242,6 +279,7 @@ def validate_action_ttl_audit(
     inputs: Any,
     *,
     stage_a_screen_only: bool = False,
+    stage_a_update_health_failure: StageAUpdateHealthFailureEvidence | None = None,
 ) -> dict[str, Any]:
     """Revalidate a retained TTL audit without making a remote call."""
 
@@ -250,7 +288,11 @@ def validate_action_ttl_audit(
     expected = {
         checkpoint: ttl
         for ttl, paths in _ttl_paths(
-            action, root, inputs, stage_a_screen_only=stage_a_screen_only
+            action,
+            root,
+            inputs,
+            stage_a_screen_only=stage_a_screen_only,
+            stage_a_update_health_failure=stage_a_update_health_failure,
         ).items()
         for checkpoint in paths
     }

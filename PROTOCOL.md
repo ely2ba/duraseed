@@ -14,16 +14,22 @@ gates in both panel orientations. The final dose-8 M1 attempt was stopped at a
 no-pending-call boundary once seed-17 update 14 could no longer pass format;
 seed-37 update 14 was not launched. Before Stage A or Pilot 0, the shared
 teacher warm start was prospectively retired. The core B-S and B-G procedures
-now branch directly from the same M0. Stage A and Pilot 0 have not started. An
+now branch directly from the same M0. Their six-arm update-10 screen completed
+on 18 August 2026 and recorded `no_eligible_learning_rate`. That terminal
+decision is invalid because its outer-wrapper reducer contradicted the TCES
+prompt, solver-teacher targets, and verifier; the raw evidence remains valid and
+preserved. A frozen correction selects B-S `1e-4` and B-G `1e-5` from those
+existing screens and permits exactly one continuous two-arm M0-to-update-50
+finalization. Pilot 0 has not started. An
 archived engineering-only Tinker smoke and raw M0 audit were executed on 9
 August 2026, and the v1 live smoke gate passed on 13 August 2026. The raw audit
 rejected the zero-update candidate on the declared format gates, so conditional
 task-agnostic format training was required. A common trainable M0 has now been
 selected. The renderer and common TCES completion cap are now fixed at
 `role_colon` with the DuraSeed answer/role stops and 4096 tokens. MAPS task
-difficulty and its Stage-B recipe are fixed; TCES panel membership is frozen,
-while Stage-A learning rates, duration, and common RL settings remain
-unresolved. Pilot 0 has not started, and
+difficulty and its Stage-B recipe are fixed; TCES panel membership and the two
+selected Stage-A learning rates are frozen, while duration and common RL
+settings remain unresolved. Pilot 0 has not started, and
 no result for the stability–future-learnability hypothesis has been produced.
 
 This file is the public authoritative scientific contract, with
@@ -42,6 +48,8 @@ The subsequent dose-8 low-repetition amendment is recorded in
 [`docs/rfc-teacher-seed-dose8-low-repetition.md`](docs/rfc-teacher-seed-dose8-low-repetition.md).
 Its superseding direct-M0 decision is recorded in
 [`docs/rfc-direct-m0-stage-a-origin.md`](docs/rfc-direct-m0-stage-a-origin.md).
+The post-screen answer-tag correction and hard stop are recorded in
+[`docs/rfc-stage-a-answer-tag-contract.md`](docs/rfc-stage-a-answer-tag-contract.md).
 
 ## Question
 
@@ -339,33 +347,51 @@ arms train to update 10 and are evaluated on the same 96 targeted and 96
 sentinel monitor items with one paired seeded completion each. Sentinel
 evidence is recorded but cannot select the learning rate. The smaller LR is
 selected among eligible candidates within two paired sampling standard errors
-of the best targeted gain. Only the two selected arms continue to update 50.
-Update 25 is a training-metric waypoint only: it creates no checkpoint and no
-generation evaluation because it is not consumed by the frozen reducer.
+of the best targeted gain.
 
-The existing step-10 evaluations are also the operational health checks. Every
-arm must retain at least 0.97 wrapper compliance, at most 0.50 absolute length-
-stop rate, at most a 0.10 increase from paired M0, finite metrics, and clean
-leakage. These already-sampled summaries expose the looping failure mode in
-B-S without adding a checkpoint or remote request. In addition, every B-G
-update must contain at least one mixed reward group, and an eligible B-G screen
-arm must average a mixed-group rate of at least 0.20 across updates 1--10. If no
-LR in either complete grid is eligible, calibration stops once for a separate
-prospective decision; it does not revive teacher seeding or extend the screen.
+The completed screen initially terminated with no eligible LR because the old
+format reducer required the entire stripped completion to start with
+`<answer>` and end with `</answer>`. That is not the TCES task contract: the
+prompt requests a concise derivation before one final tag, solver-teacher
+targets use that form, and the exact verifier permits free-form derivation
+outside one well-ordered tag pair. Paired M0 verifier-valid tag rate was 69/96,
+despite only 27/96 passing the erroneous outer-wrapper rule. The resulting
+terminal decision is invalid calibration output; its immutable evidence is not
+discarded or relabeled.
+
+The corrected operational gate uses the verifier's `valid_answer_tag` field.
+On the targeted panel, each arm's current valid-tag rate must be at least its
+paired M0 rate minus 0.10. Invalid-tag and length-stopped samples continue to
+receive zero reward
+and remain reported outcomes. The unchanged health gates require at most 0.50
+absolute length-stop rate, at most a 0.10 increase from paired M0, finite
+metrics, and clean leakage. Every B-G update must contain at least one mixed
+reward group, and an eligible B-G arm must average at least 0.20 mixed groups
+across updates 1--10. No prompt, teacher, verifier, decoder, task, panel,
+completion cap, or LR grid changed.
+
+Applying that rule once to the sealed screens selects B-S `1e-4` under the
+existing paired two-SE/smaller-LR rule and B-G `1e-5` as the only B-G arm that
+also passes the unchanged length-stability gate. Because the screen saved only
+sampler checkpoints, the selected trajectories cannot be resumed for training.
+Exactly one finalization therefore recreates only these two branches
+continuously from M0 through update 50; it does not rerun the grid. Update 25 is
+a training-metric waypoint only and creates no evaluation checkpoint.
 
 At update 50, the targeted panel uses two paired samples per item and the
 sentinel panel one. B-G uses official importance sampling, group-mean
 advantages without standard-deviation normalization, 16 prompt groups of eight
 rollouts per actual update, and no KL penalty. Constant-reward groups are
 recorded and skipped without resampling; an update with no mixed group fails the
-bounded run. The final 50-update duration freezes only if the predeclared pure
-reducer passes both methods. Failure does not authorize step 100, a larger LR
-grid, or another recovery framework. Candidate samplers have seven-day TTL and
-no candidate full states are saved. The default command is a credential-free
-preflight; the direct-M0 Stage-A-only launch requires one exact `$153.32`
-authorization inside the unchanged `$300` lifetime acquisition-calibration
-cap. Authenticated local sources must verify that bound before any service is
-constructed. This is Phase-4 calibration, not Pilot 0.
+bounded run. The final 50-update duration freezes only if the final reducer,
+including the corrected paired valid-tag rule, passes both methods. If either
+arm fails, the TCES acquisition route ends: there is no step 100, new LR,
+warm-start, prompt, decoder, task, panel, completion-cap, or group-size rescue.
+Any later study is a separately motivated redirect. The finalization is capped
+at `$107.84`; conservatively charging the completed screen at its full local
+committed ceiling gives a `$268.846932025` lifetime maximum, leaving
+`$31.153067975` under the unchanged `$300` acquisition-calibration limit. This
+is Phase-4 calibration, not Pilot 0.
 
 The same acquisition-calibration freeze also selects one common RL
 objective/configuration before any multi-method run. If the entropy-collapse

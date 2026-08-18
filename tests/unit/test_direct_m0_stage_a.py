@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import replace
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -182,11 +183,49 @@ def test_direct_m0_ttl_lineage_contains_only_eight_stage_a_candidates(
         _ttl_paths("stage-a", tmp_path, SimpleNamespace())
 
 
+@pytest.mark.parametrize(("screen_only", "steps"), ((False, (10, 50)), (True, (10,))))
+def test_amended_stage_a_ttl_lineage_contains_only_fixed_arm_candidates(
+    tmp_path: Path, screen_only: bool, steps: tuple[int, ...]
+) -> None:
+    arm = tmp_path / "complete-bounded-stage-a"
+    attempt = arm / "attempt-0001"
+    attempt.mkdir(parents=True)
+    (arm / "completed.json").write_text('{"attempt":1}')
+    expected = []
+    for method, learning_rate in (("B-S", 1e-4), ("B-G", 1e-5)):
+        for step in steps:
+            sampler = f"path-{method}-{step}"
+            expected.append(sampler)
+            append_jsonl(
+                attempt / "checkpoints.jsonl",
+                {
+                    "method": method,
+                    "learning_rate": learning_rate,
+                    "step": step,
+                    "sampler": sampler,
+                },
+            )
+
+    assert _ttl_paths(
+        "stage-a", tmp_path, SimpleNamespace(), stage_a_screen_only=screen_only
+    ) == {CANDIDATE_TTL_SECONDS: tuple(expected)}
+
+    rows = (attempt / "checkpoints.jsonl").read_text().splitlines()
+    malformed = json.loads(rows[0])
+    malformed["learning_rate"] = 3e-4
+    rows[0] = json.dumps(malformed)
+    (attempt / "checkpoints.jsonl").write_text("\n".join(rows) + "\n")
+    with pytest.raises(RunnerGateError, match="amended checkpoint lineage differs"):
+        _ttl_paths(
+            "stage-a", tmp_path, SimpleNamespace(), stage_a_screen_only=screen_only
+        )
+
+
 def test_live_calibration_executes_and_commits_only_stage_a(
     tmp_path: Path, monkeypatch
 ) -> None:  # type: ignore[no-untyped-def]
     from duraseed.runners import calibration_live as live
-    from duraseed.runners import stage_a_live
+    from duraseed.runners import stage_a_amended_live
 
     events = []
     monkeypatch.setattr(live, "calibration_preflight", lambda *_args: {"run": "new"})
@@ -207,10 +246,12 @@ def test_live_calibration_executes_and_commits_only_stage_a(
         root.mkdir(parents=True, exist_ok=True)
         (root / "checkpoint-ttl-audit.json").write_text("{}")
 
-    monkeypatch.setattr(stage_a_live, "collect_stage_a", collect)
+    monkeypatch.setattr(stage_a_amended_live, "collect_amended_stage_a", collect)
     monkeypatch.setattr(live, "seal_calibration_action", lambda *_args, **_kwargs: {})
     monkeypatch.setattr(live, "verify_action_ttls", ttl)
-    monkeypatch.setattr(live, "freeze_acquisition", lambda *_args: {"frozen": True})
+    monkeypatch.setattr(
+        live, "freeze_amended_acquisition", lambda *_args: {"frozen": True}
+    )
     monkeypatch.setattr(
         live,
         "finish_calibration_run",

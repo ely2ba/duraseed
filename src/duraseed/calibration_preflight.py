@@ -7,9 +7,9 @@ from typing import Any
 from duraseed.provenance import canonical_json_value
 from duraseed.runners import RunnerGateError
 from duraseed.teacher_exposure_spec import (
-    DIRECT_M0_AGGREGATE_CAP_USD,
-    DIRECT_M0_STAGE_A_CAP_USD,
-    DIRECT_M0_STAGE_A_TOKEN_CEILINGS,
+    AMENDED_AGGREGATE_CAP_USD,
+    AMENDED_STAGE_A_CAP_USD,
+    AMENDED_STAGE_A_TOKEN_CEILINGS,
     DIRECT_M0_TEACHER_CAP_USD,
     LIFETIME_CALIBRATION_CAP_USD,
     ORIGINAL_TEACHER_CAP_USD,
@@ -21,18 +21,19 @@ def validate_repair_allocation(inputs: Any) -> None:
         inputs.teacher_ledger.authorized_usd + inputs.stage_a_ledger.authorized_usd
     )
     parent_spend = inputs.parent_teacher_evidence.lifetime_sunk_usd
+    teacher_spend = inputs.parent_teacher_evidence.teacher_lifetime_sunk_usd
     teacher_limits = inputs.teacher_ledger.limits
     stage_a_limits = inputs.stage_a_ledger.limits
     if (
         inputs.teacher_ledger.authorized_usd != DIRECT_M0_TEACHER_CAP_USD
-        or inputs.stage_a_ledger.authorized_usd != DIRECT_M0_STAGE_A_CAP_USD
-        or child_cap != DIRECT_M0_AGGREGATE_CAP_USD
+        or inputs.stage_a_ledger.authorized_usd != AMENDED_STAGE_A_CAP_USD
+        or child_cap != AMENDED_AGGREGATE_CAP_USD
         or (teacher_limits.prefill, teacher_limits.sample, teacher_limits.train)
         != (0, 0, 0)
         or (stage_a_limits.prefill, stage_a_limits.sample, stage_a_limits.train)
-        != DIRECT_M0_STAGE_A_TOKEN_CEILINGS
+        != AMENDED_STAGE_A_TOKEN_CEILINGS
         or parent_spend + child_cap > LIFETIME_CALIBRATION_CAP_USD
-        or parent_spend > ORIGINAL_TEACHER_CAP_USD
+        or teacher_spend > ORIGINAL_TEACHER_CAP_USD
     ):
         raise ValueError("direct-M0 calibration allocations exceed a frozen cap")
 
@@ -60,6 +61,9 @@ def calibration_preflight(inputs: Any, schema_version: str) -> dict[str, Any]:
             "parent_calibration": inputs.parent_teacher_evidence.lineage,
             "prior_repair": inputs.parent_teacher_evidence.prior_repair_lineage,
             "interrupted_m1": inputs.parent_teacher_evidence.m1_lineage,
+            "prior_direct_stage_a": (
+                inputs.parent_teacher_evidence.prior_stage_a_lineage
+            ),
             "boundary_config_sha256": inputs.sources.boundary_config_sha256,
             "current_config_sha256": inputs.sources.current_config_sha256,
             "nonprotocol_config_sha256": inputs.sources.nonprotocol_config_sha256,

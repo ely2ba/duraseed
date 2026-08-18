@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from duraseed.calibration_m1 import load_m1_interruption
+from duraseed.calibration_prior_stage_a import load_prior_stage_a
 from duraseed.calibration_prior_repair import load_prior_repair
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.runners import RunnerGateError
@@ -80,6 +81,8 @@ class CalibrationParentEvidence:
     prior_repair_teacher_cap_usd: float
     m1_lineage: dict[str, object]
     m1_teacher_cap_usd: float
+    prior_stage_a_lineage: dict[str, object]
+    prior_stage_a_charge_usd: float
     baselines: tuple[tuple[int, ParentBaseline], ...]
 
     def baseline(self, seed: int) -> ParentBaseline:
@@ -108,6 +111,13 @@ class CalibrationParentEvidence:
 
     @property
     def lifetime_sunk_usd(self) -> float:
+        return float(
+            Decimal(str(self.teacher_lifetime_sunk_usd))
+            + Decimal(str(self.prior_stage_a_charge_usd))
+        )
+
+    @property
+    def teacher_lifetime_sunk_usd(self) -> float:
         return float(
             Decimal(str(self.parent_billed_usd))
             + Decimal(str(self.prior_repair_teacher_cap_usd))
@@ -321,6 +331,13 @@ def load_calibration_parent(
         parent_lineage=parent_lineage,
         prior_repair_lineage=prior_repair,
     )
+    prior_stage_a = load_prior_stage_a(
+        root,
+        project_id=project_id,
+        parent_lineage=parent_lineage,
+        prior_repair_lineage=prior_repair,
+        m1_lineage=m1,
+    )
     return CalibrationParentEvidence(
         PARENT_RUN_ID,
         PARENT_PREFLIGHT_SHA256,
@@ -336,6 +353,8 @@ def load_calibration_parent(
         PRIOR_REPAIR_TEACHER_CAP_USD,
         m1,
         float(m1["charged_teacher_cap_usd"]),
+        prior_stage_a,
+        float(prior_stage_a["charged_stage_a_usd"]),
         tuple((seed, _baseline(root, seed)) for seed in (17, 37)),
     )
 

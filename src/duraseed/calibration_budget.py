@@ -23,13 +23,12 @@ from duraseed.runners.teacher_dose_evidence import (
 from duraseed.runtime import PRICE_SNAPSHOT, TokenBudget, UsageQuantities
 from duraseed.runtime.data import SUPERVISED_MAX_LENGTH
 from duraseed.tasks.tces import render_prompt
-from duraseed.training.stage_a_calibration import STAGE_A_LEARNING_RATE_GRIDS
 from duraseed.teacher_exposure_spec import (
-    DIRECT_M0_AGGREGATE_CAP_USD,
-    DIRECT_M0_STAGE_A_CAP_USD,
-    DIRECT_M0_STAGE_A_FIXED_USD,
-    DIRECT_M0_STAGE_A_PINNED_UPPER_USD,
-    DIRECT_M0_STAGE_A_TOKEN_CEILINGS,
+    AMENDED_AGGREGATE_CAP_USD,
+    AMENDED_STAGE_A_CAP_USD,
+    AMENDED_STAGE_A_FIXED_USD,
+    AMENDED_STAGE_A_PINNED_UPPER_USD,
+    AMENDED_STAGE_A_TOKEN_CEILINGS,
     DIRECT_M0_TEACHER_CAP_USD,
     REPAIR_CHECKPOINT_UPDATES,
     REPAIR_DOSE,
@@ -55,7 +54,7 @@ class CalibrationAllocation:
     stage_a_tokens: TokenBudget
     teacher_cap_usd: float
     stage_a_cap_usd: float
-    aggregate_cap_usd: float = DIRECT_M0_AGGREGATE_CAP_USD
+    aggregate_cap_usd: float = AMENDED_AGGREGATE_CAP_USD
 
 
 def _safe_arm(value: str) -> str:
@@ -254,7 +253,7 @@ def stage_a_budget(
     *,
     completed: bool = False,
 ) -> CalibrationBudget:
-    """Bound the complete indivisible six-screen/two-continuation Stage-A run."""
+    """Bound the fixed two-arm run, step-10 health checks, and final evidence."""
 
     if completed:
         return _cost(TokenBudget(0, 0, 0), 0.0)
@@ -263,8 +262,7 @@ def stage_a_budget(
     targeted, sentinel = _monitor(inputs, "targeted"), _monitor(inputs, "sentinel")
     budgets.extend((_sample(inputs, targeted, 2), _sample(inputs, sentinel, 1)))
     bs_train = 0
-    bs_schedule = (*range(1, 11),) * len(STAGE_A_LEARNING_RATE_GRIDS["B-S"])
-    bs_schedule += tuple(range(11, 51))
+    bs_schedule = tuple(range(1, 51))
     for schedule_step in bs_schedule:
         records = scheduled_records(
             pools, inputs.prompt_pools.artifact.bs_slot_order, schedule_step
@@ -272,8 +270,7 @@ def stage_a_budget(
         bs_train += len(records) * _SFT_TOKENS_PER_DATUM
     budgets.append(TokenBudget(0, 0, bs_train))
     bg_prefill = bg_sample = bg_train = 0
-    bg_schedule = (*range(1, 11),) * len(STAGE_A_LEARNING_RATE_GRIDS["B-G"])
-    bg_schedule += tuple(range(11, 51))
+    bg_schedule = tuple(range(1, 51))
     for schedule_step in bg_schedule:
         records = scheduled_records(
             pools, inputs.prompt_pools.artifact.bg_group_order, schedule_step
@@ -286,13 +283,13 @@ def stage_a_budget(
     budgets.append(TokenBudget(bg_prefill, bg_sample, bg_train))
     budgets.extend(
         (
-            _sample(inputs, targeted, 6),
-            _sample(inputs, sentinel, 6),
+            _sample(inputs, targeted, 2),
+            _sample(inputs, sentinel, 2),
             _sample(inputs, targeted, 4),
             _sample(inputs, sentinel, 2),
         )
     )
-    fixed = 8 * 0.05 + len(bg_schedule) * 0.05
+    fixed = 4 * 0.05 + len(bg_schedule) * 0.05
     return _cost(_plus(*budgets), fixed)
 
 
@@ -304,16 +301,16 @@ def calibration_allocation(inputs: Any) -> CalibrationAllocation:
     teacher_cap = DIRECT_M0_TEACHER_CAP_USD
     stage_cap = _cent_ceiling(stage.upper_bound_usd)
     if (
-        stage.tokens != TokenBudget(*DIRECT_M0_STAGE_A_TOKEN_CEILINGS)
-        or stage.fixed_storage_usd != DIRECT_M0_STAGE_A_FIXED_USD
+        stage.tokens != TokenBudget(*AMENDED_STAGE_A_TOKEN_CEILINGS)
+        or stage.fixed_storage_usd != AMENDED_STAGE_A_FIXED_USD
         or not math.isclose(
             stage.upper_bound_usd,
-            DIRECT_M0_STAGE_A_PINNED_UPPER_USD,
+            AMENDED_STAGE_A_PINNED_UPPER_USD,
             rel_tol=0,
             abs_tol=1e-12,
         )
-        or stage_cap != DIRECT_M0_STAGE_A_CAP_USD
-        or teacher_cap + stage_cap != DIRECT_M0_AGGREGATE_CAP_USD
+        or stage_cap != AMENDED_STAGE_A_CAP_USD
+        or teacher_cap + stage_cap != AMENDED_AGGREGATE_CAP_USD
     ):
         raise RunnerGateError("direct-M0 Stage-A workload differs from its frozen cap")
     return CalibrationAllocation(

@@ -13,6 +13,7 @@ from duraseed.calibration_budget import (
     calibration_allocation,
     require_remaining_budget,
 )
+from duraseed.calibration_preflight import validate_repair_allocation
 from duraseed.runners import RunnerGateError
 from duraseed.runtime import TokenBudget, TokenLedger
 from duraseed.runners.calibration import (
@@ -134,11 +135,11 @@ def test_calibration_authorization_and_maps_freeze() -> None:
         human_approval=True,
         remaining_balance_verified=True,
     )
-    with pytest.raises(RunnerGateError, match=r"\$153\.32"):
-        authorize_calibration(CONFIG, execute=True, authorized_cost_usd="154", **ready)
+    with pytest.raises(RunnerGateError, match=r"\$107\.84"):
+        authorize_calibration(CONFIG, execute=True, authorized_cost_usd="108", **ready)
     assert authorize_calibration(
-        CONFIG, execute=True, authorized_cost_usd="153.32", **ready
-    ).authorized_cost_usd == Decimal("153.32")
+        CONFIG, execute=True, authorized_cost_usd="107.84", **ready
+    ).authorized_cost_usd == Decimal("107.84")
     drifted = CONFIG.model_copy(
         update={
             "stage_b": CONFIG.stage_b.model_copy(update={"selected_max_updates": 640})
@@ -152,9 +153,9 @@ def test_calibration_cap_is_allocated_from_complete_local_bounds(monkeypatch) ->
     import duraseed.calibration_budget as budget
 
     stage = CalibrationBudget(
-        TokenBudget(1_451_561, 44_957_696, 40_167_824),
-        3.9,
-        153.314160292,
+        TokenBudget(1_011_297, 31_326_208, 28_691_136),
+        2.7,
+        107.838372948,
     )
     inputs = SimpleNamespace()
     monkeypatch.setattr(budget, "stage_a_budget", lambda _inputs: stage)
@@ -162,11 +163,11 @@ def test_calibration_cap_is_allocated_from_complete_local_bounds(monkeypatch) ->
     allocation = calibration_allocation(inputs)
     assert (allocation.teacher_cap_usd, allocation.stage_a_cap_usd) == (
         0,
-        153.32,
+        107.84,
     )
     assert allocation.teacher_tokens == TokenBudget(0, 0, 0)
     assert allocation.stage_a_tokens == stage.tokens
-    assert allocation.aggregate_cap_usd == 153.32
+    assert allocation.aggregate_cap_usd == 107.84
     fixed = TokenLedger(TokenBudget(0, 0, 0), allocation.teacher_cap_usd)
     assert fixed.committed_cost_usd == fixed.authorized_usd == 0
     dynamic = TokenLedger(TokenBudget(0, 0, 0), 220)
@@ -182,7 +183,27 @@ def test_calibration_cap_is_allocated_from_complete_local_bounds(monkeypatch) ->
     monkeypatch.setattr(
         budget,
         "stage_a_budget",
-        lambda _inputs: CalibrationBudget(stage.tokens, 3.9, 153.33),
+        lambda _inputs: CalibrationBudget(stage.tokens, 2.7, 107.85),
     )
     with pytest.raises(RunnerGateError, match="frozen cap"):
         calibration_allocation(inputs)
+
+
+def test_amended_allocation_charges_prior_screen_inside_lifetime_cap() -> None:
+    parent = SimpleNamespace(
+        teacher_lifetime_sunk_usd=11.510623512 + 44.27 + 53.35,
+        lifetime_sunk_usd=11.510623512 + 44.27 + 53.35 + 51.876308513,
+    )
+    inputs = SimpleNamespace(
+        teacher_ledger=TokenLedger(TokenBudget(0, 0, 0), 0),
+        stage_a_ledger=TokenLedger(
+            TokenBudget(1_011_297, 31_326_208, 28_691_136), 107.84
+        ),
+        parent_teacher_evidence=parent,
+    )
+
+    validate_repair_allocation(inputs)
+
+    parent.lifetime_sunk_usd = 192.17
+    with pytest.raises(ValueError, match="frozen cap"):
+        validate_repair_allocation(inputs)

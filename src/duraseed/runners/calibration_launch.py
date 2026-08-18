@@ -47,7 +47,11 @@ from duraseed.runtime import (
     create_service,
     load_sdk,
 )
-from duraseed.teacher_exposure_spec import M1_RUN_ID, PRIOR_REPAIR_RUN_ID
+from duraseed.teacher_exposure_spec import (
+    M1_RUN_ID,
+    PRIOR_DIRECT_STAGE_A_RUN_ID,
+    PRIOR_REPAIR_RUN_ID,
+)
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
@@ -118,7 +122,13 @@ async def run_remote_calibration(
     if (
         not run_id.strip()
         or any(value in run_id for value in "/\\")
-        or run_id in {PARENT_RUN_ID, PRIOR_REPAIR_RUN_ID, M1_RUN_ID}
+        or run_id
+        in {
+            PARENT_RUN_ID,
+            PRIOR_REPAIR_RUN_ID,
+            M1_RUN_ID,
+            PRIOR_DIRECT_STAGE_A_RUN_ID,
+        }
     ):
         raise RunnerGateError("run_id must be one nonempty filename token")
     if not project_id.strip():

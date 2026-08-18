@@ -65,8 +65,8 @@ def test_calibration_budgets_use_the_supervised_ceiling_without_solving(
 
     per_datum = SUPERVISED_MAX_LENGTH - 1
     assert teacher.tokens.train == 3 * 2 * 32 * per_datum
-    assert stage.tokens.train == 70 * 2 * per_datum + 70 * 2 * (5 + 8 - 1) * 8
-    assert stage.fixed_storage_usd == 3.9
+    assert stage.tokens.train == 50 * 2 * per_datum + 50 * 2 * (5 + 8 - 1) * 8
+    assert stage.fixed_storage_usd == 2.7
 
 
 def test_solver_teacher_completion_enumerates_once_per_task_family(monkeypatch) -> None:
