@@ -116,6 +116,16 @@ def reconcile_calibration_billing(
     required, _ = _object(
         root / "billing-reconciliation-required.json", "billing requirement"
     )
+    if required.get("schema_version") == (
+        "duraseed-capability-dose-billing-required-v1"
+    ):
+        from duraseed.capability_dose_billing import (
+            reconcile_capability_dose_billing,
+        )
+
+        return reconcile_capability_dose_billing(
+            root, Path(reconciliation_path), Path(raw_billing_path)
+        )
     preflight, _ = _object(root / "preflight.json", "preflight")
     reconciliation, reconciliation_raw = _object(
         Path(reconciliation_path), "billing reconciliation"

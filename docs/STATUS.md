@@ -30,4 +30,9 @@ launch still charges its larger `$51.876308513` committed ceiling. The two-arm
 finalization is capped at `$107.84`, for a conservative lifetime maximum of
 `$268.846932025` and `$31.153067975` headroom under the unchanged `$300`
 acquisition-calibration cap. Pilot 0 is separately capped at `$600` and remains
-unstarted.
+unstarted. For the Phase-2 dose prelaunch, authenticated Tinker-console actuals
+substitute for the charter's raw-export reconciliation;
+`provenance/tinker-console-lifetime-spend-20260820T183458Z.json`
+(`sha256:e5c61f2e7d6541c854dc7cb74b3ebd54ed2145390386731083ca8bfe82a44d6f`)
+records `$86.94` actual acquisition lifetime spend, so
+`$86.94 + $59.09 = $146.03 <= $300`.

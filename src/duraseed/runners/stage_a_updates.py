@@ -94,8 +94,14 @@ async def supervised_update(
     source_by_task: dict[str, VerifiedSourceRecord],
     output: Path,
     journal: RemoteJournal,
+    *,
+    schedule_step: int | None = None,
 ) -> TrainingMetricRecord:
-    records = scheduled_records(pools, inputs.prompt_pools.artifact.bs_slot_order, step)
+    records = scheduled_records(
+        pools,
+        inputs.prompt_pools.artifact.bs_slot_order,
+        step if schedule_step is None else schedule_step,
+    )
     datums = [sft_datum(branch.runtime, source_by_task[row.task_id]) for row in records]
     journal.begin(
         "stage-a-sft-update",

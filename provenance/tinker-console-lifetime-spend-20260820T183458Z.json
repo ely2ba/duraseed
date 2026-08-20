@@ -1,0 +1,32 @@
+{
+  "schema_version": "duraseed-tinker-console-lifetime-spend-v1",
+  "source": "authenticated_tinker_web_console",
+  "usage_url": "https://tinker.thinkingmachines.ai/usage",
+  "balance_url": "https://tinker.thinkingmachines.ai/billing/balance",
+  "sessions_url": "https://tinker.thinkingmachines.ai/sessions",
+  "observed_at_utc": "2026-08-20T18:34:58Z",
+  "billing_period": "2026-08",
+  "project_id": "7727a6e3-fadb-4b07-9801-721221235e1e",
+  "project_name": "DuraSeed",
+  "grant_total_usd": 5000.0,
+  "account_spend_usd": 153.13,
+  "token_cost_usd": 151.38,
+  "storage_cost_usd": 1.75,
+  "remaining_balance_usd": 4846.87,
+  "pre_acquisition_console_spend_usd": 66.19,
+  "actual_lifetime_spend_usd": 86.94,
+  "lifetime_session_ids": [
+    "9e923e2f-e347-54b9-8787-111aa907dd39",
+    "6e54fc35-bcfd-5985-960d-dd1e79e5e4ce",
+    "2530f903-4064-5207-9fdc-82855e0e7419",
+    "250a790b-5b89-5649-a120-e1702087a478",
+    "11c608b5-339f-5253-85be-d505ba751a36"
+  ],
+  "session_checkpoint_counts": {
+    "9e923e2f-e347-54b9-8787-111aa907dd39": 7,
+    "6e54fc35-bcfd-5985-960d-dd1e79e5e4ce": 5,
+    "2530f903-4064-5207-9fdc-82855e0e7419": 5,
+    "250a790b-5b89-5649-a120-e1702087a478": 6,
+    "11c608b5-339f-5253-85be-d505ba751a36": 4
+  }
+}
