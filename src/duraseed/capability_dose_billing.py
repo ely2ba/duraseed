@@ -32,6 +32,17 @@ CORRECTION_TERMINAL_SHA256 = (
 CORRECTION_JOURNAL_SHA256 = (
     "sha256:d495ecbea0566745ef82792f3b88bd2f554de721e139d336b1b06ec8d5e83f30"
 )
+INTERRUPTED_DOSE_RUN_ID = "capability-dose-20260820T185147Z"
+INTERRUPTED_DOSE_SESSION_ID = "6ece3007-254a-554a-9903-f0445290e17e"
+INTERRUPTED_DOSE_PREFLIGHT_SHA256 = (
+    "sha256:5b086de4e4bef0e1073ed6afc55d79c3ae960a6dc1fcc8b2bf4f6c44d58e58ac"
+)
+INTERRUPTED_DOSE_RUN_SHA256 = (
+    "sha256:6bbcb28bffccf9242eba5423136e098a60b858868ebdb3e6c11d32d5c6157aa2"
+)
+INTERRUPTED_DOSE_JOURNAL_SHA256 = (
+    "sha256:13a22bdca2c1a8d337b975c518f7739e7c9de742cc32416cb014c0c0cafbeb88"
+)
 PRE_ACQUISITION_CONSOLE_SPEND_USD = Decimal("66.19")
 LIFETIME_CALIBRATION_CAP_USD = Decimal("300")
 LIFETIME_SESSION_IDS = (
@@ -40,6 +51,7 @@ LIFETIME_SESSION_IDS = (
     "2530f903-4064-5207-9fdc-82855e0e7419",
     "250a790b-5b89-5649-a120-e1702087a478",
     CORRECTION_SESSION_ID,
+    INTERRUPTED_DOSE_SESSION_ID,
 )
 
 
@@ -88,7 +100,7 @@ def load_capability_dose_billing(
     *,
     project_id: str,
 ) -> CapabilityDoseBilling:
-    """Require the authenticated console delta and exact local run lineage."""
+    """Require the authenticated console delta and exact local run lineages."""
 
     if correction_root.name != CORRECTION_RUN_ID:
         raise RunnerGateError("capability-dose billing uses the wrong terminal run")
@@ -100,6 +112,15 @@ def load_capability_dose_billing(
     )
     journal, journal_raw = _object(journal_path, "correction journal")
     run = read_run_record(correction_root)
+    interrupted_root = correction_root.parent / INTERRUPTED_DOSE_RUN_ID
+    interrupted_preflight = (interrupted_root / "preflight.json").read_bytes()
+    interrupted_run_raw = (interrupted_root / "run.json").read_bytes()
+    interrupted_run = read_run_record(interrupted_root)
+    interrupted_journal, interrupted_journal_raw = _object(
+        interrupted_root
+        / "capability-dose-arms/b-s-capability-dose/attempt-0001/remote-call-state.json",
+        "interrupted dose journal",
+    )
     existing_stage_a_terminal(correction_root, CORRECTION_PREFLIGHT_SHA256)
     evidence, evidence_raw = _object(console_evidence_path, "console evidence")
     before = _amount(
@@ -121,7 +142,9 @@ def load_capability_dose_billing(
         LIFETIME_SESSION_IDS[2]: 5,
         LIFETIME_SESSION_IDS[3]: 6,
         LIFETIME_SESSION_IDS[4]: 4,
+        LIFETIME_SESSION_IDS[5]: 0,
     }
+    interrupted_pending = interrupted_journal.get("pending")
     if (
         sha256_bytes(preflight_raw) != CORRECTION_PREFLIGHT_SHA256
         or sha256_bytes(terminal_raw) != CORRECTION_TERMINAL_SHA256
@@ -131,6 +154,17 @@ def load_capability_dose_billing(
         or run.project_id != project_id
         or run.tinker_session_id != CORRECTION_SESSION_ID
         or run.finished_at is None
+        or sha256_bytes(interrupted_preflight) != INTERRUPTED_DOSE_PREFLIGHT_SHA256
+        or sha256_bytes(interrupted_run_raw) != INTERRUPTED_DOSE_RUN_SHA256
+        or sha256_bytes(interrupted_journal_raw) != INTERRUPTED_DOSE_JOURNAL_SHA256
+        or interrupted_run.status is not RunStatus.INTERRUPTED
+        or interrupted_run.project_id != project_id
+        or interrupted_run.tinker_session_id != INTERRUPTED_DOSE_SESSION_ID
+        or interrupted_run.finished_at is None
+        or interrupted_journal.get("completed_count") != 831
+        or not isinstance(interrupted_pending, dict)
+        or interrupted_pending.get("sequence") != 831
+        or interrupted_pending.get("operation") != "stage-a-monitor-group"
         or evidence.get("schema_version") != "duraseed-tinker-console-lifetime-spend-v1"
         or evidence.get("source") != "authenticated_tinker_web_console"
         or evidence.get("billing_period") != "2026-08"
@@ -138,7 +172,11 @@ def load_capability_dose_billing(
         or evidence.get("project_name") != "DuraSeed"
         or tuple(sessions or ()) != LIFETIME_SESSION_IDS
         or checkpoints != expected_checkpoints
-        or observed < run.finished_at.astimezone(UTC)
+        or observed
+        < max(
+            run.finished_at.astimezone(UTC),
+            interrupted_run.finished_at.astimezone(UTC),
+        )
         or before != PRE_ACQUISITION_CONSOLE_SPEND_USD
         or account_spend - before != actual
         or token_cost + storage_cost != account_spend
@@ -155,6 +193,11 @@ def load_capability_dose_billing(
         "correction_preflight_sha256": CORRECTION_PREFLIGHT_SHA256,
         "correction_terminal_sha256": CORRECTION_TERMINAL_SHA256,
         "correction_journal_sha256": CORRECTION_JOURNAL_SHA256,
+        "interrupted_dose_run_id": INTERRUPTED_DOSE_RUN_ID,
+        "interrupted_dose_preflight_sha256": INTERRUPTED_DOSE_PREFLIGHT_SHA256,
+        "interrupted_dose_run_sha256": INTERRUPTED_DOSE_RUN_SHA256,
+        "interrupted_dose_journal_sha256": INTERRUPTED_DOSE_JOURNAL_SHA256,
+        "interrupted_dose_pending_sequence": 831,
         "session_ids": LIFETIME_SESSION_IDS,
         "observed_at_utc": evidence["observed_at_utc"],
         "pre_acquisition_console_spend_usd": float(before),
