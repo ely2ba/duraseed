@@ -102,7 +102,7 @@ state enters Stage B.
 The Stage-B recipe and outcome roles are fixed in
 [PROTOCOL.md, “Stage-B probe calibration”](../PROTOCOL.md#stage-b-probe-calibration)
 and [“Outcomes”](../PROTOCOL.md#outcomes). The measurement schedule assumed by
-the `338,821,120`-sample-token Pilot ceiling is pinned here: Stage B uses
+the `348,651,520`-sample-token Pilot ceiling is pinned here: Stage B uses
 `shortest2_cap2`, LR `3e-4`, batch 32, and updates
 `[0,1,2,5,10,20,40,80,160,320,480]`; at every point both methods evaluate all
 512 `b_validation` items with 16 independent samples/item and the 128-token
@@ -142,11 +142,14 @@ checkpoint.
 | --- | ---: | ---: | ---: | ---: | ---: |
 | B-S dose run | 824,685 | 25,559,040 | 1,898,772 | `$1.50` | **`$55.82`** |
 | Pilot Stage A, one paired seed | 1,797,891 | 55,705,600 | 28,953,108 | `$7.80` | **`$162.48`** |
-| Full Pilot, one paired seed, including unchanged Stage B and F1–F3 evaluations | <=29,171,075 | 338,821,120 | 33,850,128 | `$11.60` | **`<=$756.33`** |
+| Full Pilot, one paired seed, including unchanged Stage B and F1–F3 evaluations | <=29,171,075 | 348,651,520 | 33,850,128 | `$9.70` | **`<=$774.04`** |
 
-Two paired Pilot seeds therefore require a planning ceiling of `$1,512.66`.
-The human explicitly accepted that ceiling in the `FROZEN` reply, so it
-supersedes the stale `$600` contract. These ceilings assume 100% cap utilization,
+Deviation record (transcription only, 2026-08-22): the original row undercounted the selected pre-B `a_monitor` requirement by 2,400 completions (`9,830,400` sample tokens), correcting sampled `338,821,120 -> 348,651,520`, and overcounted checkpoint storage by `$1.90`, correcting `$11.60 -> $9.70`; no frozen schedule, sampling, checkpoint, or analysis rule changed.
+
+Two paired Pilot seeds therefore require a planning ceiling of `$1,548.08`.
+The earlier `FROZEN` reply accepted `$1,512.66`; this transcription correction
+requires fresh explicit human acceptance of `$774.04` per pair and `$1,548.08`
+total before launch, after which it supersedes the stale `$600` contract. These ceilings assume 100% cap utilization,
 versus roughly 55% realized utilization in calibration. Before the dose launch,
 reconcile the terminal calibration's session
 `11c608b5-339f-5253-85be-d505ba751a36` with a lag-cleared raw export using the

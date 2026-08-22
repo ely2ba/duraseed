@@ -157,6 +157,9 @@ def test_pre_b_profile_is_descriptive_and_bounds_pass_at_k(tmp_path: Path) -> No
     )
     assert profile["panels"]["targeted"]["exact_success_rate"] == 0.5
     assert profile["panels"]["sentinel"]["syntactically_invalid_rate"] == 0.75
+    assert profile["panels"]["targeted"]["length_stop_rate"] == 0.0
+    assert profile["panels"]["targeted"]["loop_fraction_among_length_stops"] == 0.0
+    assert profile["panels"]["targeted"]["unique_completion_count"] == 1
     assert set(profile["panels"]["targeted"]["mean_pass_at_k"]) == {"1", "4"}
     assert all(set(row["pass_at_k"]) == {"1", "4"} for row in profile["items"])
     assert profile["panels"]["targeted"]["sampled_token_surprisal"][

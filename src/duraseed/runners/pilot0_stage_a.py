@@ -1,13 +1,17 @@
-"""Shared boundary origin and checkpointed Stage-A branches for Pilot 0."""
+"""Direct-M0 checkpointed Stage-A branches for one paired Pilot seed."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from duraseed.pilot0_contract import Pilot0Inputs, PilotSeedSources, STAGE_A_GRID
+from duraseed.pilot0_contract import (
+    CADENCE_CHECKPOINT_TTL_SECONDS,
+    Pilot0Inputs,
+    PilotSeedSources,
+    stage_a_grid,
+)
 from duraseed.pilot0_data import ordered_stage_a_pools, stage_a_solver_sources
 from duraseed.pilot0_integrity import segment_coordinates
-from duraseed.runners.pilot0_origins import boundary_origin, m0_evidence
 from duraseed.runners.pilot0_remote import (
     read_segment,
     restore_runtime,
@@ -88,21 +92,42 @@ async def _branch_segment(
                 output=output,
                 journal=journal,
             )
+    if stop % 10:
+        return write_segment(
+            output,
+            {
+                **expected,
+                "step": stop,
+                "learning_rate": learning_rate,
+                "cadence_evaluated": False,
+                "checkpoint_retained": False,
+            },
+            ledger=inputs.ledger,
+        )
     pair = await save_pair(
         inputs,
         runtime,
         journal,
         name=f"{inputs.run_id}-seed-{source.seed}-{method}-step-{stop}",
-        ttl_seconds=None if stop == STAGE_A_GRID[-1] else 7 * 24 * 60 * 60,
+        ttl_seconds=CADENCE_CHECKPOINT_TTL_SECONDS,
         coordinate=expected,
     )
+    result = {
+        **expected,
+        "step": stop,
+        "sampler_path": pair.sampler_path,
+        "state_path": pair.state_path,
+        "learning_rate": learning_rate,
+        "cadence_evaluated": True,
+        "checkpoint_retained": True,
+    }
     sampler = await sampler_for_path(
         inputs, journal, path=pair.sampler_path, coordinate=expected
     )
     monitor = await evaluate_manifest(
         inputs,
         source,
-        manifest=source.prompt_pools.a_monitor_manifest,
+        manifest=source.a_cadence,
         sampler=sampler,
         sampler_path=pair.sampler_path,
         origin_sampler_path=origin["sampler_path"],
@@ -110,36 +135,12 @@ async def _branch_segment(
         checkpoint_stage="stage_a",
         training_step=stop,
         label=f"seed-{source.seed}-{method}-stage-a-monitor-step-{stop}",
-        samples_per_item=int(inputs.config.stage_a.monitor_samples_per_item),
+        samples_per_item=1,
         max_tokens=inputs.acquisition.selected_max_tokens,
         seed_namespace="pilot0.a_monitor",
         output=output / "a-monitor",
     )
-    result = {
-        **expected,
-        "sampler_path": pair.sampler_path,
-        "state_path": pair.state_path,
-        "learning_rate": learning_rate,
-        "monitor_generation_sha256": monitor["generation_sha256"],
-    }
-    if stop == STAGE_A_GRID[-1]:
-        validation = await evaluate_manifest(
-            inputs,
-            source,
-            manifest=source.a_validation,
-            sampler=sampler,
-            sampler_path=pair.sampler_path,
-            origin_sampler_path=origin["sampler_path"],
-            method=method,  # type: ignore[arg-type]
-            checkpoint_stage="stage_a",
-            training_step=stop,
-            label=f"seed-{source.seed}-{method}-fixed-budget-a-validation",
-            samples_per_item=int(inputs.config.evaluation["pilot_samples_per_item"]),
-            max_tokens=inputs.acquisition.selected_max_tokens,
-            seed_namespace="pilot0.a_validation",
-            output=output / "a-validation",
-        )
-        result["fixed_budget_a_validation_sha256"] = validation["generation_sha256"]
+    result["monitor_generation_sha256"] = monitor["generation_sha256"]
     return write_segment(output, result, ledger=inputs.ledger)
 
 
@@ -159,7 +160,8 @@ async def _branch(
         "state_path": origin["state_path"],
     }
     segments = {}
-    for start, stop in zip(STAGE_A_GRID[:-1], STAGE_A_GRID[1:], strict=True):
+    grid = stage_a_grid(method)
+    for start, stop in zip(grid[:-1], grid[1:], strict=True):
         segment = await _branch_segment(
             inputs,
             source,
@@ -176,16 +178,14 @@ async def _branch(
         segments[str(stop)] = segment
         previous = segment
     return {
-        "kind": "stage-a-fixed-budget",
+        "kind": "stage-a-full-frozen-duration",
         "seed": source.seed,
         "method": method,
         "origin_sampler_path": origin["sampler_path"],
         "origin_state_path": origin["state_path"],
         "optimizer_inheritance": "weights_only_fresh_then_full_state_resume",
-        "selected_sampler_path": previous["sampler_path"],
-        "selected_state_path": previous["state_path"],
+        "full_duration_updates": grid[-1],
         "segments": segments,
-        "matched_a_selection": "pending_post_pilot_target_freeze",
     }
 
 
@@ -195,20 +195,15 @@ async def run_stage_a_seed(
     output: Path,
     *,
     preflight_sha256: str,
-) -> tuple[dict, dict, dict, dict]:
-    m0 = await m0_evidence(
-        inputs, source, output / "m0", preflight_sha256=preflight_sha256
-    )
-    origin = await boundary_origin(
-        inputs,
-        source,
-        output / "boundary-origin",
-        preflight_sha256=preflight_sha256,
-    )
+) -> tuple[dict, dict]:
+    m0 = {
+        "sampler_path": inputs.m0_sampler_path,
+        "state_path": inputs.m0_state_path,
+    }
     bs = await _branch(
         inputs,
         source,
-        origin,
+        m0,
         method="B-S",
         output=output / "B-S",
         preflight_sha256=preflight_sha256,
@@ -216,12 +211,12 @@ async def run_stage_a_seed(
     bg = await _branch(
         inputs,
         source,
-        origin,
+        m0,
         method="B-G",
         output=output / "B-G",
         preflight_sha256=preflight_sha256,
     )
-    return m0, origin, bs, bg
+    return bs, bg
 
 
 __all__ = ["run_stage_a_seed"]

@@ -9,7 +9,10 @@ from types import SimpleNamespace
 import pytest
 
 from duraseed import pilot0_sources
-from duraseed.pilot0_contract import EPHEMERAL_SAMPLER_FIXED_USD
+from duraseed.pilot0_contract import (
+    EPHEMERAL_SAMPLER_FIXED_USD,
+    STAGE_B_PUBLIC_DECISION_SHA256,
+)
 from duraseed.pilot0_sources import load_pilot0_source_authentication
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.runners import RunnerGateError
@@ -21,6 +24,14 @@ from duraseed.runtime import TokenBudget, TokenLedger
 class _Model:
     async def save_weights_and_get_sampling_client_async(self):  # type: ignore[no-untyped-def]
         return object()
+
+
+def test_public_stage_b_projection_has_its_frozen_public_hash() -> None:
+    artifact = Path(
+        "frozen/v0/runs/tinker-calibration/maps-probe/"
+        "maps-shortest2-20260810T144606Z/maps_recipe_decision.public.json"
+    )
+    assert sha256_bytes(artifact.read_bytes()) == STAGE_B_PUBLIC_DECISION_SHA256
 
 
 def test_ephemeral_sampler_uses_full_coordinate_identity_and_charges_fixed_cost(

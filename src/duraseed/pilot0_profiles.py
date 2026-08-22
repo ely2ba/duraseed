@@ -20,13 +20,15 @@ from duraseed.evaluation.analysis import (
     unbiased_pass_at_k,
 )
 from duraseed.pilot0_evidence import read_evaluation
-from duraseed.pilot0_contract import STAGE_A_GRID, STAGE_B_GRID
+from duraseed.pilot0_contract import STAGE_B_GRID
 from duraseed.provenance import sha256_bytes
 from duraseed.run_records import GenerationRecord, RewardRecord
 from duraseed.runners import RunnerGateError
+from duraseed.runners.capability_dose_evidence import detected_loop
 
 
-_PASS_K = (1, 4, 16, 32)
+_PASS_K = (1, 4, 16)
+STAGE_A_GRID = (0, 10, 25, 50)  # legacy matched reducer only
 
 
 def _evaluation_rows(
@@ -166,6 +168,15 @@ def pre_b_capability_profile(
             if row[0].panel_role == role
         ]
         role_rewards = [reward_by_sample[row.sample_id] for row in role_generations]
+        length_stops = [
+            row
+            for row in role_generations
+            if row.sampling_max_tokens is not None
+            and row.sampled_tokens >= row.sampling_max_tokens
+        ]
+        looped_length_stops = sum(
+            detected_loop(row.completion_token_ids or ()) for row in length_stops
+        )
         if not role_items or not role_generations:
             raise RunnerGateError(f"pre-B profile has no {role} evidence")
         observations = tuple(
@@ -213,7 +224,16 @@ def pre_b_capability_profile(
             )
             / len(role_rewards),
             "failure_code_counts": dict(sorted(failure_counts.items())),
+            "length_stop_count": len(length_stops),
+            "length_stop_rate": len(length_stops) / len(role_generations),
+            "looped_length_stop_count": looped_length_stops,
+            "loop_fraction_among_length_stops": (
+                looped_length_stops / len(length_stops) if length_stops else 0.0
+            ),
             "completion_token_length": _length_summary(role_generations),
+            "unique_completion_count": len(
+                {row.completion_text for row in role_generations}
+            ),
             "sampled_token_surprisal": (
                 asdict(summarize_token_surprisal(logprobs)) if logprobs else None
             ),
@@ -245,7 +265,11 @@ def pre_b_capability_profile(
         "seed": seed,
         "method": method,
         "analysis_role": "descriptive_only_not_checkpoint_matching_or_selection",
-        "matching_metric": "targeted_equal_item_jeffreys_posterior_mean",
+        "matching_metric": (
+            "targeted_raw_exact_success_rate_one_draw_cadence"
+            if origin_kind == "post_hoc_overlap_matched"
+            else "targeted_equal_item_jeffreys_posterior_mean"
+        ),
         "source_generation_sha256s": source_hashes,
         "panels": panels,
         "families": families,

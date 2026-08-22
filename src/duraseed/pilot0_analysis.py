@@ -13,6 +13,7 @@ from duraseed.evaluation.analysis import (
     posterior_mean_gain,
     stage_a_to_b_cover_change,
     targeted_minus_sentinel_specificity,
+    unbiased_pass_at_k,
 )
 from duraseed.pilot0_contract import STAGE_B_GRID
 from duraseed.runners import RunnerGateError
@@ -82,6 +83,19 @@ def _paired(
     return paired_before, paired_after
 
 
+def _mean_pass_at_k(result: dict, role: str, ks: tuple[int, ...]) -> dict[str, float]:
+    observations = tuple(_items(result, role).values())
+    if any(row.trials < max(ks) for row in observations):
+        raise RunnerGateError("Pilot-0 Pass@k evidence has too few draws")
+    return {
+        str(k): sum(
+            unbiased_pass_at_k(row.successes, row.trials, k) for row in observations
+        )
+        / len(observations)
+        for k in ks
+    }
+
+
 def monitor_retention_summary(stage_b_retention: tuple[dict, ...]) -> dict:
     """Absolute AUC on the common low-cost a_monitor population."""
 
@@ -105,6 +119,12 @@ def monitor_retention_summary(stage_b_retention: tuple[dict, ...]) -> dict:
         "sentinel_monitor_retention_absolute_auc": normalized_stage_b_auc(
             STAGE_B_GRID, sentinel
         ).absolute_auc,
+        "targeted_pass_at_k_curve": tuple(
+            _mean_pass_at_k(result, "targeted", (1, 4)) for result in stage_b_retention
+        ),
+        "sentinel_pass_at_k_curve": tuple(
+            _mean_pass_at_k(result, "sentinel", (1, 4)) for result in stage_b_retention
+        ),
     }
 
 
@@ -267,9 +287,72 @@ def paired_primary_aggregate(
     }
 
 
+def summarize_selected_method(
+    *,
+    seed: int,
+    method: str,
+    stage_a_selected: dict,
+    stage_b_maps: tuple[dict, ...],
+    stage_b_retention: tuple[dict, ...],
+    stage_b_final_retention: dict,
+) -> dict:
+    """Reduce F1/F2 for one charter-matched Stage-A origin."""
+
+    if len(stage_b_maps) != len(STAGE_B_GRID) or len(stage_b_retention) != len(
+        STAGE_B_GRID
+    ):
+        raise RunnerGateError("Pilot pair is missing a Stage-B measurement point")
+    target_pre, target_post = _paired(
+        stage_a_selected, stage_b_final_retention, "targeted"
+    )
+    sentinel_pre, sentinel_post = _paired(
+        stage_a_selected, stage_b_final_retention, "sentinel"
+    )
+    maps_reference = stage_b_maps[0]
+    maps_scores = tuple(
+        equal_item_posterior_mean(_paired(maps_reference, result, "stage-b")[1])
+        for result in stage_b_maps
+    )
+    monitor = monitor_retention_summary(stage_b_retention)
+    pre_target = equal_item_posterior_mean(target_pre)
+    post_target = equal_item_posterior_mean(target_post)
+    pre_sentinel = equal_item_posterior_mean(sentinel_pre)
+    post_sentinel = equal_item_posterior_mean(sentinel_post)
+    return {
+        "seed": seed,
+        "method": method,
+        "F1_retention": {
+            "pre_b_targeted_score": pre_target,
+            "fixed_budget_targeted_retention": post_target,
+            "fixed_budget_targeted_change": post_target - pre_target,
+            "pre_b_sentinel_score": pre_sentinel,
+            "fixed_budget_sentinel_retention": post_sentinel,
+            "fixed_budget_sentinel_change": post_sentinel - pre_sentinel,
+            "pre_b_pass_at_k": {
+                role: _mean_pass_at_k(stage_a_selected, role, (1, 4, 16))
+                for role in ("targeted", "sentinel")
+            },
+            "post_b_pass_at_k": {
+                role: _mean_pass_at_k(stage_b_final_retention, role, (1, 4, 16))
+                for role in ("targeted", "sentinel")
+            },
+        },
+        "F2_stage_b_learning": {
+            "maps_scores": maps_scores,
+            "maps_auc": normalized_stage_b_auc(STAGE_B_GRID, maps_scores),
+            "maps_pass_at_k_curve": tuple(
+                _mean_pass_at_k(result, "stage-b", (1, 4, 16))
+                for result in stage_b_maps
+            ),
+        },
+        "monitor_retention": monitor,
+    }
+
+
 __all__ = [
     "Pilot0MethodSummary",
     "monitor_retention_summary",
     "paired_primary_aggregate",
+    "summarize_selected_method",
     "summarize_method",
 ]

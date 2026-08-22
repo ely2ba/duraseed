@@ -6,14 +6,14 @@ from collections import Counter, defaultdict
 
 from duraseed.data.manifests import MAPSTaskManifestRecord, TCESTaskManifestRecord
 from duraseed.data.stage_a_prompt_pools import PromptPoolStratum
-from duraseed.pilot0_contract import Pilot0Inputs, PilotSeedSources
+from duraseed.pilot0_contract import PilotSeedSources
 from duraseed.runners import RunnerGateError
 from duraseed.tasks.tces import enumerate_task, generate_teacher_trace
+from duraseed.training.capability_dose_evidence import EPOCH_UPDATES
 from duraseed.training.sft import (
     VerifiedSourceRecord,
     build_solver_teacher_record,
     build_stage_b_maps_record,
-    build_teacher_dose_records,
 )
 
 
@@ -25,36 +25,37 @@ def _tces_completion(record: TCESTaskManifestRecord) -> str:
     return generate_teacher_trace(expression)
 
 
-def boundary_teacher_sources(
-    inputs: Pilot0Inputs, source: PilotSeedSources
-) -> tuple[VerifiedSourceRecord, ...]:
-    families = source.prompt_pools.artifact.boundary_family_ids
-    rows = tuple(
-        (record, _tces_completion(record))
-        for record in source.teacher_train.records
-        if isinstance(record, TCESTaskManifestRecord)
-        and record.intended_family in families
-    )
-    dose = inputs.teacher_recipe.decision.selected_dose
-    assert dose is not None
-    return build_teacher_dose_records(
-        source_manifest=source.teacher_train,
-        solver_completions=rows,
-        selected_families=families,
-        demonstrations_per_family=dose,
-    )
+_SOLVER_CACHE: dict[str, dict[str, VerifiedSourceRecord]] = {}
 
 
 def stage_a_solver_sources(source: PilotSeedSources) -> dict[str, VerifiedSourceRecord]:
+    cached = _SOLVER_CACHE.get(source.prompt_pools.a_rl_train_manifest.manifest_id)
+    if cached is not None:
+        return cached
+    pools = ordered_stage_a_pools(source)
+    selected_ids = {
+        row.task_id
+        for step in range(1, EPOCH_UPDATES + 1)
+        for row in scheduled_stage_a_records(
+            pools, source.prompt_pools.artifact.bs_slot_order, step
+        )
+    }
+    if len(selected_ids) != 1_552:
+        raise RunnerGateError("Pilot-0 B-S epoch is not the frozen 1,552 traces")
     result = {}
     for record in source.prompt_pools.a_rl_train_manifest.records:
         if not isinstance(record, TCESTaskManifestRecord):
             raise RunnerGateError("Pilot-0 Stage-A training manifest is not TCES")
+        if record.task_id not in selected_ids:
+            continue
         result[record.task_id] = build_solver_teacher_record(
             source_manifest=source.prompt_pools.a_rl_train_manifest,
             source_record=record,
             completion=_tces_completion(record),
         )
+    if set(result) != selected_ids:
+        raise RunnerGateError("Pilot-0 B-S schedule omits a solver source")
+    _SOLVER_CACHE[source.prompt_pools.a_rl_train_manifest.manifest_id] = result
     return result
 
 
@@ -122,7 +123,6 @@ def stage_b_sources(source: PilotSeedSources) -> tuple[VerifiedSourceRecord, ...
 
 
 __all__ = [
-    "boundary_teacher_sources",
     "ordered_stage_a_pools",
     "scheduled_stage_a_records",
     "stage_a_solver_sources",

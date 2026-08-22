@@ -11,6 +11,7 @@ import typer
 from duraseed.config import load_pilot_config
 from duraseed.calibration_billing import reconcile_calibration_billing
 from duraseed.capability_dose_cli import capability_dose_live
+from duraseed.pilot0_pair_cli import pilot0_pair_live
 from duraseed.boundary_freeze_finalizer import finalize_three_cohort_freeze
 from duraseed.boundary_panel_amendment_finalizer import (
     PUBLISHED_UNRESOLVED_RUN_ID,
@@ -27,6 +28,7 @@ from duraseed.runners import live_smoke as smoke
 
 app = typer.Typer(add_completion=False, no_args_is_help=True)
 app.command("capability-dose-live")(capability_dose_live)
+app.command("pilot0-pair-live")(pilot0_pair_live)
 
 
 @app.command("live-smoke")

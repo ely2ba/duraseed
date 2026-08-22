@@ -10,7 +10,6 @@ from duraseed.pilot0_contract import Pilot0Inputs, PilotSeedSources
 from duraseed.pilot0_data import scheduled_stage_a_records
 from duraseed.provenance import derive_namespaced_seed
 from duraseed.run_records import TrainingMetricRecord, append_jsonl
-from duraseed.runners import RunnerGateError
 from duraseed.runners.pilot0_remote import ephemeral_sampler
 from duraseed.runners.remote_journal import RemoteJournal
 from duraseed.runtime import (
@@ -24,6 +23,13 @@ from duraseed.runtime import (
     sft_datum,
 )
 from duraseed.tasks.tces import render_prompt
+from duraseed.training.capability_dose_evidence import EPOCH_UPDATES
+from duraseed.training.stage_a_update_health import (
+    StageAUpdateHealthFailure,
+    StageAUpdateHealthFailureEvidence,
+    write_stage_a_update_health_failure,
+)
+from duraseed.training_metric_errors import NonFiniteTrainingMetricError
 from duraseed.training.grpo import grouped_reward_diagnostics
 from duraseed.training.sft import VerifiedSourceRecord
 
@@ -58,7 +64,9 @@ async def supervised_update(
     journal: RemoteJournal,
 ) -> TrainingMetricRecord:
     records = scheduled_stage_a_records(
-        pools, source.prompt_pools.artifact.bs_slot_order, step
+        pools,
+        source.prompt_pools.artifact.bs_slot_order,
+        ((step - 1) % EPOCH_UPDATES) + 1,
     )
     datums = [sft_datum(runtime, sources[row.task_id]) for row in records]
     journal.begin(
@@ -197,7 +205,22 @@ async def grouped_rl_update(
             {"operation": "pilot0-stage-a-rl-group", "row_count": len(rows)}
         )
     if mixed == 0:
-        raise RunnerGateError(f"Pilot-0 B-G step {step} has no mixed reward group")
+        evidence = StageAUpdateHealthFailureEvidence(
+            "B-G",
+            learning_rate,
+            step,
+            "screen" if step <= 10 else "continuation",
+            "zero_mixed_group",
+            step - 1,
+            False,
+            len(records),
+            len(records) * GROUP_SIZE,
+            mixed,
+            all_zero,
+            all_one,
+        )
+        write_stage_a_update_health_failure(output, evidence)
+        raise StageAUpdateHealthFailure(evidence)
     datums = rl_datums(runtime, mixed_rows, advantages)
     journal.begin(
         "pilot0-stage-a-rl-update",
@@ -208,13 +231,40 @@ async def grouped_rl_update(
             "train_tokens": sum(int(row.model_input.length) for row in datums),
         },
     )
-    values = await apply_update(
-        runtime,
-        datums,
-        loss_fn="importance_sampling",
-        learning_rate=learning_rate,
-        ledger=inputs.ledger,
-    )
+    try:
+        values = await apply_update(
+            runtime,
+            datums,
+            loss_fn="importance_sampling",
+            learning_rate=learning_rate,
+            ledger=inputs.ledger,
+        )
+    except NonFiniteTrainingMetricError as error:
+        evidence = StageAUpdateHealthFailureEvidence(
+            "B-G",
+            learning_rate,
+            step,
+            "screen" if step <= 10 else "continuation",
+            "nonfinite_training_metric",
+            step - 1,
+            True,
+            len(records),
+            len(records) * GROUP_SIZE,
+            mixed,
+            all_zero,
+            all_one,
+            error.metric_name,
+        )
+        write_stage_a_update_health_failure(output, evidence)
+        journal.complete(
+            {
+                "operation": "pilot0-stage-a-rl-update",
+                "step": step,
+                "health_failure": evidence.reason,
+                "metric_name": error.metric_name,
+            }
+        )
+        raise StageAUpdateHealthFailure(evidence) from error
     values.update(
         mixed_group_rate=mixed / len(records),
         mixed_group_count=float(mixed),

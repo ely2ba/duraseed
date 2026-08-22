@@ -23,6 +23,7 @@ from duraseed.pilot0_matching import (
     targeted_posterior_mean,
     targeted_sampling_se,
 )
+from duraseed.pilot0_pair_matching import select_paired_cadence
 from duraseed.pilot0_contract import STAGE_B_GRID
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.runners import RunnerGateError
@@ -57,6 +58,46 @@ def _result(successes: int, trials: int = 16) -> dict:
             },
         ],
     }
+
+
+def _cadence_result(successes: int) -> dict:
+    return {
+        "generation_sha256": "sha256:" + f"{successes:064x}",
+        "item_counts": [
+            {
+                "task_id": f"target-{index}",
+                "panel_role": "targeted",
+                "successes": int(index < successes),
+                "trials": 1,
+            }
+            for index in range(96)
+        ],
+    }
+
+
+def _cadence_row(step: int, successes: int) -> dict:
+    return {
+        "checkpoint": {
+            "step": step,
+            "sampler_path": f"sampler-{step}",
+            "state_path": f"state-{step}",
+        },
+        "evaluation": _cadence_result(successes),
+    }
+
+
+def test_frozen_pair_match_uses_one_draw_success_intervals_and_earlier_tie() -> None:
+    selected = select_paired_cadence(
+        (_cadence_row(10, 10), _cadence_row(20, 20)),
+        (_cadence_row(10, 19), _cadence_row(20, 30)),
+    )
+    assert selected["status"] == "selected"
+    assert selected["B-S"]["step"] == 20
+    assert selected["B-G"]["step"] == 10
+    assert selected["B-S"]["targeted_exact_success_rate"] == pytest.approx(20 / 96)
+    unavailable = select_paired_cadence((_cadence_row(10, 1),), (_cadence_row(10, 90),))
+    assert unavailable["status"] == "unavailable"
+    assert unavailable["seed_replacement_allowed"] is False
 
 
 def test_target_is_minimum_of_four_full_fixed_budget_endpoints(

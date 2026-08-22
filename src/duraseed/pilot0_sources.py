@@ -28,7 +28,7 @@ class Pilot0SeedSourceIDs(StrictModel):
     prompt_pool_artifact_id: str
     a_rl_train_manifest_id: str
     a_monitor_manifest_id: str
-    teacher_train_manifest_id: str
+    a_cadence_manifest_id: str
     a_validation_manifest_id: str
     b_train_manifest_id: str
     b_validation_manifest_id: str
@@ -37,7 +37,7 @@ class Pilot0SeedSourceIDs(StrictModel):
         "prompt_pool_artifact_id",
         "a_rl_train_manifest_id",
         "a_monitor_manifest_id",
-        "teacher_train_manifest_id",
+        "a_cadence_manifest_id",
         "a_validation_manifest_id",
         "b_train_manifest_id",
         "b_validation_manifest_id",
@@ -323,7 +323,7 @@ def seed_source_ids(source: Any) -> Pilot0SeedSourceIDs:
         prompt_pool_artifact_id=pools.artifact.artifact_id,
         a_rl_train_manifest_id=pools.a_rl_train_manifest.manifest_id,
         a_monitor_manifest_id=pools.a_monitor_manifest.manifest_id,
-        teacher_train_manifest_id=source.teacher_train.manifest_id,
+        a_cadence_manifest_id=source.a_cadence.manifest_id,
         a_validation_manifest_id=source.a_validation.manifest_id,
         b_train_manifest_id=source.b_train.manifest_id,
         b_validation_manifest_id=source.b_validation.manifest_id,
@@ -337,7 +337,6 @@ def visible_leakage_hash(seed_sources: tuple[Any, ...]) -> str:
     for source in sorted(seed_sources, key=lambda row: row.seed):
         tces = audit_leakage(
             {
-                "a_seed_train": source.teacher_train,
                 "a_rl_train": source.prompt_pools.a_rl_train_manifest,
                 "a_monitor": source.prompt_pools.a_monitor_manifest,
                 "a_validation": source.a_validation,

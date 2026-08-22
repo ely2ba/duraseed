@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import replace
+from decimal import Decimal
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -9,7 +10,11 @@ from types import SimpleNamespace
 import pytest
 
 from duraseed.data.manifests import build_manifest, build_tces_record
-from duraseed.pilot0_analysis import paired_primary_aggregate, summarize_method
+from duraseed.pilot0_analysis import (
+    paired_primary_aggregate,
+    summarize_method,
+    summarize_selected_method,
+)
 from duraseed.pilot0_budget import Pilot0Budget, calculate_pilot0_budget
 from duraseed.pilot0_contract import STAGE_B_GRID
 from duraseed.runners import RunnerGateError
@@ -18,6 +23,7 @@ from duraseed.runners.pilot0_live import run_pilot0
 from duraseed.runners.pilot0_sampling import evaluate_manifest
 from duraseed.runtime import RuntimeBundle, SDKBundle, TokenBudget, TokenLedger
 from duraseed.tasks.tces import TCESGenerator, TCESGeneratorConfig, enumerate_task
+from duraseed.training.capability_dose_evidence import EPOCH_UPDATES
 
 
 class _Input:
@@ -243,7 +249,36 @@ def test_primary_analysis_uses_raw_gain_auc_and_fixed_budget_retention() -> None
     assert aggregate["mean_targeted_monitor_retention_absolute_auc_difference"] == 0
 
 
-def test_budget_preflight_counts_frozen_full_path_and_exceeds_cap(monkeypatch) -> None:
+def test_selected_summary_reports_the_frozen_pass_at_k_schedule() -> None:
+    maps = tuple(_counts((8, 16), (8, 16)) for _ in STAGE_B_GRID)
+    for result in maps:
+        for row in result["item_counts"]:
+            row["panel_role"] = "stage-b"
+    result = summarize_selected_method(
+        seed=11,
+        method="B-S",
+        stage_a_selected=_counts((8, 16), (4, 16)),
+        stage_b_maps=maps,
+        stage_b_retention=tuple(_counts((2, 4), (1, 4)) for _ in STAGE_B_GRID),
+        stage_b_final_retention=_counts((6, 16), (3, 16)),
+    )
+    assert set(result["F1_retention"]["pre_b_pass_at_k"]["targeted"]) == {
+        "1",
+        "4",
+        "16",
+    }
+    assert set(result["monitor_retention"]["targeted_pass_at_k_curve"][0]) == {
+        "1",
+        "4",
+    }
+    assert set(result["F2_stage_b_learning"]["maps_pass_at_k_curve"][0]) == {
+        "1",
+        "4",
+        "16",
+    }
+
+
+def test_budget_preflight_counts_one_frozen_pair(monkeypatch) -> None:
     record = SimpleNamespace(task_family="tces", to_task=lambda: object(), task_id="x")
     manifest = SimpleNamespace(records=(record,), record_count=512)
     monitor = SimpleNamespace(records=(record,), record_count=384)
@@ -251,6 +286,7 @@ def test_budget_preflight_counts_frozen_full_path_and_exceeds_cap(monkeypatch) -
     runtime = _runtime()
     source = SimpleNamespace(
         seed=11,
+        a_cadence=SimpleNamespace(records=(record,), record_count=192),
         a_validation=manifest,
         b_validation=manifest,
         prompt_pools=SimpleNamespace(
@@ -262,44 +298,45 @@ def test_budget_preflight_counts_frozen_full_path_and_exceeds_cap(monkeypatch) -
         runtime=runtime,
         ledger=TokenLedger(TokenBudget(10**12, 10**12, 10**12), 600.0),
         acquisition=SimpleNamespace(selected_max_tokens=4096),
-        config=SimpleNamespace(
-            teacher_dose=SimpleNamespace(calibration_updates=1),
-            stage_a=SimpleNamespace(monitor_samples_per_item=4),
-            evaluation={"pilot_samples_per_item": 16},
-        ),
-        seed_sources=(source, source),
+        source=source,
     )
     monkeypatch.setattr("duraseed.pilot0_budget.sft_datum", lambda *a, **k: datum)
-    monkeypatch.setattr(
-        "duraseed.pilot0_budget.boundary_teacher_sources", lambda *a: (object(),)
-    )
     monkeypatch.setattr(
         "duraseed.pilot0_budget.ordered_stage_a_pools", lambda *a: {"x": (record,)}
     )
     monkeypatch.setattr(
         "duraseed.pilot0_budget.stage_a_solver_sources", lambda *a: {"x": object()}
     )
-    monkeypatch.setattr(
-        "duraseed.pilot0_budget.scheduled_stage_a_records", lambda *a: (record,)
-    )
+    schedule_steps = []
+
+    def scheduled(*args):  # type: ignore[no-untyped-def]
+        schedule_steps.append(args[2])
+        return (record,)
+
+    monkeypatch.setattr("duraseed.pilot0_budget.scheduled_stage_a_records", scheduled)
     monkeypatch.setattr(
         "duraseed.pilot0_budget.stage_b_sources", lambda *a: (object(),)
     )
     monkeypatch.setattr("duraseed.pilot0_budget._prompt_length", lambda *a: 100)
     budget = calculate_pilot0_budget(inputs)
-    assert budget.fixed_storage_usd == pytest.approx(19.4)
-    assert budget.rerun_reservation_usd == 0
+    assert budget.fixed_storage_usd == pytest.approx(9.7)
     assert budget.rerun_policy == "no_rerun_without_new_authorization"
-    assert budget.upper_bound_usd > 600
     assert budget.passed is False
+    assert schedule_steps[:294] == [
+        ((step - 1) % EPOCH_UPDATES) + 1 for step in range(1, 295)
+    ]
+    assert schedule_steps[294:] == list(range(1, 51))
 
 
 def test_main_hard_stops_before_orchestration_when_budget_fails(
     monkeypatch, tmp_path: Path
 ) -> None:
-    fake = SimpleNamespace(output_root=tmp_path, run_id="pilot-budget-stop")
-    budget = Pilot0Budget(TokenBudget(1, 2, 3), 0.0, 600.0, 601.0, False)
+    fake = SimpleNamespace(
+        output_root=tmp_path, run_id="pilot-budget-stop", source=object()
+    )
+    budget = Pilot0Budget(TokenBudget(1, 2, 3), 0.0, 601.0, Decimal("601.00"), False)
     monkeypatch.setattr(pilot0_live, "validate_pilot0_inputs", lambda value: value)
+    monkeypatch.setattr(pilot0_live, "write_pilot_seed_sources", lambda *a: None)
     monkeypatch.setattr(
         pilot0_live,
         "_preflight",
@@ -314,26 +351,7 @@ def test_main_hard_stops_before_orchestration_when_budget_fails(
         raise AssertionError("paid orchestration must not start")
 
     monkeypatch.setattr(pilot0_live, "run_stage_a_seed", forbidden)
-    with pytest.raises(RunnerGateError, match=r"\$600"):
+    with pytest.raises(RunnerGateError, match="exact authorization"):
         asyncio.run(run_pilot0(fake))
     state = json.loads((tmp_path / fake.run_id / "run.json").read_text())
     assert state["status"] == "blocked_budget"
-
-
-def test_main_rejects_ledger_not_equal_to_full_path_preflight(
-    monkeypatch, tmp_path: Path
-) -> None:
-    ledger = TokenLedger(TokenBudget(9, 9, 9), 600.0)
-    fake = SimpleNamespace(output_root=tmp_path, run_id="pilot-ledger", ledger=ledger)
-    monkeypatch.setattr(pilot0_live, "validate_pilot0_inputs", lambda value: value)
-
-    def preflight(inputs, root):  # type: ignore[no-untyped-def]
-        (root / "preflight.json").write_text("{}")
-        return {
-            "budget_gate_passed": True,
-            "token_budget": {"prefill": 1, "sample": 2, "train": 3},
-        }
-
-    monkeypatch.setattr(pilot0_live, "_preflight", preflight)
-    with pytest.raises(RunnerGateError, match="equal the full-path"):
-        asyncio.run(run_pilot0(fake))
