@@ -1,38 +1,47 @@
 # Project status
 
-| Phase gate | Status | Public evidence |
-| --- | --- | --- |
-| M0 + format training | **DONE** | Common M0 was selected after the [accepted canonical format-selection RFC](rfc-format-selection-estimand.md). |
-| MAPS calibration | **DONE** | Ratified `shortest2_cap2` / `3e-4` / step-480 recipe; see the [public provenance record](../provenance/v0-map.md#ratified-stage-b-decision). |
-| Boundary scan cohort 1 | **DONE** | The [frozen finalist gate](rfc-boundary-finalist-gate.md) produced 15 of 38 passing families, locked by the [extension protocol](rfc-boundary-family-extension.md). |
-| Replay equivalence | **DONE** | The [v0 → v1 replay](../provenance/replay-equivalence.md) completed with zero divergences. |
-| v1 rebuild, runtime, and live runners | **DONE** | Runtime and local execution paths for the smoke, boundary extension, acquisition calibration, and Pilot 0 pass locally; the [boundary extraction](rfc-boundary-protocol-extraction.md) and [calibration closure](rfc-calibration-instrument-closure.md) were equivalence-verified. |
-| Live smoke gate | **DONE** | The real remote path passed exact online/offline reward parity, stop-contract verification, full-state resume, and weights-only branching under its `$25` cap; its billing closeout was completed before the boundary launch. |
-| Boundary extension cohorts 2–3 | **REMOTE COLLECTION DONE** | Cohorts 2 and 3 completed broad sampling, refinement, and confirmation. |
-| Three-cohort panel freeze | **DONE** | The [accepted amendment](rfc-boundary-panel-algebraic-deduplication.md) reduced the fixed 49 to 37 exact algebraic representatives. All 37 passed the unchanged capacity audit; disjoint 12/12 panels and 12 separate intermediates were frozen. Archived and current production split builders then produced byte-identical 384-row train and 192-row gate manifests. |
-| Teacher-exposure calibration | **RETIRED AFTER THREE BOUNDED FAILURES** | The original dose-2 run, [progressive repair](rfc-teacher-exposure-progressive-repair.md), and [dose-8 M1](rfc-teacher-seed-dose8-low-repetition.md) found no checkpoint passing every gate in both orientations. M1 failed jointly at updates 6 and 10; seed-17 update 14 had only 586 valid answer tags after 640 target samples, so even perfect remaining samples could not reach 745/768. It was stopped safely before seed-37 update 14. Raw evidence is retained; none is a method outcome. The [direct-M0 amendment](rfc-direct-m0-stage-a-origin.md) retires the task-specific seed without weakening a gate. |
-| Stage-A calibration | **CURRENT GATE — ONE TWO-ARM FINALIZATION** | The six-arm direct-M0 screen completed, but its `no_eligible_learning_rate` decision used an outer-wrapper rule that contradicted the prompt, teacher targets, and verifier. The [accepted correction](rfc-stage-a-answer-tag-contract.md) preserves the raw record, selects B-S `1e-4` and B-G `1e-5` from the sealed screens, and permits exactly one continuous M0-to-update-50 finalization. Failure of either arm ends the TCES route. |
-| Pilot 0 | **NOT STARTED** | No pilot execution or sealed-test access. |
-| Variance reconnaissance | **NOT STARTED** | After Pilot 0, extend B-S/B-G to 3–4 paired pilot seeds before setting confirmatory power. |
-| Mechanism/context pilot decision | **NOT STARTED** | If B-S/B-G separates reproducibly, first test supervised replay of a prospectively frozen verifier-correct subset of B-G rollouts; then decide whether conditional B-O or optional G-U adds enough value. G-B is a duplicate of direct-M0 B-G and R-G's teacher-allocation question is retired. |
-| Preregistration | **NOT STARTED** | Begins only after variance reconnaissance and the mechanism/context decision freeze and power the confirmatory design. |
-| Confirmatory study | **NOT STARTED** | Requires the preregistered design and separate authorization. |
+_Last updated: 2026-08-22._
 
-Pilot 0 has not started; no B-S/B-G stability–future-learnability result is
-claimed.
+## Current
 
-The three pre-Pilot gates have caps of `$25`, `$120`, and `$300`. Remote
-execution for the smoke and boundary gates is complete. All three teacher-
-exposure attempts are stopped and retained as calibration evidence. The
-completed direct-M0 screen ran under its `$153.32` Stage-A-only cap. Its raw
-billing export now exactly matches the local observed token totals; the next
-launch still charges its larger `$51.876308513` committed ceiling. The two-arm
-finalization is capped at `$107.84`, for a conservative lifetime maximum of
-`$268.846932025` and `$31.153067975` headroom under the unchanged `$300`
-acquisition-calibration cap. Pilot 0 is separately capped at `$600` and remains
-unstarted. For the Phase-2 dose prelaunch, authenticated Tinker-console actuals
-substitute for the charter's raw-export reconciliation;
-`provenance/tinker-console-lifetime-spend-20260820T183458Z.json`
-(`sha256:e5c61f2e7d6541c854dc7cb74b3ebd54ed2145390386731083ca8bfe82a44d6f`)
-records `$86.94` actual acquisition lifetime spend, so
-`$86.94 + $59.09 = $146.03 <= $300`.
+Pilot 0 has begun. Pair 1 uses seed 11 and is running under its separate
+`$772.40` authorization. It will train both Stage-A procedures from M0, match
+real cadence checkpoints on targeted exact success, record the full pre-Stage-B
+profile, and run the common Stage-B probe only if matching is available.
+
+Pair 2 remains unlaunched. It requires durable pair-1 F1/F2 cells, F3 profiles,
+a matching record, billing lineage, and a separate human authorization.
+
+No B-S/B-G result is claimed yet. Final test data remain sealed.
+
+## Completed foundations
+
+- The common format-capable M0 origin is frozen.
+- TCES and MAPS generators, solvers, and exact verifiers are frozen.
+- Two disjoint matched 12-family panels and a separate intermediate pool are
+  authenticated; target and sentinel roles cross across paired seeds.
+- The MAPS Stage-B recipe is frozen at `shortest2_cap2`, LR `3e-4`, and 480
+  updates.
+- Replay equivalence and the live engineering smoke passed.
+- The task-specific teacher warm start was retired before Pilot outcomes, and
+  both methods now branch directly from M0.
+- The Stage-A answer-tag contract was corrected before Pilot outcomes while the
+  original screen evidence was retained.
+- The bounded B-S capability-dose run reached the planned overlap zone at
+  update 90, passed the frozen viability gates, and validated trainable-state
+  save followed by weights-only restore.
+- Pilot pair execution, cadence state checkpointing, post-hoc matching, F3
+  profiles, Stage B, billing gates, and no-reroll failure handling pass locally.
+
+## Next
+
+1. Finish and inspect pair 1.
+2. Launch pair 2 only after its separate authorization.
+3. Use both pairs to estimate feasibility, direction, and early variance.
+4. Extend to fresh paired seeds before powering and preregistering confirmation.
+
+For the scientific overview, return to the [README](../README.md). For exact
+schedules, gates, calibration history, budgets, and provenance, see the
+[technical appendix](TECHNICAL.md), frozen [capability-targeted
+amendment](amendment-capability-targeted-acquisition.md), and
+[protocol](../PROTOCOL.md).
