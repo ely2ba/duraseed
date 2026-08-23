@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-08-22._
+_Last updated: 2026-08-23._
 
 ## Current
 
@@ -11,6 +11,14 @@ profile, and run the common Stage-B probe only if matching is available.
 
 Pair 2 remains unlaunched. It requires durable pair-1 F1/F2 cells, F3 profiles,
 a matching record, billing lineage, and a separate human authorization.
+
+**Pair-2 launch commitment (2026-08-23, before any pair-1 scientific result
+was read):** Pair-2 launch authorization depends only on: (a) pair-1 terminal
+with durable artifacts and clean integrity/billing lineage, (b) no
+infrastructure or protocol-execution failure, and (c) lifetime spend plus the
+pair-2 preflight remaining within accepted ceilings. It does not depend on the
+direction, size, or significance of any pair-1 scientific contrast; a
+matching-unavailable outcome does not block pair 2.
 
 No B-S/B-G result is claimed yet. Final test data remain sealed.
 
