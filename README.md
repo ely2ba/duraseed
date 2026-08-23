@@ -22,6 +22,11 @@ DuraSeed follows the checkpoints forward:
 
 `common origin → two acquisition paths → capability matching → identical downstream training → retention + learning`
 
+Nearby studies compare how much pre-existing ability is lost while a skill is
+being learned by SFT versus RL; DuraSeed holds the subsequent training
+identical and asks whether the newly acquired skill's durability—and the
+model's readiness for the next task—depends on how it was acquired.
+
 The aim is deliberately modest. This is not a universal verdict on supervised
 fine-tuning or reinforcement learning. It asks whether two concrete acquisition
 procedures leave measurably different downstream consequences under one tightly
@@ -67,8 +72,9 @@ is reported as unavailable and Stage B does not run for that pair.
 Matching one score does not make two models behaviorally identical. Before
 Stage B, we therefore record a broader profile: target and sentinel accuracy,
 family coverage, invalid and length-stopped outputs, completion length,
-Pass@k, verified strategy diversity, token surprisal, and separate token and
-cost accounting.
+Pass@k, verified strategy diversity, token surprisal, baseline performance on
+the Stage-B task before any Stage-B training, and separate token and cost
+accounting.
 
 ### Stage B: the same downstream learning probe
 
@@ -103,9 +109,12 @@ No B-S/B-G scientific result is claimed yet, and final test data remain sealed.
 The current plan is:
 
 1. complete and inspect the first paired Pilot run;
-2. run the separately authorized second pair if the first produces the
-   required evidence;
-3. use the two pairs to assess feasibility, effect direction, and variance;
+2. run the separately authorized second pair once the first yields durable,
+   complete artifacts—an authorization that does not depend on the direction
+   or size of any scientific result ([`docs/STATUS.md`](docs/STATUS.md) records
+   this commitment);
+3. use the two pairs to assess feasibility and effect direction, with a first,
+   crude look at seed-to-seed variability;
 4. add fresh paired seeds for variance reconnaissance before fixing a powered
    confirmatory design; and
 5. preregister and run confirmation only if the effect is worth pursuing.
