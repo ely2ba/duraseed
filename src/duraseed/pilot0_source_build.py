@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from concurrent.futures import Executor, ProcessPoolExecutor
+import os
 from pathlib import Path
 
 from duraseed.config import PilotConfig
@@ -21,9 +23,11 @@ from duraseed.data.stage_a_prompt_pools import (
     StageAPromptPoolBundle,
     write_stage_a_prompt_pool_bundle,
 )
+from duraseed.data import stage_a_prompt_pools as source_pools
 from duraseed.pilot0_contract import PILOT_SEEDS, PilotSeedSources, STAGE_B_PROFILE
 from duraseed.pilot0_prompt_pools import build_pilot_prompt_pools
 from duraseed.tasks.maps import MAPSGeneratorConfig
+from duraseed.tasks.tces import GeneratedTCESInstance, TCESGeneratorConfig
 
 
 def _balanced_validation(
@@ -31,6 +35,8 @@ def _balanced_validation(
     boundary: Path,
     panel: FamilyPanelArtifact,
     pools: tuple[StageAPromptPoolBundle, ...],
+    executor: Executor | None = None,
+    templates: dict[str, GeneratedTCESInstance] | None = None,
 ) -> DatasetManifest:
     broad = read_manifest(
         boundary / "a_candidate_manifest.json", context=ExecutionContext.SELECTION
@@ -46,6 +52,8 @@ def _balanced_validation(
         confirmation_manifest=confirmation,
         split="a_validation",
         items_per_family=22,
+        executor=executor,
+        templates=templates,
         forbidden_records=tuple(
             row
             for manifest in (
@@ -151,11 +159,33 @@ def build_pilot_seed_sources(
     panel = FamilyPanelArtifact.model_validate_json(
         (boundary / "target_sentinel_panels.json").read_bytes()
     )
-    pools = tuple(
-        build_pilot_prompt_pools(boundary, config=config, pilot_seed=seed)
-        for seed in PILOT_SEEDS
+    _, broad, _, _, _ = source_pools._validated_source(  # noqa: SLF001
+        boundary, config, 17
     )
-    validation = _balanced_validation(config, boundary, panel, pools)
+    generator_config = TCESGeneratorConfig(**config.tasks.tces.generator_kwargs())
+    templates = source_pools._regenerate_templates(  # noqa: SLF001
+        broad, generator_config
+    )
+    workers = min(8, os.cpu_count() or 1)
+    with ProcessPoolExecutor(max_workers=workers) as executor:
+        pools = tuple(
+            build_pilot_prompt_pools(
+                boundary,
+                config=config,
+                pilot_seed=seed,
+                executor=executor,
+                templates=templates,
+            )
+            for seed in PILOT_SEEDS
+        )
+        validation = _balanced_validation(
+            config,
+            boundary,
+            panel,
+            pools,
+            executor=executor,
+            templates=templates,
+        )
     b_train, b_validation = _maps_manifests(config)
     return tuple(
         PilotSeedSources(

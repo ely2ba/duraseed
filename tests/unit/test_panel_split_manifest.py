@@ -136,6 +136,38 @@ def test_panel_split_manifests_match_the_accepted_v0_fixture() -> None:
     )
 
 
+def test_parallel_candidate_reduction_preserves_panel_manifest() -> None:
+    config, artifact, broad, confirmation, _ = _fixture()
+    source_records = (*broad.records, *confirmation.records)
+
+    class InlineExecutor:
+        @staticmethod
+        def map(function, values):
+            return map(function, values)
+
+    serial = build_panel_split_manifest(
+        config,
+        artifact=artifact,
+        broad_manifest=broad,
+        confirmation_manifest=confirmation,
+        split="a_seed_train",
+        items_per_family=2,
+        forbidden_records=source_records,
+    )
+    parallel_path = build_panel_split_manifest(
+        config,
+        artifact=artifact,
+        broad_manifest=broad,
+        confirmation_manifest=confirmation,
+        split="a_seed_train",
+        items_per_family=2,
+        forbidden_records=source_records,
+        executor=InlineExecutor(),  # type: ignore[arg-type]
+    )
+
+    assert parallel_path == serial
+
+
 def test_production_pair_preserves_archived_build_order(monkeypatch) -> None:
     import duraseed.data.panel_split_production as production
 
