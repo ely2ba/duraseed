@@ -8,13 +8,36 @@ from pathlib import Path
 
 import typer
 
+from duraseed.config import load_pilot_config
+from duraseed.pilot0_source_build import (
+    build_pilot_seed_sources,
+    write_pilot_seed_source_set,
+)
 from duraseed.runners import RunnerGateError
 from duraseed.runners.pilot0_pair_launch import run_remote_pilot0_pair
+
+
+def pilot0_sources_build(
+    boundary_directory: Path = typer.Option(...),
+    output: Path = typer.Option(...),
+    config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
+) -> None:
+    """Build and persist both frozen Pilot source bundles without remote access."""
+
+    try:
+        sources = build_pilot_seed_sources(
+            load_pilot_config(config), boundary_directory
+        )
+        result = write_pilot_seed_source_set(output, sources)
+    except (OSError, ValueError) as error:
+        raise typer.BadParameter(str(error)) from error
+    typer.echo(f"Pilot-0 prepared sources: {result}")
 
 
 def pilot0_pair_live(
     run_id: str = typer.Option(...),
     pair_index: int = typer.Option(..., min=1, max=2),
+    prepared_sources: Path = typer.Option(...),
     boundary_directory: Path = typer.Option(...),
     source_directory: Path = typer.Option(...),
     smoke_acceptance: Path = typer.Option(...),
@@ -45,6 +68,7 @@ def pilot0_pair_live(
             run_remote_pilot0_pair(
                 run_id=run_id,
                 pair_index=pair_index,
+                prepared_sources=prepared_sources,
                 output_root=output_root,
                 config_path=config,
                 boundary_directory=boundary_directory,
@@ -68,4 +92,4 @@ def pilot0_pair_live(
     typer.echo(f"Pilot-0 pair artifacts: {result}")
 
 
-__all__ = ["pilot0_pair_live"]
+__all__ = ["pilot0_pair_live", "pilot0_sources_build"]

@@ -13,6 +13,7 @@ from duraseed.data.splits import derive_tces_split_seed, tces_numeric_key
 from duraseed.tasks.tces import (
     GeneratedTCESInstance,
     TCESFamilyGenerator,
+    TCESGenerator,
     TCESGenerationError,
     TCESGeneratorConfig,
 )
@@ -30,12 +31,13 @@ class FamilyGenerationJob:
 
 
 @dataclass(frozen=True, slots=True)
-class AuditedFamilyGenerationJob:
-    """A capacity audit followed by candidate generation for one family."""
+class IndexedSplitGenerationJob:
+    """One independent indexed candidate from a deterministic split stream."""
 
-    generation: FamilyGenerationJob
-    requirements: tuple[tuple[str, int], ...]
-    forbidden_records: tuple[TCESTaskManifestRecord, ...]
+    root_seed: int
+    generator_config: TCESGeneratorConfig
+    split: str
+    item_index: int
 
 
 @dataclass(frozen=True, slots=True)
@@ -49,46 +51,22 @@ class FilteredFamilyGenerationJob:
     used_content: frozenset[str]
 
 
-def generate_family_candidates(
-    job: FamilyGenerationJob,
-) -> tuple[TCESTaskManifestRecord, ...]:
-    """Generate a complete indexed prefix without applying cross-family filters."""
+@dataclass(frozen=True, slots=True)
+class AuditedFilteredFamilyGenerationJob:
+    """A capacity audit followed by an early-stopping filtered generation."""
 
-    config = replace(
-        job.generator_config,
-        split=job.split,
-        min_valid_families=1,
-        max_valid_families=None,
-    )
-    generator = TCESFamilyGenerator(
-        derive_tces_split_seed(job.root_seed, job.split),
-        job.template,
-        config,
-    )
-    records: list[TCESTaskManifestRecord] = []
-    for item_index in range(job.scan_limit):
-        try:
-            instance = generator.generate(item_index)
-        except TCESGenerationError:
-            continue
-        records.append(build_tces_record(instance))
-    return tuple(records)
+    generation: FilteredFamilyGenerationJob
+    requirements: tuple[tuple[str, int], ...]
+    forbidden_records: tuple[TCESTaskManifestRecord, ...]
 
 
-def audit_then_generate(
-    job: AuditedFamilyGenerationJob,
-) -> tuple[FamilyCapacityAudit, tuple[TCESTaskManifestRecord, ...]]:
-    """Run the frozen capacity audit and generate candidates only when eligible."""
+def generate_split_candidate(job: IndexedSplitGenerationJob) -> GeneratedTCESInstance:
+    """Generate one split candidate without changing accepted-sequence ordering."""
 
-    audit = audit_family_split_capacity(
-        job.generation.template,
-        job.generation.generator_config,
-        root_seed=job.generation.root_seed,
-        requirements=job.requirements,
-        forbidden_records=job.forbidden_records,
-    )
-    candidates = generate_family_candidates(job.generation) if audit.passed else ()
-    return audit, candidates
+    config = replace(job.generator_config, split=job.split)
+    return TCESGenerator(
+        derive_tces_split_seed(job.root_seed, job.split), config
+    ).generate(job.item_index)
 
 
 def generate_filtered_family(
@@ -134,6 +112,23 @@ def generate_filtered_family(
     return None
 
 
+def audit_then_generate_filtered(
+    job: AuditedFilteredFamilyGenerationJob,
+) -> tuple[FamilyCapacityAudit, tuple[TCESTaskManifestRecord, ...] | None]:
+    """Audit one family, then stop generation once its required rows exist."""
+
+    generation = job.generation.generation
+    audit = audit_family_split_capacity(
+        generation.template,
+        generation.generator_config,
+        root_seed=generation.root_seed,
+        requirements=job.requirements,
+        forbidden_records=job.forbidden_records,
+    )
+    candidates = generate_filtered_family(job.generation) if audit.passed else None
+    return audit, candidates
+
+
 def select_family_candidates(
     candidates: tuple[TCESTaskManifestRecord, ...],
     *,
@@ -169,11 +164,12 @@ def select_family_candidates(
 
 
 __all__ = [
-    "AuditedFamilyGenerationJob",
+    "AuditedFilteredFamilyGenerationJob",
     "FamilyGenerationJob",
     "FilteredFamilyGenerationJob",
-    "audit_then_generate",
-    "generate_family_candidates",
+    "IndexedSplitGenerationJob",
+    "audit_then_generate_filtered",
     "generate_filtered_family",
+    "generate_split_candidate",
     "select_family_candidates",
 ]

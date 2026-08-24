@@ -10,13 +10,11 @@ import random
 from duraseed.config import PilotConfig
 from duraseed.data.manifests import GENERATOR_VERSION, build_manifest
 from duraseed.data.family_generation import (
-    AuditedFamilyGenerationJob,
+    AuditedFilteredFamilyGenerationJob,
     FamilyGenerationJob,
     FilteredFamilyGenerationJob,
-    audit_then_generate,
-    generate_family_candidates,
+    audit_then_generate_filtered,
     generate_filtered_family,
-    select_family_candidates,
 )
 from duraseed.data.panel_capacity import (
     PANEL_SPLIT_MINIMUMS,
@@ -25,6 +23,7 @@ from duraseed.data.panel_capacity import (
 from duraseed.data.splits import tces_numeric_key
 from duraseed.data import stage_a_prompt_pools as pools
 from duraseed.pilot0_contract import PILOT_SEEDS
+from duraseed.pilot0_source_selection import select_or_generate
 from duraseed.provenance import (
     SeedNamespace,
     canonical_json_hash,
@@ -115,26 +114,17 @@ def build_pilot_prompt_pools(
         )
     for family_id, candidates in zip(monitor_families, monitor_candidates, strict=True):
         forbidden = protected_panels.difference({family_id})
-        generated = None
-        if candidates is not None:
-            generated = select_family_candidates(
-                candidates,
-                count=pools.STAGE_A_MONITOR_ITEMS_PER_PANEL_FAMILY,
-                forbidden_valid_families=forbidden,
-                used_numeric=used_numeric,
-                used_content=used_content,
-            )
-        if generated is None:
-            generated = pools._generate_family_records(  # noqa: SLF001
-                template=templates[family_id],
-                generator_config=generator_config,
-                root_seed=config.seed,
-                split="a_monitor",
-                count=pools.STAGE_A_MONITOR_ITEMS_PER_PANEL_FAMILY,
-                used_numeric=used_numeric,
-                used_content=used_content,
-                forbidden_valid_families=forbidden,
-            )
+        generated = select_or_generate(
+            candidates,
+            template=templates[family_id],
+            generator_config=generator_config,
+            root_seed=config.seed,
+            split="a_monitor",
+            count=pools.STAGE_A_MONITOR_ITEMS_PER_PANEL_FAMILY,
+            used_numeric=used_numeric,
+            used_content=used_content,
+            forbidden=forbidden,
+        )
         if generated is None:
             raise pools.StageAPromptPoolError("Pilot monitor capacity is incomplete")
         monitor_records.extend(generated)
@@ -147,15 +137,25 @@ def build_pilot_prompt_pools(
     else:
         rl_candidates = tuple(
             executor.map(
-                generate_family_candidates,
+                generate_filtered_family,
                 (
-                    FamilyGenerationJob(
-                        templates[family_id],
-                        generator_config,
-                        config.seed,
-                        "a_rl_train",
-                        pools.STAGE_A_RL_ITEMS_PER_FAMILY
-                        * pools.PANEL_FILTERED_SPLIT_SCAN_MULTIPLIER,
+                    FilteredFamilyGenerationJob(
+                        FamilyGenerationJob(
+                            templates[family_id],
+                            generator_config,
+                            config.seed,
+                            "a_rl_train",
+                            pools.STAGE_A_RL_ITEMS_PER_FAMILY
+                            * pools.PANEL_FILTERED_SPLIT_SCAN_MULTIPLIER,
+                        ),
+                        pools.STAGE_A_RL_ITEMS_PER_FAMILY,
+                        (
+                            sentinel_families
+                            if family_id in boundary_families
+                            else protected_panels
+                        ),
+                        frozenset(used_numeric),
+                        frozenset(used_content),
                     )
                     for family_id in rl_families
                 ),
@@ -165,25 +165,16 @@ def build_pilot_prompt_pools(
         forbidden = (
             sentinel_families if family_id in boundary_families else protected_panels
         )
-        generated = (
-            pools._generate_family_records(  # noqa: SLF001
-                template=templates[family_id],
-                generator_config=generator_config,
-                root_seed=config.seed,
-                split="a_rl_train",
-                count=pools.STAGE_A_RL_ITEMS_PER_FAMILY,
-                used_numeric=used_numeric,
-                used_content=used_content,
-                forbidden_valid_families=forbidden,
-            )
-            if candidates is None
-            else select_family_candidates(
-                candidates,
-                count=pools.STAGE_A_RL_ITEMS_PER_FAMILY,
-                forbidden_valid_families=forbidden,
-                used_numeric=used_numeric,
-                used_content=used_content,
-            )
+        generated = select_or_generate(
+            candidates,
+            template=templates[family_id],
+            generator_config=generator_config,
+            root_seed=config.seed,
+            split="a_rl_train",
+            count=pools.STAGE_A_RL_ITEMS_PER_FAMILY,
+            used_numeric=used_numeric,
+            used_content=used_content,
+            forbidden=forbidden,
         )
         if generated is None:
             raise pools.StageAPromptPoolError("Pilot RL capacity is incomplete")
@@ -206,8 +197,8 @@ def build_pilot_prompt_pools(
         broad_batches = (tuple(broad_candidates),)
     else:
         broad_batches = tuple(
-            tuple(broad_candidates[start : start + 16])
-            for start in range(0, len(broad_candidates), 16)
+            tuple(broad_candidates[start : start + 8])
+            for start in range(0, len(broad_candidates), 8)
         )
     for batch in broad_batches:
         if executor is None:
@@ -215,16 +206,22 @@ def build_pilot_prompt_pools(
         else:
             results = tuple(
                 executor.map(
-                    audit_then_generate,
+                    audit_then_generate_filtered,
                     (
-                        AuditedFamilyGenerationJob(
-                            FamilyGenerationJob(
-                                templates[family_id],
-                                generator_config,
-                                config.seed,
-                                "a_rl_train",
-                                pools.STAGE_A_RL_ITEMS_PER_FAMILY
-                                * pools.PANEL_FILTERED_SPLIT_SCAN_MULTIPLIER,
+                        AuditedFilteredFamilyGenerationJob(
+                            FilteredFamilyGenerationJob(
+                                FamilyGenerationJob(
+                                    templates[family_id],
+                                    generator_config,
+                                    config.seed,
+                                    "a_rl_train",
+                                    pools.STAGE_A_RL_ITEMS_PER_FAMILY
+                                    * pools.PANEL_FILTERED_SPLIT_SCAN_MULTIPLIER,
+                                ),
+                                pools.STAGE_A_RL_ITEMS_PER_FAMILY,
+                                protected_panels,
+                                frozenset(used_numeric),
+                                frozenset(used_content),
                             ),
                             tuple(PANEL_SPLIT_MINIMUMS),
                             tuple(source_records),
@@ -247,25 +244,16 @@ def build_pilot_prompt_pools(
                 audit, candidates = results[index]
             if not audit.passed:
                 continue
-            generated = (
-                pools._generate_family_records(  # noqa: SLF001
-                    template=templates[family_id],
-                    generator_config=generator_config,
-                    root_seed=config.seed,
-                    split="a_rl_train",
-                    count=pools.STAGE_A_RL_ITEMS_PER_FAMILY,
-                    used_numeric=used_numeric,
-                    used_content=used_content,
-                    forbidden_valid_families=protected_panels,
-                )
-                if candidates is None
-                else select_family_candidates(
-                    candidates,
-                    count=pools.STAGE_A_RL_ITEMS_PER_FAMILY,
-                    forbidden_valid_families=protected_panels,
-                    used_numeric=used_numeric,
-                    used_content=used_content,
-                )
+            generated = select_or_generate(
+                candidates,
+                template=templates[family_id],
+                generator_config=generator_config,
+                root_seed=config.seed,
+                split="a_rl_train",
+                count=pools.STAGE_A_RL_ITEMS_PER_FAMILY,
+                used_numeric=used_numeric,
+                used_content=used_content,
+                forbidden=protected_panels,
             )
             if generated is None:
                 continue

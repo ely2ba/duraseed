@@ -24,7 +24,7 @@ from duraseed.pilot0_pair_auth import (
     authenticate_pilot_sources,
     load_pilot_pair_billing,
 )
-from duraseed.pilot0_source_build import build_pilot_seed_sources
+from duraseed.pilot0_source_build import read_pilot_seed_sources
 from duraseed.runners import RunnerGateError, authorize_launch
 from duraseed.runners.calibration_launch import _git_commit
 from duraseed.runners.pilot0_live import run_pilot0
@@ -43,6 +43,7 @@ async def run_remote_pilot0_pair(
     *,
     run_id: str,
     pair_index: int,
+    prepared_sources: str | Path,
     output_root: str | Path,
     config_path: str | Path,
     boundary_directory: str | Path,
@@ -91,7 +92,7 @@ async def run_remote_pilot0_pair(
         teacher_sources=loaded.teacher,
         prompt_pools=loaded.prompts,
     )
-    sources = build_pilot_seed_sources(config, boundary_directory)
+    sources = read_pilot_seed_sources(prepared_sources)
     source = sources[pair_index - 1]
     authentication = authenticate_pilot_sources(
         base=base,
