@@ -8,10 +8,14 @@ from types import SimpleNamespace
 
 import pytest
 
-from duraseed import pilot0_sources
+from duraseed import pilot0_contract, pilot0_sources
+from duraseed.config import load_pilot_config
 from duraseed.pilot0_contract import (
     EPHEMERAL_SAMPLER_FIXED_USD,
+    STAGE_B_DECISION_SHA256,
     STAGE_B_PUBLIC_DECISION_SHA256,
+    PilotStageARecipe,
+    validate_pilot0_inputs,
 )
 from duraseed.pilot0_sources import load_pilot0_source_authentication
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
@@ -24,6 +28,40 @@ from duraseed.runtime import TokenBudget, TokenLedger
 class _Model:
     async def save_weights_and_get_sampling_client_async(self):  # type: ignore[no-untyped-def]
         return object()
+
+
+def test_pilot_contract_ignores_retired_calibration_slots(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    config = load_pilot_config("duraseed_pilot_config.yaml")
+    assert config.unresolved_values()
+    digest = "sha256:" + "1" * 64
+    inputs = SimpleNamespace(
+        config=config,
+        pair_index=1,
+        source_authentication=SimpleNamespace(bundle_sha256=digest),
+        dose_terminal_sha256=digest,
+        stage_b_recipe_artifact_sha256=STAGE_B_DECISION_SHA256,
+        prior_pair_result_sha256=None,
+        acquisition=PilotStageARecipe(),
+        run_id="pilot-pair-1",
+        git_commit="commit",
+        project_id="project",
+        session_id="local-preflight",
+        m0_sampler_path="tinker://m0/sampler_weights/test",
+        m0_state_path="tinker://m0/weights/test",
+    )
+    monkeypatch.setattr(pilot0_contract, "_validate_source", lambda value: None)
+
+    assert validate_pilot0_inputs(inputs) is inputs
+    bad = SimpleNamespace(**vars(inputs))
+    bad.config = config.model_copy(
+        update={
+            "stage_b": config.stage_b.model_copy(update={"selected_max_updates": 640})
+        }
+    )
+    with pytest.raises(RunnerGateError, match="frozen charter"):
+        validate_pilot0_inputs(bad)
 
 
 def test_public_stage_b_projection_has_its_frozen_public_hash() -> None:

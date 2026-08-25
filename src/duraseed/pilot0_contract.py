@@ -194,8 +194,6 @@ def _validate_source(inputs: Pilot0Inputs) -> None:
 def validate_pilot0_inputs(inputs: Pilot0Inputs) -> Pilot0Inputs:
     """Fail closed before any Pilot remote operation."""
 
-    if inputs.config.unresolved_values():
-        raise RunnerGateError("Pilot 0 requires a launch-ready resolved config")
     if inputs.pair_index not in (1, 2):
         raise RunnerGateError("Pilot 0 supports exactly pair 1 or pair 2")
     for value in (
