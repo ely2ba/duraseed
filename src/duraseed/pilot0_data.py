@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 from collections import Counter, defaultdict
+from concurrent.futures import ProcessPoolExecutor
+import os
 
 from duraseed.data.manifests import MAPSTaskManifestRecord, TCESTaskManifestRecord
 from duraseed.data.stage_a_prompt_pools import PromptPoolStratum
@@ -42,17 +44,22 @@ def stage_a_solver_sources(source: PilotSeedSources) -> dict[str, VerifiedSource
     }
     if len(selected_ids) != 1_552:
         raise RunnerGateError("Pilot-0 B-S epoch is not the frozen 1,552 traces")
-    result = {}
+    selected_records = []
     for record in source.prompt_pools.a_rl_train_manifest.records:
         if not isinstance(record, TCESTaskManifestRecord):
             raise RunnerGateError("Pilot-0 Stage-A training manifest is not TCES")
-        if record.task_id not in selected_ids:
-            continue
-        result[record.task_id] = build_solver_teacher_record(
-            source_manifest=source.prompt_pools.a_rl_train_manifest,
-            source_record=record,
-            completion=_tces_completion(record),
-        )
+        if record.task_id in selected_ids:
+            selected_records.append(record)
+    with ProcessPoolExecutor(max_workers=min(8, os.cpu_count() or 1)) as executor:
+        completions = executor.map(_tces_completion, selected_records)
+        result = {
+            record.task_id: build_solver_teacher_record(
+                source_manifest=source.prompt_pools.a_rl_train_manifest,
+                source_record=record,
+                completion=completion,
+            )
+            for record, completion in zip(selected_records, completions, strict=True)
+        }
     if set(result) != selected_ids:
         raise RunnerGateError("Pilot-0 B-S schedule omits a solver source")
     _SOLVER_CACHE[source.prompt_pools.a_rl_train_manifest.manifest_id] = result

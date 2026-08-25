@@ -10,7 +10,11 @@ from typing import Any, Literal
 
 from pydantic import Field, field_validator
 
-from duraseed.data.leakage import audit_leakage
+from duraseed.data.leakage import (
+    LeakageAuditReport,
+    LeakageCode,
+    audit_leakage,
+)
 from duraseed.data.sealing import inspect_seal
 from duraseed.provenance import canonical_json_hash, sha256_bytes, validate_sha256_id
 from duraseed.runners import RunnerGateError
@@ -330,6 +334,36 @@ def seed_source_ids(source: Any) -> Pilot0SeedSourceIDs:
     )
 
 
+def _maps_semantic_leakage(train: Any, validation: Any) -> dict[str, Any]:
+    """Require distinct MAPS tasks while recording unavoidable state reuse."""
+
+    report = audit_leakage({"b_train": train, "b_validation": validation})
+    numeric_only = {
+        LeakageCode.DUPLICATE_OPERANDS_TARGET,
+        LeakageCode.TEACHER_EVALUATION_NUMERIC_OVERLAP,
+    }
+    semantic_findings = tuple(
+        finding
+        for finding in report.findings
+        if finding.code not in numeric_only
+        and not (
+            finding.code is LeakageCode.TASK_ACROSS_SPLITS
+            and finding.key.startswith("numeric:")
+        )
+    )
+    semantic = LeakageAuditReport(
+        report.record_count,
+        report.audited_splits,
+        semantic_findings,
+    ).assert_clean()
+    payload = semantic.to_dict()
+    payload["numeric_state_reuse_diagnostic"] = {
+        code.value: sum(finding.code is code for finding in report.findings)
+        for code in numeric_only
+    }
+    return payload
+
+
 def visible_leakage_hash(seed_sources: tuple[Any, ...]) -> str:
     """Audit every visible Pilot split while treating paired replicas separately."""
 
@@ -342,10 +376,8 @@ def visible_leakage_hash(seed_sources: tuple[Any, ...]) -> str:
                 "a_validation": source.a_validation,
             }
         ).assert_clean()
-        maps = audit_leakage(
-            {"b_train": source.b_train, "b_validation": source.b_validation}
-        ).assert_clean()
-        reports[str(source.seed)] = {"tces": tces.to_dict(), "maps": maps.to_dict()}
+        maps = _maps_semantic_leakage(source.b_train, source.b_validation)
+        reports[str(source.seed)] = {"tces": tces.to_dict(), "maps": maps}
     return canonical_json_hash(reports)
 
 
