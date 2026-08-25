@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" role="img" aria-labelledby="title desc">
+  <title id="title">Conceptual divergence after capability matching</title>
+  <desc id="desc">Two method-neutral checkpoints begin from matched measured Stage-A capability. Under identical Stage-B training, their retention trajectories or learning trajectories may diverge. This is an illustration, not a result.</desc>
+  <style>
+    .canvas { fill: #ffffff; }
+    text { fill: #24292f; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .heading { font-size: 17px; font-weight: 600; }
+    .note { font-size: 13px; fill: #57606a; }
+    .axis { fill: none; stroke: #8c959f; stroke-width: 1.4; }
+    .grid { fill: none; stroke: #d8dee4; stroke-width: 1; stroke-dasharray: 4 6; }
+    .one { fill: none; stroke: #0969da; stroke-width: 3; }
+    .two { fill: none; stroke: #8250df; stroke-width: 3; stroke-dasharray: 8 6; }
+    .point-one { fill: #0969da; }
+    .point-two { fill: #8250df; }
+    @media (prefers-color-scheme: dark) {
+      .canvas { fill: #0d1117; }
+      text { fill: #e6edf3; }
+      .note { fill: #8c959f; }
+      .axis { stroke: #6e7681; }
+      .grid { stroke: #30363d; }
+      .one { stroke: #58a6ff; }
+      .two { stroke: #a371f7; }
+      .point-one { fill: #58a6ff; }
+      .point-two { fill: #a371f7; }
+    }
+  </style>
+
+  <rect width="1000" height="420" class="canvas"/>
+
+  <text x="500" y="28" text-anchor="middle" class="note">CONCEPTUAL ILLUSTRATION · NOT A RESULT</text>
+
+  <text x="265" y="64" text-anchor="middle" class="heading">Retention of Stage A</text>
+  <line x1="72" y1="328" x2="458" y2="328" class="axis"/>
+  <line x1="72" y1="88" x2="72" y2="328" class="axis"/>
+  <line x1="72" y1="188" x2="458" y2="188" class="grid"/>
+  <text x="265" y="360" text-anchor="middle" class="note">identical Stage-B training</text>
+  <text x="28" y="208" text-anchor="middle" transform="rotate(-90 28 208)" class="note">Stage-A capability</text>
+  <circle cx="112" cy="132" r="5" class="point-one"/>
+  <circle cx="112" cy="132" r="2.5" class="point-two"/>
+  <path d="M112 132 C205 150 300 185 425 244" class="one"/>
+  <path d="M112 132 C210 142 308 157 425 180" class="two"/>
+  <text x="112" y="113" text-anchor="middle" class="note">matched point</text>
+
+  <text x="735" y="64" text-anchor="middle" class="heading">Learning of Stage B</text>
+  <line x1="542" y1="328" x2="928" y2="328" class="axis"/>
+  <line x1="542" y1="88" x2="542" y2="328" class="axis"/>
+  <line x1="542" y1="208" x2="928" y2="208" class="grid"/>
+  <text x="735" y="360" text-anchor="middle" class="note">identical Stage-B training</text>
+  <text x="498" y="208" text-anchor="middle" transform="rotate(-90 498 208)" class="note">gain from own baseline</text>
+  <circle cx="582" cy="310" r="5" class="point-one"/>
+  <circle cx="582" cy="310" r="2.5" class="point-two"/>
+  <path d="M582 310 C670 270 765 195 895 134" class="one"/>
+  <path d="M582 310 C675 284 780 245 895 216" class="two"/>
+  <text x="582" y="342" text-anchor="middle" class="note">own baseline</text>
+
+  <line x1="352" y1="394" x2="392" y2="394" class="one"/>
+  <text x="402" y="399" class="note">checkpoint 1</text>
+  <line x1="522" y1="394" x2="562" y2="394" class="two"/>
+  <text x="572" y="399" class="note">checkpoint 2</text>
+</svg>

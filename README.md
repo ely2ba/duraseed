@@ -1,188 +1,161 @@
 # DuraSeed
 
-**Does the way a model learns a skill change how well that skill survives later
-training—and how well the model learns what comes next?**
+**Can two models with the same measured capability have different futures because of how they learned it?**
 
-DuraSeed is a controlled study of that question. We teach the same model the
-same new capability through two different post-training procedures, align the
-resulting checkpoints on acquired capability, and then give both exactly the
-same downstream training. We measure both what they retain and how they learn.
+Modern models are trained repeatedly: one skill is acquired, then later training
+changes the same weights. Immediate benchmark accuracy may not fully
+characterize a checkpoint if equally capable models respond differently to what
+comes next. DuraSeed follows those checkpoints forward under identical
+subsequent training.
 
-The project is supported by a generous **$5,000 research grant from [Thinking
-Machines Lab](https://thinkingmachines.ai/)**.
+![DuraSeed experimental pipeline](docs/assets/duraseed-pipeline.svg)
 
-## The idea
+## Why this matters
 
-Two checkpoints can earn the same score while being different in ways that
-only become visible later. One may hold onto the new skill more reliably.
-Another may be a better starting point for the next task. Immediate benchmark
-accuracy cannot distinguish those possibilities.
-
-DuraSeed follows the checkpoints forward:
-
-`common origin → two acquisition paths → capability matching → identical downstream training → retention + learning`
+A benchmark score is a snapshot. In a multi-stage training pipeline, we also
+care about trajectory: whether a newly learned ability survives, whether the
+model remains ready to learn something else, and whether inexpensive
+measurements can predict either outcome.
 
 Nearby studies compare how much pre-existing ability is lost while a skill is
-being learned by SFT versus RL; DuraSeed holds the subsequent training
-identical and asks whether the newly acquired skill's durability—and the
-model's readiness for the next task—depends on how it was acquired.
+being learned by SFT versus RL. DuraSeed instead holds the subsequent training
+identical and asks whether the newly acquired skill's durability — and the
+model's readiness for the next task — depends on how it was acquired.
 
-The aim is deliberately modest. This is not a universal verdict on supervised
-fine-tuning or reinforcement learning. It asks whether two concrete acquisition
-procedures leave measurably different downstream consequences under one tightly
-controlled setup.
+The aim is not a universal verdict on SFT or RL. It is a controlled test of
+whether two concrete acquisition procedures can produce checkpoints that look
+equally capable now but behave differently later.
 
 ## The experiment
 
-### A literal common starting point
+### A common origin
 
-Both methods begin from the same `Qwen/Qwen3.5-9B-Base` rank-32 LoRA checkpoint,
-called **M0**, with fresh optimizers. M0 has received a small task-agnostic
-format intervention, but no demonstrations from the Stage-A task. It is
-therefore task-cold rather than an untouched pretrained model.
+Both methods start from **M0**, a format-capable checkpoint derived from
+`Qwen/Qwen3.5-9B-Base` with a rank-32 LoRA adapter. Each branch restores the
+same weights and starts with a fresh optimizer. M0 is task-cold for the Stage-A
+skill; it is not an untouched pretrained model.
 
-### Stage A: acquire the same capability in two ways
+### Stage A: two ways to acquire one capability
 
-Stage A uses exact arithmetic-expression problems. A model must combine a
-given set of numbers, use each exactly once, and reach a target value. A
-deterministic verifier scores every attempt, so there is no judge model and no
-subjective partial credit.
+Stage A is an exact arithmetic-expression task: use each supplied number once
+to reach a target value. A deterministic verifier scores every attempt, so
+there is no judge model or subjective partial credit.
 
-- **B-S** learns from a fixed corpus of correct solver-generated derivations
-  using supervised fine-tuning.
-- **B-G** samples its own attempts and learns from exact verifier rewards using
-  group-relative reinforcement learning.
+- **B-S** learns fixed, correct solver derivations through supervised
+  fine-tuning.
+- **B-G** samples its own attempts and learns from exact verifier rewards
+  through on-policy group-relative reinforcement learning.
 
-These are complete procedures. They differ not only in objective, but also in
-where their training answers come from, how exploration happens, and what
-resources they consume.
+B-S and B-G are complete procedures, not a loss-function-only comparison.
+They differ in training source, exploration, and compute as well as objective.
+Across paired seeds, two matched 12-family panels exchange the trained-target
+and held-out-sentinel roles.
 
-The task families are split into two matched 12-family panels. Across paired
-seeds, the trained and held-out sentinel roles are crossed. This makes it
-harder for one convenient family split to drive the result.
+### Match real checkpoints
 
-### Match real checkpoints, then inspect what remains different
+Both branches are evaluated and checkpointed every ten updates. After Stage A,
+the analysis selects the nearest real B-S/B-G checkpoint pair whose measured
+targeted-capability intervals overlap. There is no interpolation and no seed
+replacement. If no overlapping pair exists, matching is reported as
+unavailable and Stage B does not run for that pair.
 
-Each method follows its frozen Stage-A schedule, with evaluation and
-checkpoints every ten updates. Afterward, we select the nearest real B-S/B-G
-checkpoint pair whose targeted-capability intervals overlap. We do not invent
-interpolated checkpoints or replace a seed when no overlap exists; that outcome
-is reported as unavailable and Stage B does not run for that pair.
+Matching is deliberately narrow: it aligns measured targeted capability, not
+the whole skill or the models' internal states.
 
-Matching one score does not make two models behaviorally identical. Before
-Stage B, we therefore record a broader profile: target and sentinel accuracy,
-family coverage, invalid and length-stopped outputs, completion length,
-Pass@k, verified strategy diversity, token surprisal, baseline performance on
-the Stage-B task before any Stage-B training, and separate token and cost
-accounting.
+### Stage B: identical later training
 
-### Stage B: the same downstream learning probe
+The selected checkpoints continue their learned LoRA weights into the same
+supervised modular program-synthesis task, each with a fresh optimizer. During
+Stage B, DuraSeed measures:
 
-Both selected Stage-A checkpoints then receive the same supervised training on
-a separate modular program-synthesis task. Stage B continues the learned LoRA
-weights with a fresh optimizer.
+- **F1 — retention:** the trajectory of Stage-A capability as later training
+  proceeds;
+- **F2 — future learning:** Stage-B learning, reported both absolutely and
+  relative to each checkpoint's own pre-Stage-B baseline; and
+- **F3 — pre-Stage-B profile:** target and sentinel accuracy, family coverage,
+  invalid and length-stopped outputs, completion length, supported Pass@k,
+  verified strategy diversity, token surprisal, and baseline Stage-B
+  performance.
 
-The core outcomes are:
+![Conceptual illustration of matched checkpoints diverging during identical later training](docs/assets/conceptual-divergence.svg)
 
-- **F1 — retention:** how much of the Stage-A capability remains during and
-  after Stage B;
-- **F2 — future learning:** how quickly and how well each checkpoint learns
-  Stage B; and
-- **F3 — pre-Stage-B profile:** what behavioral differences remained even
-  after capability matching.
+*Conceptual illustration, not a result. The checkpoint labels are intentionally
+method-neutral: either ordering is possible, and retention and learning need
+not move together.*
 
-## Where the project is now
+## Status
 
-The tasks, exact verifiers, common origin, crossed panels, Stage-B recipe, and
-analysis rules are frozen. A bounded capability-dose run confirmed that the
-overlap region needed for the paired comparison is reachable and validated the
-checkpoint save-and-restore path.
+The design and measurement pipeline are frozen. Pilot 0 pair 1 (seed `11`) is
+running through the two acquisition paths, post-hoc matching, and — only if a
+match exists — the common Stage-B probe. Live operational detail is kept in
+[`docs/STATUS.md`](docs/STATUS.md).
 
-**Pilot 0 has now begun.** The first paired seed (`11`) is running. It trains
-B-S and B-G from M0, performs the frozen post-hoc match, and—only if matching is
-available—runs the common Stage-B probe. The second paired seed remains
-unlaunched until the first pair produces durable evidence and receives a
-separate authorization.
+> **No B-S/B-G scientific result is claimed yet.**
 
-No B-S/B-G scientific result is claimed yet, and final test data remain sealed.
+Pre-Pilot work simplified the experiment: algebraically equivalent task
+families were removed, an unstable shared teacher warm start was retired in
+favor of the literal M0 origin, and a response-format measurement was aligned
+with the task's prompt and verifier. These were feasibility and measurement
+corrections made before Pilot comparisons, not scientific outcomes; the full
+record is in the [technical appendix](docs/TECHNICAL.md).
 
-The current plan is:
+Next, the project will:
 
-1. complete and inspect the first paired Pilot run;
-2. run the separately authorized second pair once the first yields durable,
-   complete artifacts—an authorization that does not depend on the direction
-   or size of any scientific result ([`docs/STATUS.md`](docs/STATUS.md) records
-   this commitment);
-3. use the two pairs to assess feasibility and effect direction, with a first,
-   crude look at seed-to-seed variability;
-4. add fresh paired seeds for variance reconnaissance before fixing a powered
-   confirmatory design; and
-5. preregister and run confirmation only if the effect is worth pursuing.
+- run the separately authorized second pair once the first yields durable,
+  complete artifacts — an authorization that does not depend on the direction
+  or size of any scientific result ([docs/STATUS.md](docs/STATUS.md) records
+  this commitment);
+- use the two pairs to assess feasibility and effect direction, with a first,
+  crude look at seed-to-seed variability; and
+- add fresh paired seeds before fixing any powered confirmatory study.
 
-## How the design got here
+## What would be informative
 
-Pre-Pilot work made the study simpler and more literal.
+A difference in Stage-A durability would suggest that matching immediate
+capability does not match resistance to later change. A difference in Stage-B
+learning would suggest that acquisition also changes the substrate available
+for the next task. Together, these outcomes could expose a stability–plasticity
+tradeoff that endpoint accuracy misses.
 
-An outcome-blind algebraic deduplication removed equivalent task families
-before panel matching. A proposed task-specific teacher warm start was then
-retired after bounded calibration showed it was not stable enough to serve as a
-common origin. Both methods now branch directly from M0. A later audit found
-that one format diagnostic demanded a stricter response shape than the task
-prompt and verifier; the contract was corrected before Pilot outcomes existed,
-while the original evidence was retained. Finally, a bounded dose run verified
-that the supervised path could reach the planned matching region without
-opening another tuning ladder.
-
-These were feasibility and measurement corrections, not B-S/B-G results. They
-were made before Pilot comparisons or sealed-test access, and the detailed
-records remain public in the repository.
-
-For the full protocol, calibration history, frozen gates, data construction,
-budget accounting, failure rules, and provenance map, see the **[technical
-appendix](docs/TECHNICAL.md)**.
+A robust null would also be useful: it would place a concrete bound on how much
+these two procedures matter under this setup. So would an inexpensive F3
+measurement that reliably predicts later retention or learning. DuraSeed does
+not assume either method will win.
 
 ## Scope
 
-The first study uses one 9B model, rank-32 LoRA adapters, synthetic exact tasks,
-and one fixed downstream probe. Any conclusion is conditional on that setup.
-The design can show a difference between the complete B-S and B-G procedures;
-it cannot by itself attribute that difference solely to the loss function or
-claim that one family of methods is universally superior.
+The first study covers one 9B model, rank-32 LoRA adapters, synthetic exact
+tasks, and one downstream probe. Its conclusions are therefore about the
+complete B-S and B-G procedures in this setting; they cannot isolate the loss
+function alone or establish that one broad method family is universally
+better.
 
-## Repository
+## Reproduce and inspect
 
-- [`PROTOCOL.md`](PROTOCOL.md) is the public scientific contract.
-- [`docs/STATUS.md`](docs/STATUS.md) tracks the live experimental state.
-- [`docs/TECHNICAL.md`](docs/TECHNICAL.md) is the technical and process
-  appendix.
-- [`docs/MAP.md`](docs/MAP.md) maps code, data flow, and provenance.
-- [`duraseed_pilot_config.yaml`](duraseed_pilot_config.yaml) contains the
-  machine-readable frozen configuration.
-
-Local validation is credential-free:
+Local setup and validation are credential-free:
 
 ```bash
 uv sync --extra dev
 uv run pytest
-uv run ruff check .
 uv run duraseed validate
 ```
 
-Remote execution is separately authorized and cost-capped.
+- [`PROTOCOL.md`](PROTOCOL.md) — scientific design and estimands
+- [`docs/TECHNICAL.md`](docs/TECHNICAL.md) — implementation, calibration, and
+  process detail
+- [`docs/STATUS.md`](docs/STATUS.md) — current experimental state
+- [`docs/MAP.md`](docs/MAP.md) — code, artifacts, and provenance map
 
-## Development note
+## Development and support
 
-This is an independent research project and a learning experience. I use Codex
-for much of the implementation. Agent-assisted development makes work at this
-scale possible for one person, but it can also encourage unnecessary
-scaffolding. I have tried to keep that tendency under control by narrowing the
-study, removing obsolete paths, and keeping the public story centered on the
-science.
+DuraSeed is an independent, agent-assisted research project and a learning
+experience. Codex handles much of the coding; the scope and implementation
+have been deliberately narrowed to keep the repository compact and the
+science legible. Constructive input on the design, analysis, implementation,
+or presentation is welcome through
+[GitHub Issues](https://github.com/ely2ba/duraseed/issues).
 
-Constructive criticism is welcome—on the scientific design, statistics,
-implementation, or unnecessary complexity. Please [open an
-issue](https://github.com/ely2ba/duraseed/issues) with questions or suggestions.
+This work was made possible by a generous **$5,000 research grant from
+[Thinking Machines Lab](https://thinkingmachines.ai/)**.
 
-## License
-
-[Apache License 2.0](LICENSE)
+Licensed under the [Apache License 2.0](LICENSE).
