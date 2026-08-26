@@ -86,10 +86,10 @@ not move together.*
 ## Status
 
 The design and measurement pipeline are frozen. Pilot 0 pair 1 (seed `11`) is
-now in Stage A: B-S has reached update 240 of 294 and is completing its
-update-240 evaluation; B-G follows. The two paths will then be matched and —
-only if a match exists — continue into the common Stage-B probe. Live
-operational detail is kept in [`docs/STATUS.md`](docs/STATUS.md).
+now in Stage A: B-S has completed its full 294-update trajectory, and B-G is
+underway. The two paths will then be matched and — only if a match exists —
+continue into the common Stage-B probe. Live operational detail is kept in
+[`docs/STATUS.md`](docs/STATUS.md).
 
 > **No B-S/B-G scientific result is claimed yet.**
 
