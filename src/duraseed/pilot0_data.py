@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 from collections import Counter, defaultdict
-from concurrent.futures import ProcessPoolExecutor
-import os
 
 from duraseed.data.manifests import MAPSTaskManifestRecord, TCESTaskManifestRecord
 from duraseed.data.stage_a_prompt_pools import PromptPoolStratum
 from duraseed.pilot0_contract import PilotSeedSources
 from duraseed.runners import RunnerGateError
-from duraseed.tasks.tces import enumerate_task, generate_teacher_trace
+from duraseed.tasks.tces import generate_teacher_trace, strategy_family_id
+from duraseed.tasks.tces.ast import (
+    BinaryExpression,
+    BinaryOperator,
+    Expression,
+    IntegerLiteral,
+)
 from duraseed.training.capability_dose_evidence import EPOCH_UPDATES
 from duraseed.training.sft import (
     VerifiedSourceRecord,
@@ -19,11 +23,69 @@ from duraseed.training.sft import (
 )
 
 
+_FAMILY_OPERATORS = {
+    "ADD": BinaryOperator.ADD,
+    "SUB": BinaryOperator.SUB,
+    "MUL": BinaryOperator.MUL,
+    "DIV": BinaryOperator.DIV,
+}
+
+
+def _family_expression(record: TCESTaskManifestRecord) -> Expression:
+    """Rebuild the manifest's frozen representative without exhaustive search."""
+
+    structure = record.intended_family.split("|", maxsplit=1)[0]
+    ranked_operands = tuple(
+        value
+        for _, value in sorted(
+            enumerate(record.operands), key=lambda item: (item[1], item[0])
+        )
+    )
+
+    def parse(position: int) -> tuple[Expression, int]:
+        if position < len(structure) and structure[position] == "r":
+            end = position + 1
+            while end < len(structure) and structure[end].isdigit():
+                end += 1
+            try:
+                rank = int(structure[position + 1 : end])
+                if rank < 1:
+                    raise ValueError("rank must be positive")
+                return IntegerLiteral(ranked_operands[rank - 1]), end
+            except (IndexError, ValueError) as error:
+                raise RunnerGateError(
+                    "Pilot-0 solver family has an invalid rank"
+                ) from error
+        operator_name = next(
+            (
+                name
+                for name in _FAMILY_OPERATORS
+                if structure.startswith(f"{name}(", position)
+            ),
+            None,
+        )
+        if operator_name is None:
+            raise RunnerGateError("Pilot-0 solver family has an invalid node")
+        left, cursor = parse(position + len(operator_name) + 1)
+        if cursor >= len(structure) or structure[cursor] != ",":
+            raise RunnerGateError("Pilot-0 solver family lacks a child separator")
+        right, cursor = parse(cursor + 1)
+        if cursor >= len(structure) or structure[cursor] != ")":
+            raise RunnerGateError("Pilot-0 solver family lacks a closing parenthesis")
+        return BinaryExpression(
+            _FAMILY_OPERATORS[operator_name], left, right
+        ), cursor + 1
+
+    expression, end = parse(0)
+    if end != len(structure) or strategy_family_id(expression, record.operands) != (
+        record.intended_family
+    ):
+        raise RunnerGateError("Pilot-0 solver family reconstruction changed identity")
+    return expression
+
+
 def _tces_completion(record: TCESTaskManifestRecord) -> str:
-    enumeration = enumerate_task(record.to_task())
-    expression = enumeration.family_representatives.get(record.intended_family)
-    if not enumeration.complete or expression is None:
-        raise RunnerGateError("Pilot-0 TCES source lacks its intended-family solution")
+    expression = _family_expression(record)
     return generate_teacher_trace(expression)
 
 
@@ -50,16 +112,14 @@ def stage_a_solver_sources(source: PilotSeedSources) -> dict[str, VerifiedSource
             raise RunnerGateError("Pilot-0 Stage-A training manifest is not TCES")
         if record.task_id in selected_ids:
             selected_records.append(record)
-    with ProcessPoolExecutor(max_workers=min(8, os.cpu_count() or 1)) as executor:
-        completions = executor.map(_tces_completion, selected_records)
-        result = {
-            record.task_id: build_solver_teacher_record(
-                source_manifest=source.prompt_pools.a_rl_train_manifest,
-                source_record=record,
-                completion=completion,
-            )
-            for record, completion in zip(selected_records, completions, strict=True)
-        }
+    result = {
+        record.task_id: build_solver_teacher_record(
+            source_manifest=source.prompt_pools.a_rl_train_manifest,
+            source_record=record,
+            completion=_tces_completion(record),
+        )
+        for record in selected_records
+    }
     if set(result) != selected_ids:
         raise RunnerGateError("Pilot-0 B-S schedule omits a solver source")
     _SOLVER_CACHE[source.prompt_pools.a_rl_train_manifest.manifest_id] = result
