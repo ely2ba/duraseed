@@ -53,6 +53,7 @@ def pilot0_pair_live(
     config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
     authorized_cost_usd: str | None = typer.Option(None),
     confirm_human_launch: bool = typer.Option(False),
+    resume_interrupted: bool = typer.Option(False),
     project_id: str | None = typer.Option(None, envvar="TINKER_PROJECT_ID"),
 ) -> None:
     """Execute exactly one frozen B-S/B-G paired Pilot seed."""
@@ -85,6 +86,7 @@ def pilot0_pair_live(
                 project_id=project_id,
                 authorized_cost_usd=authorized_cost_usd,
                 human_approval=confirm_human_launch,
+                resume_interrupted=resume_interrupted,
             )
         )
     except RunnerGateError as error:

@@ -26,6 +26,7 @@ class RetainedCheckpoint:
     seed: int
     method: str
     step: int
+    sampler_path: str
     state_path: str
     selected: bool
 
@@ -68,9 +69,12 @@ def discover_checkpoints(run_root: Path) -> tuple[RetainedCheckpoint, ...]:
     rows: dict[str, RetainedCheckpoint] = {}
     for path in sorted(run_root.glob("seed-*/B-*/steps-*/segment.json")):
         value = _json(path)
+        sampler_path = value.get("sampler_path")
         state_path = value.get("state_path")
-        if value.get("checkpoint_retained") is not True or not isinstance(
-            state_path, str
+        if (
+            value.get("checkpoint_retained") is not True
+            or not isinstance(sampler_path, str)
+            or not isinstance(state_path, str)
         ):
             continue
         method = str(value.get("method"))
@@ -80,6 +84,7 @@ def discover_checkpoints(run_root: Path) -> tuple[RetainedCheckpoint, ...]:
             seed=seed,
             method=method,
             step=step,
+            sampler_path=sampler_path,
             state_path=state_path,
             selected=state_path in selected_paths,
         )
@@ -230,7 +235,7 @@ def archive(run_root: Path, output: Path) -> dict[str, Any]:
                 raise ValueError(f"incomplete archive already exists: {destination}")
             output.mkdir(parents=True, exist_ok=True)
             with tempfile.TemporaryDirectory(dir=output) as temporary:
-                weights.download(tinker_path=row.state_path, output_dir=temporary)
+                weights.download(tinker_path=row.sampler_path, output_dir=temporary)
                 temporary_path = Path(temporary)
                 downloaded = tuple(temporary_path.rglob("adapter_model.safetensors"))
                 if len(downloaded) != 1:

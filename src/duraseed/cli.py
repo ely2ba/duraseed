@@ -26,7 +26,11 @@ from duraseed.runners import boundary_launch
 from duraseed.runners import live_smoke as smoke
 
 
-app = typer.Typer(add_completion=False, no_args_is_help=True)
+app = typer.Typer(
+    add_completion=False,
+    no_args_is_help=True,
+    pretty_exceptions_enable=False,
+)
 app.command("capability-dose-live")(capability_dose_live)
 app.command("pilot0-pair-live")(pilot0_pair_live)
 app.command("pilot0-sources-build")(pilot0_sources_build)

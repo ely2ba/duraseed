@@ -11,6 +11,7 @@ from duraseed.data.manifests import (
     TCESTaskManifestRecord,
 )
 from duraseed.pilot0_contract import Pilot0Inputs, PilotSeedSources
+from duraseed.pilot0_recovery import load_pilot0_recovery
 from duraseed.pilot0_evidence import (
     EvaluationStage,
     finish_evaluation,
@@ -101,8 +102,20 @@ async def evaluate_manifest(
         "top_p": top_p,
         "task_contract_sha256": canonical_json_hash(contracts),
     }
-    completed = read_evaluation(output)
-    journal = None if completed is not None else RemoteJournal(output)
+    output_root = getattr(inputs, "output_root", None)
+    root = None if output_root is None else Path(output_root) / inputs.run_id
+    recovery = None if root is None else load_pilot0_recovery(root)
+    reconciled_resume = (
+        recovery is not None
+        and root is not None
+        and output.relative_to(root).as_posix() == recovery.get("evaluation")
+    )
+    completed = read_evaluation(output, reconciled_resume=reconciled_resume)
+    journal = (
+        None
+        if completed is not None
+        else RemoteJournal(output, reconciled_resume=reconciled_resume)
+    )
     if completed is not None:
         try:
             call_state = json.loads((output / "remote-call-state.json").read_bytes())

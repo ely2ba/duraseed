@@ -12,6 +12,7 @@ from duraseed.pilot0_contract import (
 )
 from duraseed.pilot0_data import ordered_stage_a_pools, stage_a_solver_sources
 from duraseed.pilot0_integrity import segment_coordinates
+from duraseed.pilot0_recovery import recovery_segment
 from duraseed.runners.pilot0_remote import (
     read_segment,
     restore_runtime,
@@ -55,81 +56,93 @@ async def _branch_segment(
         parent_state_path=previous["state_path"],
         learning_rate=learning_rate,
     )
-    completed = read_segment(output, expected)
+    recovery = recovery_segment(inputs, output)
+    completed = read_segment(output, expected, reconciled_resume=recovery is not None)
     if completed is not None:
         return completed
     output.mkdir(parents=True, exist_ok=True)
-    journal = RemoteJournal(output)
-    runtime = await restore_runtime(
-        inputs,
-        journal,
-        path=previous["state_path"],
-        full_state=start > 0,
-        coordinate=expected,
-    )
-    for step in range(start + 1, stop + 1):
-        if method == "B-S":
-            await supervised_update(
-                inputs,
-                source,
-                runtime,
-                step=step,
-                learning_rate=learning_rate,
-                pools=pools,
-                sources=sources,
-                output=output,
-                journal=journal,
-            )
-        else:
-            await grouped_rl_update(
-                inputs,
-                source,
-                runtime,
-                step=step,
-                learning_rate=learning_rate,
-                pools=pools,
-                boundary_sampler_path=origin["sampler_path"],
-                output=output,
-                journal=journal,
-            )
-    if stop % 10:
-        return write_segment(
-            output,
-            {
-                **expected,
-                "step": stop,
-                "learning_rate": learning_rate,
-                "cadence_evaluated": False,
-                "checkpoint_retained": False,
-            },
-            ledger=inputs.ledger,
+    journal = RemoteJournal(output, reconciled_resume=recovery is not None)
+    if recovery is None:
+        runtime = await restore_runtime(
+            inputs,
+            journal,
+            path=previous["state_path"],
+            full_state=start > 0,
+            coordinate=expected,
         )
-    pair = await save_pair(
-        inputs,
-        runtime,
-        journal,
-        name=f"{inputs.run_id}-seed-{source.seed}-{method}-step-{stop}",
-        ttl_seconds=CADENCE_CHECKPOINT_TTL_SECONDS,
-        coordinate=expected,
-    )
+        for step in range(start + 1, stop + 1):
+            if method == "B-S":
+                await supervised_update(
+                    inputs,
+                    source,
+                    runtime,
+                    step=step,
+                    learning_rate=learning_rate,
+                    pools=pools,
+                    sources=sources,
+                    output=output,
+                    journal=journal,
+                )
+            else:
+                await grouped_rl_update(
+                    inputs,
+                    source,
+                    runtime,
+                    step=step,
+                    learning_rate=learning_rate,
+                    pools=pools,
+                    boundary_sampler_path=origin["sampler_path"],
+                    output=output,
+                    journal=journal,
+                )
+        if stop % 10:
+            return write_segment(
+                output,
+                {
+                    **expected,
+                    "step": stop,
+                    "learning_rate": learning_rate,
+                    "cadence_evaluated": False,
+                    "checkpoint_retained": False,
+                },
+                ledger=inputs.ledger,
+            )
+        pair = await save_pair(
+            inputs,
+            runtime,
+            journal,
+            name=f"{inputs.run_id}-seed-{source.seed}-{method}-step-{stop}",
+            ttl_seconds=CADENCE_CHECKPOINT_TTL_SECONDS,
+            coordinate=expected,
+        )
+        sampler_path, state_path = pair.sampler_path, pair.state_path
+    else:
+        if (
+            method != recovery.get("method")
+            or start != recovery.get("start")
+            or stop != recovery.get("stop")
+        ):
+            raise RuntimeError("Pilot recovery changed its interrupted segment")
+        sampler_path = str(recovery["sampler_path"])
+        state_path = str(recovery["state_path"])
     result = {
         **expected,
         "step": stop,
-        "sampler_path": pair.sampler_path,
-        "state_path": pair.state_path,
+        "sampler_path": sampler_path,
+        "state_path": state_path,
         "learning_rate": learning_rate,
         "cadence_evaluated": True,
         "checkpoint_retained": True,
     }
     sampler = await sampler_for_path(
-        inputs, journal, path=pair.sampler_path, coordinate=expected
+        inputs, journal, path=sampler_path, coordinate=expected
     )
     monitor = await evaluate_manifest(
         inputs,
         source,
         manifest=source.a_cadence,
         sampler=sampler,
-        sampler_path=pair.sampler_path,
+        sampler_path=sampler_path,
         origin_sampler_path=origin["sampler_path"],
         method=method,  # type: ignore[arg-type]
         checkpoint_stage="stage_a",

@@ -38,7 +38,13 @@ def _reservation(value: dict[str, int | float]) -> dict[str, int | float]:
 class RemoteJournal:
     """Persist one pending coordinate; an ambiguous restart always stops."""
 
-    def __init__(self, directory: Path, ledger: TokenLedger | None = None) -> None:
+    def __init__(
+        self,
+        directory: Path,
+        ledger: TokenLedger | None = None,
+        *,
+        reconciled_resume: bool = False,
+    ) -> None:
         directory.mkdir(parents=True, exist_ok=True)
         self.state_path = directory / "remote-call-state.json"
         self.events_path = directory / "remote-calls.jsonl"
@@ -71,7 +77,7 @@ class RemoteJournal:
             if self.sequence and not isinstance(floor, dict):
                 raise RunnerGateError("remote-call journal omitted its spend floor")
             self.floor = _reservation(floor or {})
-            if ledger is None and self.sequence:
+            if ledger is None and self.sequence and not reconciled_resume:
                 raise RunnerGateError(
                     "partial remote action requires ledger reconciliation"
                 )

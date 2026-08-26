@@ -22,14 +22,15 @@ from duraseed.runners.remote_journal import RemoteJournal
 EvaluationStage = Literal["m0", "stage_a", "stage_b"]
 
 
-def read_evaluation(directory: Path) -> dict | None:
+def read_evaluation(directory: Path, *, reconciled_resume: bool = False) -> dict | None:
     path = directory / "result.json"
     if not path.exists():
         if (directory / "remote-calls.jsonl").exists():
-            RemoteJournal(directory)
-            raise RunnerGateError(
-                "incomplete Pilot-0 evaluation requires reconciliation"
-            )
+            RemoteJournal(directory, reconciled_resume=reconciled_resume)
+            if not reconciled_resume:
+                raise RunnerGateError(
+                    "incomplete Pilot-0 evaluation requires reconciliation"
+                )
         return None
     try:
         result = json.loads(path.read_bytes())

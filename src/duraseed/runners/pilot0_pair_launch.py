@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib
+import json
 from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
@@ -24,6 +25,7 @@ from duraseed.pilot0_pair_auth import (
     authenticate_pilot_sources,
     load_pilot_pair_billing,
 )
+from duraseed.pilot0_recovery import prepare_pilot0_recovery
 from duraseed.pilot0_source_build import read_pilot_seed_sources
 from duraseed.runners import RunnerGateError, authorize_launch
 from duraseed.runners.calibration_launch import _git_commit
@@ -60,6 +62,7 @@ async def run_remote_pilot0_pair(
     project_id: str,
     authorized_cost_usd: str | None,
     human_approval: bool,
+    resume_interrupted: bool = False,
 ) -> Path:
     """Authenticate and launch one pair; never creates a service before approval."""
 
@@ -72,8 +75,10 @@ async def run_remote_pilot0_pair(
         raise RunnerGateError("Pilot-0 pair launch identity is invalid")
     output = Path(output_root)
     root = output / run_id
-    if root.exists():
+    if root.exists() and not resume_interrupted:
         raise RunnerGateError("Pilot-0 run ID already exists; no reroll is authorized")
+    if resume_interrupted and not root.exists():
+        raise RunnerGateError("Pilot-0 resume requires the interrupted run root")
     config = load_pilot_config(config_path)
     loaded = load_calibration_source_objects(
         config=config,
@@ -142,7 +147,18 @@ async def run_remote_pilot0_pair(
     )
     if authorization.authorized_cost_usd != budget.cent_ceiling_usd:
         raise RunnerGateError("Pilot pair authorization differs from exact preflight")
-    git_commit = _git_commit()
+    active_git_commit = _git_commit()
+    if resume_interrupted:
+        try:
+            stored_preflight = json.loads((root / "preflight.json").read_bytes())
+            stored_lineage = stored_preflight["lineage"]
+            git_commit = str(stored_lineage["git_commit"])
+            primary_session_id = str(stored_lineage["session_id"])
+        except (OSError, KeyError, TypeError, json.JSONDecodeError) as error:
+            raise RunnerGateError("Pilot-0 resume preflight is invalid") from error
+    else:
+        git_commit = active_git_commit
+        primary_session_id = "local-preflight-no-service"
     ledger = TokenLedger(budget.tokens, float(budget.cent_ceiling_usd))
     local_inputs = Pilot0Inputs(
         config=config,
@@ -159,7 +175,7 @@ async def run_remote_pilot0_pair(
         source=source,
         source_authentication=authentication,
         billing=billing,
-        session_id="local-preflight-no-service",
+        session_id=primary_session_id,
         dose_terminal_sha256=authentication.lineage["dose_terminal_sha256"],
         stage_b_recipe_artifact_sha256=(
             authentication.lineage["stage_b_recipe_sha256"]
@@ -176,17 +192,22 @@ async def run_remote_pilot0_pair(
             "gate_name": "pilot0-paired-seed",
             "run_id": run_id,
             "pair_index": str(pair_index),
+            "infrastructure_recovery": str(resume_interrupted).lower(),
         },
     )
     session_id = str(service._get_session_holder().get_session_id())
     if not session_id.strip():
         raise RunnerGateError("Tinker service returned no session identity")
     runtime = RuntimeBundle(sdk, service, None, renderer, tokenizer)
-    inputs = replace(
-        local_inputs,
-        session_id=session_id,
-        runtime=runtime,
-    )
+    if resume_interrupted:
+        prepare_pilot0_recovery(
+            root,
+            recovery_session_id=session_id,
+            recovery_git_commit=active_git_commit,
+        )
+        inputs = replace(local_inputs, runtime=runtime)
+    else:
+        inputs = replace(local_inputs, session_id=session_id, runtime=runtime)
     await run_pilot0(inputs)
     return root
 

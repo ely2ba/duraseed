@@ -9,6 +9,7 @@ from typing import Any
 from duraseed.data.io import atomic_write_bytes
 from duraseed.pilot0_contract import EPHEMERAL_SAMPLER_FIXED_USD, Pilot0Inputs
 from duraseed.pilot0_integrity import bind_segment_evidence, verify_segment_evidence
+from duraseed.pilot0_recovery import restore_pilot0_recovery_ledger
 from duraseed.provenance import canonical_json_bytes, canonical_json_hash, sha256_bytes
 from duraseed.runners import RunnerGateError
 from duraseed.runners.remote_journal import RemoteJournal
@@ -24,12 +25,20 @@ from duraseed.runtime import (
 )
 
 
-def read_segment(directory: Path, expected: dict[str, Any]) -> dict[str, Any] | None:
+def read_segment(
+    directory: Path,
+    expected: dict[str, Any],
+    *,
+    reconciled_resume: bool = False,
+) -> dict[str, Any] | None:
     path = directory / "segment.json"
     if not path.exists():
         if (directory / "remote-calls.jsonl").exists():
-            RemoteJournal(directory)
-            raise RunnerGateError("incomplete Pilot-0 segment requires reconciliation")
+            RemoteJournal(directory, reconciled_resume=reconciled_resume)
+            if not reconciled_resume:
+                raise RunnerGateError(
+                    "incomplete Pilot-0 segment requires reconciliation"
+                )
         return None
     try:
         value = json.loads(path.read_bytes())
@@ -94,6 +103,9 @@ def _budget(value: dict[str, Any]) -> TokenBudget:
 
 def hydrate_ledger(inputs: Pilot0Inputs, root: Path) -> None:
     """Restore cumulative reservations from the latest completed segment."""
+
+    if restore_pilot0_recovery_ledger(inputs, root):
+        return
 
     snapshots = []
     for path in root.rglob("segment.json"):

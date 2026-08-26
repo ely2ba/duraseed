@@ -16,6 +16,7 @@ from duraseed.pilot0_contract import (
     validate_pilot0_inputs,
 )
 from duraseed.pilot0_evidence import read_evaluation
+from duraseed.pilot0_recovery import pilot0_session_ids
 from duraseed.pilot0_reporting import evidence_index, reward_group_health, usage_summary
 from duraseed.pilot0_source_build import write_pilot_seed_sources
 from duraseed.provenance import canonical_json_bytes, canonical_json_value, sha256_bytes
@@ -177,7 +178,7 @@ def _billing_handoff(inputs: Pilot0Inputs, root: Path, status: str) -> None:
             "run_status": status,
             "pair_index": inputs.pair_index,
             "project_id": inputs.project_id,
-            "session_ids": [inputs.session_id],
+            "session_ids": pilot0_session_ids(root, inputs.session_id),
             "prelaunch_actual_lifetime_spend_usd": (
                 inputs.billing.actual_lifetime_spend_usd
             ),
