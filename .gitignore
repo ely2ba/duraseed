@@ -7,6 +7,7 @@
 /outputs/
 
 # Credentials and private local material
+/AGENTS.md
 .env
 .env.*
 !.env.example
