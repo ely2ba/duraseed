@@ -1,13 +1,16 @@
 # Project status
 
-_Last updated: 2026-08-23._
+_Last updated: 2026-08-28._
 
 ## Current
 
-Pilot 0 has begun. Pair 1 uses seed 11 and is running under its separate
-`$772.40` authorization. It will train both Stage-A procedures from M0, match
-real cadence checkpoints on targeted exact success, record the full pre-Stage-B
-profile, and run the common Stage-B probe only if matching is available.
+Pilot 0 pair 1 uses seed 11 and is running under its separate `$772.40`
+authorization. Both Stage-A trajectories are complete. The frozen overlap rule
+selected the real B-S update-140 checkpoint and B-G update-30 checkpoint, and
+both full pre-Stage-B F3 profiles are durable. Stage B is now running on B-S:
+five of 480 updates are committed, the update-5 MAPS evaluation is complete,
+and its retention evaluation is in progress. B-G follows under the identical
+frozen Stage-B schedule.
 
 Pair 2 remains unlaunched. It requires durable pair-1 F1/F2 cells, F3 profiles,
 a matching record, billing lineage, and a separate human authorization.
@@ -20,7 +23,8 @@ pair-2 preflight remaining within accepted ceilings. It does not depend on the
 direction, size, or significance of any pair-1 scientific contrast; a
 matching-unavailable outcome does not block pair 2.
 
-No B-S/B-G result is claimed yet. Final test data remain sealed.
+No retention or future-learning contrast is claimed yet. Final test data remain
+sealed.
 
 ## Completed foundations
 
@@ -40,12 +44,17 @@ No B-S/B-G result is claimed yet. Final test data remain sealed.
   save followed by weights-only restore.
 - Pilot pair execution, cadence state checkpointing, post-hoc matching, F3
   profiles, Stage B, billing gates, and no-reroll failure handling pass locally.
+- Pair 1 completed both Stage-A schedules without scientific or infrastructure
+  failure; all 34 retained cadence checkpoints are archived locally.
+- Matching selected B-S update 140 with B-G update 30, both selected F3 profiles
+  completed, and the common Stage-B probe began.
 
 ## Next
 
-1. Finish and inspect pair 1.
+1. Finish pair 1 Stage B and inspect its durable F1/F2/F3 evidence.
 2. Launch pair 2 only after its separate authorization.
-3. Use both pairs to estimate feasibility, direction, and early variance.
+3. Use both pairs to assess feasibility and effect direction, with a first,
+   crude look at seed-to-seed variability.
 4. Extend to fresh paired seeds before powering and preregistering confirmation.
 
 For the scientific overview, return to the [README](../README.md). For exact

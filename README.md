@@ -88,11 +88,12 @@ not move together.*
 The design and measurement pipeline are frozen. Pilot 0 pair 1 (seed `11`) is
 through Stage A: both acquisition trajectories are complete, and the frozen
 overlap rule matched the real B-S update-140 checkpoint with the real B-G
-update-30 checkpoint. The run is now collecting the full pre-Stage-B F3
-profiles before both selected checkpoints enter the common Stage-B probe.
-Live operational detail is kept in [`docs/STATUS.md`](docs/STATUS.md).
+update-30 checkpoint. Both pre-Stage-B F3 profiles are complete, and the common
+Stage-B probe is running: the B-S branch has reached update 5 of 480, with B-G
+to follow under the identical schedule. Live operational detail is kept in
+[`docs/STATUS.md`](docs/STATUS.md).
 
-> **No B-S/B-G scientific result is claimed yet.**
+> **No retention or future-learning contrast is claimed yet.**
 
 Pre-Pilot work simplified the experiment: algebraically equivalent task
 families were removed, an unstable shared teacher warm start was retired in
