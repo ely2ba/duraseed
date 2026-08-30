@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib
 import json
 from dataclasses import replace
+from decimal import Decimal
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -17,6 +18,7 @@ from duraseed.config import load_pilot_config
 from duraseed.pilot0_budget import build_pilot0_pair_plan, calculate_pilot0_budget
 from duraseed.pilot0_contract import (
     PILOT_PAIR_PLANNING_CAP_USD,
+    PILOT_TWO_PAIR_PLANNING_CAP_USD,
     Pilot0Inputs,
     PilotStageARecipe,
     validate_pilot0_inputs,
@@ -137,6 +139,9 @@ async def run_remote_pilot0_pair(
         preconditions={
             "actual_spend_reconciled": (
                 billing.remaining_balance_usd >= float(budget.cent_ceiling_usd)
+                and Decimal(str(billing.lineage["actual_lifetime_spend_usd"]))
+                + budget.cent_ceiling_usd
+                <= Decimal(str(PILOT_TWO_PAIR_PLANNING_CAP_USD))
             ),
             "pair_order_valid": (
                 (pair_index == 1 and billing.prior_pair_result_sha256 is None)

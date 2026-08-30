@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import base64
 from datetime import UTC, datetime
+from decimal import Decimal
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -18,6 +19,7 @@ from duraseed.pilot0_contract import (
     validate_pilot0_inputs,
 )
 from duraseed.pilot0_sources import load_pilot0_source_authentication
+from duraseed.pilot0_pair_auth import _run_ledger_actuals
 from duraseed.provenance import canonical_json_bytes, sha256_bytes
 from duraseed.runners import RunnerGateError
 from duraseed.runners.pilot0_remote import ephemeral_sampler
@@ -226,3 +228,65 @@ def test_source_authentication_binds_smoke_m0_billing_and_sealed_metadata(
         load_pilot0_source_authentication(
             bundle_path, authorization_path, seal_path, **kwargs
         )
+
+
+def test_run_ledger_billing_excludes_other_project_console_spend(
+    tmp_path: Path,
+) -> None:
+    console_path = tmp_path / "console.json"
+    console_hash = _write(
+        console_path,
+        {
+            "source": "authenticated_tinker_web_console",
+            "project_id": "project",
+            "observed_at_utc": "2026-08-30T20:31:41Z",
+            "account_spend_derived_from_grant_usd": 1035.44,
+            "remaining_grant_balance_usd": 3964.56,
+        },
+    )
+    run_path = tmp_path / "run.json"
+    run_hash = _write(
+        run_path,
+        {
+            "project_id": "project",
+            "ledger": {
+                "observed_cost_usd": 206.584897406,
+                "committed_cost_usd": 746.827192691,
+            },
+        },
+    )
+    evidence = {
+        "accounting_basis": "duraseed_run_ledger_actuals",
+        "project_id": "project",
+        "console_evidence_path": str(console_path),
+        "console_evidence_sha256": console_hash,
+        "actual_lifetime_spend_usd": "206.584897406",
+        "run_ledgers": [
+            {
+                "run_id": "pair1",
+                "path": str(run_path),
+                "field": "ledger.observed_cost_usd",
+                "actual_usd": "206.584897406",
+                "sha256": run_hash,
+            }
+        ],
+    }
+    kwargs = {"project_id": "project", "latest": datetime(2026, 8, 30, tzinfo=UTC)}
+    actual, remaining, digest, lineage = _run_ledger_actuals(evidence, **kwargs)
+    assert actual == Decimal("206.584897406")
+    assert remaining == Decimal("3964.56")
+    assert digest == console_hash
+    assert lineage["accounting_basis"] == "duraseed_run_ledger_actuals"
+    assert actual + Decimal("772.40") <= Decimal("1548.08")
+
+    evidence["run_ledgers"].append(dict(evidence["run_ledgers"][0]))
+    with pytest.raises(RunnerGateError, match="duplicated"):
+        _run_ledger_actuals(evidence, **kwargs)
+    evidence["run_ledgers"].pop()
+    evidence["run_ledgers"][0]["field"] = "ledger.committed_cost_usd"
+    with pytest.raises(RunnerGateError, match="duplicated or changed"):
+        _run_ledger_actuals(evidence, **kwargs)
+    evidence["run_ledgers"][0]["field"] = "ledger.observed_cost_usd"
+    run_path.write_text('{"tampered":true}')
+    with pytest.raises(RunnerGateError, match="duplicated or changed"):
+        _run_ledger_actuals(evidence, **kwargs)

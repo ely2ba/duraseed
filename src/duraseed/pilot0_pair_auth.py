@@ -154,13 +154,35 @@ def load_pilot_pair_billing(
     pair_index: int,
     prior_pair_root: Path | None,
 ) -> PilotPairBilling:
-    """Require console actuals after the dose and, for pair 2, after pair 1."""
+    """Load authorized run-ledger accounting or preserved legacy console evidence."""
 
     evidence, evidence_raw = _object(console_evidence_path, "console evidence")
     dose_run = read_run_record(dose_root)
     prior_hash, prior_session, prior_finished = _prior_pair(
         prior_pair_root, pair_index=pair_index
     )
+    latest = max(
+        value for value in (dose_run.finished_at, prior_finished) if value is not None
+    ).astimezone(UTC)
+    if evidence.get("schema_version") == "duraseed-pilot0-run-ledger-billing-v1":
+        if (
+            dose_run.status is not RunStatus.COMPLETED
+            or dose_run.project_id != project_id
+        ):
+            raise RunnerGateError("Pilot dose lineage differs")
+        actual, remaining, console_hash, lineage = _run_ledger_actuals(
+            evidence, project_id=project_id, latest=latest
+        )
+        lineage.update(
+            billing_evidence_sha256=sha256_bytes(evidence_raw),
+            dose_run_id=dose_root.name,
+            dose_session_id=dose_run.tinker_session_id,
+            prior_pair_result_sha256=prior_hash,
+            prior_pair_session_id=prior_session,
+        )
+        return PilotPairBilling(
+            float(actual), float(remaining), console_hash, lineage, prior_hash
+        )
     before = _amount(
         evidence.get("pre_acquisition_console_spend_usd"), "pre-acquisition spend"
     )
@@ -171,9 +193,6 @@ def load_pilot_pair_billing(
     observed = _time(evidence.get("observed_at_utc"), "console observation")
     sessions = evidence.get("lifetime_session_ids")
     required_sessions = {dose_run.tinker_session_id, prior_session} - {None}
-    latest = max(
-        value for value in (dose_run.finished_at, prior_finished) if value is not None
-    ).astimezone(UTC)
     if (
         dose_run.status is not RunStatus.COMPLETED
         or dose_run.project_id != project_id
@@ -202,6 +221,77 @@ def load_pilot_pair_billing(
     }
     return PilotPairBilling(
         float(actual), float(remaining), evidence_sha256, lineage, prior_hash
+    )
+
+
+def _run_ledger_actuals(
+    evidence: dict, *, project_id: str, latest: datetime
+) -> tuple[Decimal, Decimal, str, dict]:
+    """Sum hash-bound local actuals; console balance is only a grant sanity check."""
+
+    console, raw = _object(Path(evidence["console_evidence_path"]), "console snapshot")
+    console_hash = sha256_bytes(raw)
+    if (
+        evidence.get("accounting_basis") != "duraseed_run_ledger_actuals"
+        or evidence.get("project_id") != project_id
+        or console.get("project_id") != project_id
+        or console.get("source") != "authenticated_tinker_web_console"
+        or console_hash != evidence.get("console_evidence_sha256")
+        or _time(console.get("observed_at_utc"), "console observation") < latest
+    ):
+        raise RunnerGateError("Pilot run-ledger billing evidence differs")
+    allowed_fields = {
+        "cost_usd",
+        "observed_cost_usd",
+        "calculated_token_cost_usd",
+        "corrected_local_cost_usd",
+        "total_pinned_cost_usd",
+        "ledger.observed_cost_usd",
+    }
+    total = Decimal(0)
+    seen_runs: set[str] = set()
+    seen_paths: set[Path] = set()
+    entries = evidence.get("run_ledgers", [])
+    if not entries:
+        raise RunnerGateError("Pilot run-ledger accounting has no actuals")
+    for entry in entries:
+        path = Path(entry["path"])
+        record, raw = _object(path, "run-ledger actuals")
+        field = entry["field"]
+        run_id = entry["run_id"]
+        if (
+            field not in allowed_fields
+            or path.resolve() in seen_paths
+            or run_id in seen_runs
+            or sha256_bytes(raw) != entry["sha256"]
+            or record.get("project_id", project_id) != project_id
+        ):
+            raise RunnerGateError("Pilot run-ledger actuals are duplicated or changed")
+        value = record
+        for key in field.split("."):
+            value = value[key]
+        actual = _amount(value, "run-ledger actual")
+        if actual != _amount(entry["actual_usd"], "declared run actual"):
+            raise RunnerGateError("Pilot run-ledger amount differs")
+        seen_paths.add(path.resolve())
+        seen_runs.add(run_id)
+        total += actual
+    if total != _amount(evidence.get("actual_lifetime_spend_usd"), "ledger total"):
+        raise RunnerGateError("Pilot run-ledger total differs")
+    remaining = _amount(console.get("remaining_grant_balance_usd"), "grant balance")
+    return (
+        total,
+        remaining,
+        console_hash,
+        {
+            "accounting_basis": "duraseed_run_ledger_actuals",
+            "actual_lifetime_spend_usd": str(total),
+            "remaining_balance_usd": str(remaining),
+            "console_evidence_sha256": console_hash,
+            "observed_at_utc": console["observed_at_utc"],
+            "run_ledgers": entries,
+            "deferred_accounting": evidence.get("deferred_accounting", []),
+        },
     )
 
 

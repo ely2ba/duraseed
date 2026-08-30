@@ -47,7 +47,9 @@ def pilot0_pair_live(
     panel_split_equivalence: Path = typer.Option(...),
     dose_run: Path = typer.Option(...),
     stage_b_recipe: Path = typer.Option(...),
-    lifetime_console_evidence: Path = typer.Option(...),
+    lifetime_console_evidence: Path = typer.Option(
+        ..., "--billing-evidence", "--lifetime-console-evidence"
+    ),
     prior_pair_root: Path | None = typer.Option(None),
     output_root: Path = typer.Option(Path("runs/pilot0")),
     config: Path = typer.Option(Path("duraseed_pilot_config.yaml")),
