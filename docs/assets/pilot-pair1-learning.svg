@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="552" viewBox="0 0 960 552" role="img" aria-labelledby="title description">
+<title id="title">Learning the next task · MAPS</title>
+<desc id="description">Observed MAPS Pass at 1 and percentage-point gain from each arm's own pre-Stage-B baseline, at all 11 recorded updates through 480. Both axes linear. One seed, point estimates, no uncertainty bands. Each point uses 512 items and 16 draws per item.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif} line,polyline{stroke-linecap:round;stroke-linejoin:round}</style>
+<rect width="960" height="552" fill="#FFFFFF"/>
+<text x="40" y="38" font-size="25" fill="#242D35" text-anchor="start" font-weight="600">Learning the next task · MAPS</text>
+<text x="40" y="66" font-size="15" fill="#424A52" text-anchor="start" font-weight="400">Pilot pair 1 · seed 11 · selected Stage-A checkpoints: B-S 140 / B-G 30</text>
+<line x1="40" y1="99" x2="74" y2="99" stroke="#164BEB" stroke-width="2.5" />
+<circle cx="57" cy="99" r="3.8" fill="#164BEB"/>
+<text x="86" y="104" font-size="15" fill="#424A52" text-anchor="start" font-weight="400">B-S · supervised fine-tuning</text>
+<line x1="398" y1="99" x2="432" y2="99" stroke="#D92432" stroke-width="2.5" stroke-dasharray="6 5" />
+<circle cx="415" cy="99" r="3.8" fill="#D92432"/>
+<text x="444" y="104" font-size="15" fill="#424A52" text-anchor="start" font-weight="400">B-G · reinforcement learning</text>
+<text x="80" y="143" font-size="18" fill="#242D35" text-anchor="start" font-weight="600">Absolute task performance</text>
+<text x="80" y="167" font-size="13" fill="#424A52" text-anchor="start" font-weight="400">Observed Pass@1 (%)</text>
+<line x1="80" y1="422.0" x2="422" y2="422.0" stroke="#DDE2E6" stroke-width="1" />
+<text x="68" y="427.0" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">0</text>
+<line x1="80" y1="369.1111111111111" x2="422" y2="369.1111111111111" stroke="#DDE2E6" stroke-width="1" />
+<text x="68" y="374.1111111111111" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">10</text>
+<line x1="80" y1="316.22222222222223" x2="422" y2="316.22222222222223" stroke="#DDE2E6" stroke-width="1" />
+<text x="68" y="321.22222222222223" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">20</text>
+<line x1="80" y1="263.33333333333337" x2="422" y2="263.33333333333337" stroke="#DDE2E6" stroke-width="1" />
+<text x="68" y="268.33333333333337" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">30</text>
+<line x1="80" y1="210.44444444444446" x2="422" y2="210.44444444444446" stroke="#DDE2E6" stroke-width="1" />
+<text x="68" y="215.44444444444446" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">40</text>
+<line x1="80" y1="184.0" x2="422" y2="184.0" stroke="#DDE2E6" stroke-width="1" />
+<text x="68" y="189.0" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">45</text>
+<line x1="80.0" y1="422" x2="80.0" y2="427" stroke="#8E969D" stroke-width="1" />
+<text x="80.0" y="447" font-size="14" fill="#424A52" text-anchor="middle" font-weight="400">0</text>
+<line x1="137.0" y1="422" x2="137.0" y2="427" stroke="#8E969D" stroke-width="1" />
+<text x="137.0" y="447" font-size="14" fill="#424A52" text-anchor="middle" font-weight="400">80</text>
+<line x1="194.0" y1="422" x2="194.0" y2="427" stroke="#8E969D" stroke-width="1" />
+<text x="194.0" y="447" font-size="14" fill="#424A52" text-anchor="middle" font-weight="400">160</text>
+<line x1="308.0" y1="422" x2="308.0" y2="427" stroke="#8E969D" stroke-width="1" />
+<text x="308.0" y="447" font-size="14" fill="#424A52" text-anchor="middle" font-weight="400">320</text>
+<line x1="422.0" y1="422" x2="422.0" y2="427" stroke="#8E969D" stroke-width="1" />
+<text x="422.0" y="447" font-size="14" fill="#424A52" text-anchor="middle" font-weight="400">480</text>
+<line x1="80" y1="184" x2="80" y2="422" stroke="#8E969D" stroke-width="1" />
+<line x1="80" y1="422" x2="422" y2="422" stroke="#8E969D" stroke-width="1" />
+<text x="251.0" y="474" font-size="15" fill="#424A52" text-anchor="middle" font-weight="400">Stage-B updates</text>
+<polyline points="80.0000,422.0000 80.7125,420.4505 81.4250,403.1480 83.5625,388.8799 87.1250,384.3606 94.2500,384.8771 108.5000,360.3436 137.0000,335.7457 194.0000,297.0732 308.0000,249.7496 422.0000,221.9881" fill="none" stroke="#164BEB" stroke-width="2.5"/>
+<circle cx="80.0000" cy="422.0000" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 0: 0.00000000</title></circle>
+<circle cx="80.7125" cy="420.4505" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 1: 0.29296875</title></circle>
+<circle cx="81.4250" cy="403.1480" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 2: 3.56445312</title></circle>
+<circle cx="83.5625" cy="388.8799" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 5: 6.26220703</title></circle>
+<circle cx="87.1250" cy="384.3606" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 10: 7.11669922</title></circle>
+<circle cx="94.2500" cy="384.8771" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 20: 7.01904297</title></circle>
+<circle cx="108.5000" cy="360.3436" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 40: 11.65771484</title></circle>
+<circle cx="137.0000" cy="335.7457" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 80: 16.30859375</title></circle>
+<circle cx="194.0000" cy="297.0732" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 160: 23.62060547</title></circle>
+<circle cx="308.0000" cy="249.7496" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 320: 32.56835938</title></circle>
+<circle cx="422.0000" cy="221.9881" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 480: 37.81738281</title></circle>
+<text x="415.0" y="243.98806423611111" font-size="14" fill="#164BEB" text-anchor="end" font-weight="600">37.82%</text>
+<polyline points="80.0000,395.5943 80.7125,387.5241 81.4250,393.3992 83.5625,389.5255 87.1250,384.2960 94.2500,386.5557 108.5000,383.7795 137.0000,331.1618 194.0000,327.1590 308.0000,248.2646 422.0000,208.4947" fill="none" stroke="#D92432" stroke-width="2.5" stroke-dasharray="6 5"/>
+<circle cx="80.0000" cy="395.5943" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 0: 4.99267578</title></circle>
+<circle cx="80.7125" cy="387.5241" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 1: 6.51855469</title></circle>
+<circle cx="81.4250" cy="393.3992" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 2: 5.40771484</title></circle>
+<circle cx="83.5625" cy="389.5255" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 5: 6.14013672</title></circle>
+<circle cx="87.1250" cy="384.2960" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 10: 7.12890625</title></circle>
+<circle cx="94.2500" cy="386.5557" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 20: 6.70166016</title></circle>
+<circle cx="108.5000" cy="383.7795" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 40: 7.22656250</title></circle>
+<circle cx="137.0000" cy="331.1618" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 80: 17.17529297</title></circle>
+<circle cx="194.0000" cy="327.1590" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 160: 17.93212891</title></circle>
+<circle cx="308.0000" cy="248.2646" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 320: 32.84912109</title></circle>
+<circle cx="422.0000" cy="208.4947" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 480: 40.36865234</title></circle>
+<text x="415.0" y="195.49468315972223" font-size="14" fill="#D92432" text-anchor="end" font-weight="600">40.37%</text>
+<text x="554" y="143" font-size="18" fill="#242D35" text-anchor="start" font-weight="600">Gain from own pre-B baseline</text>
+<text x="554" y="167" font-size="13" fill="#424A52" text-anchor="start" font-weight="400">Pass@1 gain (percentage points)</text>
+<line x1="554" y1="422.0" x2="896" y2="422.0" stroke="#DDE2E6" stroke-width="1" />
+<text x="542" y="427.0" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">0</text>
+<line x1="554" y1="369.1111111111111" x2="896" y2="369.1111111111111" stroke="#DDE2E6" stroke-width="1" />
+<text x="542" y="374.1111111111111" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">10</text>
+<line x1="554" y1="316.22222222222223" x2="896" y2="316.22222222222223" stroke="#DDE2E6" stroke-width="1" />
+<text x="542" y="321.22222222222223" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">20</text>
+<line x1="554" y1="263.33333333333337" x2="896" y2="263.33333333333337" stroke="#DDE2E6" stroke-width="1" />
+<text x="542" y="268.33333333333337" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">30</text>
+<line x1="554" y1="210.44444444444446" x2="896" y2="210.44444444444446" stroke="#DDE2E6" stroke-width="1" />
+<text x="542" y="215.44444444444446" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">40</text>
+<line x1="554" y1="184.0" x2="896" y2="184.0" stroke="#DDE2E6" stroke-width="1" />
+<text x="542" y="189.0" font-size="14" fill="#424A52" text-anchor="end" font-weight="400">45</text>
+<line x1="554.0" y1="422" x2="554.0" y2="427" stroke="#8E969D" stroke-width="1" />
+<text x="554.0" y="447" font-size="14" fill="#424A52" text-anchor="middle" font-weight="400">0</text>
+<line x1="611.0" y1="422" x2="611.0" y2="427" stroke="#8E969D" stroke-width="1" />
+<text x="611.0" y="447" font-size="14" fill="#424A52" text-anchor="middle" font-weight="400">80</text>
+<line x1="668.0" y1="422" x2="668.0" y2="427" stroke="#8E969D" stroke-width="1" />
+<text x="668.0" y="447" font-size="14" fill="#424A52" text-anchor="middle" font-weight="400">160</text>
+<line x1="782.0" y1="422" x2="782.0" y2="427" stroke="#8E969D" stroke-width="1" />
+<text x="782.0" y="447" font-size="14" fill="#424A52" text-anchor="middle" font-weight="400">320</text>
+<line x1="896.0" y1="422" x2="896.0" y2="427" stroke="#8E969D" stroke-width="1" />
+<text x="896.0" y="447" font-size="14" fill="#424A52" text-anchor="middle" font-weight="400">480</text>
+<line x1="554" y1="184" x2="554" y2="422" stroke="#8E969D" stroke-width="1" />
+<line x1="554" y1="422" x2="896" y2="422" stroke="#8E969D" stroke-width="1" />
+<text x="725.0" y="474" font-size="15" fill="#424A52" text-anchor="middle" font-weight="400">Stage-B updates</text>
+<polyline points="554.0000,422.0000 554.7125,420.4505 555.4250,403.1480 557.5625,388.8799 561.1250,384.3606 568.2500,384.8771 582.5000,360.3436 611.0000,335.7457 668.0000,297.0732 782.0000,249.7496 896.0000,221.9881" fill="none" stroke="#164BEB" stroke-width="2.5"/>
+<circle cx="554.0000" cy="422.0000" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 0: 0.00000000</title></circle>
+<circle cx="554.7125" cy="420.4505" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 1: 0.29296875</title></circle>
+<circle cx="555.4250" cy="403.1480" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 2: 3.56445312</title></circle>
+<circle cx="557.5625" cy="388.8799" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 5: 6.26220703</title></circle>
+<circle cx="561.1250" cy="384.3606" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 10: 7.11669922</title></circle>
+<circle cx="568.2500" cy="384.8771" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 20: 7.01904297</title></circle>
+<circle cx="582.5000" cy="360.3436" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 40: 11.65771484</title></circle>
+<circle cx="611.0000" cy="335.7457" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 80: 16.30859375</title></circle>
+<circle cx="668.0000" cy="297.0732" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 160: 23.62060547</title></circle>
+<circle cx="782.0000" cy="249.7496" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 320: 32.56835938</title></circle>
+<circle cx="896.0000" cy="221.9881" r="3.8" fill="#164BEB" stroke="#FFFFFF" stroke-width="0.8"><title>B-S, update 480: 37.81738281</title></circle>
+<text x="889.0" y="208.98806423611111" font-size="14" fill="#164BEB" text-anchor="end" font-weight="600">37.82 pp</text>
+<polyline points="554.0000,422.0000 554.7125,413.9298 555.4250,419.8049 557.5625,415.9312 561.1250,410.7017 568.2500,412.9614 582.5000,410.1852 611.0000,357.5675 668.0000,353.5647 782.0000,274.6704 896.0000,234.9004" fill="none" stroke="#D92432" stroke-width="2.5" stroke-dasharray="6 5"/>
+<circle cx="554.0000" cy="422.0000" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 0: 0.00000000</title></circle>
+<circle cx="554.7125" cy="413.9298" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 1: 1.52587891</title></circle>
+<circle cx="555.4250" cy="419.8049" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 2: 0.41503906</title></circle>
+<circle cx="557.5625" cy="415.9312" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 5: 1.14746094</title></circle>
+<circle cx="561.1250" cy="410.7017" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 10: 2.13623047</title></circle>
+<circle cx="568.2500" cy="412.9614" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 20: 1.70898438</title></circle>
+<circle cx="582.5000" cy="410.1852" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 40: 2.23388672</title></circle>
+<circle cx="611.0000" cy="357.5675" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 80: 12.18261719</title></circle>
+<circle cx="668.0000" cy="353.5647" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 160: 12.93945312</title></circle>
+<circle cx="782.0000" cy="274.6704" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 320: 27.85644531</title></circle>
+<circle cx="896.0000" cy="234.9004" r="3.8" fill="#D92432" stroke="#FFFFFF" stroke-width="0.8"><title>B-G, update 480: 35.37597656</title></circle>
+<text x="889.0" y="256.900390625" font-size="14" fill="#D92432" text-anchor="end" font-weight="600">35.38 pp</text>
+<text x="40" y="508" font-size="13" fill="#424A52" text-anchor="start" font-weight="400">Points: 512 items × 16 draws; one seed, no uncertainty bands. Both panels use linear axes.</text>
+<text x="40" y="532" font-size="13" fill="#424A52" text-anchor="start" font-weight="400">Gain subtracts each arm’s observed update-0 Pass@1; it is not a posterior score or an AUC.</text>
+</svg>

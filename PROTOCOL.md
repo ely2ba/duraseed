@@ -1,5 +1,31 @@
 # DuraSeed pre-calibration protocol
 
+## Current reading guide — 30 August 2026
+
+This file remains the underlying scientific contract and preserves the
+pre-Pilot protocol and chronological calibration record below. For the current
+Pilot, the accepted [capability-targeted acquisition amendment](docs/amendment-capability-targeted-acquisition.md)
+governs its explicit overrides: B-S trains to 294 updates, B-G to 50; the
+amendment fixes cadence checkpointing, post-hoc overlap matching, the selected
+checkpoint profiles, and the Stage-B measurement schedule. The underlying
+protocol continues to govern provisions not explicitly overridden.
+
+Read the old duration/learning-rate calibration gates, target defined by the
+minimum of four seed-by-method step-50 cells, 16-to-32-draw matching extension,
+provisional measurement schedules, and
+budget clauses as historical where the accepted amendment supersedes them.
+In particular, references below to unresolved calibration or "Pilot 0 has not
+started" describe their original calibration stage, not current execution.
+Current human launch authorizations and the subsequently authorized run-ledger
+accounting rule are recorded in [STATUS.md](docs/STATUS.md); this reading guide
+creates no new scientific or spending authority.
+
+Pair 1 is complete and pair 2 is running. The [first-pair results](docs/results/pilot0-pair1.md)
+report the completed seed-11 observations and their scope; [STATUS.md](docs/STATUS.md)
+records current operational progress.
+
+## Historical pre-Pilot status snapshot — retained unchanged
+
 Status: pre-pilot; remote boundary collection, the deterministic three-cohort
 replay, and the amended panel freeze are complete. The original match-first
 rule failed structurally, after which the prospectively accepted

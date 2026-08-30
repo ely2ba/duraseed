@@ -1,137 +1,164 @@
 # DuraSeed
 
-**Can two models with the same measured capability have different futures because of how they learned it?**
+**Can models that score similarly today learn — and forget — differently tomorrow?**
 
-Modern models are trained repeatedly: one skill is acquired, then later training
-changes the same weights. Immediate benchmark accuracy may not fully
-characterize a checkpoint if equally capable models respond differently to what
-comes next. DuraSeed follows those checkpoints forward under identical
-subsequent training.
+DuraSeed teaches the same starting model an arithmetic skill in two ways,
+selects checkpoints with similar measured scores, then gives both identical
+training on a new task. We follow what happens to the old skill and how quickly
+the new one develops.
 
-![DuraSeed experimental pipeline](docs/assets/duraseed-pipeline.svg)
+**30 August 2026:** the first paired pilot is complete; the second is running.
+The results below are from **one paired seed**, not a general verdict on
+supervised learning versus reinforcement learning.
 
-## Why this matters
+## The idea
 
-A benchmark score is a snapshot. In a multi-stage training pipeline, we also
-care about trajectory: whether a newly learned ability survives, whether the
-model remains ready to learn something else, and whether inexpensive
-measurements can predict either outcome.
+A benchmark score is a snapshot. Models are trained repeatedly, so we also
+care about what a checkpoint is ready for: will its skills survive later
+training, and can it learn something else?
 
-Nearby studies compare how much pre-existing ability is lost while a skill is
-being learned by SFT versus RL. DuraSeed instead holds the subsequent training
-identical and asks whether the newly acquired skill's durability — and the
-model's readiness for the next task — depends on how it was acquired.
+Nearby work asks how much pre-existing ability is lost *while* a skill is
+learned by supervised fine-tuning (SFT) or reinforcement learning (RL).
+DuraSeed follows the acquired skill into the *next* training stage, holding
+that later training identical.
 
-The aim is not a universal verdict on SFT or RL. It is a controlled test of
-whether two concrete acquisition procedures can produce checkpoints that look
-equally capable now but behave differently later.
+![DuraSeed: common origin → two learning procedures → capability match → identical later training → retention and new learning](docs/assets/duraseed-pipeline.svg)
 
-## The experiment
+## How the experiment works
 
-### A common origin
+**Learn an arithmetic skill — Stage A.** Both branches start from the same
+format-capable Qwen3.5-9B-Base checkpoint, called M0, with fresh optimizers.
+Training changes a rank-32 LoRA adapter: a small set of trainable weights
+attached to the model. M0 has prior output-format training, but no task-specific
+arithmetic warm start.
 
-Both methods start from **M0**, a format-capable checkpoint derived from
-`Qwen/Qwen3.5-9B-Base` with a rank-32 LoRA adapter. Each branch restores the
-same weights and starts with a fresh optimizer. M0 is task-cold for the Stage-A
-skill; it is not an untouched pretrained model.
+The task is to reach a target value using each supplied number once.
+An exact verifier checks the answer; there is no judge model.
 
-### Stage A: two ways to acquire one capability
+- **B-S (SFT)** learns from fixed, verified solver derivations.
+- **B-G (RL)** generates attempts and learns from verifier rewards through
+  group-relative reinforcement learning.
 
-Stage A is an exact arithmetic-expression task: use each supplied number once
-to reach a target value. A deterministic verifier scores every attempt, so
-there is no judge model or subjective partial credit.
+These are two complete training procedures. Their examples, exploration,
+learning rates, and training budgets differ — this does not isolate the loss
+function alone.
 
-- **B-S** learns fixed, correct solver derivations through supervised
-  fine-tuning.
-- **B-G** samples its own attempts and learns from exact verifier rewards
-  through on-policy group-relative reinforcement learning.
+**Match checkpoints.** Every ten updates, we save and evaluate each branch.
+After Stage A, a frozen rule selects real checkpoints with the closest
+targeted scores whose uncertainty intervals overlap. Matching is unavailable
+if no pair qualifies; there is no seed replacement. It matches one measured
+capability, not the models' entire behavior.
 
-B-S and B-G are complete procedures, not a loss-function-only comparison.
-They differ in training source, exploration, and compute as well as objective.
-Across paired seeds, two matched 12-family panels exchange the trained-target
-and held-out-sentinel roles.
+**Train on something new — Stage B.** The selected checkpoints keep their
+learned adapters, reset their optimizers, and receive the same 480-update
+supervised program-synthesis training. We measure:
 
-### Match real checkpoints
+- **F1 — retention:** how arithmetic performance changes during later training.
+- **F2 — future learning:** performance on the new task, both as an absolute
+  score and as improvement from each model's own starting point.
+- **F3 — starting profile:** before Stage B, a fuller picture of accuracy,
+  held-out families, output length and validity, solution diversity, and
+  initial performance on the new task.
 
-Both branches are evaluated and checkpointed every ten updates. After Stage A,
-the analysis selects the nearest real B-S/B-G checkpoint pair whose measured
-targeted-capability intervals overlap. There is no interpolation and no seed
-replacement. If no overlapping pair exists, matching is reported as
-unavailable and Stage B does not run for that pair.
+## First pilot results
 
-Matching is deliberately narrow: it aligns measured targeted capability, not
-the whole skill or the models' internal states.
+Pair 1 uses seed `11`. The matching rule selected **B-S at update 140** and
+**B-G at update 30**: both scored **31/96** on the matching panel.
+On a separate, higher-draw targeted evaluation, their scores were **33.62%**
+and **30.98%**. Similar matching scores are not proof of equal capability.
 
-### Stage B: identical later training
+The figures below show observed single-attempt success rates (*Pass@1*) and
+changes from baseline, using the saved evaluations.
+The [detailed results](docs/results/pilot0-pair1.md) include counts, uncertainty
+intervals, both starting profiles, and the exploratory follow-up analyses.
+Monitoring and higher-draw validation use separate item panels, so their
+starting percentages need not match.
 
-The selected checkpoints continue their learned LoRA weights into the same
-supervised modular program-synthesis task, each with a fresh optimizer. During
-Stage B, DuraSeed measures:
+### The old skill: the difference is early, not at the endpoint
 
-- **F1 — retention:** the trajectory of Stage-A capability as later training
-  proceeds;
-- **F2 — future learning:** Stage-B learning, reported both absolutely and
-  relative to each checkpoint's own pre-Stage-B baseline; and
-- **F3 — pre-Stage-B profile:** target and sentinel accuracy, family coverage,
-  invalid and length-stopped outputs, completion length, supported Pass@k,
-  verified strategy diversity, token surprisal, and baseline Stage-B
-  performance.
+![Arithmetic success during the first 20 later-training updates, for targeted and held-out families](docs/assets/pilot-pair1-retention.svg)
 
-![Conceptual illustration of matched checkpoints diverging during identical later training](docs/assets/conceptual-divergence.svg)
+On the targeted monitor, B-S starts at **29.82%** and B-G at **30.86%**.
+After two updates on the new task, they score **16.93%** and **27.21%**.
+By update ten, both are below 1%: **0.52%** and **0.78%**.
 
-*Conceptual illustration, not a result. The checkpoint labels are intentionally
-method-neutral: either ordering is possible, and retention and learning need
-not move together.*
+At the final update-480 evaluation, each branch records **0/4,096 successes**
+on targeted arithmetic items and another **0/4,096** on held-out families.
+That is zero observed success under this evaluation, not proof that every
+trace of the ability has disappeared.
 
-## Status
+### The new skill: final score and improvement tell different stories
 
-The design and measurement pipeline are frozen. Pilot 0 pair 1 (seed `11`) is
-through Stage A: both acquisition trajectories are complete, and the frozen
-overlap rule matched the real B-S update-140 checkpoint with the real B-G
-update-30 checkpoint. Both pre-Stage-B F3 profiles are complete, and the common
-Stage-B probe is running: the B-S branch has reached update 5 of 480, with B-G
-to follow under the identical schedule. Live operational detail is kept in
-[`docs/STATUS.md`](docs/STATUS.md).
+![New-task learning over 480 updates, shown as absolute success and improvement from each branch's own baseline](docs/assets/pilot-pair1-learning.svg)
 
-> **No retention or future-learning contrast is claimed yet.**
+B-G can already solve **4.99%** of new-task attempts before Stage B; B-S
+records **0%**. After 480 identical training updates, they reach **40.37%**
+and **37.82%**, respectively. B-G's endpoint is **2.55 percentage points
+higher**; the paired item-bootstrap 95% interval is **0.77 to 4.35 points**.
 
-Pre-Pilot work simplified the experiment: algebraically equivalent task
-families were removed, an unstable shared teacher warm start was retired in
-favor of the literal M0 origin, and a response-format measurement was aligned
-with the task's prompt and verifier. These were feasibility and measurement
-corrections made before Pilot comparisons, not scientific outcomes; the full
-record is in the [technical appendix](docs/TECHNICAL.md).
+The ordering reverses for the frozen summary of **improvement over the whole
+training run**. This averages the learning curve above each branch's own
+baseline, rather than comparing just its endpoint. On the study's smoothed
+score, that average gain is **0.2469 for B-S** and **0.1899 for B-G**.
+The exact definition and interval are in the [results note](docs/results/pilot0-pair1.md#f2--subsequent-maps-learning).
 
-Next, the project will:
+These intervals resample shared evaluation items. They do **not** tell us how
+much the result will vary across independently trained seed pairs.
 
-- run the separately authorized second pair once the first yields durable,
-  complete artifacts — an authorization that does not depend on the direction
-  or size of any scientific result ([docs/STATUS.md](docs/STATUS.md) records
-  this commitment);
-- use the two pairs to assess feasibility and effect direction, with a first,
-  crude look at seed-to-seed variability; and
-- add fresh paired seeds before fixing any powered confirmatory study.
+### A similar target score leaves large differences elsewhere
 
-## What would be informative
+Before Stage B, the higher-draw profiles show:
 
-A difference in Stage-A durability would suggest that matching immediate
-capability does not match resistance to later change. A difference in Stage-B
-learning would suggest that acquisition also changes the substrate available
-for the next task. Together, these outcomes could expose a stability–plasticity
-tradeoff that endpoint accuracy misses.
+- **Held-out arithmetic success:** 4.17% for B-S, 31.64% for B-G.
+- **Targeted response length:** a median of 78 tokens for B-S, 1,464 for B-G.
+  The 4,096-token cap is reached in 1.98% and 30.32% of attempts.
+- **Verified solution variety:** 40 versus 542 distinct strategy families
+  among successful targeted completions, from 4,096 attempts per branch.
+  These count verifier-defined expression structures, not inferred reasoning
+  processes.
 
-A robust null would also be useful: it would place a concrete bound on how much
-these two procedures matter under this setup. So would an inexpensive F3
-measurement that reliably predicts later retention or learning. DuraSeed does
-not assume either method will win.
+The adapter weights also differ: the aggregate size of LoRA's **B factor**
+is **7.36× larger in B-S**. This is a description of the saved parameters,
+not evidence that parameter scale caused the learning or retention curves.
 
-## Scope
+A separate check of B-G's new-task curve found **no cap or format failures
+at updates 40 and 80**, while success rose from **7.23% to 17.18%**.
+That rise was accompanied by fewer wrong-target answers, not the resolution
+of recorded cap or format errors.
 
-The first study covers one 9B model, rank-32 LoRA adapters, synthetic exact
-tasks, and one downstream probe. Its conclusions are therefore about the
-complete B-S and B-G procedures in this setting; they cannot isolate the loss
-function alone or establish that one broad method family is universally
-better.
+## What comes next
+
+**Pair 2 (seed `29`) is running under the same frozen recipe.** The two
+12-family panels exchange trained-target and held-out roles across the pairs.
+Its authorization did not depend on the direction or size of pair-1 results;
+the commitment is recorded in [STATUS.md](docs/STATUS.md).
+
+The two pairs will assess feasibility and effect direction, with a first,
+crude look at seed-to-seed variability. More fresh paired seeds are needed
+before a powered confirmatory study; neither these item-level intervals nor
+two pairs replace that step.
+
+One candidate follow-up asks whether **adapter scale changes the effective
+speed of later learning**, even with the same nominal learning rate.
+We can test that by rescaling LoRA's two factors in opposite directions:
+the model's starting function stays fixed, while its parameterization changes.
+A prediction linking larger B-factor scale to faster early forgetting and
+learning was recorded before inspecting pair-2 outcomes. This remains a
+non-binding hypothesis; no such intervention has been run or authorized.
+
+## Scope and background
+
+This is one 9B model, rank-32 adapters, synthetic tasks with exact verifiers,
+and one later-training recipe. The first result is one paired seed, with a
+narrow, noisy capability match and substantial differences elsewhere. It
+cannot establish that SFT or RL is generally better, or identify a single
+cause of the observed trajectories. Final test sets remain sealed during Pilot.
+
+Getting here involved simplifying the task families, retiring an unstable
+shared task-specific warm start, and aligning the response-format measurement
+with the prompt and verifier. Those pre-Pilot corrections led to the current
+common-origin comparison. The calibration history and implementation details
+live in the [technical appendix](docs/TECHNICAL.md), not in the result claims.
 
 ## Reproduce and inspect
 
@@ -143,11 +170,12 @@ uv run pytest
 uv run duraseed validate
 ```
 
-- [`PROTOCOL.md`](PROTOCOL.md) — scientific design and estimands
+- [Pair-1 results](docs/results/pilot0-pair1.md) — measured curves, profiles,
+  uncertainty, and descriptive diagnostics
+- [`PROTOCOL.md`](PROTOCOL.md) — scientific design and outcome definitions
 - [`docs/TECHNICAL.md`](docs/TECHNICAL.md) — implementation, calibration, and
   process detail
 - [`docs/STATUS.md`](docs/STATUS.md) — current experimental state
-- [`docs/MAP.md`](docs/MAP.md) — code, artifacts, and provenance map
 
 ## Development and support
 

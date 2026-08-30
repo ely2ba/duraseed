@@ -73,15 +73,18 @@ At the selected checkpoints the study records:
 
 - target, sentinel, and per-family exact success;
 - family coverage curves;
-- invalid-tag and length-stop rates;
+- output-validity and length-stop rates;
 - completion-length distributions;
 - supported Pass@k values;
 - verifier-confirmed strategy diversity;
-- sampled-token surprisal; and
+- sampled-token surprisal;
+- baseline MAPS performance before any Stage-B training; and
 - prompt/prefill, sampled, and training tokens plus storage and dollar cost.
 
 These are descriptive outcomes, not extra matching gates. In particular,
 sentinel movement may be part of the phenomenon and is not matched away.
+The post-hoc analysis of archived LoRA tensors is supplementary, outside F3
+and every decision path; it changes no profile requirement or gate.
 
 ### Stage B: MAPS
 
@@ -107,10 +110,18 @@ and trained tokens separate because B-S and B-G perform different kinds of
 work.
 
 The first evidence unit is a paired seed, not a collection of independent
-samples. Pair 1 uses seed 11. Pair 2 is a separate authorization and cannot
-start until pair 1 has durable F1/F2 cells, F3 profiles, matching, and billing
-lineage. Later fresh pairs are variance reconnaissance, not replacements for a
-failed or unavailable seed.
+samples. Pair 1 (seed 11) is complete, with its [F1/F2/F3 results and descriptive
+offline analyses](results/pilot0-pair1.md) available. Pair 2 (seed 29) is running
+under its separate authorization, granted on completion, integrity, and budget
+criteria before any pair-1 contrast was reported to the human. Matching remains
+mechanically blind to pair-1 contrasts. Later fresh pairs are variance
+reconnaissance, not replacements for a failed or unavailable seed.
+
+The protocol conditionally prioritizes supervised replay of a frozen,
+verifier-correct subset of B-G rollouts if a reproducible difference appears.
+The newer [gauge-rescaling candidate](../README.md#what-comes-next)
+is a separate, non-binding hypothesis, not a replacement for that priority.
+Neither description authorizes an experiment or spend.
 
 ## How the pre-Pilot design evolved
 
@@ -170,20 +181,26 @@ shorter Pilot B-S duration.
 - Stage B restores selected Stage-A weights without inheriting the Stage-A
   optimizer.
 - Final tests remain sealed through Pilot and calibration.
-- Pair 2 requires authenticated, durable pair-1 F1/F2/F3 evidence and a
-  separate launch authorization.
+- Further pairs require separate launch authorization. Pair 2's dated
+  authorization and outcome-independent criteria are recorded in
+  [`STATUS.md`](STATUS.md).
 
 ## Budget and accounting
 
 The accepted planning ceiling is `$774.04` per paired Pilot seed and
-`$1,548.08` for two pairs. Each pair is separately authorized; pair 1's exact
-manifest-derived preflight is `$772.40`. These are worst-case ceilings assuming
-full token-cap use, not expected spend.
+`$1,548.08` for two pairs. Each pair is separately authorized; the exact
+manifest-derived preflight is `$772.40` for each of pairs 1 and 2. These are
+worst-case ceilings assuming full token-cap use, not expected spend.
 
 Accounting records prefill, sampled, and training tokens separately, adds
-fixed checkpoint storage, and binds prelaunch console actuals by hash. The
-current arithmetic and transcription record are in the [frozen
-amendment](amendment-capability-targeted-acquisition.md#cost-and-authority).
+fixed checkpoint storage, and preserves hash-bound console evidence. As
+authorized on 2026-08-30, account-wide lifetime formulas are retired because
+the account also has non-DuraSeed usage: the launch condition is DuraSeed
+run-ledger actuals plus pair 2's preflight within `$1,548.08`; the saved grant
+balance is a separate sanity check, and final CSV attribution is deferred to
+end-of-project accounting. [`STATUS.md`](STATUS.md) records that authorization;
+the [frozen amendment](amendment-capability-targeted-acquisition.md#cost-and-authority)
+preserves the earlier planning calculation and transcription corrections.
 
 ## Code and evidence map
 
@@ -196,7 +213,9 @@ amendment](amendment-capability-targeted-acquisition.md#cost-and-authority).
   frontier analysis.
 - `src/duraseed/runtime/`: bounded service clients, token ledgers, sampling,
   and checkpoints.
-- `src/duraseed/runners/`: live orchestration around the frozen reducers.
+- `src/duraseed/runners/`: Pilot Stage-A training and checkpointing, matching,
+  selected profiles, Stage-B training/evaluation, and retained calibration
+  orchestration around the frozen reducers.
 - `frozen/v0/`: immutable carried calibration evidence.
 - `provenance/`: hashes, replay equivalence, billing lineage, and public
   projections.
@@ -220,5 +239,5 @@ uv run duraseed validate
 
 These commands are local and credential-free. Remote execution additionally
 requires authenticated source artifacts, explicit project identity, a
-reconciled billing record, a clean committed tree, and human cost
+DuraSeed-scoped billing record, a clean committed tree, and human cost
 authorization.
