@@ -62,6 +62,14 @@ supervised program-synthesis training. We measure:
 
 ## First pilot results
 
+In one sentence: the two checkpoints were matched on score and on almost
+nothing else. Before any later training, B-G already solved 223 of 512
+new-task problems at least once in 16 attempts; B-S solved none. Under
+identical training, both lost nearly all measured arithmetic performance
+within ten updates, B-S about 1.5× faster by an exploratory targeted
+half-life. On the new task, B-S improved more over the course of training,
+while B-G finished higher. One paired seed: a direction, not a verdict.
+
 Pair 1 uses seed `11`. The matching rule selected **B-S at update 140** and
 **B-G at update 30**: both scored **31/96** on the matching panel.
 On a separate, higher-draw targeted evaluation, their scores were **33.62%**
@@ -74,38 +82,49 @@ intervals, both starting profiles, and the exploratory follow-up analyses.
 Monitoring and higher-draw validation use separate item panels, so their
 starting percentages need not match.
 
-### The old skill: the difference is early, not at the endpoint
+### The old skill: the difference is early, not at the endpoint (F1)
 
 ![Arithmetic success during the first 20 later-training updates, for targeted and held-out families](docs/assets/pilot-pair1-retention.svg)
 
 On the targeted monitor, B-S starts at **29.82%** and B-G at **30.86%**.
 After two updates on the new task, they score **16.93%** and **27.21%**.
-By update ten, both are below 1%: **0.52%** and **0.78%**.
+That update-2 gap of **10.3 points** has a paired item-bootstrap 95%
+interval of **5.7 to 15.0 points**. An exploratory half-life — updates
+until targeted success falls to half its starting value, interpolated
+between evaluations — is **2.7 for B-S** and **4.1 for B-G**. By update
+ten the gap has narrowed because both scores are near zero: **0.52%**
+and **0.78%**.
 
 At the final update-480 evaluation, each branch records **0/4,096 successes**
 on targeted arithmetic items and another **0/4,096** on held-out families.
 That is zero observed success under this evaluation, not proof that every
 trace of the ability has disappeared.
 
-### The new skill: final score and improvement tell different stories
+### The new skill: final score and improvement tell different stories (F2)
 
 ![New-task learning over 480 updates, shown as absolute success and improvement from each branch's own baseline](docs/assets/pilot-pair1-learning.svg)
 
-B-G can already solve **4.99%** of new-task attempts before Stage B; B-S
-records **0%**. After 480 identical training updates, they reach **40.37%**
-and **37.82%**, respectively. B-G's endpoint is **2.55 percentage points
-higher**; the paired item-bootstrap 95% interval is **0.77 to 4.35 points**.
+Before any Stage-B training, B-G solved **223 of the 512** new-task
+problems at least once in 16 attempts (**4.99%** of individual attempts);
+B-S solved none in **8,192 attempts**. After 480 identical training
+updates, B-G reaches **40.37%** and B-S **37.82%**.
 
 The ordering reverses for the frozen summary of **improvement over the whole
 training run**. This averages the learning curve above each branch's own
 baseline, rather than comparing just its endpoint. On the study's smoothed
 score, that average gain is **0.2469 for B-S** and **0.1899 for B-G**.
+
+Both differences are clearly nonzero on item resampling: the endpoint
+favors B-G (**2.55 points**, 95% interval **0.77 to 4.35**); the
+improvement summary favors B-S (difference **0.057**, 95% interval
+**0.047 to 0.067**). Which checkpoint "learned the new task better"
+depends on whether you ask about the destination or the path.
 The exact definition and interval are in the [results note](docs/results/pilot0-pair1.md#f2--subsequent-maps-learning).
 
 These intervals resample shared evaluation items. They do **not** tell us how
 much the result will vary across independently trained seed pairs.
 
-### A similar target score leaves large differences elsewhere
+### A similar target score leaves large differences elsewhere (F3)
 
 Before Stage B, the higher-draw profiles show:
 
@@ -117,14 +136,21 @@ Before Stage B, the higher-draw profiles show:
   These count verifier-defined expression structures, not inferred reasoning
   processes.
 
-The adapter weights also differ: the aggregate size of LoRA's **B factor**
-is **7.36× larger in B-S**. This is a description of the saved parameters,
-not evidence that parameter scale caused the learning or retention curves.
+LoRA writes its update as a product of two matrices, **B·A**. At the
+matched checkpoints the B factor is **7.4× larger in B-S**, measured
+by aggregate Frobenius norm, and the update is concentrated in fewer
+directions. This describes the saved parameters; it is not evidence
+that parameter scale caused the curves.
 
-A separate check of B-G's new-task curve found **no cap or format failures
-at updates 40 and 80**, while success rose from **7.23% to 17.18%**.
-That rise was accompanied by fewer wrong-target answers, not the resolution
-of recorded cap or format errors.
+B-G's new-task score stayed near 7% for the first 40 updates, then
+jumped from **7.23% to 17.18%** by update 80, while B-S generally
+climbed. The proposed explanation — B-G's long outputs hitting the
+new task's **128-token cap** — does not fit the recorded failures:
+at evaluated checkpoints from update 1 onward, its cap or format
+failures are essentially zero, and most failures are well-formed programs
+with the wrong answer. B-S did have substantial early format failures;
+its cap and format counts are zero at the evaluated checkpoints
+from update ten onward.
 
 ## What comes next
 
