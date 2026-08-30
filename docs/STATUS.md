@@ -9,8 +9,9 @@ Pilot 0 pair 1 (seed 11) completed at `2026-08-30T19:18:10Z` with
 evaluations are complete; the F1/F2 cells, F3 profiles, matching record, billing
 lineage, and all 34 local LoRA archives passed terminal verification.
 
-Pair 2 (seed 29) is separately authorized at its exact `$772.40` preflight
-ceiling and is being prepared for launch.
+Pair 2 (seed 29) is running under launchd as
+`pilot0-pair2-seed29-20260830T204211Z`, confirmed at `2026-08-30T20:45:22Z`,
+with its exact `$772.40` preflight ceiling and the existing heartbeat monitoring.
 
 **Pair-2 launch commitment (2026-08-23, before any pair-1 scientific result
 was read):** Pair-2 launch authorization depends only on: (a) pair-1 terminal
@@ -59,8 +60,8 @@ Final test data remain sealed.
 
 ## Next
 
-1. Launch the separately authorized pair 2 under the unchanged scientific recipe.
-2. After launch is confirmed running, report pair-1 F1/F2/F3 from local artifacts.
+1. Complete pair 2 under the unchanged scientific recipe and verify its durable evidence.
+2. The pair-1 local F1/F2/F3 readout was produced only after pair 2 was confirmed running.
 3. Use both pairs to assess feasibility and effect direction, with a first,
    crude look at seed-to-seed variability.
 4. Extend to fresh paired seeds before powering and preregistering confirmation.
