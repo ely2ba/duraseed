@@ -9,7 +9,7 @@ from typing import Any
 from duraseed.data.io import atomic_write_bytes
 from duraseed.pilot0_contract import EPHEMERAL_SAMPLER_FIXED_USD, Pilot0Inputs
 from duraseed.pilot0_integrity import bind_segment_evidence, verify_segment_evidence
-from duraseed.pilot0_recovery import restore_pilot0_recovery_ledger
+from duraseed.pilot0_recovery import pilot0_resume_ledgers
 from duraseed.provenance import canonical_json_bytes, canonical_json_hash, sha256_bytes
 from duraseed.runners import RunnerGateError
 from duraseed.runners.remote_journal import RemoteJournal
@@ -104,10 +104,7 @@ def _budget(value: dict[str, Any]) -> TokenBudget:
 def hydrate_ledger(inputs: Pilot0Inputs, root: Path) -> None:
     """Restore cumulative reservations from the latest completed segment."""
 
-    if restore_pilot0_recovery_ledger(inputs, root):
-        return
-
-    snapshots = []
+    snapshots: list[dict[str, Any]] = []
     for path in root.rglob("segment.json"):
         segment = read_segment(path.parent, {})
         assert segment is not None
@@ -117,6 +114,15 @@ def hydrate_ledger(inputs: Pilot0Inputs, root: Path) -> None:
                 "completed Pilot-0 segment omitted its ledger snapshot"
             )
         snapshots.append(snapshot)
+    snapshots.extend(
+        {
+            "committed": row["committed_tokens"],
+            "observed": row["observed_tokens"],
+            "committed_fixed_usd": row["fixed_usd"],
+            "observed_fixed_usd": row["fixed_usd"],
+        }
+        for row in pilot0_resume_ledgers(root)
+    )
     if not snapshots:
         return
     latest = max(

@@ -102,9 +102,7 @@ def prepare_pilot0_recovery(
     preflight = _object(root / "preflight.json", "preflight")
     error = run.get("error")
     match = _REQUEST_ID.search(error) if isinstance(error, str) else None
-    stuck_request = (
-        _STUCK_REQUEST.fullmatch(error) if isinstance(error, str) else None
-    )
+    stuck_request = _STUCK_REQUEST.fullmatch(error) if isinstance(error, str) else None
     if (
         run.get("status") != "interrupted"
         or run.get("run_id") != root.name
@@ -156,9 +154,7 @@ def prepare_pilot0_recovery(
         or (sequence > 0 and len(generation_rows) % sequence)
     ):
         raise RunnerGateError("Pilot recovery durable evaluation prefix is incomplete")
-    samples_per_completed_call = (
-        len(generation_rows) // sequence if sequence else None
-    )
+    samples_per_completed_call = len(generation_rows) // sequence if sequence else None
     sampler_path, state_path = _checkpoint(segment / "remote-calls.jsonl")
     try:
         start_text, stop_text = segment.name.removeprefix("steps-").split("-")
@@ -244,6 +240,36 @@ def prepare_pilot0_recovery(
     return artifact
 
 
+def prepare_pilot0_resume(
+    root: Path,
+    *,
+    recovery_session_id: str,
+    recovery_git_commit: str,
+) -> dict[str, Any]:
+    """Prepare either the first failed-call recovery or a clean checkpoint resume."""
+
+    from duraseed.pilot0_clean_resume import (
+        clean_pause_candidate,
+        prepare_clean_resume,
+    )
+
+    candidate = clean_pause_candidate(root)
+    if candidate is not None:
+        return prepare_clean_resume(
+            root,
+            recovery_session_id=recovery_session_id,
+            recovery_git_commit=recovery_git_commit,
+            candidate=candidate,
+        )
+    if (root / "infrastructure-recovery.json").exists():
+        raise RunnerGateError("Pilot resume has no clean pause marker")
+    return prepare_pilot0_recovery(
+        root,
+        recovery_session_id=recovery_session_id,
+        recovery_git_commit=recovery_git_commit,
+    )
+
+
 def load_pilot0_recovery(root: Path) -> dict[str, Any] | None:
     path = root / "infrastructure-recovery.json"
     if not path.exists():
@@ -275,28 +301,63 @@ def restore_pilot0_recovery_ledger(inputs: Any, root: Path) -> bool:
     return True
 
 
-def recovery_segment(inputs: Any, output: Path) -> dict[str, Any] | None:
-    root = inputs.output_root / inputs.run_id
+def pilot0_resume_ledgers(root: Path) -> list[dict[str, Any]]:
+    from duraseed.pilot0_clean_resume import clean_resumes
+
+    ledgers = []
     recovery = load_pilot0_recovery(root)
-    if recovery is None or output.relative_to(root).as_posix() != recovery.get(
-        "segment"
-    ):
+    if recovery is not None:
+        ledgers.append(recovery["resume_ledger"])
+    ledgers.extend(entry["resume_ledger"] for entry in clean_resumes(root))
+    return ledgers
+
+
+def recovery_segment(inputs: Any, output: Path) -> dict[str, Any] | None:
+    from duraseed.pilot0_clean_resume import clean_resumes
+
+    root = inputs.output_root / inputs.run_id
+    relative = output.relative_to(root).as_posix()
+    for entry in reversed(clean_resumes(root)):
+        if relative == entry.get("segment") and not (output / "segment.json").exists():
+            return entry
+    recovery = load_pilot0_recovery(root)
+    if recovery is None or relative != recovery.get("segment"):
         return None
     return recovery
 
 
+def reconciled_evaluation(inputs: Any, output: Path) -> bool:
+    from duraseed.pilot0_clean_resume import clean_resumes
+
+    root = inputs.output_root / inputs.run_id
+    relative = output.relative_to(root).as_posix()
+    if any(relative == entry.get("evaluation") for entry in clean_resumes(root)):
+        return True
+    recovery = load_pilot0_recovery(root)
+    return recovery is not None and relative == recovery.get("evaluation")
+
+
 def pilot0_session_ids(root: Path, primary_session_id: str) -> list[str]:
+    from duraseed.pilot0_clean_resume import clean_resumes
+
     recovery = load_pilot0_recovery(root)
     sessions = [primary_session_id]
     if recovery is not None and recovery["recovery_session_id"] not in sessions:
         sessions.append(recovery["recovery_session_id"])
+    for entry in clean_resumes(root):
+        session_id = entry.get("recovery_session_id")
+        if isinstance(session_id, str) and session_id not in sessions:
+            sessions.append(session_id)
     return sessions
 
 
 __all__ = [
     "load_pilot0_recovery",
     "pilot0_session_ids",
+    "pilot0_resume_ledgers",
     "prepare_pilot0_recovery",
+    "prepare_pilot0_resume",
+    "reconciled_evaluation",
     "recovery_segment",
     "restore_pilot0_recovery_ledger",
 ]

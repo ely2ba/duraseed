@@ -27,7 +27,7 @@ from duraseed.pilot0_pair_auth import (
     authenticate_pilot_sources,
     load_pilot_pair_billing,
 )
-from duraseed.pilot0_recovery import prepare_pilot0_recovery
+from duraseed.pilot0_recovery import prepare_pilot0_resume
 from duraseed.pilot0_source_build import read_pilot_seed_sources
 from duraseed.runners import RunnerGateError, authorize_launch
 from duraseed.runners.calibration_launch import _git_commit
@@ -205,7 +205,7 @@ async def run_remote_pilot0_pair(
         raise RunnerGateError("Tinker service returned no session identity")
     runtime = RuntimeBundle(sdk, service, None, renderer, tokenizer)
     if resume_interrupted:
-        prepare_pilot0_recovery(
+        prepare_pilot0_resume(
             root,
             recovery_session_id=session_id,
             recovery_git_commit=active_git_commit,

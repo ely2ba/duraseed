@@ -11,7 +11,7 @@ from duraseed.data.manifests import (
     TCESTaskManifestRecord,
 )
 from duraseed.pilot0_contract import Pilot0Inputs, PilotSeedSources
-from duraseed.pilot0_recovery import load_pilot0_recovery
+from duraseed.pilot0_recovery import reconciled_evaluation
 from duraseed.pilot0_evidence import (
     EvaluationStage,
     finish_evaluation,
@@ -19,10 +19,14 @@ from duraseed.pilot0_evidence import (
     read_evaluation,
 )
 from duraseed.provenance import canonical_json_hash
-from duraseed.run_records import MethodCode, append_jsonl
+from duraseed.run_records import GenerationRecord, MethodCode, RewardRecord, write_jsonl
 from duraseed.runners import RunnerGateError
+from duraseed.runners.pilot0_concurrent_sampling import (
+    cleanup_concurrent_groups,
+    sample_manifest_groups,
+)
 from duraseed.runners.remote_journal import RemoteJournal
-from duraseed.runtime import SamplingCoordinates, SamplingTask, sample_seeded
+from duraseed.runtime import SamplingCoordinates
 from duraseed.tasks.maps import render_prompt as render_maps_prompt
 from duraseed.tasks.tces import render_prompt as render_tces_prompt
 
@@ -102,13 +106,10 @@ async def evaluate_manifest(
         "top_p": top_p,
         "task_contract_sha256": canonical_json_hash(contracts),
     }
-    output_root = getattr(inputs, "output_root", None)
-    root = None if output_root is None else Path(output_root) / inputs.run_id
-    recovery = None if root is None else load_pilot0_recovery(root)
     reconciled_resume = (
-        recovery is not None
-        and root is not None
-        and output.relative_to(root).as_posix() == recovery.get("evaluation")
+        hasattr(inputs, "output_root")
+        and output.is_relative_to(Path(inputs.output_root) / inputs.run_id)
+        and reconciled_evaluation(inputs, output)
     )
     completed = read_evaluation(output, reconciled_resume=reconciled_resume)
     journal = (
@@ -166,80 +167,93 @@ async def evaluate_manifest(
         ):
             raise RunnerGateError("completed Pilot-0 evaluation changed evidence")
         return completed
-    for record in manifest.records:
-        if record.task_id in completed_tasks:
-            continue
+    assert journal is not None
+    sample_coordinates = SamplingCoordinates(
+        inputs.run_id,
+        label,
+        "evaluation",
+        checkpoint_stage,
+        training_step,
+        sampler_path,
+        origin_sampler_path,
+        source.seed,
+        seed_namespace,
+        method,
+    )
+    pending = [
+        (index, record)
+        for index, record in enumerate(manifest.records)
+        if record.task_id not in completed_tasks
+    ]
+    sampled = await sample_manifest_groups(
+        inputs,
+        manifest=manifest,
+        sampler=sampler,
+        coordinates=sample_coordinates,
+        contracts=contracts,
+        pending=pending,
+        samples_per_item=samples_per_item,
+        sample_index_start=sample_index_start,
+        max_tokens=max_tokens,
+        temperature=temperature,
+        top_p=top_p,
+        output=output,
+    )
+
+    existing_generations = (
+        [
+            GenerationRecord.model_validate_json(row)
+            for row in (output / "generations.jsonl").read_text().splitlines()
+        ]
+        if (output / "generations.jsonl").exists()
+        else []
+    )
+    existing_rewards = (
+        [
+            RewardRecord.model_validate_json(row)
+            for row in (output / "rewards.jsonl").read_text().splitlines()
+        ]
+        if (output / "rewards.jsonl").exists()
+        else []
+    )
+    reward_by_sample = {row.sample_id: row for row in existing_rewards}
+    all_rows: dict[str, list[tuple[GenerationRecord, RewardRecord]]] = {}
+    for generation in existing_generations:
+        all_rows.setdefault(generation.task_id, []).append(
+            (generation, reward_by_sample[generation.sample_id])
+        )
+    for index, rows in sampled.items():
+        record = manifest.records[index]
         role = _panel_role(source, record)
-        prompt_text = _prompt(record)
-        prompt = inputs.runtime.renderer.build_generation_prompt(
-            [{"role": "user", "content": prompt_text}], role="assistant"
-        )
-        assert journal is not None
-        journal.begin(
-            "pilot0-validation-group",
-            {"label": label, "task_id": record.task_id},
-            {
-                "prefill_tokens": int(prompt.length) * samples_per_item,
-                "sample_tokens": max_tokens * samples_per_item,
-                "train_tokens": 0,
-            },
-        )
-        rows = await sample_seeded(
-            inputs.runtime,
-            sampler,
-            SamplingTask(
-                manifest.manifest_id,
-                record.task_id,
-                record.task_family,
-                manifest.split,
-                prompt_text,
-                record.to_task(),
-                record.item_index,
-                getattr(record, "intended_family", None),
-                role,
-            ),
-            SamplingCoordinates(
-                inputs.run_id,
-                label,
-                "evaluation",
-                checkpoint_stage,
-                training_step,
-                sampler_path,
-                origin_sampler_path,
-                source.seed,
-                seed_namespace,
-                method,
-            ),
-            group_size=samples_per_item,
-            max_tokens=max_tokens,
-            temperature=temperature,
-            top_p=top_p,
-            ledger=inputs.ledger,
-            sample_index_start=sample_index_start,
-        )
         values = counts[record.task_id]
         values["panel_role"] = role
-        for row in rows:
-            sample_id = row.generation.sample_id
-            if sample_id in sample_ids or row.reward.sample_id in reward_sample_ids:
+        all_rows[record.task_id] = list(rows)
+        for generation, reward in rows:
+            sample_id = generation.sample_id
+            if sample_id in sample_ids or reward.sample_id in reward_sample_ids:
                 raise RunnerGateError(
                     "Pilot-0 evaluation produced duplicate sample IDs"
                 )
             if (
-                row.reward.sample_id != sample_id
-                or row.reward.task_id != row.generation.task_id
-                or row.reward.reward != row.generation.reward
+                reward.sample_id != sample_id
+                or reward.task_id != generation.task_id
+                or reward.reward != generation.reward
             ):
                 raise RunnerGateError("Pilot-0 generation/reward row mismatch")
             sample_ids.add(sample_id)
-            reward_sample_ids.add(row.reward.sample_id)
-            values["successes"] += int(row.reward.reward)
+            reward_sample_ids.add(reward.sample_id)
+            values["successes"] += int(reward.reward)
             values["trials"] += 1
-            append_jsonl(output / "generations.jsonl", row.generation)
-            append_jsonl(output / "rewards.jsonl", row.reward)
-        journal.complete(
-            {"operation": "pilot0-validation-group", "row_count": len(rows)}
+    ordered = [
+        pair
+        for record in manifest.records
+        for pair in sorted(
+            all_rows.get(record.task_id, ()), key=lambda row: row[0].sample_index
         )
+    ]
+    write_jsonl(output / "generations.jsonl", (row[0] for row in ordered))
+    write_jsonl(output / "rewards.jsonl", (row[1] for row in ordered))
+    cleanup_concurrent_groups(output)
     expected = manifest.record_count * samples_per_item
     if len(sample_ids) != expected or any(
         row["trials"] != samples_per_item for row in counts.values()
