@@ -12,6 +12,7 @@ from duraseed.pilot0_contract import (
 )
 from duraseed.pilot0_data import stage_b_sources
 from duraseed.pilot0_integrity import stage_b_segment_coordinates
+from duraseed.pilot0_recovery import recovery_segment
 from duraseed.run_records import TrainingMetricRecord, append_jsonl
 from duraseed.runners.pilot0_remote import (
     read_segment,
@@ -105,61 +106,77 @@ async def _train_segment(
         stop=stop,
         learning_rate=STAGE_B_LEARNING_RATE,
     )
-    completed = read_segment(output, expected)
+    recovery = recovery_segment(inputs, output)
+    completed = read_segment(output, expected, reconciled_resume=recovery is not None)
     if completed is not None:
         return completed
     output.mkdir(parents=True, exist_ok=True)
-    journal = RemoteJournal(output)
-    runtime = await restore_runtime(
-        inputs,
-        journal,
-        path=previous["state_path"],
-        full_state=start > 0,
-        coordinate=expected,
-    )
-    for step in range(start + 1, stop + 1):
-        batch = [
-            datums[((step - 1) * 32 + offset) % len(datums)] for offset in range(32)
-        ]
-        journal.begin(
-            "pilot0-stage-b-sft-update",
-            {"seed": source.seed, "method": method, "step": step},
-            {
-                "prefill_tokens": 0,
-                "sample_tokens": 0,
-                "train_tokens": sum(int(row.model_input.length) for row in batch),
-            },
+    journal = RemoteJournal(output, reconciled_resume=recovery is not None)
+    if recovery is None:
+        runtime = await restore_runtime(
+            inputs,
+            journal,
+            path=previous["state_path"],
+            full_state=start > 0,
+            coordinate=expected,
         )
-        values = await apply_update(
+        for step in range(start + 1, stop + 1):
+            batch = [
+                datums[((step - 1) * 32 + offset) % len(datums)]
+                for offset in range(32)
+            ]
+            journal.begin(
+                "pilot0-stage-b-sft-update",
+                {"seed": source.seed, "method": method, "step": step},
+                {
+                    "prefill_tokens": 0,
+                    "sample_tokens": 0,
+                    "train_tokens": sum(int(row.model_input.length) for row in batch),
+                },
+            )
+            values = await apply_update(
+                runtime,
+                batch,
+                loss_fn="cross_entropy",
+                learning_rate=STAGE_B_LEARNING_RATE,
+                ledger=inputs.ledger,
+            )
+            metric = TrainingMetricRecord(
+                phase="stage_b", training_step=step, metrics=values
+            )
+            append_jsonl(
+                output / "metrics.jsonl",
+                {**metric.model_dump(mode="json"), "method": method},
+            )
+            journal.complete(
+                {"operation": "pilot0-stage-b-sft-update", "step": step}
+            )
+        pair = await save_pair(
+            inputs,
             runtime,
-            batch,
-            loss_fn="cross_entropy",
-            learning_rate=STAGE_B_LEARNING_RATE,
-            ledger=inputs.ledger,
+            journal,
+            name=f"{inputs.run_id}-seed-{source.seed}-{method}-stage-b-step-{stop}",
+            ttl_seconds=None if stop == STAGE_B_GRID[-1] else 7 * 24 * 60 * 60,
+            coordinate=expected,
         )
-        metric = TrainingMetricRecord(
-            phase="stage_b", training_step=step, metrics=values
-        )
-        append_jsonl(
-            output / "metrics.jsonl",
-            {**metric.model_dump(mode="json"), "method": method},
-        )
-        journal.complete({"operation": "pilot0-stage-b-sft-update", "step": step})
-    pair = await save_pair(
-        inputs,
-        runtime,
-        journal,
-        name=f"{inputs.run_id}-seed-{source.seed}-{method}-stage-b-step-{stop}",
-        ttl_seconds=None if stop == STAGE_B_GRID[-1] else 7 * 24 * 60 * 60,
-        coordinate=expected,
-    )
+        sampler_path, state_path = pair.sampler_path, pair.state_path
+    else:
+        if (
+            recovery.get("phase") != "stage_b"
+            or method != recovery.get("method")
+            or start != recovery.get("start")
+            or stop != recovery.get("stop")
+        ):
+            raise RuntimeError("Pilot recovery changed its interrupted segment")
+        sampler_path = str(recovery["sampler_path"])
+        state_path = str(recovery["state_path"])
     evidence = await evaluate_stage_b_step(
         inputs,
         source,
         stage_a,
         method=method,
         step=stop,
-        sampler_path=pair.sampler_path,
+        sampler_path=sampler_path,
         journal=journal,
         output=output,
         a_validation_seed_namespace=a_validation_seed_namespace,
@@ -169,8 +186,8 @@ async def _train_segment(
         output,
         {
             **expected,
-            "sampler_path": pair.sampler_path,
-            "state_path": pair.state_path,
+            "sampler_path": sampler_path,
+            "state_path": state_path,
             **evidence,
         },
         ledger=inputs.ledger,

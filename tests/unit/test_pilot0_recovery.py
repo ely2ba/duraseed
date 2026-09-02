@@ -140,6 +140,96 @@ def test_cli_does_not_render_exception_locals() -> None:
     assert app.pretty_exceptions_enable is False
 
 
+def test_stage_b_grouped_evaluation_timeout_is_reconciled(tmp_path: Path) -> None:
+    root = tmp_path / "pilot"
+    segment = root / "seed-29/B-S/stage-b/steps-1-2"
+    evaluation = segment / "a-retention"
+    committed = TokenBudget(100, 200, 30)
+    observed = TokenBudget(90, 160, 30)
+    _write(
+        root / "run.json",
+        {
+            "run_id": root.name,
+            "status": "interrupted",
+            "error": (
+                "APIConnectionError: No progress made in 7200s. "
+                "Requests appear to be stuck."
+            ),
+            "ledger": {
+                "committed_tokens": {
+                    "prefill": committed.prefill,
+                    "sample": committed.sample,
+                    "train": committed.train,
+                },
+                "observed_tokens": {
+                    "prefill": observed.prefill,
+                    "sample": observed.sample,
+                    "train": observed.train,
+                },
+                "committed_cost_usd": _cost(committed),
+                "observed_cost_usd": _cost(observed),
+            },
+        },
+    )
+    _write(
+        root / "preflight.json",
+        {"run_id": root.name, "lineage": {"session_id": "failed-session"}},
+    )
+    evaluation.mkdir(parents=True)
+    rows = "{}\n" * 8
+    (evaluation / "generations.jsonl").write_text(rows)
+    (evaluation / "rewards.jsonl").write_text(rows)
+    _write(
+        evaluation / "remote-call-state.json",
+        {
+            "completed_count": 2,
+            "attempt_started_at_utc": "2026-09-02T00:00:00+00:00",
+            "reserved_floor": {
+                "prefill_tokens": 8,
+                "sample_tokens": 16,
+                "train_tokens": 0,
+                "fixed_usd": 0.0,
+            },
+            "pending": {
+                "sequence": 2,
+                "operation": "pilot0-validation-group",
+                "coordinate": {"task_id": "task-2"},
+                "reservation": {
+                    "prefill_tokens": 4,
+                    "sample_tokens": 8,
+                    "train_tokens": 0,
+                    "fixed_usd": 0.0,
+                },
+            },
+        },
+    )
+    (segment / "remote-calls.jsonl").write_text(
+        json.dumps(
+            {
+                "sequence": 4,
+                "status": "completed",
+                "operation": "pilot0-save-checkpoint-pair",
+                "sampler_path": "tinker://session/sampler_weights/stage-b-step-2",
+                "state_path": "tinker://session/weights/stage-b-step-2",
+            }
+        )
+        + "\n"
+    )
+
+    recovery = prepare_pilot0_recovery(
+        root, recovery_session_id="resume-session", recovery_git_commit="commit"
+    )
+    assert recovery["phase"] == "stage_b"
+    assert recovery["method"] == "B-S"
+    assert recovery["samples_per_completed_call"] == 4
+    assert recovery["failed_request_id"] is None
+    assert recovery["failed_sequence"] == 2
+    assert (
+        json.loads((evaluation / "remote-call-state.json").read_text())["pending"]
+        is None
+    )
+
+
 def test_recovery_segment_skips_retraining_and_reuses_saved_pair(
     monkeypatch, tmp_path: Path
 ) -> None:

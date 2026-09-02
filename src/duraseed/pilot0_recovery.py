@@ -17,6 +17,9 @@ from duraseed.runtime import PRICE_SNAPSHOT, TokenBudget, UsageQuantities
 
 SCHEMA_VERSION = "duraseed-pilot0-infrastructure-recovery-v1"
 _REQUEST_ID = re.compile(r"self\.request_id='([^']+)'")
+_STUCK_REQUEST = re.compile(
+    r"APIConnectionError: No progress made in \d+s\. Requests appear to be stuck\."
+)
 
 
 def _object(path: Path, label: str) -> dict[str, Any]:
@@ -99,19 +102,26 @@ def prepare_pilot0_recovery(
     preflight = _object(root / "preflight.json", "preflight")
     error = run.get("error")
     match = _REQUEST_ID.search(error) if isinstance(error, str) else None
+    stuck_request = (
+        _STUCK_REQUEST.fullmatch(error) if isinstance(error, str) else None
+    )
     if (
         run.get("status") != "interrupted"
         or run.get("run_id") != root.name
         or preflight.get("run_id") != root.name
         or not recovery_session_id.strip()
         or not recovery_git_commit.strip()
-        or match is None
+        or (match is None and stuck_request is None)
     ):
         raise RunnerGateError("Pilot recovery is not the interrupted run incident")
 
+    candidate_paths = (
+        *root.glob("seed-*/B-*/steps-*/a-monitor/remote-call-state.json"),
+        *root.glob("seed-*/B-*/stage-b/steps-*/*/remote-call-state.json"),
+    )
     candidates = [
         path
-        for path in root.glob("seed-*/B-*/steps-*/a-monitor/remote-call-state.json")
+        for path in candidate_paths
         if _object(path, "call state").get("pending") is not None
     ]
     if len(candidates) != 1:
@@ -140,12 +150,24 @@ def prepare_pilot0_recovery(
         raise RunnerGateError("Pilot recovery cannot alter completed evidence")
     generation_rows = (evaluation / "generations.jsonl").read_text().splitlines()
     reward_rows = (evaluation / "rewards.jsonl").read_text().splitlines()
-    if len(generation_rows) != sequence or len(reward_rows) != sequence:
+    if (
+        len(generation_rows) != len(reward_rows)
+        or (sequence == 0 and generation_rows)
+        or (sequence > 0 and len(generation_rows) % sequence)
+    ):
         raise RunnerGateError("Pilot recovery durable evaluation prefix is incomplete")
+    samples_per_completed_call = (
+        len(generation_rows) // sequence if sequence else None
+    )
     sampler_path, state_path = _checkpoint(segment / "remote-calls.jsonl")
     try:
         start_text, stop_text = segment.name.removeprefix("steps-").split("-")
-        method = segment.parent.name
+        if segment.parent.name == "stage-b":
+            phase = "stage_b"
+            method = segment.parent.parent.name
+        else:
+            phase = "stage_a"
+            method = segment.parent.name
         start, stop = int(start_text), int(stop_text)
     except (ValueError, AttributeError) as error:
         raise RunnerGateError(
@@ -170,16 +192,19 @@ def prepare_pilot0_recovery(
         "run_id": root.name,
         "created_at": datetime.now(UTC).isoformat(),
         "reason": "tinker_infrastructure_request_failure",
-        "failed_request_id": match.group(1),
+        "failed_error": error,
+        "failed_request_id": match.group(1) if match is not None else None,
         "failed_session_id": preflight["lineage"]["session_id"],
         "recovery_session_id": recovery_session_id,
         "recovery_git_commit": recovery_git_commit,
         "segment": segment.relative_to(root).as_posix(),
         "evaluation": evaluation.relative_to(root).as_posix(),
+        "phase": phase,
         "method": method,
         "start": start,
         "stop": stop,
         "failed_sequence": sequence,
+        "samples_per_completed_call": samples_per_completed_call,
         "failed_coordinate": pending.get("coordinate"),
         "failed_reservation": _token_value(failed_tokens),
         "sampler_path": sampler_path,
@@ -209,8 +234,9 @@ def prepare_pilot0_recovery(
                 "sequence": sequence,
                 "status": "failed_infrastructure",
                 "operation": pending["operation"],
-                "request_id": match.group(1),
+                "request_id": match.group(1) if match is not None else None,
                 "coordinate": pending.get("coordinate"),
+                "error": error,
             },
         )
         call_state["pending"] = None

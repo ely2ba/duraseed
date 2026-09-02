@@ -66,49 +66,60 @@ async def select_and_profile(
         selected = matching[method]
         output = root / method / "selected-pre-b"
         output.mkdir(parents=True, exist_ok=True)
-        journal = RemoteJournal(output)
-        sampler = await sampler_for_path(
-            inputs,
-            journal,
-            path=selected["sampler_path"],
-            coordinate={
-                "seed": source.seed,
-                "method": method,
-                "step": selected["step"],
-            },
-        )
-        monitor = await evaluate_manifest(
-            inputs,
-            source,
-            manifest=source.prompt_pools.a_monitor_manifest,
-            sampler=sampler,
-            sampler_path=selected["sampler_path"],
-            origin_sampler_path=inputs.m0_sampler_path,
-            method=method,  # type: ignore[arg-type]
-            checkpoint_stage="stage_a",
-            training_step=selected["step"],
-            label=f"seed-{source.seed}-{method}-selected-pre-b-monitor",
-            samples_per_item=4,
-            max_tokens=inputs.acquisition.selected_max_tokens,
-            seed_namespace="pilot0.a_monitor",
-            output=output / "a-monitor",
-        )
-        validation = await evaluate_manifest(
-            inputs,
-            source,
-            manifest=source.a_validation,
-            sampler=sampler,
-            sampler_path=selected["sampler_path"],
-            origin_sampler_path=inputs.m0_sampler_path,
-            method=method,  # type: ignore[arg-type]
-            checkpoint_stage="stage_a",
-            training_step=selected["step"],
-            label=f"seed-{source.seed}-{method}-selected-pre-b",
-            samples_per_item=16,
-            max_tokens=inputs.acquisition.selected_max_tokens,
-            seed_namespace="pilot0.a_validation.pre_b",
-            output=output / "a-validation",
-        )
+        monitor = read_evaluation(output / "a-monitor")
+        validation = read_evaluation(output / "a-validation")
+        if (monitor is None) != (validation is None):
+            raise RunnerGateError("Pilot selected pre-B evidence is incomplete")
+        if monitor is None:
+            journal = RemoteJournal(output)
+            sampler = await sampler_for_path(
+                inputs,
+                journal,
+                path=selected["sampler_path"],
+                coordinate={
+                    "seed": source.seed,
+                    "method": method,
+                    "step": selected["step"],
+                },
+            )
+            monitor = await evaluate_manifest(
+                inputs,
+                source,
+                manifest=source.prompt_pools.a_monitor_manifest,
+                sampler=sampler,
+                sampler_path=selected["sampler_path"],
+                origin_sampler_path=inputs.m0_sampler_path,
+                method=method,  # type: ignore[arg-type]
+                checkpoint_stage="stage_a",
+                training_step=selected["step"],
+                label=f"seed-{source.seed}-{method}-selected-pre-b-monitor",
+                samples_per_item=4,
+                max_tokens=inputs.acquisition.selected_max_tokens,
+                seed_namespace="pilot0.a_monitor",
+                output=output / "a-monitor",
+            )
+            validation = await evaluate_manifest(
+                inputs,
+                source,
+                manifest=source.a_validation,
+                sampler=sampler,
+                sampler_path=selected["sampler_path"],
+                origin_sampler_path=inputs.m0_sampler_path,
+                method=method,  # type: ignore[arg-type]
+                checkpoint_stage="stage_a",
+                training_step=selected["step"],
+                label=f"seed-{source.seed}-{method}-selected-pre-b",
+                samples_per_item=16,
+                max_tokens=inputs.acquisition.selected_max_tokens,
+                seed_namespace="pilot0.a_validation.pre_b",
+                output=output / "a-validation",
+            )
+        assert validation is not None
+        if (
+            monitor.get("sampler_path") != selected["sampler_path"]
+            or validation.get("sampler_path") != selected["sampler_path"]
+        ):
+            raise RunnerGateError("Pilot selected pre-B checkpoint changed")
         branch = {
             "kind": "stage-a-post-hoc-matched",
             "seed": source.seed,
