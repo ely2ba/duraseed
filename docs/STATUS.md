@@ -1,45 +1,24 @@
 # Project status
 
-_Last updated: 2026-08-30._
+_Last updated: 2026-09-03._
 
 ## Current
 
-Pilot 0 pair 1 (seed 11) completed at `2026-08-30T19:18:10Z` with
-`evidence_collected` and exit code 0. Both 480-update Stage-B schedules and final
-evaluations are complete; the F1/F2 cells, F3 profiles, matching record, billing
-lineage, and all 34 local LoRA archives passed terminal verification.
+**Pilot 0 is complete and frozen.** Pair 1 (seed 11) and Pair 2 (seed 29)
+both finished with `evidence_collected`; both 480-update Stage-B schedules and
+final evaluations are complete. Their F1/F2 cells, F3 profiles, frozen matching
+records, billing lineages, and local LoRA geometry archives passed the required
+terminal checks.
 
-Pair 2 (seed 29) is running under launchd as
-`pilot0-pair2-seed29-20260830T204211Z`, confirmed at `2026-08-30T20:45:22Z`,
-with its exact `$772.40` preflight ceiling and the existing heartbeat monitoring.
-The local launchd check at `2026-08-30T22:02:53Z` confirmed the same job running;
-that status check did not read pair-2 outcome artifacts.
+The matching rule selected B-S@140 with B-G@30 at `31/96` for Pair 1, and
+B-S@40 with B-G@20 at `17/96` for Pair 2. The complete public state is linked
+from the [README](../README.md), including both readouts, figures, profiles,
+paired offline analyses, geometry reports, and the dated
+[prospective Pair-2 prediction record](results/pilot0-pair2-prediction.md).
 
-The [pair-1 scientific results](results/pilot0-pair1.md) are available, including
-F1 retention, F2 absolute and baseline-relative learning, both F3 profiles, and
-the descriptive, post-hoc offline analyses. This remains one paired seed.
-
-**Pair-2 launch commitment (2026-08-23, before any pair-1 scientific result
-was read):** Pair-2 launch authorization depends only on: (a) pair-1 terminal
-with durable artifacts and clean integrity/billing lineage, (b) no
-infrastructure or protocol-execution failure, and (c) lifetime spend plus the
-pair-2 preflight remaining within accepted ceilings. It does not depend on the
-direction, size, or significance of any pair-1 scientific contrast; a
-matching-unavailable outcome does not block pair 2.
-
-**Human authorization clarification (2026-08-30):** Values were machine-read
-and recomputed during terminal verification; no contrast was reported to or
-consulted by the human before authorization; pair-2 matching is mechanically
-blind to pair-1 contrasts. The documented, authorized infrastructure recovery
-that ended in full verified evidence satisfies condition (b) and is not a
-launch blocker.
-
-As authorized on 2026-08-30, account-wide lifetime formulas are retired: launch
-requires the sum of DuraSeed run-ledger actuals plus pair-2's exact preflight
-ceiling to be within `$1,548.08`, with the saved `$3,964.56` grant balance as a
-separate sanity check; CSV attribution is deferred to end-of-project accounting.
-
-Final test data remain sealed.
+The Pair-2 prediction was released from geometry before its F1/F2/F3 outcomes
+were opened. Its two registered legs both held, producing the mechanical score
+`PREDICTION: CONFIRMED`. Final test data remain sealed.
 
 ## Completed foundations
 
@@ -68,14 +47,17 @@ Final test data remain sealed.
   trajectories, conditional item-level uncertainty, and descriptive profiles.
 - Supplementary, post-hoc adapter geometry covers the 34 retained pair-1
   Stage-A checkpoints. It is outside F3 and all matching or gate decisions.
+- Pair 2 completed both Stage-A schedules, matched B-S update 40 with B-G
+  update 20, completed both Stage-B probes, and retained both F3 profiles and
+  all 34 local Stage-A geometry archives.
 - A prospective mechanical prediction was recorded at `2026-08-30T21:11:34Z`,
-  before pair-2 outcome inspection. The prediction and subsequent gauge-rescaling
-  candidate are [non-binding proposals](../README.md#what-comes-next), not changes
-  to the running experiment or authorization for a follow-up.
+  before pair-2 outcome inspection. Before outcome release, B-S was selected
+  mechanically from the Pair-2 geometry and the scoring rule was fixed. Both
+  registered outcome legs held.
 
-## Pair-2 terminal read order
+## Pair-2 terminal read order — completed
 
-The authorized read order is unchanged:
+The required read order was completed:
 
 1. First report completion, integrity and matching status plus selected checkpoint
    indices only, without F1/F2/F3 values, contrasts or directional language.
@@ -84,21 +66,19 @@ The authorized read order is unchanged:
    and stable rank. End by recording the prospective prediction that the
    larger-B-norm arm has faster F1 decay and faster early F2 gain. Stop until
    the human replies **PREDICTION RECORDED**.
-3. Only after that reply deliver the full pair-2 scientific readout.
+3. Only after the human replied **PREDICTION RECORDED**, deliver the full Pair-2
+   scientific readout and apply the registered score.
 
-Checkpoint archival continues before expiry. Machine integrity checks may
-recompute values internally, but scientific outcomes are not consulted to form
-the geometry-first prediction. This documentation update read no pair-2
-scientific outcomes or contrasts.
+The archived record is [public](results/pilot0-pair2-prediction.md). No Pair-2
+outcome was consulted to form the geometry-first prediction.
 
 ## Next
 
-1. Complete pair 2 under the unchanged scientific recipe and verify its durable evidence.
-2. After the terminal read order and human release above, use both pairs to
-   assess feasibility and effect direction, with a first, crude look at
-   seed-to-seed variability.
-3. Seek separate authorization for fresh paired seeds before powering and
-   preregistering confirmation; no further launch is authorized by this list.
+1. Preserve Pilot 0 as the frozen two-pair result.
+2. Preregister the separately planned gauge-rescaling experiment before any
+   launch. Its results are not part of Pilot 0.
+3. Seek separate authorization for any fresh seed, gauge intervention, or
+   confirmatory run; no launch is authorized by this list.
 
 For the scientific overview, return to the [README](../README.md). For exact
 schedules, gates, calibration history, budgets, and provenance, see the

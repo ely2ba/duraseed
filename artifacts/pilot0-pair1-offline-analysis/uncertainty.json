@@ -1,0 +1,431 @@
+{
+  "run_id": "pilot0-pair1-seed11-20260825T125100Z",
+  "seed": 11,
+  "contrast_direction": "B-S minus B-G",
+  "bootstrap": {
+    "method": "paired item-cluster percentile",
+    "replicates": 50000,
+    "base_seed": 314159,
+    "confidence": 0.95,
+    "multiple_comparison_adjustment": "none; pointwise descriptive intervals",
+    "resampling_unit": "item ID shared across both methods and all time points; all draws stay in each item"
+  },
+  "contrasts": [
+    {
+      "contrast": "F2 update-480 Pass@1",
+      "direction": "B-S minus B-G",
+      "items": 512,
+      "estimate": -0.0255126953125,
+      "ci95_lower": -0.04345703125,
+      "ci95_upper": -0.0076904296875,
+      "bootstrap_seed": 314159,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F2 update-480 posterior mean",
+      "direction": "B-S minus B-G",
+      "items": 512,
+      "estimate": -0.024011948529411763,
+      "ci95_lower": -0.040900735294117634,
+      "ci95_upper": -0.007238051470588245,
+      "bootstrap_seed": 314159,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F2 raw-gain AUC (stored posterior-score estimand)",
+      "direction": "B-S minus B-G",
+      "items": 512,
+      "estimate": 0.05693646599264707,
+      "ci95_lower": 0.04660164627374389,
+      "ci95_upper": 0.06723609475528496,
+      "bootstrap_seed": 314159,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F2 Pass@1 gain AUC (supplementary raw-rate estimand)",
+      "direction": "B-S minus B-G",
+      "items": 512,
+      "estimate": 0.060494995117187506,
+      "ci95_lower": 0.04951424916585282,
+      "ci95_upper": 0.07143835067749017,
+      "bootstrap_seed": 314159,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F1 targeted monitor update-1 Pass@1",
+      "direction": "B-S minus B-G",
+      "items": 192,
+      "estimate": -0.0390625,
+      "ci95_lower": -0.0859375,
+      "ci95_upper": 0.0078125,
+      "bootstrap_seed": 314160,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F1 targeted monitor update-1 posterior mean",
+      "direction": "B-S minus B-G",
+      "items": 192,
+      "estimate": -0.03125,
+      "ci95_lower": -0.06874999999999999,
+      "ci95_upper": 0.0062499999999999995,
+      "bootstrap_seed": 314160,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F1 targeted monitor update-2 Pass@1",
+      "direction": "B-S minus B-G",
+      "items": 192,
+      "estimate": -0.10286458333333333,
+      "ci95_lower": -0.14973958333333334,
+      "ci95_upper": -0.057291666666666664,
+      "bootstrap_seed": 314160,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F1 targeted monitor update-2 posterior mean",
+      "direction": "B-S minus B-G",
+      "items": 192,
+      "estimate": -0.08229166666666667,
+      "ci95_lower": -0.11979166666666656,
+      "ci95_upper": -0.045833333333333316,
+      "bootstrap_seed": 314160,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F1 targeted monitor update-5 Pass@1",
+      "direction": "B-S minus B-G",
+      "items": 192,
+      "estimate": -0.026041666666666668,
+      "ci95_lower": -0.05859375,
+      "ci95_upper": 0.006510416666666667,
+      "bootstrap_seed": 314160,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F1 targeted monitor update-5 posterior mean",
+      "direction": "B-S minus B-G",
+      "items": 192,
+      "estimate": -0.020833333333333332,
+      "ci95_lower": -0.046875,
+      "ci95_upper": 0.005208333333333338,
+      "bootstrap_seed": 314160,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F1 targeted monitor update-10 Pass@1",
+      "direction": "B-S minus B-G",
+      "items": 192,
+      "estimate": -0.0026041666666666665,
+      "ci95_lower": -0.010416666666666666,
+      "ci95_upper": 0.005208333333333333,
+      "bootstrap_seed": 314160,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "F1 targeted monitor update-10 posterior mean",
+      "direction": "B-S minus B-G",
+      "items": 192,
+      "estimate": -0.0020833333333333333,
+      "ci95_lower": -0.008333333333333333,
+      "ci95_upper": 0.004166666666666667,
+      "bootstrap_seed": 314160,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "Pre-B 16-draw targeted Pass@1 (matching imperfection)",
+      "direction": "B-S minus B-G",
+      "items": 256,
+      "estimate": 0.0263671875,
+      "ci95_lower": -0.00390625,
+      "ci95_upper": 0.05712890625,
+      "bootstrap_seed": 314161,
+      "bootstrap_replicates": 50000
+    },
+    {
+      "contrast": "Pre-B 16-draw targeted posterior mean (matching imperfection)",
+      "direction": "B-S minus B-G",
+      "items": 256,
+      "estimate": 0.024816176470588234,
+      "ci95_lower": -0.0036764705882352884,
+      "ci95_upper": 0.053768382352941124,
+      "bootstrap_seed": 314161,
+      "bootstrap_replicates": 50000
+    }
+  ],
+  "early_window": [
+    {
+      "method": "B-S",
+      "role": "targeted",
+      "score": "Pass@1",
+      "baseline": 0.2981770833333333,
+      "relative_retention": {
+        "1": 0.8253275109170306,
+        "2": 0.5676855895196508,
+        "5": 0.26200873362445415,
+        "10": 0.017467248908296942
+      },
+      "half_life": {
+        "update": 2.6642857142857146,
+        "status": "first_downward_crossing_linear_interpolation",
+        "bracket": [
+          2,
+          5
+        ],
+        "threshold": 0.14908854166666666
+      },
+      "normalized_absolute_auc_0_20": 0.05458984374999999,
+      "normalized_relative_auc_0_20": 0.18307860262008732,
+      "unnormalized_absolute_area_0_20": 1.0917968749999998
+    },
+    {
+      "method": "B-S",
+      "role": "targeted",
+      "score": "posterior mean",
+      "baseline": 0.33854166666666674,
+      "relative_retention": {
+        "1": 0.8769230769230767,
+        "2": 0.695384615384616,
+        "5": 0.4800000000000012,
+        "10": 0.3076923076923078
+      },
+      "half_life": {
+        "update": 4.7214285714285875,
+        "status": "first_downward_crossing_linear_interpolation",
+        "bracket": [
+          2,
+          5
+        ],
+        "threshold": 0.16927083333333337
+      },
+      "normalized_absolute_auc_0_20": 0.14367187500000017,
+      "normalized_relative_auc_0_20": 0.4243846153846158,
+      "unnormalized_absolute_area_0_20": 2.873437500000003
+    },
+    {
+      "method": "B-G",
+      "role": "targeted",
+      "score": "Pass@1",
+      "baseline": 0.30859375,
+      "relative_retention": {
+        "1": 0.9240506329113924,
+        "2": 0.8818565400843883,
+        "5": 0.3375527426160338,
+        "10": 0.02531645569620253
+      },
+      "half_life": {
+        "update": 4.104651162790698,
+        "status": "first_downward_crossing_linear_interpolation",
+        "bracket": [
+          2,
+          5
+        ],
+        "threshold": 0.154296875
+      },
+      "normalized_absolute_auc_0_20": 0.07425130208333335,
+      "normalized_relative_auc_0_20": 0.2406118143459916,
+      "unnormalized_absolute_area_0_20": 1.485026041666667
+    },
+    {
+      "method": "B-G",
+      "role": "targeted",
+      "score": "posterior mean",
+      "baseline": 0.3468750000000002,
+      "relative_retention": {
+        "1": 0.9459459459459455,
+        "2": 0.9159159159159161,
+        "5": 0.5285285285285296,
+        "10": 0.30630630630630645
+      },
+      "half_life": {
+        "update": 5.641891891891913,
+        "status": "first_downward_crossing_linear_interpolation",
+        "bracket": [
+          5,
+          10
+        ],
+        "threshold": 0.1734375000000001
+      },
+      "normalized_absolute_auc_0_20": 0.15940104166666685,
+      "normalized_relative_auc_0_20": 0.4595345345345348,
+      "unnormalized_absolute_area_0_20": 3.1880208333333373
+    },
+    {
+      "method": "B-S",
+      "role": "sentinel",
+      "score": "Pass@1",
+      "baseline": 0.044270833333333336,
+      "relative_retention": {
+        "1": 0.7941176470588235,
+        "2": 0.7941176470588235,
+        "5": 0.6470588235294117,
+        "10": 0.08823529411764705
+      },
+      "half_life": {
+        "update": 6.315789473684211,
+        "status": "first_downward_crossing_linear_interpolation",
+        "bracket": [
+          5,
+          10
+        ],
+        "threshold": 0.022135416666666668
+      },
+      "normalized_absolute_auc_0_20": 0.01357421875,
+      "normalized_relative_auc_0_20": 0.3066176470588235,
+      "unnormalized_absolute_area_0_20": 0.271484375
+    },
+    {
+      "method": "B-S",
+      "role": "sentinel",
+      "score": "posterior mean",
+      "baseline": 0.1354166666666671,
+      "relative_retention": {
+        "1": 0.9461538461538461,
+        "2": 0.9461538461538452,
+        "5": 0.9076923076923068,
+        "10": 0.7615384615384597
+      },
+      "half_life": {
+        "update": null,
+        "status": "not_crossed_on_observed_grid_0_to_480",
+        "threshold": 0.06770833333333355,
+        "posterior_floor_note": "With four draws the 0.1 Jeffreys floor exceeds half the update-0 score; posterior half-life cannot cross this threshold."
+      },
+      "normalized_absolute_auc_0_20": 0.11085937500000016,
+      "normalized_relative_auc_0_20": 0.8186538461538447,
+      "unnormalized_absolute_area_0_20": 2.217187500000003
+    },
+    {
+      "method": "B-G",
+      "role": "sentinel",
+      "score": "Pass@1",
+      "baseline": 0.2955729166666667,
+      "relative_retention": {
+        "1": 1.0572687224669604,
+        "2": 0.933920704845815,
+        "5": 0.3171806167400881,
+        "10": 0.04405286343612335
+      },
+      "half_life": {
+        "update": 4.110714285714286,
+        "status": "first_downward_crossing_linear_interpolation",
+        "bracket": [
+          2,
+          5
+        ],
+        "threshold": 0.14778645833333334
+      },
+      "normalized_absolute_auc_0_20": 0.07587890625,
+      "normalized_relative_auc_0_20": 0.2567180616740088,
+      "unnormalized_absolute_area_0_20": 1.517578125
+    },
+    {
+      "method": "B-G",
+      "role": "sentinel",
+      "score": "posterior mean",
+      "baseline": 0.33645833333333314,
+      "relative_retention": {
+        "1": 1.0402476780185763,
+        "2": 0.9535603715170282,
+        "5": 0.5201238390092899,
+        "10": 0.3281733746130038
+      },
+      "half_life": {
+        "update": 5.524193548387145,
+        "status": "first_downward_crossing_linear_interpolation",
+        "bracket": [
+          5,
+          10
+        ],
+        "threshold": 0.16822916666666657
+      },
+      "normalized_absolute_auc_0_20": 0.1607031250000002,
+      "normalized_relative_auc_0_20": 0.4776315789473693,
+      "unnormalized_absolute_area_0_20": 3.214062500000004
+    }
+  ],
+  "item_counts": {
+    "F2": 512,
+    "F1_targeted_monitor": 192,
+    "pre_B_targeted": 256
+  },
+  "monitor_assigned_families": {
+    "targeted": 12,
+    "sentinel": 12
+  },
+  "source_paths": {
+    "F2": [
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/step-0/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-0-1/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-1-2/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-2-5/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-5-10/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-10-20/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-20-40/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-40-80/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-80-160/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-160-320/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/step-0/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-0-1/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-1-2/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-2-5/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-5-10/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-10-20/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-20-40/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-40-80/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-80-160/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-160-320/b-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/b-validation/result.json"
+    ],
+    "F1_monitor": [
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/selected-pre-b/a-monitor/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-0-1/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-1-2/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-2-5/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-5-10/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-10-20/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-20-40/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-40-80/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-80-160/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-160-320/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/selected-pre-b/a-monitor/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-0-1/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-1-2/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-2-5/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-5-10/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-10-20/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-20-40/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-40-80/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-80-160/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-160-320/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/selected-pre-b/a-monitor/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-0-1/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-1-2/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-2-5/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-5-10/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-10-20/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-20-40/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-40-80/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-80-160/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-160-320/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/selected-pre-b/a-monitor/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-0-1/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-1-2/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-2-5/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-5-10/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-10-20/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-20-40/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-40-80/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-80-160/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-160-320/a-retention/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/a-retention/result.json"
+    ],
+    "pre_B": [
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/selected-pre-b/a-validation/result.json",
+      "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/selected-pre-b/a-validation/result.json"
+    ]
+  }
+}

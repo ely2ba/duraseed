@@ -1,0 +1,336 @@
+# Pair-1 F2 failure, length, and baseline concentration diagnostics
+
+Local-only descriptive analysis; no new sampling, no gate or design authority.
+
+## Definitions and provenance
+
+Pass@1 is exact-success count / completion count. Length-stop is `sampled_tokens >= sampling_max_tokens`, matching the archived profile reducer; the recorded stop_reason counts are also retained. Missing-tag is the recorded `missing_answer_tag` failure code; invalid-tag is `!valid_answer_tag`; syntactic invalidity is `!valid_syntax` (MAPS valid_program). These are distinct from all verification failures, which also include legal-but-wrong-target programs. Program-too-long concerns MAPS instruction count, not the 128-token cap. Length uses stored sampled_tokens, not retokenization. Definitions follow `src/duraseed/tasks/maps/verifier.py` and `src/duraseed/pilot0_profiles.py` without changing either.
+
+Manifest: `runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/pilot-inputs/b_validation_manifest.json`. Every checkpoint has 512 manifest items × 16 draws = 8,192 completions, with a 128-token cap. Sample-id/task-id joins, draw uniqueness, item sets, and manifest IDs are checked. Generation token IDs and log-probabilities are not retained by this analysis.
+
+All exact source paths, item IDs, counts, rates, and cross-tabs are in [`f2_diagnostics.json`](f2_diagnostics.json). Rates below are percentages of all 8,192 completions unless stated otherwise.
+
+## B-S: completion trajectories
+
+| Update | Correct | Pass@1 % | Cap % | Missing tag % | Invalid tag % | Invalid syntax % | All failure % | Tokens mean | Median |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 0 | 0.0000 | 10.0098 | 47.7295 | 100.0000 | 100.0000 | 100.0000 | 50.2034 | 44.0 |
+| 1 | 24 | 0.2930 | 6.8481 | 6.5430 | 11.3525 | 92.3950 | 99.7070 | 33.0978 | 21.0 |
+| 2 | 292 | 3.5645 | 0.4395 | 1.4038 | 3.8330 | 12.4878 | 96.4355 | 14.4740 | 13.0 |
+| 5 | 513 | 6.2622 | 0.0000 | 1.8677 | 1.9043 | 2.0508 | 93.7378 | 12.8619 | 13.0 |
+| 10 | 583 | 7.1167 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 92.8833 | 12.8071 | 13.0 |
+| 20 | 575 | 7.0190 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 92.9810 | 12.6812 | 13.0 |
+| 40 | 955 | 11.6577 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 88.3423 | 12.6650 | 13.0 |
+| 80 | 1336 | 16.3086 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 83.6914 | 12.8109 | 13.0 |
+| 160 | 1935 | 23.6206 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 76.3794 | 12.5873 | 13.0 |
+| 320 | 2668 | 32.5684 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 67.4316 | 12.7670 | 13.0 |
+| 480 | 3098 | 37.8174 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 62.1826 | 12.8488 | 13.0 |
+
+### B-S: failure-code counts
+
+| Update | illegal_instruction | invalid_program | missing_answer_tag | multiple_answer_tags | program_too_long | wrong_target |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0 | 0 | 4235 | 3910 | 47 | 0 | 0 |
+| 1 | 0 | 4632 | 536 | 195 | 2570 | 235 |
+| 2 | 15 | 466 | 115 | 2 | 1491 | 5811 |
+| 5 | 45 | 10 | 153 | 0 | 15 | 7456 |
+| 10 | 1 | 0 | 0 | 0 | 0 | 7608 |
+| 20 | 2 | 0 | 0 | 0 | 0 | 7615 |
+| 40 | 925 | 0 | 0 | 0 | 0 | 6312 |
+| 80 | 1382 | 0 | 0 | 0 | 0 | 5474 |
+| 160 | 175 | 0 | 0 | 0 | 0 | 6082 |
+| 320 | 348 | 0 | 0 | 0 | 0 | 5176 |
+| 480 | 319 | 0 | 0 | 0 | 0 | 4775 |
+
+## B-G: completion trajectories
+
+| Update | Correct | Pass@1 % | Cap % | Missing tag % | Invalid tag % | Invalid syntax % | All failure % | Tokens mean | Median |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | 409 | 4.9927 | 7.6538 | 9.2529 | 14.2090 | 19.4580 | 95.0073 | 24.9995 | 13.0 |
+| 1 | 534 | 6.5186 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 93.4814 | 12.9380 | 13.0 |
+| 2 | 443 | 5.4077 | 0.0000 | 0.0000 | 0.0000 | 0.2197 | 94.5923 | 12.0188 | 13.0 |
+| 5 | 503 | 6.1401 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 93.8599 | 12.8611 | 13.0 |
+| 10 | 584 | 7.1289 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 92.8711 | 12.8269 | 13.0 |
+| 20 | 549 | 6.7017 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 93.2983 | 12.7061 | 13.0 |
+| 40 | 592 | 7.2266 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 92.7734 | 12.5596 | 13.0 |
+| 80 | 1407 | 17.1753 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 82.8247 | 12.8005 | 13.0 |
+| 160 | 1469 | 17.9321 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 82.0679 | 12.6049 | 13.0 |
+| 320 | 2691 | 32.8491 | 0.0000 | 0.0000 | 0.0000 | 0.0244 | 67.1509 | 12.7710 | 13.0 |
+| 480 | 3307 | 40.3687 | 0.0000 | 0.0000 | 0.0000 | 0.0488 | 59.6313 | 12.8328 | 13.0 |
+
+### B-G: failure-code counts
+
+| Update | illegal_instruction | invalid_program | missing_answer_tag | multiple_answer_tags | program_too_long | wrong_target |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0 | 118 | 535 | 758 | 2 | 775 | 5595 |
+| 1 | 1 | 0 | 0 | 0 | 0 | 7657 |
+| 2 | 0 | 18 | 0 | 0 | 0 | 7731 |
+| 5 | 0 | 0 | 0 | 0 | 0 | 7689 |
+| 10 | 0 | 0 | 0 | 0 | 0 | 7608 |
+| 20 | 0 | 0 | 0 | 0 | 0 | 7643 |
+| 40 | 0 | 0 | 0 | 0 | 0 | 7600 |
+| 80 | 0 | 0 | 0 | 0 | 0 | 6785 |
+| 160 | 282 | 0 | 0 | 0 | 0 | 6441 |
+| 320 | 113 | 2 | 0 | 0 | 0 | 5386 |
+| 480 | 133 | 4 | 0 | 0 | 0 | 4748 |
+
+## Question on record
+
+Is B-G's flat phase (updates 1–40) dominated by cap/format failures that then resolve at the 40–80 takeoff?
+
+Cap/format failure union = completion fails exact verification and is at the token cap, has an invalid answer tag, or has invalid syntax. Categories overlap and this union is not a causal classification.
+
+| B-G update | Failures | Cap/format union | Share of failures % | Wrong target | Cap count | Invalid tag | Invalid syntax |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 7658 | 0 | 0.0000 | 7657 | 0 | 0 | 0 |
+| 2 | 7749 | 18 | 0.2323 | 7731 | 0 | 0 | 18 |
+| 5 | 7689 | 0 | 0.0000 | 7689 | 0 | 0 | 0 |
+| 10 | 7608 | 0 | 0.0000 | 7608 | 0 | 0 | 0 |
+| 20 | 7643 | 0 | 0.0000 | 7643 | 0 | 0 | 0 |
+| 40 | 7600 | 0 | 0.0000 | 7600 | 0 | 0 | 0 |
+| 80 | 6785 | 0 | 0.0000 | 6785 | 0 | 0 | 0 |
+
+Across updates 1–40, cap/format failures account for 0.0000%–0.2323% of failures. At updates 40 → 80, exact successes are 592 → 1407; cap counts 0 → 0; invalid-tag counts 0 → 0; invalid-syntax counts 0 → 0; wrong-target counts 7600 → 6785. These are aggregate trajectories; they do not identify a causal mechanism.
+
+## B-G update-0 solved-item concentration
+
+Solved item = at least one exact success among its 16 stored draws.
+
+B-G update 0: 223/512 items with ≥1 success; 409/8,192 successful completions.
+
+| Arm | Update | Solved items | Overlap | Baseline recall % | Jaccard | Successes on baseline / total | Success share % |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| B-S | 80 | 336 | 186 | 83.4081 | 0.498660 | 768 / 1336 | 57.4850 |
+| B-S | 480 | 406 | 197 | 88.3408 | 0.456019 | 1689 / 3098 | 54.5190 |
+| B-G | 80 | 306 | 179 | 80.2691 | 0.511429 | 771 / 1407 | 54.7974 |
+| B-G | 480 | 400 | 206 | 92.3767 | 0.494005 | 1898 / 3307 | 57.3934 |
+
+Baseline membership is defined by observed successes in only 16 draws, not a latent ability label. The item sets below refer to these same stored 512 items, without resampling or additional evaluation.
+
+### Complete B-G update-0 solved-item list
+
+| Manifest item index | Task ID | Successes / 16 |
+| --- | --- | --- |
+| 176 | `sha256:0059c2d481df207846a0613ed2a856d25749153cc5e8b91be0cb83b64bcc4243` | 2 |
+| 463 | `sha256:006ac7a194fad4def8cd039248fef73c195feba8e0abc5f448db38372547032d` | 3 |
+| 425 | `sha256:00e5e80b39f566fd41e4b9ae2f42e1ddaa4aa6ed52c4af780174db4a07da1de6` | 1 |
+| 394 | `sha256:012804d285d58ee9d442d2ab07f3dfd1d8ef1d7bb393ff749b1ac3266518370c` | 1 |
+| 262 | `sha256:0399a492a7bc2932b8f336d3bb4cb9520f40c62bf3ae1f343f28e2605087a5eb` | 2 |
+| 396 | `sha256:03f07bbf109c93cfd2e97e883302fd93a556548f4d8efea23e6fb4c1c3eaf028` | 1 |
+| 29 | `sha256:04cf85e19f4f052eed5931b0eba7200abc9bb2606b2cdef8a621c56396b7a4d9` | 2 |
+| 343 | `sha256:06095793668dc756906c5035378c77be2a308745d5ce376f531ebcd732490fab` | 1 |
+| 128 | `sha256:07a7bf2903462b4f92e8f61c6dd933498dd303729e5584be521286ca97c0334d` | 2 |
+| 194 | `sha256:07cd656dbe2f840650efcd66ddfc665850598896ff9740e925092213bb72b118` | 2 |
+| 403 | `sha256:09044dc6d7220e657a8601180dd90a12f9eabc6022c101a76b0b991ef29cfeb3` | 5 |
+| 11 | `sha256:0a313298794f064db0f43bba5dc0f733a321eed64122cc3a33a252bedafb7bec` | 1 |
+| 292 | `sha256:0b2d3e6f62f63b0b20720e0436b4b999b40664783b0a5f28ce8f5b566e463440` | 1 |
+| 374 | `sha256:0b379025c66142fb8f4b6d170e61ee096244e46584a2f60c07d1bdce35905ecf` | 2 |
+| 258 | `sha256:0b3f24ddad9ffe02afa7b0fded070c664a87c07380a739b129c2c5e689aea43d` | 1 |
+| 290 | `sha256:0c40f6f960b633ee6636d907ac9f95a1d69f141ff8b56084a292fa6f0ee50713` | 2 |
+| 344 | `sha256:0c8100b260a7f8be76278d066ebdf164c5e286969a832ad34179cba12b6977c8` | 2 |
+| 62 | `sha256:0e0c401e2c90fbacbb910fa1adf936b71f806a2d4596e2d2dcd954ec9e6d04b9` | 2 |
+| 377 | `sha256:0e727efa6af22da824c8904baf34448d82c2e36a9c3d91c7d90bef7f7f798a9f` | 1 |
+| 472 | `sha256:0f0553affb6b24b22bd2531f6eb7d30d1008d95b26c117b735bce1e2653acf70` | 1 |
+| 158 | `sha256:109311ab66af062d3ddf5b4c6c25c4eb1a89488a5fa051582e862f5bfb395a94` | 2 |
+| 197 | `sha256:10cfb215fca0f855c903a70177654c7d81bb55322fc7196155f674f30013f3cd` | 2 |
+| 7 | `sha256:11608c24a6b4d936cbeb13790be3943c91875fb94eaac4deaf7b067db0df2885` | 1 |
+| 146 | `sha256:11ed366c4c47d221806b1b7bba62a464cb66505ad8fb70b419d9f0dcd0319414` | 6 |
+| 138 | `sha256:1235eb17efa0ee2128e0ebe50f953b86033982b78998daec9f411fd4de33ed2d` | 1 |
+| 220 | `sha256:1244a7a1d861526d03a1f6dff3e3d54e0a7475c7567abe28a54fc71c49842b03` | 1 |
+| 354 | `sha256:13fd22cda8ca12262222db65cca458a09ef8f658ee225a1cecf327440806f98e` | 3 |
+| 248 | `sha256:15ccc6971c3dd73a49c708789e31b3bcbe6cfd60c867e5899dfbebe3ef50f01a` | 1 |
+| 257 | `sha256:19232b73e1018def6147116a1559106b21d571c1e186145ff3b35cb09aa1353d` | 2 |
+| 224 | `sha256:192b5e72e4c8b05592d53c7facc45d945bc0e7d02715a2d154f11ec8f24db939` | 1 |
+| 116 | `sha256:19e87ffa6fe8291fcb62c324dac878934ddac25a7b281fd798e21da5327d0ab2` | 2 |
+| 332 | `sha256:1ba7d2f24d4a3207501ac7730cb21aa43c346cb9e82b3c3b364151b2a5fc6e43` | 3 |
+| 381 | `sha256:1bc155050ef28df8125e24ccf3e7ed09a8b576551196afac596e5b474b2b8c68` | 5 |
+| 169 | `sha256:1c80e4458c9ee7d072c21c46ff9b3caed11f38704d28df35c5011d0fab028a10` | 1 |
+| 163 | `sha256:1c9fefa7904a08dbbe59de5d1fae0b73c68e9ed5439d23bd980a7ebb95d6acd7` | 2 |
+| 466 | `sha256:1d443af90d9751a6468053214857e97cfcc199990703a7cbe3092cf687a11ffe` | 1 |
+| 189 | `sha256:1d493678ea6456bc3b35e41fd35ecaf4f41b0bb19c6d2abdcf83da4c26f0d712` | 3 |
+| 71 | `sha256:1d9e96e191469d0489f39729c4d7dd59815e46947fa9d3c5480eb850ecb41cc7` | 1 |
+| 387 | `sha256:1ee9d7308ab9f8bb0bb74812f4a8c6a4ec48f43702fbc14cf3bedee1db11586a` | 2 |
+| 492 | `sha256:1fce5251183465c2c225eb16fdb48c177ad0bbba2fc7580433701f74279dae38` | 2 |
+| 152 | `sha256:20af6da93b064011b78dbfccf84f4438fa0fcc21e1b6df25d1c52662473e073a` | 1 |
+| 537 | `sha256:21a818e46ab5230f1b257c1e5259d488eaac4990a27d6b8df550c8f6d5012b12` | 6 |
+| 368 | `sha256:220463e774f28034813efa3ad815f1a66dcd8300b333c06920d521f7355f4228` | 1 |
+| 171 | `sha256:22a175750a790a0d58025bbd15fea07511cbf3c16f715adc318c0b50fb00a742` | 2 |
+| 13 | `sha256:244ebf05c8da61313f7a6961ba8590453167aa18a030cf7b929a11ac1e525d5b` | 2 |
+| 452 | `sha256:248677c2536133871b41d90cdcf8194e0acce40f0f674087388b8a3a96d031a0` | 1 |
+| 243 | `sha256:2551425ce20f0d9115d57fc3b2b650d7c612960b3fb00b089cc1d9ff1f2a7e0c` | 1 |
+| 70 | `sha256:264b781f5faf7adc3d46a58705ebbbbeadc0c34cc8fe4c435da3087a35d2effe` | 1 |
+| 52 | `sha256:28571a9c29f79d19937ee3effde2880ec84339d866502ff3d0ba52dcb6650e62` | 1 |
+| 67 | `sha256:2db9dc334552a9353d35c9dfa45552958a5f703d7f9da98559f3a6a83ecf348e` | 2 |
+| 500 | `sha256:2f0da46c520b6503c8632162fc9e05199e21ed007c82d93048004fa7f27a4a60` | 1 |
+| 317 | `sha256:3124b5be2d34bdaed1f7a2514ddcff76fb637b62de70e4ce26189d8654755965` | 3 |
+| 246 | `sha256:31d1348d6283be76e301033145f59c01783eb6e0c0705039a4e313432c8647ac` | 2 |
+| 431 | `sha256:3238b6db769b2b7f4973c807088cd42e6a57d3d3e2dafef1f5932f11a27e689b` | 1 |
+| 119 | `sha256:327c39358668074e6286c1e2ff4d6730a63aeb47b825fa26c2b3f2590688b6a3` | 1 |
+| 388 | `sha256:38acbbbefdef9730dabf843b71ae31adff4a1d17882286e3a09e39149c1e7143` | 2 |
+| 482 | `sha256:3b2985c677c5a3251b64fe80dca853abe34aaf95f7e01e9ece41bcfb49e25515` | 4 |
+| 451 | `sha256:3bfc82b0e051580e6c605d872ad9ca5965c76e819eca66e588c21be0c13666ee` | 2 |
+| 510 | `sha256:3c0c0add63155e9fc73198955f29adccc441913b127c74ba12fe7e9f9460062e` | 3 |
+| 484 | `sha256:3df92d2e1371f4549c6e0967b0d87613b50616ff3961062f4ecac9c4a430c742` | 2 |
+| 241 | `sha256:400d036e3fb808070cffe88ca9687d10c3832d10102eaec07ede2eb55ec46fb4` | 1 |
+| 179 | `sha256:409d9719303ac2233b0e86bc50ed32b5c96a08ab208c9ad321f183627867f7ec` | 1 |
+| 334 | `sha256:40e0653bf96a1bd0ff9463d135205466dbfaf9b94276f995a29a0de945c7340d` | 1 |
+| 291 | `sha256:40f9fd4f9815da1e75ebde422199b0cadaea0298aed54b56adcf9bf276cb4e00` | 2 |
+| 497 | `sha256:4105222966f15d4c8ba9094a3e2b12efab5c3345352ad506641282308368d51e` | 2 |
+| 426 | `sha256:419b1c15d39c453c15d3009b86aafa478928fbeac937f57223ef0fafd96ebedc` | 5 |
+| 473 | `sha256:41cc3555805deac5fe59c8b885e35f9e177c985e24dcbdec79f2f8b9244dfba8` | 1 |
+| 188 | `sha256:427cc75215e6e5d4641a3c0f61a79ce43861a23e38ee6b68c5cb0fcc95219212` | 1 |
+| 415 | `sha256:433c178bee944c533f770185b59be53577b1f9501e003388b58dbdd51876aaa6` | 2 |
+| 124 | `sha256:44cf06bcf675267da910a9ff9c757c8b31005022e66ddf13875d1e61384e454b` | 4 |
+| 439 | `sha256:44d6cdaffe83f3b2e27aa81df74c658541be9148ee5b21b433670b1bc7babc48` | 1 |
+| 58 | `sha256:45931920c374c5ce102740dbe9b578322e76368ca0fa48dba564dca5c04faf32` | 1 |
+| 461 | `sha256:4604c5c195eb2e0bc8c974ab2d9ca8c70154227bb844587c16b69e1c81682b92` | 2 |
+| 209 | `sha256:47c46c8289e5b26d8b8026cad4c15d62bd426667e8333ca31913052e171f0e9d` | 1 |
+| 229 | `sha256:4cd35b28ba9d27052040261021fc5c3f99115049083210f7195472b0b53951c5` | 4 |
+| 429 | `sha256:4fa7137350e2bd78381abf0160f372749fa9675129599451a971366c19bc5368` | 2 |
+| 400 | `sha256:50b9a524aa166ee1484bababc1d826573fcc4dcf20fa1993d0c79f101697d020` | 1 |
+| 249 | `sha256:518e004677a008e95631d89d267173f3fd12aedad9420c2438ff4b721e1f91f3` | 3 |
+| 526 | `sha256:51ea2d493c9210f7821444558897fa0b6602d5850b8eeccb49132f08427922d9` | 4 |
+| 448 | `sha256:52251f858ca7593ea5b1a0364d756271b70db61da0ef6f4619373ce8e4527fb5` | 1 |
+| 279 | `sha256:527e42b585586a14b6220c790bb72da7e19e23f0d3671d96318bc4afa17ce53d` | 2 |
+| 263 | `sha256:5528b7b76cf22806150e7d6dd93b6707b434cf263cd6cb02735b885761e97561` | 1 |
+| 333 | `sha256:56b020b33d672093c1fd2f2ea4eab9287440b6819f1d8fe8562c3205f4a40a2b` | 2 |
+| 311 | `sha256:575bfec93ed183c68dcf5dc6c4338f55bd9f071750f22c27a9c8420b074802c6` | 1 |
+| 55 | `sha256:57b485a7b9faa5fdacceaaeed087d4f3f97451fba967d95ea9dbb29e063fa643` | 1 |
+| 536 | `sha256:5849b5405148651d0eccac1e0813b3c6a0c1c93ed19d8ed522e7a8a3c7b00b07` | 2 |
+| 499 | `sha256:5b051640b9eb310726a6469f74121764b960def2497521586f428dfcf5b508a0` | 1 |
+| 33 | `sha256:5c04b2b38875b0b70641a296bcfeca52b563f7a4933d8260f5e24ee93f29cbe5` | 2 |
+| 51 | `sha256:5ca8ecec4c087c94f67b8e204f9ed64729a6d9ef3c321e898e109bfdabdd1e29` | 1 |
+| 16 | `sha256:5e8cbe9cb841910671ac41ff806adf2b813dfed96010def2ac63b3ca7fb7895e` | 1 |
+| 432 | `sha256:61ec50e58234be5b5cd0a29f0b35dccf1069da488f2b85fc6e10bc2fe38926be` | 3 |
+| 102 | `sha256:62a6052247e101b5d27e0a002b731eea6e556154131fe83102cac64670a173e4` | 2 |
+| 419 | `sha256:643edcb564a5b3aff1841bf9aaf5bcaaa4b16e1d2ee237aa4d29b15440df276d` | 1 |
+| 488 | `sha256:658a50ad2f38191f363a56e9f1a20941017ab5ab90e9b25a1f80b19a058089ff` | 1 |
+| 134 | `sha256:65bb9be06e10a636b4d05052f375ebb41fa0f23aa4dca6387307b7f6c38eb076` | 1 |
+| 307 | `sha256:6625d0df9baae801c1717aa86c697d52f3a9e74ec9e962790f4202da652b7a76` | 1 |
+| 103 | `sha256:66edb66edcf432698181413fd04693b2edcac39beb5b1caa83e32956cbb8e5c6` | 2 |
+| 365 | `sha256:67c46b3007947e45946a54dafc48fc3869c26b72e0ea4ab5a3939f828e834c31` | 1 |
+| 161 | `sha256:67d17fc61c91843bd284927ed3a51c96042800f89b3e18fdcfa1d6249b88c43d` | 1 |
+| 514 | `sha256:6966638b9d5952e12ecdcc07a4b897fa61e287694347ce75b46c465db55d4b7b` | 1 |
+| 186 | `sha256:69ecc9935835dd29a277e713b966f53497d01e4113170765b1d70350b4ea3275` | 2 |
+| 462 | `sha256:6a5e84c2c5cdeaa17e6833c02afea0797307e71ebf12b201edbe25646a6a2b1c` | 2 |
+| 296 | `sha256:6d1f85949ee5949a14405f4ef6448e0cfd68f128db81526af1baad318efa49ad` | 2 |
+| 313 | `sha256:6df549c5a41b151ceae0d874ef2fc6f564ca79a9f9ce3d383ae9b8d99b5596b8` | 1 |
+| 63 | `sha256:6f730386e21af5b77adb0b7088232ece2ee8e79df050e9e7caece30fc2907e74` | 1 |
+| 304 | `sha256:6fa62188b8972754b30e7337fe4192f10a71decdccc5e13bc73e94f34bb440a0` | 3 |
+| 420 | `sha256:7245e627469140a4ead2391b2b723b57e92a15b2375fb576661d095a0726ab07` | 1 |
+| 254 | `sha256:741c87db68d0b49ab7c86af874da5bbb1e160fa7363f67a7b4cfd87eb358795e` | 3 |
+| 405 | `sha256:758250530649af07e98c5698e6c51c5a73e1c2a5dc4cf5f198a659923a90962f` | 1 |
+| 527 | `sha256:7775557fd604121d06759bf6057b285b5e505a5e4fd0633d7706fb597a4c730a` | 1 |
+| 150 | `sha256:77d7c6ea46fe6e39142cbff547dad2de480acb12225fe8f6b7566bbdff0046ee` | 5 |
+| 36 | `sha256:7a4c07ce6fe1f5c80bcdee6d4d832970492f1780d22fd11aa8085979e3dc4256` | 2 |
+| 174 | `sha256:7a58a8498ca0e9084240d8456125b5abe6ba8a4cc0344d0bc14d7365adb486fb` | 2 |
+| 69 | `sha256:7b6fff92eea2dd3a13f68dd62cd5734bbfaf04fdd85e5a4919e2705c2fb8b36e` | 2 |
+| 384 | `sha256:7c917dc4b0e20c7d9fefe094c2b5130279ca66e12bbb9d1473509421434952a0` | 2 |
+| 260 | `sha256:7dcda9ab0f281c23f19f3e066f0d849cc38953f5dd11284a67f5d0a80c45da1a` | 1 |
+| 228 | `sha256:8269b405b45e1e4fc52dbaf5b03f07a96cd270a2bb7c4e7e12b4334a0bfc833c` | 4 |
+| 147 | `sha256:8486556efc32e2be39f3a0f70e519e670c6e96d5060f92442a6b556e365ed129` | 1 |
+| 517 | `sha256:85735b55a2d1692c2f33012c4a403e559bfcd18f7f835dd5483e2de9fcbe2b17` | 3 |
+| 210 | `sha256:85758d6fd785cdc5bc20cf2ac9552a06f7c3601b189c2d2881e9fa4469320462` | 1 |
+| 360 | `sha256:859d8e748ecf63d4b2e916f45f20fb189b192ccf50625b16a86ae2cf9889fc73` | 2 |
+| 240 | `sha256:87be75c15649d86d45a876f9e9ceda04475298bb22a1918ebe9179a6464b215d` | 1 |
+| 301 | `sha256:8912f8bf61c6ec71245c9c53187c7f64cc84230dce5b9ddf09ae77903e060a60` | 3 |
+| 252 | `sha256:892814efbbc444c74f5be544d6463047477fd5e263e68d5c0fcbdf959b5fb1d7` | 1 |
+| 108 | `sha256:8adedb7115554187824069c8521b19dfcda3afa0bb2846979e816f27a09d73b4` | 1 |
+| 64 | `sha256:8b0f60b91998e62c6ffaa362ad53a1171a398bcf645e9841cd37ad1784c6c96c` | 7 |
+| 398 | `sha256:8c5270735ad98f7f0ef6b0faac2f0ba8b3f7c2cb5cbce42706c474e90e23f0f2` | 1 |
+| 192 | `sha256:8c7e68df2f1597224ab460cd56157fee9f05a726ff191f96648be0bcd470c7b6` | 1 |
+| 305 | `sha256:8cd8c1325c15f5d805ad270b40661a4c0715b11faa6a996f8296f72f7c485c8a` | 1 |
+| 285 | `sha256:8ce10c812308d6828de1815fec512a42b9754c47228ee55bae0e2c787d04cb83` | 1 |
+| 129 | `sha256:8fdf1a48186ea0e8c1346f1d2cb51fccc66c231e93f0593206e7959b3f2fe643` | 1 |
+| 355 | `sha256:901a36f87c9ab592662a3150c863f29fd4f4f50b71ea9cb65c41ee3ddf6c4062` | 1 |
+| 373 | `sha256:9021c50b08367cc6f402469ef16fc4bfcada1e694dbf51f6756e128daba0a2c9` | 1 |
+| 9 | `sha256:9031e0588bffee9b6c70e747635f286166264929b3cc97529f2acb0e54686d1e` | 1 |
+| 339 | `sha256:90a6be2196681c7ba95f644e0583100e37e919ec7b3b5f0e08b5f30b8f20ed34` | 1 |
+| 18 | `sha256:92909e188cd15ad0c1cf9496ce162d29668d0db1531b4f605094968766b5151f` | 3 |
+| 389 | `sha256:954efdce6be9d5dec968f58e276ff6ace239b236001d5f3f9aa2e3251ee8f617` | 1 |
+| 72 | `sha256:95e75272f8d32a5b4779c49ce77bc249013d89d341325088f9edd0eea43ee003` | 2 |
+| 331 | `sha256:967c02cfb402a4fcc38dee5dd22c388cc6bdf5a1e1ef6c6e09299794be3736ac` | 2 |
+| 338 | `sha256:9729ba6aab885d359f3d4ca13d95913dc11a29ed661d56fc47173efddf69ccc1` | 2 |
+| 530 | `sha256:978d59a9bc372e26b559f000c5bac22db3f84c5538de8fe7569b5030b2896339` | 1 |
+| 375 | `sha256:9868799f2796b2128c919abd368b1b1b2095b09935547a9b6c35b19f34f12d60` | 1 |
+| 95 | `sha256:99d0274f6dd5f6af9cef72f4689aa2da94f2d1b7129f23431b18ebba9ffac6c5` | 1 |
+| 436 | `sha256:9b94585e7b43f11d71e933650825fc10efd5ff7c36f9958e4ae2b1652d963571` | 3 |
+| 327 | `sha256:9ccc01ef8b4c5fccfce45b3b40de828273a42e0bc368ae3f853b5f07d737600c` | 2 |
+| 336 | `sha256:9d1b6319bf6bee54398ac06d8b2655d3b5c7c2a040d5151f73f767adce6c0d23` | 1 |
+| 123 | `sha256:9f9eecc05fc6be5d32bdfdea69830e0f4bd63333447c157a463d5df21baaff5c` | 1 |
+| 346 | `sha256:a142b9dd481f9c13115b38127cb99c8628df20e040b8ab926d381d98f9045961` | 1 |
+| 416 | `sha256:a23aa3131b40cf701ac99e31542ef5e88e7643a5bb8c40f5a9f785406b17ab2a` | 6 |
+| 59 | `sha256:a4d9cfb263da3fa0e93b3e1360afbfc7c666405d52949d74a5cebea56cdbe389` | 1 |
+| 225 | `sha256:a67f31b9e7b1046e53fde8c82718250808fd8f6909764e934b1f2b1d94f3e86a` | 1 |
+| 75 | `sha256:a76971a4efa4004180fbb2f678ed7c33c83d21aeaef9a53deee4c4490cf00bbb` | 1 |
+| 281 | `sha256:ac388377b5ceed69273a18807b6c7de4cedc62908653bdf6097200c2391c1487` | 1 |
+| 98 | `sha256:acf545182498714f5077eb33dc98c0e3bc6a4514adcd68cbdadcb7b87d109c5e` | 2 |
+| 86 | `sha256:ae42a1519e257062b004dc6822400acd787177f8cbfebbe8e6a14e22f929e61f` | 2 |
+| 85 | `sha256:b18040ee85051bddb84bf66384b28ecc97fd53d77388ab9645b64b808bec86d1` | 1 |
+| 173 | `sha256:b44592789840a57f8d8b88bbe275bd95caef1ba85342fc93538e275bbb645762` | 2 |
+| 376 | `sha256:b45f338e217a3822347951c2d3c79f880d091ebb8044b41f5cef6c6fa0763209` | 1 |
+| 73 | `sha256:b61e04935daca296e84e7241b4dd58484d04fd7d41be14b9d082f0d108896e36` | 2 |
+| 528 | `sha256:b6d8e6616053ef43db2b3b97432713e3a6db201c4c3ba741d9fff473bbf9d672` | 1 |
+| 245 | `sha256:b7450ae2d8a9a4a2b0572ee63b30ea58928fc814bd01e3e2256b84e44c8db2ef` | 2 |
+| 139 | `sha256:b75658f6a3ca8106ab3f5692e5a2ae63b947a0c678fe3f81ae7b850f98c47e92` | 1 |
+| 212 | `sha256:b76e6a2af0f4ed7a5f904e58c382da5b728d92dc3ae4d51ca2a412a7c3eed346` | 5 |
+| 17 | `sha256:b78c288b4fb40e13dc0615720b402b8c0809743bbc24be7d1b848e21c2e5df8b` | 2 |
+| 48 | `sha256:b8699ec558b5b16f6b8d6ea958c4a7fa71449e1dcd45672ced7dc256736f4bdb` | 2 |
+| 49 | `sha256:b8cdaf62198f4cac71fb33199728921912c86c092f73f02c7c6316c7a045b751` | 1 |
+| 178 | `sha256:baa2fde0f741480d14104412f72f073cb6df6e58bbb17db6a09c2f8dccb02317` | 1 |
+| 104 | `sha256:bbc2b408020f62bf58323ae9b4411a542c2d5c2125c19e9d7bf3c01bc46b9bb9` | 2 |
+| 430 | `sha256:bd8cefdeb0ae1f22a37ecf6751f91bb35eed9781d89411962080cbc856a6cd5c` | 1 |
+| 172 | `sha256:bed670974279091bab31914577a016c5abefade83fe201ab49f7ace7872b2a0d` | 1 |
+| 326 | `sha256:bfd34e6444a475b153f16300145c9da4925efc565b7b7573b1c150fe4a2036bc` | 5 |
+| 91 | `sha256:bfe1107d6da6dc9e897cc25d44f99ec347e1aae151e86b9dd9ccc02c595cebd4` | 2 |
+| 283 | `sha256:c0f9cd0d6830054d406d7e0c7c6d28fb1d58132dd62c82f0cd07a5e8af5cdf25` | 1 |
+| 113 | `sha256:c59dac7b9787d505928dda6986cfe4354eb975bc7757741f543ff3940097cb11` | 2 |
+| 476 | `sha256:c612d74f181508b571bc6cbe42017821dca65e7cfea0c51a6d5ac2bf1a047acb` | 2 |
+| 28 | `sha256:c79512844ae1370e244e007d28a2d08b38f7d97280bce95bc799f1c5a48ec48b` | 6 |
+| 302 | `sha256:c8203156cfebdd5ba23bf7d2cca6b82c171b2404cd51631c88301a5f5ba40192` | 1 |
+| 363 | `sha256:cb8004019f107e54eb9670445db9bccaee41b91882a8e955e9491c02930d0a30` | 1 |
+| 496 | `sha256:ced73d73d3dbcb8978b25bc05f4c1f3295ea4aa35599077e55d6b4de9517c496` | 1 |
+| 464 | `sha256:d0f1c050ad429f4d71582f581f6e962a73a39c899aca1ee002f7ec3b1a64038a` | 1 |
+| 105 | `sha256:d16ed34b880d68e3cf2fc763f3874961b915f751f7c90db47d872fbd22514d51` | 2 |
+| 203 | `sha256:d40d6fc27aa0a3201fbf369d069973282947bddbc354f60e261e8697a10af74f` | 1 |
+| 315 | `sha256:d47081b4b9f7eefabae9716a306c547fe3973e0c95f878c0c199042499cb6286` | 2 |
+| 184 | `sha256:d7d6ef92d5b6e807f2ec5f38879e2449e5cb8e54d39ed5d2bf8681ad4ce83bde` | 3 |
+| 456 | `sha256:d9487a9b5acfac7e5d28d9ab0b12fab384dfc15570f3a0c81d050828c5e53fe3` | 4 |
+| 328 | `sha256:da1977a6cb590f6d4c45aead9e4acf5f5909914d30980452d1a76e415e83f99b` | 1 |
+| 10 | `sha256:de75e1cd18fb988a4caaa6a7939b36f5faf3d44cddb3318a9f7b215b72302c95` | 1 |
+| 54 | `sha256:dedc554b2fb6a31ffdab4c3c4b5ab7b6677304330fe90b3e11a0f1e7e55f28a7` | 2 |
+| 8 | `sha256:e02c1910892e6c1fd4aa2c56416a3c287cd2d675e144899d6e364d9f44d71710` | 1 |
+| 37 | `sha256:e02cc4c89aa02e82a4c6d3ce8a8ab2956cc7fdb56805a8a262faba8dc50c0592` | 2 |
+| 21 | `sha256:e0ac1dda09e591a7b042212cb2876bbc310f23608bb5e3688fa0883594417f66` | 1 |
+| 50 | `sha256:e1e11095ecb3bbf10ae7419d54c0b0c589dc94539f71121b81d7bba357efe59f` | 5 |
+| 153 | `sha256:e2791b50bd06ff79f9405427e8e1d5315a99a2a63c86da4dc51bd0f3c32eeb01` | 1 |
+| 276 | `sha256:e3d5be116ebbafcbe103c36931460f4b7c9c4964d3a5317d260f0e746f362ffe` | 1 |
+| 442 | `sha256:e4f0e39fb319bb56188f9c1197caea8ede34324274fd8df11a6a481a442fda9d` | 2 |
+| 242 | `sha256:e5dc7c8a2e6928112c791d1d75d27aa9be4b1bc346c910a3f221fdd09c61e547` | 1 |
+| 135 | `sha256:e8f5927e9cd75e687b0bc9c481849b9d5f9f0697ae72f669a40fbb37bb4c71b3` | 2 |
+| 351 | `sha256:e97766fa020e80d8d213df937feb2ffa9b3f7642f3d7fb4c2227a49fa7fea576` | 2 |
+| 454 | `sha256:e9d8ce042edaf142966d91b090b2ce01640ded7aca15f973f69407e7fa50cc67` | 3 |
+| 132 | `sha256:eb132747612e734438c6740ebeed91750e3bc4f42a78eb418a1dfcfe6a42b103` | 1 |
+| 156 | `sha256:ec2e08b94fc093727d5e7602ae6cf9266dd71a3466b2fdd0da68efaa4aecb9f5` | 2 |
+| 414 | `sha256:ed40844ebaf25f7ed1911ea9834f31dea289d719c730c48e58cb0cc752677391` | 3 |
+| 319 | `sha256:ef2540082aeef4b6baaca2775e90b66f328b95c80c118e6b9d451f80d9e50d1d` | 2 |
+| 187 | `sha256:f123fece1a667f6c0bfd27c6881d6f8d984fb9e3bfdc8615d95813a75b460b3f` | 1 |
+| 204 | `sha256:f1ea95ad4b982cc8219695736a735d8500c9464ae4f07c1e2d040147fa31b86f` | 1 |
+| 82 | `sha256:f37395f38f6753dad1bdd05504d2c9b7b1b0b82ae87bd46fe5476b43b0a298ae` | 1 |
+| 201 | `sha256:f3a3e05f51287bebf946372167f9cc4dced973d1110a2bd4240c73dcd7f11892` | 1 |
+| 284 | `sha256:f3c089bac4f6fd76f68303c905eddf2b55e3685fb9bda1ec1a523b4d166ad3ae` | 1 |
+| 538 | `sha256:f6109393865e513b000f56ede2890831851644415c123dc6727c738d5000ddb1` | 1 |
+| 133 | `sha256:f661481352e7933c17125ca922f5be796a9d964aa8591f5cb7d917af82423cda` | 2 |
+| 524 | `sha256:f67f27167e9389a9dd487a55d0649a29ba82786de2cb1b916c5b2036ffe2bb96` | 3 |
+| 107 | `sha256:f6c0d2bbd4c17271bd0bdcd1b91c80a62dc359c0942972f4f27670350ab3bea8` | 5 |
+| 160 | `sha256:f6f017f0286ca8dc41a4f8327f7a4a4d60f07dd1d10f669db394f835a0804e36` | 1 |
+| 100 | `sha256:f8b7fb3896a09ebc6799d528fd4b2a5d37537f5696862ef0f3d3d112e11e5f9c` | 1 |
+| 286 | `sha256:fa85a914ba226df8056333ec60c456f90b75edcc5f00c3a2319f87124750428c` | 1 |
+| 453 | `sha256:fab05ee52af42e4eaa3c46b5d35fdb609db913d7f24a5ca0e0396dab0f603e29` | 2 |
+| 4 | `sha256:fb06c28c3b1e1c89c5def80e92f4b004762ffbdf9fa65cb1dd40038bc0def2c6` | 2 |
+| 1 | `sha256:fb1168956ba24e9a436196195c7f764fd46b24d5c5aba28027a40c8651d68a01` | 1 |
+| 180 | `sha256:fc90c771b0cf39525bf0adf3bacb35e4bf2e2cea0fbb8c75350642c497f0b529` | 2 |
+| 140 | `sha256:fcc878238fed666496a1606a7d2c391bbf6e7fe254ea408e574f73553420b31b` | 3 |
+| 428 | `sha256:fd5b714bfbd23f6656f613bf8a7b31ff1e2d07ab291b4272924697ae1abef28f` | 1 |
+| 34 | `sha256:fd73bf7142ba6e032351df2f84074506cebf5df639a654eee55f275248ad126b` | 3 |
+| 202 | `sha256:fd85ccca435960408cea23fa1403719cd71bda61abfccf2f45c0935c7afa8768` | 1 |

@@ -1,0 +1,1294 @@
+{
+  "run_id": "pilot0-pair1-seed11-20260825T125100Z",
+  "seed": 11,
+  "stage_b_updates": [
+    0,
+    1,
+    2,
+    5,
+    10,
+    20,
+    40,
+    80,
+    160,
+    320,
+    480
+  ],
+  "matching": {
+    "B-G": {
+      "monitor_generation_sha256": "sha256:065d1206b2a852d5fff6f07efc22c2e896c4f190c414a51ce61ce3355efad73e",
+      "sampler_path": "tinker://7a25072b-fa31-505c-9e00-d29467e79048:train:14/sampler_weights/pilot0-pair1-seed11-20260825T125100Z-seed-11-B-G-step-30-sampler",
+      "state_path": "tinker://7a25072b-fa31-505c-9e00-d29467e79048:train:14/weights/pilot0-pair1-seed11-20260825T125100Z-seed-11-B-G-step-30-state",
+      "step": 30,
+      "targeted_approximate_95_interval": [
+        0.22937895369961536,
+        0.416454379633718
+      ],
+      "targeted_exact_success_rate": 0.3229166666666667
+    },
+    "B-S": {
+      "monitor_generation_sha256": "sha256:f8f84b09384531d92a5311b6f2a99e03e1387c172933ebbd5ac4c0bfce4c9f14",
+      "sampler_path": "tinker://8a83d7e1-7f29-54cc-ad98-7a39ef6a574c:train:13/sampler_weights/pilot0-pair1-seed11-20260825T125100Z-seed-11-B-S-step-140-sampler",
+      "state_path": "tinker://8a83d7e1-7f29-54cc-ad98-7a39ef6a574c:train:13/weights/pilot0-pair1-seed11-20260825T125100Z-seed-11-B-S-step-140-state",
+      "step": 140,
+      "targeted_approximate_95_interval": [
+        0.22937895369961536,
+        0.416454379633718
+      ],
+      "targeted_exact_success_rate": 0.3229166666666667
+    },
+    "absolute_targeted_difference": 0.0,
+    "rule": "nearest_targeted_exact_success_pair_with_overlapping_approximate_95_intervals_tie_earlier",
+    "schema_version": "duraseed-pilot0-pair-matching-v2",
+    "seed_replacement_allowed": false,
+    "status": "selected"
+  },
+  "F1_F2_cells": {
+    "B-S": {
+      "F1_retention": {
+        "fixed_budget_sentinel_change": -0.03929227941176471,
+        "fixed_budget_sentinel_retention": 0.029411764705882353,
+        "fixed_budget_targeted_change": -0.31640625,
+        "fixed_budget_targeted_retention": 0.029411764705882353,
+        "post_b_pass_at_k": {
+          "sentinel": {
+            "1": 0.0,
+            "16": 0.0,
+            "4": 0.0
+          },
+          "targeted": {
+            "1": 0.0,
+            "16": 0.0,
+            "4": 0.0
+          }
+        },
+        "pre_b_pass_at_k": {
+          "sentinel": {
+            "1": 0.041748046875,
+            "16": 0.2421875,
+            "4": 0.11793440934065934
+          },
+          "targeted": {
+            "1": 0.336181640625,
+            "16": 0.92578125,
+            "4": 0.7142127403846154
+          }
+        },
+        "pre_b_sentinel_score": 0.06870404411764706,
+        "pre_b_targeted_score": 0.34581801470588236
+      },
+      "F2_stage_b_learning": {
+        "maps_auc": {
+          "absolute_auc": 0.2762780283011642,
+          "final_score": 0.38534007352941174,
+          "headroom_normalized_gain_auc": 0.2543470594615435,
+          "initial_score": 0.029411764705882353,
+          "raw_gain_auc": 0.24686626359528185
+        },
+        "maps_pass_at_k_curve": [
+          {
+            "1": 0.0,
+            "16": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0029296875,
+            "16": 0.04296875,
+            "4": 0.0115234375
+          },
+          {
+            "1": 0.03564453125,
+            "16": 0.328125,
+            "4": 0.12538955185439563
+          },
+          {
+            "1": 0.0626220703125,
+            "16": 0.53125,
+            "4": 0.2148222870879121
+          },
+          {
+            "1": 0.0711669921875,
+            "16": 0.623046875,
+            "4": 0.24318337912087915
+          },
+          {
+            "1": 0.0701904296875,
+            "16": 0.564453125,
+            "4": 0.23703640109890112
+          },
+          {
+            "1": 0.1165771484375,
+            "16": 0.63671875,
+            "4": 0.33366457760989016
+          },
+          {
+            "1": 0.1630859375,
+            "16": 0.65625,
+            "4": 0.377544428228022
+          },
+          {
+            "1": 0.2362060546875,
+            "16": 0.697265625,
+            "4": 0.4318112551510989
+          },
+          {
+            "1": 0.32568359375,
+            "16": 0.771484375,
+            "4": 0.5245127918956044
+          },
+          {
+            "1": 0.378173828125,
+            "16": 0.79296875,
+            "4": 0.6036165006868132
+          }
+        ],
+        "maps_scores": [
+          0.029411764705882353,
+          0.03216911764705882,
+          0.06295955882352941,
+          0.08835018382352941,
+          0.09639246323529412,
+          0.0954733455882353,
+          0.1391314338235294,
+          0.1829044117647059,
+          0.2517233455882353,
+          0.3359375,
+          0.38534007352941174
+        ]
+      },
+      "method": "B-S",
+      "monitor_retention": {
+        "sentinel_monitor_retention_absolute_auc": 0.10045247395833336,
+        "sentinel_monitor_retention_curve": [
+          0.13541666666666666,
+          0.12812500000000002,
+          0.12812500000000002,
+          0.12291666666666667,
+          0.10312500000000001,
+          0.10000000000000002,
+          0.10000000000000002,
+          0.10000000000000002,
+          0.10000000000000002,
+          0.10000000000000002,
+          0.10000000000000002
+        ],
+        "sentinel_pass_at_k_curve": [
+          {
+            "1": 0.044270833333333336,
+            "4": 0.10416666666666667
+          },
+          {
+            "1": 0.03515625,
+            "4": 0.09895833333333333
+          },
+          {
+            "1": 0.03515625,
+            "4": 0.11458333333333333
+          },
+          {
+            "1": 0.028645833333333332,
+            "4": 0.11458333333333333
+          },
+          {
+            "1": 0.00390625,
+            "4": 0.015625
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          }
+        ],
+        "targeted_monitor_retention_absolute_auc": 0.10255750868055556,
+        "targeted_monitor_retention_curve": [
+          0.3385416666666667,
+          0.296875,
+          0.2354166666666667,
+          0.1625,
+          0.10416666666666667,
+          0.10104166666666668,
+          0.10104166666666668,
+          0.10104166666666668,
+          0.10208333333333335,
+          0.10000000000000002,
+          0.10000000000000002
+        ],
+        "targeted_pass_at_k_curve": [
+          {
+            "1": 0.2981770833333333,
+            "4": 0.6354166666666666
+          },
+          {
+            "1": 0.24609375,
+            "4": 0.625
+          },
+          {
+            "1": 0.16927083333333334,
+            "4": 0.5
+          },
+          {
+            "1": 0.078125,
+            "4": 0.21354166666666666
+          },
+          {
+            "1": 0.005208333333333333,
+            "4": 0.020833333333333332
+          },
+          {
+            "1": 0.0013020833333333333,
+            "4": 0.005208333333333333
+          },
+          {
+            "1": 0.0013020833333333333,
+            "4": 0.005208333333333333
+          },
+          {
+            "1": 0.0013020833333333333,
+            "4": 0.005208333333333333
+          },
+          {
+            "1": 0.0026041666666666665,
+            "4": 0.010416666666666666
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          }
+        ]
+      },
+      "seed": 11
+    },
+    "B-G": {
+      "F1_retention": {
+        "fixed_budget_sentinel_change": -0.2977941176470588,
+        "fixed_budget_sentinel_retention": 0.029411764705882353,
+        "fixed_budget_targeted_change": -0.29159007352941174,
+        "fixed_budget_targeted_retention": 0.029411764705882353,
+        "post_b_pass_at_k": {
+          "sentinel": {
+            "1": 0.0,
+            "16": 0.0,
+            "4": 0.0
+          },
+          "targeted": {
+            "1": 0.0,
+            "16": 0.0,
+            "4": 0.0
+          }
+        },
+        "pre_b_pass_at_k": {
+          "sentinel": {
+            "1": 0.31640625,
+            "16": 0.953125,
+            "4": 0.7300008585164836
+          },
+          "targeted": {
+            "1": 0.309814453125,
+            "16": 0.984375,
+            "4": 0.7290049793956044
+          }
+        },
+        "pre_b_sentinel_score": 0.3272058823529412,
+        "pre_b_targeted_score": 0.3210018382352941
+      },
+      "F2_stage_b_learning": {
+        "maps_auc": {
+          "absolute_auc": 0.2663314520143995,
+          "final_score": 0.40935202205882354,
+          "headroom_normalized_gain_auc": 0.20564111933468632,
+          "initial_score": 0.0764016544117647,
+          "raw_gain_auc": 0.1899297976026348
+        },
+        "maps_pass_at_k_curve": [
+          {
+            "1": 0.0499267578125,
+            "16": 0.435546875,
+            "4": 0.17095638736263738
+          },
+          {
+            "1": 0.065185546875,
+            "16": 0.51953125,
+            "4": 0.21786572802197804
+          },
+          {
+            "1": 0.0540771484375,
+            "16": 0.404296875,
+            "4": 0.1728526356456044
+          },
+          {
+            "1": 0.0614013671875,
+            "16": 0.486328125,
+            "4": 0.20749055631868132
+          },
+          {
+            "1": 0.0712890625,
+            "16": 0.576171875,
+            "4": 0.2409447973901099
+          },
+          {
+            "1": 0.0670166015625,
+            "16": 0.587890625,
+            "4": 0.23328790350274728
+          },
+          {
+            "1": 0.072265625,
+            "16": 0.587890625,
+            "4": 0.2459563873626374
+          },
+          {
+            "1": 0.1717529296875,
+            "16": 0.59765625,
+            "4": 0.36129056490384615
+          },
+          {
+            "1": 0.1793212890625,
+            "16": 0.7265625,
+            "4": 0.4033535800137363
+          },
+          {
+            "1": 0.3284912109375,
+            "16": 0.771484375,
+            "4": 0.5260656335851649
+          },
+          {
+            "1": 0.4036865234375,
+            "16": 0.78125,
+            "4": 0.6009905133928571
+          }
+        ],
+        "maps_scores": [
+          0.0764016544117647,
+          0.09076286764705882,
+          0.0803079044117647,
+          0.08720128676470588,
+          0.09650735294117647,
+          0.09248621323529412,
+          0.0974264705882353,
+          0.19106158088235295,
+          0.19818474264705882,
+          0.3385799632352941,
+          0.40935202205882354
+        ]
+      },
+      "method": "B-G",
+      "monitor_retention": {
+        "sentinel_monitor_retention_absolute_auc": 0.10302842881944446,
+        "sentinel_monitor_retention_curve": [
+          0.3364583333333333,
+          0.35000000000000003,
+          0.32083333333333336,
+          0.17500000000000002,
+          0.11041666666666666,
+          0.10520833333333333,
+          0.10208333333333335,
+          0.10208333333333335,
+          0.10000000000000002,
+          0.10000000000000002,
+          0.10000000000000002
+        ],
+        "sentinel_pass_at_k_curve": [
+          {
+            "1": 0.2955729166666667,
+            "4": 0.71875
+          },
+          {
+            "1": 0.3125,
+            "4": 0.7552083333333334
+          },
+          {
+            "1": 0.2760416666666667,
+            "4": 0.6979166666666666
+          },
+          {
+            "1": 0.09375,
+            "4": 0.3125
+          },
+          {
+            "1": 0.013020833333333334,
+            "4": 0.052083333333333336
+          },
+          {
+            "1": 0.006510416666666667,
+            "4": 0.026041666666666668
+          },
+          {
+            "1": 0.0026041666666666665,
+            "4": 0.010416666666666666
+          },
+          {
+            "1": 0.0026041666666666665,
+            "4": 0.010416666666666666
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          }
+        ],
+        "targeted_monitor_retention_absolute_auc": 0.10334309895833335,
+        "targeted_monitor_retention_curve": [
+          0.346875,
+          0.328125,
+          0.3177083333333333,
+          0.18333333333333335,
+          0.10625000000000001,
+          0.10416666666666667,
+          0.10625000000000001,
+          0.10312500000000001,
+          0.10000000000000002,
+          0.10000000000000002,
+          0.10000000000000002
+        ],
+        "targeted_pass_at_k_curve": [
+          {
+            "1": 0.30859375,
+            "4": 0.6822916666666666
+          },
+          {
+            "1": 0.28515625,
+            "4": 0.6875
+          },
+          {
+            "1": 0.2721354166666667,
+            "4": 0.625
+          },
+          {
+            "1": 0.10416666666666667,
+            "4": 0.34375
+          },
+          {
+            "1": 0.0078125,
+            "4": 0.03125
+          },
+          {
+            "1": 0.005208333333333333,
+            "4": 0.020833333333333332
+          },
+          {
+            "1": 0.0078125,
+            "4": 0.03125
+          },
+          {
+            "1": 0.00390625,
+            "4": 0.015625
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          },
+          {
+            "1": 0.0,
+            "4": 0.0
+          }
+        ]
+      },
+      "seed": 11
+    }
+  },
+  "derived": {
+    "B-S": {
+      "F1_monitor_counts": {
+        "targeted": [
+          {
+            "items": 192,
+            "successes": 229,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 189,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 130,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 60,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 4,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 1,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 1,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 1,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 2,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          }
+        ],
+        "sentinel": [
+          {
+            "items": 192,
+            "successes": 34,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 27,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 27,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 22,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 3,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          }
+        ]
+      },
+      "F1_validation_counts": {
+        "targeted": {
+          "pre_b": {
+            "items": 256,
+            "successes": 1377,
+            "trials": 4096,
+            "draws_per_item": [
+              16
+            ]
+          },
+          "post_b": {
+            "items": 256,
+            "successes": 0,
+            "trials": 4096,
+            "draws_per_item": [
+              16
+            ]
+          }
+        },
+        "sentinel": {
+          "pre_b": {
+            "items": 256,
+            "successes": 171,
+            "trials": 4096,
+            "draws_per_item": [
+              16
+            ]
+          },
+          "post_b": {
+            "items": 256,
+            "successes": 0,
+            "trials": 4096,
+            "draws_per_item": [
+              16
+            ]
+          }
+        }
+      },
+      "F2_counts": [
+        {
+          "items": 512,
+          "successes": 0,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 24,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 292,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 513,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 583,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 575,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 955,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 1336,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 1935,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 2668,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 3098,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        }
+      ],
+      "F2_posterior_baseline_relative": [
+        0.0,
+        0.0027573529411764677,
+        0.03354779411764706,
+        0.05893841911764706,
+        0.06698069852941177,
+        0.06606158088235295,
+        0.10971966911764705,
+        0.15349264705882354,
+        0.22231158088235292,
+        0.30652573529411764,
+        0.3559283088235294
+      ],
+      "F2_headroom_normalized_relative": [
+        0.0,
+        0.002840909090906161,
+        0.034564393939358326,
+        0.060724431818119255,
+        0.06901041666659558,
+        0.06806344696962685,
+        0.1130445075756411,
+        0.15814393939377647,
+        0.22904829545430946,
+        0.31581439393906857,
+        0.36671401515113733
+      ],
+      "F2_raw_pass1_baseline_relative": [
+        0.0,
+        0.0029296875,
+        0.03564453125,
+        0.0626220703125,
+        0.0711669921875,
+        0.0701904296875,
+        0.1165771484375,
+        0.1630859375,
+        0.2362060546875,
+        0.32568359375,
+        0.378173828125
+      ],
+      "source_paths": {
+        "a_monitor": [
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/selected-pre-b/a-monitor/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-0-1/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-1-2/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-2-5/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-5-10/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-10-20/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-20-40/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-40-80/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-80-160/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-160-320/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/a-retention/result.json"
+        ],
+        "b_validation": [
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/step-0/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-0-1/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-1-2/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-2-5/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-5-10/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-10-20/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-20-40/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-40-80/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-80-160/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-160-320/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/b-validation/result.json"
+        ],
+        "a_validation_pre": "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/selected-pre-b/a-validation/result.json",
+        "a_validation_post": "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/a-validation/result.json"
+      }
+    },
+    "B-G": {
+      "F1_monitor_counts": {
+        "targeted": [
+          {
+            "items": 192,
+            "successes": 237,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 219,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 209,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 80,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 6,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 4,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 6,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 3,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          }
+        ],
+        "sentinel": [
+          {
+            "items": 192,
+            "successes": 227,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 240,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 212,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 72,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 10,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 5,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 2,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 2,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          },
+          {
+            "items": 192,
+            "successes": 0,
+            "trials": 768,
+            "draws_per_item": [
+              4
+            ]
+          }
+        ]
+      },
+      "F1_validation_counts": {
+        "targeted": {
+          "pre_b": {
+            "items": 256,
+            "successes": 1269,
+            "trials": 4096,
+            "draws_per_item": [
+              16
+            ]
+          },
+          "post_b": {
+            "items": 256,
+            "successes": 0,
+            "trials": 4096,
+            "draws_per_item": [
+              16
+            ]
+          }
+        },
+        "sentinel": {
+          "pre_b": {
+            "items": 256,
+            "successes": 1296,
+            "trials": 4096,
+            "draws_per_item": [
+              16
+            ]
+          },
+          "post_b": {
+            "items": 256,
+            "successes": 0,
+            "trials": 4096,
+            "draws_per_item": [
+              16
+            ]
+          }
+        }
+      },
+      "F2_counts": [
+        {
+          "items": 512,
+          "successes": 409,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 534,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 443,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 503,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 584,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 549,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 592,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 1407,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 1469,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 2691,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        },
+        {
+          "items": 512,
+          "successes": 3307,
+          "trials": 8192,
+          "draws_per_item": [
+            16
+          ]
+        }
+      ],
+      "F2_posterior_baseline_relative": [
+        0.0,
+        0.014361213235294115,
+        0.00390625,
+        0.01079963235294118,
+        0.02010569852941177,
+        0.01608455882352941,
+        0.02102481617647059,
+        0.11465992647058824,
+        0.12178308823529412,
+        0.2621783088235294,
+        0.3329503676470588
+      ],
+      "F2_headroom_normalized_relative": [
+        0.0,
+        0.015549197661383834,
+        0.0042293817638964035,
+        0.01169299664136065,
+        0.021768876725937376,
+        0.017415101380749896,
+        0.02276402537626594,
+        0.12414479412848857,
+        0.13185719616853495,
+        0.28386615250622327,
+        0.3604925985815229
+      ],
+      "F2_raw_pass1_baseline_relative": [
+        0.0,
+        0.0152587890625,
+        0.004150390625,
+        0.011474609375,
+        0.0213623046875,
+        0.01708984375,
+        0.0223388671875,
+        0.121826171875,
+        0.12939453125,
+        0.278564453125,
+        0.353759765625
+      ],
+      "source_paths": {
+        "a_monitor": [
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/selected-pre-b/a-monitor/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-0-1/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-1-2/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-2-5/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-5-10/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-10-20/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-20-40/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-40-80/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-80-160/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-160-320/a-retention/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/a-retention/result.json"
+        ],
+        "b_validation": [
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/step-0/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-0-1/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-1-2/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-2-5/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-5-10/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-10-20/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-20-40/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-40-80/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-80-160/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-160-320/b-validation/result.json",
+          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/b-validation/result.json"
+        ],
+        "a_validation_pre": "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/selected-pre-b/a-validation/result.json",
+        "a_validation_post": "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/a-validation/result.json"
+      }
+    }
+  },
+  "paired_primary_contrast": {
+    "contrast": "B-S_minus_B-G",
+    "fixed_budget_targeted_retention_difference": 0.0,
+    "interpretation": "single paired seed; pair 2 is a separate launch",
+    "paired_seed": 11,
+    "raw_gain_stage_b_auc_difference": 0.05693646599264707
+  },
+  "F3_source": "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/pre-b-profiles.json"
+}

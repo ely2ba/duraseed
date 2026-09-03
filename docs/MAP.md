@@ -1,6 +1,9 @@
 # Repository map
 
-This is the starting point for readers and contributors. The public scientific contract is [`PROTOCOL.md`](../PROTOCOL.md); current progress is in [`STATUS.md`](STATUS.md). Pair 1 is complete, with [public results](results/pilot0-pair1.md); separately authorized pair 2 is running.
+This is the starting point for readers and contributors. The public scientific
+contract is [`PROTOCOL.md`](../PROTOCOL.md); current progress is in
+[`STATUS.md`](STATUS.md). Pilot 0 is complete and frozen, with both paired-seed
+readouts and analyses linked from the [public overview](../README.md).
 
 ## Components
 
@@ -28,7 +31,11 @@ The pre-B profile includes target, sentinel, and per-family accuracy, the Cover 
 
 After the two-seed Pilot 0, extend B-S/B-G to 3–4 paired pilot seeds for variance reconnaissance. If a reproducible difference appears, prioritize supervised replay of a frozen verifier-correct subset of B-G rollouts before broad method expansion. B-O remains conditional and G-U optional; the duplicate G-B and teacher-allocation R-G arms are retired. Only after the mechanism decision determines the confirmatory matrix do we freeze and power the design, preregister it, and run fresh confirmatory seeds. A same-model higher-rank or full-weight replication is conditional on a result worth following up and tests whether it is specific to rank-32 LoRA.
 
-That conditional supervised-replay priority comes from the protocol. The newer [gauge-rescaling candidate](../README.md#what-comes-next) is non-binding and does not replace it; no follow-up experiment is automatically authorized by this map or that candidate description.
+That conditional supervised-replay priority comes from the protocol. The newer
+gauge-rescaling candidate associated with the
+[prospective Pair-2 record](results/pilot0-pair2-prediction.md) does not replace
+it; no follow-up experiment is automatically authorized by this map or that
+candidate description.
 
 ## Evidence and provenance
 
@@ -39,4 +46,7 @@ That conditional supervised-replay priority comes from the protocol. The newer [
 - `provenance/replay-equivalence.md`: exact v0 → v1 verifier, boundary, MAPS, and analysis replay.
 - `provenance/v0-map.md`: archive, checkpoint, billing, ratification, and public-projection lineage.
 
-Generated top-level `runs/`, `artifacts/`, local datasets, credentials, and private research notes are excluded from Git.
+Raw top-level `runs/`, local datasets, credentials, and adapter tensors remain
+excluded from Git. The compact, derived Pilot-0 readouts and offline-analysis
+packages under `artifacts/pilot0-pair*-{readout,offline-analysis}/` are banked
+as public scientific evidence.

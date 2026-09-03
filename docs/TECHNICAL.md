@@ -110,18 +110,20 @@ and trained tokens separate because B-S and B-G perform different kinds of
 work.
 
 The first evidence unit is a paired seed, not a collection of independent
-samples. Pair 1 (seed 11) is complete, with its [F1/F2/F3 results and descriptive
-offline analyses](results/pilot0-pair1.md) available. Pair 2 (seed 29) is running
-under its separate authorization, granted on completion, integrity, and budget
-criteria before any pair-1 contrast was reported to the human. Matching remains
-mechanically blind to pair-1 contrasts. Later fresh pairs are variance
-reconnaissance, not replacements for a failed or unavailable seed.
+samples. Pilot 0 is complete with two independently matched pairs: seed 11 and
+seed 29. Their [public overview](../README.md), full F1/F2/F3 readouts, paired
+offline analyses, and geometry reports are banked together. Pair-2 matching was
+mechanically blind to pair-1 contrasts, and its geometry-based F1/F2 ordering
+was [recorded prospectively](results/pilot0-pair2-prediction.md) before outcomes
+were opened. Later fresh pairs are variance reconnaissance, not replacements
+for a failed or unavailable seed.
 
 The protocol conditionally prioritizes supervised replay of a frozen,
 verifier-correct subset of B-G rollouts if a reproducible difference appears.
-The newer [gauge-rescaling candidate](../README.md#what-comes-next)
-is a separate, non-binding hypothesis, not a replacement for that priority.
-Neither description authorizes an experiment or spend.
+The newer gauge-rescaling candidate recorded with the
+[prospective prediction](results/pilot0-pair2-prediction.md) is a separate
+hypothesis, not a replacement for that priority. This Pilot-0 record does not
+authorize an experiment or spend.
 
 ## How the pre-Pilot design evolved
 
