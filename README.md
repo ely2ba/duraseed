@@ -160,6 +160,25 @@ This project was made possible by a
 [Tinker Research Grant from Thinking Machines Lab](https://thinkingmachines.ai/news/tinker-research-and-teaching-grants/),
 which provided the compute credits used to run the experiments.
 
+## AI-assisted development
+
+I developed DuraSeed as an independent research project, from framing the core
+question and hypotheses through experimental design, implementation decisions,
+debugging, analysis, and interpretation. I made the scientific and engineering
+decisions throughout, including how to structure the comparisons, what to
+measure, how to respond to failures, and what conclusions the evidence could
+support.
+
+I used OpenAI Codex extensively as a coding partner, particularly for
+implementation, boilerplate, scaffolding, tests, repetitive analysis, and
+debugging. That leverage made it possible to execute a project of this scope
+independently in weeks rather than months.
+
+Coding agents also tend to produce more machinery than an experiment needs, so
+part of the work was actively reviewing, simplifying, and redirecting the
+implementation to keep the software serving the science rather than the other
+way around.
+
 Licensed under the [Apache License 2.0](LICENSE).
 
 **Pilot 0 is complete and frozen. A separately preregistered gauge-rescaling
