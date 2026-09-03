@@ -122,8 +122,7 @@ async def _train_segment(
         )
         for step in range(start + 1, stop + 1):
             batch = [
-                datums[((step - 1) * 32 + offset) % len(datums)]
-                for offset in range(32)
+                datums[((step - 1) * 32 + offset) % len(datums)] for offset in range(32)
             ]
             journal.begin(
                 "pilot0-stage-b-sft-update",
@@ -148,9 +147,7 @@ async def _train_segment(
                 output / "metrics.jsonl",
                 {**metric.model_dump(mode="json"), "method": method},
             )
-            journal.complete(
-                {"operation": "pilot0-stage-b-sft-update", "step": step}
-            )
+            journal.complete({"operation": "pilot0-stage-b-sft-update", "step": step})
         pair = await save_pair(
             inputs,
             runtime,
