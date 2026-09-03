@@ -1,5 +1,7 @@
 # DuraSeed
 
+> **Coming soon:** the DuraSeed paper will be on arXiv in the next few days.
+
 **Two models can have the same measured acquired capability and still become different learners.**
 
 We trained the same base model to acquire the same arithmetic capability using
