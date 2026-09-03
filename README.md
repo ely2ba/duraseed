@@ -154,6 +154,12 @@ observed dynamics.
 - [Prospective Pair-2 prediction and scoring record](docs/results/pilot0-pair2-prediction.md)
 - [Frozen scientific protocol](PROTOCOL.md)
 
+## Acknowledgements
+
+This project was made possible by a
+[Tinker Research Grant from Thinking Machines Lab](https://thinkingmachines.ai/news/tinker-research-and-teaching-grants/),
+which provided the compute credits used to run the experiments.
+
 Licensed under the [Apache License 2.0](LICENSE).
 
 **Pilot 0 is complete and frozen. A separately preregistered gauge-rescaling
