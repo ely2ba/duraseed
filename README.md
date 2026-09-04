@@ -118,14 +118,48 @@ therefore depends on when the curves cross.
 
 ## Why this matters
 
-Current benchmark performance does not fully characterize a trained model. Two
-checkpoints that score the same on the capability used for matching can differ
+A benchmark score is a snapshot, not a complete description of a checkpoint.
+Two checkpoints that score the same on the capability used for matching can differ
 substantially in how they generalize, how quickly later training changes them,
 and how quickly previously acquired behavior is overwritten.
 
 This matters for sequential post-training and continual learning because
 training history may determine not only what a model can do now, but how it
 responds to the next update.
+
+## Where DuraSeed fits in the literature
+
+Several nearby lines of research motivate this study:
+
+- **What generalizes after learning?** [SFT Memorizes, RL
+  Generalizes](https://arxiv.org/abs/2501.17161) compares how SFT- and
+  RL-acquired behavior transfers to unseen task variants.
+- **What survives while learning?** [RL's Razor](https://arxiv.org/abs/2509.04259)
+  and [Retaining by Doing](https://arxiv.org/abs/2510.18874) compare preservation
+  of pre-existing abilities during SFT and RL. Related
+  [continual post-training work](https://arxiv.org/abs/2507.05386) follows
+  previously learned tasks through longer training sequences.
+- **What makes a good starting point for later training?** [Good SFT Optimizes
+  for SFT, Better SFT Prepares for Reinforcement
+  Learning](https://arxiv.org/abs/2602.01058) shows that stronger SFT checkpoints
+  can finish worse after identical subsequent RL. Current performance and
+  readiness for the next training stage are different questions.
+
+DuraSeed brings these questions into one controlled comparison: **vary how a
+skill is acquired, match its measured score, then hold the later training
+fixed.** We follow the *newly acquired* arithmetic skill into a separate
+training stage and measure both its durability and learning of the new task.
+Later training is supervised for both branches: the comparison is between
+their acquisition histories, not between SFT and RL updates during forgetting.
+
+Matching is deliberately narrow. Equal targeted scores do not imply equal
+generalization, transfer, or internal state; F3 records what remains different.
+Together, the completed Pilot-0 retention curves, learning curves, and starting
+profiles describe consequences of two complete acquisition procedures. They do
+not isolate the loss function, and "future learnability" here means learning
+under this fixed supervised probe—not general model plasticity. The
+contribution is this joint comparison, not a claim that sequential forgetting
+or training-history effects were previously unstudied.
 
 ## Scientific conclusion
 
