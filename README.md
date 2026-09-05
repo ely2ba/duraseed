@@ -1,5 +1,8 @@
 # DuraSeed
 
+Made possible by **$5,000 in compute credits from Thinking Machines Lab (TML)**
+through its [Tinker Research Grant](https://thinkingmachines.ai/news/tinker-research-and-teaching-grants/).
+
 > **Current work:** Pilot 0 is complete. A supervised trace-replay follow-up is
 > running, and the paper is in preparation.
 
