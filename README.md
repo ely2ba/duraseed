@@ -1,6 +1,7 @@
 # DuraSeed
 
-> **Coming soon:** the DuraSeed paper will be on arXiv in the next few days.
+> **Current work:** Pilot 0 is complete. A supervised trace-replay follow-up is
+> running, and the paper is in preparation.
 
 **Two models can have the same measured acquired capability and still become different learners.**
 
@@ -59,6 +60,32 @@ We then measure:
 B-S and B-G are complete acquisition procedures, not a loss-function-only
 comparison. All task answers are checked by deterministic verifiers; no judge
 model is used.
+
+## What we're testing now
+
+Pilot 0 changed both **how the model learned** and **which solutions it learned
+from**. The follow-up narrows the question: if both models learn by supervised
+fine-tuning on the same problems, does the source of their worked solutions
+still change what survives later training?
+
+- **Solver traces (R-S):** verified, step-by-step solutions from the task solver.
+- **Archived model traces (R-P):** correct solutions the RL branch generated
+  during Pilot 0. We reuse those records; no new RL rollouts are being collected.
+
+Both branches start from the same origin and use the same supervised training
+recipe and problem order. We then match their arithmetic scores and give the
+matched checkpoints the same program-synthesis training, measuring arithmetic
+retention, new-task learning, and their starting profiles. The solutions still
+differ in length and content: this tests **trace source**, not a single isolated
+property of those traces.
+
+**As of September 5:** the first solver-trace acquisition run is complete and
+its archived-trace counterpart is running. We then repeat this comparison with
+the second set of archived problems and solutions;
+checkpoint matching and later-task training are still ahead. If a block cannot
+be matched under the fixed rule, it is reported as unavailable. No follow-up
+results are claimed yet. The next deliverable is the completed comparison and
+paper.
 
 ## Pilot 0 results
 
@@ -175,7 +202,16 @@ These results do not establish that RL universally improves retention, that
 SFT universally improves plasticity, or that LoRA B-factor scale causes the
 observed dynamics.
 
-## Full evidence
+## Evidence and data
+
+The [Pilot-0 raw-data download](https://github.com/ely2ba/duraseed/releases/tag/pilot0-data-v1)
+contains all 519,424 recorded completions and their verifier rewards, along with
+prompts, token-level records, evaluations, matching selections, and manifests.
+The reports below provide the curves, uncertainty estimates, and analysis code.
+[Data contents and reproduction instructions](docs/pilot0-data.md) explain the
+portable file layout. Private service/billing metadata, adapter weights, and
+unopened test sets are not included. The running follow-up is not part of this
+Pilot-0 release.
 
 - [Pair-1 readout](artifacts/pilot0-pair1-readout/README.md) — complete F1/F2
   trajectories, exact counts, and F3 profile
@@ -216,8 +252,3 @@ implementation to keep the software serving the science rather than the other
 way around.
 
 Licensed under the [Apache License 2.0](LICENSE).
-
-**Pilot 0 is complete and frozen. A separately preregistered gauge-rescaling
-experiment is planned to test whether changing LoRA parameterization while
-holding the checkpoint function fixed can causally alter these future-learning
-dynamics. Its results are not included here.**

@@ -92,7 +92,7 @@ AUC(0–20) uses only the observed grid [0,1,2,5,10,20], trapezoidal integration
 
 For B-S sentinel posterior retention, half the initial score lies below the four-draw Jeffreys floor of 0.1, so the requested posterior half-life is unattainable under this score definition; the raw-rate half-life is reported separately. Relative retention does not subtract M0 ability and does not measure survival restricted to newly acquired items.
 
-Sources: [pair-1 result](/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/result.json); [matching](/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/matching.json); [all exact estimates and evaluation paths](uncertainty.json).
+Raw source references ([data download and layout](../../docs/pilot0-data.md)): pair-1 result (`runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/result.json`); matching (`runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/matching.json`); [all exact estimates and evaluation paths](uncertainty.json).
 
 Checks: identical paired item-ID and draw populations at every included checkpoint; existing stored F2 curves/AUC contrast reproduced; raw-to-posterior 16/17 identity checked. No remote calls or new samples.
 

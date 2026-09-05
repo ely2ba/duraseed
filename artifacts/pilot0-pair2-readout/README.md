@@ -4,7 +4,7 @@ Run: `pilot0-pair2-seed29-20260830T204211Z`. Seed: 29. Local artifacts only.
 
 Matching selected B-S Stage-A update 40 and B-G update 20; each had 17/96 targeted exact successes on the cadence matching panel. Both Stage-B schedules ran 480 updates.
 
-Sources: [terminal result](/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair2-seed29-20260830T204211Z/result.json), [matching record](/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair2-seed29-20260830T204211Z/seed-29/matching.json), [exact readout data](readout.json), [both F3 profiles](F3.md).
+Raw source references ([data download and layout](../../docs/pilot0-data.md)): terminal result (`runs/pilot0/pilot0-pair2-seed29-20260830T204211Z/result.json`), matching record (`runs/pilot0/pilot0-pair2-seed29-20260830T204211Z/seed-29/matching.json`), [exact readout data](readout.json), [both F3 profiles](F3.md).
 
 All sequences below follow this Stage-B update grid:
 

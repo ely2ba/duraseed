@@ -872,33 +872,33 @@
       ],
       "source_paths": {
         "a_monitor": [
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/selected-pre-b/a-monitor/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-0-1/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-1-2/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-2-5/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-5-10/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-10-20/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-20-40/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-40-80/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-80-160/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-160-320/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/a-retention/result.json"
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/selected-pre-b/a-monitor/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-0-1/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-1-2/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-2-5/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-5-10/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-10-20/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-20-40/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-40-80/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-80-160/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-160-320/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/a-retention/result.json"
         ],
         "b_validation": [
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/step-0/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-0-1/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-1-2/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-2-5/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-5-10/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-10-20/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-20-40/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-40-80/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-80-160/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-160-320/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/b-validation/result.json"
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/step-0/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-0-1/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-1-2/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-2-5/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-5-10/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-10-20/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-20-40/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-40-80/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-80-160/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-160-320/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/b-validation/result.json"
         ],
-        "a_validation_pre": "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/selected-pre-b/a-validation/result.json",
-        "a_validation_post": "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/a-validation/result.json"
+        "a_validation_pre": "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/selected-pre-b/a-validation/result.json",
+        "a_validation_post": "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-S/stage-b/steps-320-480/a-validation/result.json"
       }
     },
     "B-G": {
@@ -1253,33 +1253,33 @@
       ],
       "source_paths": {
         "a_monitor": [
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/selected-pre-b/a-monitor/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-0-1/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-1-2/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-2-5/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-5-10/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-10-20/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-20-40/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-40-80/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-80-160/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-160-320/a-retention/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/a-retention/result.json"
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/selected-pre-b/a-monitor/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-0-1/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-1-2/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-2-5/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-5-10/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-10-20/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-20-40/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-40-80/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-80-160/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-160-320/a-retention/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/a-retention/result.json"
         ],
         "b_validation": [
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/step-0/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-0-1/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-1-2/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-2-5/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-5-10/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-10-20/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-20-40/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-40-80/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-80-160/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-160-320/b-validation/result.json",
-          "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/b-validation/result.json"
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/step-0/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-0-1/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-1-2/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-2-5/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-5-10/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-10-20/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-20-40/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-40-80/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-80-160/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-160-320/b-validation/result.json",
+          "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/b-validation/result.json"
         ],
-        "a_validation_pre": "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/selected-pre-b/a-validation/result.json",
-        "a_validation_post": "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/a-validation/result.json"
+        "a_validation_pre": "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/selected-pre-b/a-validation/result.json",
+        "a_validation_post": "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/B-G/stage-b/steps-320-480/a-validation/result.json"
       }
     }
   },
@@ -1290,5 +1290,5 @@
     "paired_seed": 11,
     "raw_gain_stage_b_auc_difference": 0.05693646599264707
   },
-  "F3_source": "/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/pre-b-profiles.json"
+  "F3_source": "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z/seed-11/pre-b-profiles.json"
 }

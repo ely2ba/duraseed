@@ -1,6 +1,6 @@
 # Project status
 
-_Last updated: 2026-09-03._
+_Last updated: 2026-09-05._
 
 ## Current
 
@@ -19,6 +19,16 @@ paired offline analyses, geometry reports, and the dated
 The Pair-2 prediction was released from geometry before its F1/F2/F3 outcomes
 were opened. Its two registered legs both held, producing the mechanical score
 `PREDICTION: CONFIRMED`. Final test data remain sealed.
+
+**The supervised trace-replay follow-up is now running.** Both acquisition
+arms use supervised training on shared prompts: R-S learns solver traces and
+R-P learns archived, verifier-correct Pilot-0 B-G traces. In the first source
+block, R-S acquisition is complete and R-P acquisition is in progress. The
+second block, fixed-rule matching, and eligible matched MAPS continuations
+follow. There are no completed follow-up contrasts yet. The follow-up has a
+separate frozen design; its aim is explained in the
+[current overview](../README.md#what-were-testing-now). Pilot-0 settings and
+evidence are unchanged. Earlier gauge work is dropped.
 
 ## Completed foundations
 
@@ -75,10 +85,10 @@ outcome was consulted to form the geometry-first prediction.
 ## Next
 
 1. Preserve Pilot 0 as the frozen two-pair result.
-2. Preregister the separately planned gauge-rescaling experiment before any
-   launch. Its results are not part of Pilot 0.
-3. Seek separate authorization for any fresh seed, gauge intervention, or
-   confirmatory run; no launch is authorized by this list.
+2. Complete the authorized two-block supervised trace-replay comparison,
+   retaining any unavailable matching outcome without replacement.
+3. Report the follow-up alongside Pilot 0 and complete the manuscript. No
+   additional seed, model, task, or gauge experiment is part of this package.
 
 For the scientific overview, return to the [README](../README.md). For exact
 schedules, gates, calibration history, budgets, and provenance, see the

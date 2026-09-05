@@ -10,6 +10,7 @@ import numpy as np
 OUT = Path(__file__).resolve().parent
 REPO = OUT.parents[1]
 ROOT = REPO / "runs/pilot0/pilot0-pair2-seed29-20260830T204211Z"
+ROOT_REF = ROOT.relative_to(REPO).as_posix()
 GRID = np.array([0, 1, 2, 5, 10, 20, 40, 80, 160, 320, 480])
 METHODS = ("B-S", "B-G")
 REPS = 50_000
@@ -36,7 +37,7 @@ def paired_arrays(panel, role, steps):
         method_rows = []
         for step in steps:
             path = evaluation(method, step, panel)
-            paths.append(str(path))
+            paths.append(path.relative_to(REPO).as_posix())
             rows = {r["task_id"]: r for r in read(path)["item_counts"] if r["panel_role"] == role}
             method_rows.append(rows)
         parsed.append(method_rows)
@@ -169,7 +170,7 @@ def main():
         halftext = f"{half:.6f} [{bracket[0]}, {bracket[1]}]" if half is not None else "Not crossed (0–480)"
         lines.append(f"| {row['method']} / {row['role']} / {row['score']} | " + " | ".join(f"{rel[str(s)]:.6f}" for s in (1,2,5,10)) + f" | {halftext} | {row['normalized_absolute_auc_0_20']:.8f} | {row['normalized_relative_auc_0_20']:.8f} |")
     lines += ["", "For B-S sentinel posterior retention, half the initial score lies below the four-draw Jeffreys floor of 0.1, so the requested posterior half-life is unattainable under this score definition; the raw-rate half-life is reported separately. Relative retention does not subtract M0 ability and does not measure survival restricted to newly acquired items.", "",
-        f"Sources: [pair-2 result]({ROOT / 'result.json'}); [matching]({ROOT / 'seed-29/matching.json'}); [all exact estimates and evaluation paths](uncertainty.json).", "",
+        f"Raw source references ([data download and layout](../../docs/pilot0-data.md)): pair-2 result (`{ROOT_REF}/result.json`); matching (`{ROOT_REF}/seed-29/matching.json`); [all exact estimates and evaluation paths](uncertainty.json).", "",
         "Checks: identical paired item-ID and draw populations at every included checkpoint; existing stored F2 curves/AUC contrast reproduced; raw-to-posterior 16/17 identity checked. No remote calls or new samples.", ""]
     (OUT / "uncertainty.md").write_text("\n".join(lines))
     print("\n".join(lines))

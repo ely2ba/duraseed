@@ -29,13 +29,16 @@ No later stage may rescan an earlier task distribution using method outcomes. Pi
 
 The pre-B profile includes target, sentinel, and per-family accuracy, the Cover curve, invalid-output rate, completion length, supported Pass@k, verified strategy diversity, token surprisal, and baseline Stage-B task performance before Stage-B training. Pass@k uses already-required draws only, for `k` no larger than the collected independent draw count. These quantities describe residual differences; they are not additional matching gates. Archived adapter geometry is supplementary post-hoc evidence, outside F3 and all gates.
 
-After the two-seed Pilot 0, extend B-S/B-G to 3–4 paired pilot seeds for variance reconnaissance. If a reproducible difference appears, prioritize supervised replay of a frozen verifier-correct subset of B-G rollouts before broad method expansion. B-O remains conditional and G-U optional; the duplicate G-B and teacher-allocation R-G arms are retired. Only after the mechanism decision determines the confirmatory matrix do we freeze and power the design, preregister it, and run fresh confirmatory seeds. A same-model higher-rank or full-weight replication is conditional on a result worth following up and tests whether it is specific to rank-32 LoRA.
-
-That conditional supervised-replay priority comes from the protocol. The newer
-gauge-rescaling candidate associated with the
-[prospective Pair-2 record](results/pilot0-pair2-prediction.md) does not replace
-it; no follow-up experiment is automatically authorized by this map or that
-candidate description.
+Pilot 0 is now followed by the bounded [supervised trace-replay
+comparison](../README.md#what-were-testing-now), not an expansion to more Pilot seeds or a
+gauge intervention. In each of the two existing source blocks, R-S and R-P
+learn from the same prompts using solver versus archived correct B-G traces,
+respectively. All four supervised acquisition runs finish before fixed
+candidate nomination and matching. Eligible pairs then receive the common
+MAPS probe; unmatched blocks remain unavailable. This follow-up is running
+as of September 5; see [STATUS.md](STATUS.md). Earlier conditional expansion
+ideas in the original protocol are historical context, not the current plan.
+The prospective Pair-2 prediction remains an unchanged Pilot-0 record.
 
 ## Evidence and provenance
 
@@ -49,4 +52,6 @@ candidate description.
 Raw top-level `runs/`, local datasets, credentials, and adapter tensors remain
 excluded from Git. The compact, derived Pilot-0 readouts and offline-analysis
 packages under `artifacts/pilot0-pair*-{readout,offline-analysis}/` are banked
-as public scientific evidence.
+as public scientific evidence. The [separate raw-data release](pilot0-data.md)
+provides portable public copies of observed Pilot-0 generations, rewards,
+evaluations, matching, and input manifests without operational/private metadata.

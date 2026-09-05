@@ -92,7 +92,7 @@ AUC(0–20) uses only the observed grid [0,1,2,5,10,20], trapezoidal integration
 
 For B-S sentinel posterior retention, half the initial score lies below the four-draw Jeffreys floor of 0.1, so the requested posterior half-life is unattainable under this score definition; the raw-rate half-life is reported separately. Relative retention does not subtract M0 ability and does not measure survival restricted to newly acquired items.
 
-Sources: [pair-2 result](/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair2-seed29-20260830T204211Z/result.json); [matching](/Users/elyb/Documents/DuraSeed-v1/runs/pilot0/pilot0-pair2-seed29-20260830T204211Z/seed-29/matching.json); [all exact estimates and evaluation paths](uncertainty.json).
+Raw source references ([data download and layout](../../docs/pilot0-data.md)): pair-2 result (`runs/pilot0/pilot0-pair2-seed29-20260830T204211Z/result.json`); matching (`runs/pilot0/pilot0-pair2-seed29-20260830T204211Z/seed-29/matching.json`); [all exact estimates and evaluation paths](uncertainty.json).
 
 Checks: identical paired item-ID and draw populations at every included checkpoint; existing stored F2 curves/AUC contrast reproduced; raw-to-posterior 16/17 identity checked. No remote calls or new samples.
 
@@ -615,7 +615,7 @@ measurement schedule, or running pair-2 job. The analysis used pair-1 local
 artifacts only. Any future design would require a separate prospective decision
 before its confirmatory outcomes are observed.
 
-Source: [offline analysis package](../artifacts/pilot0-pair1-offline-analysis/README.md),
+Source: [offline analysis package](../pilot0-pair1-offline-analysis/README.md),
 with paired item-bootstrap intervals, early-window statistics, recorded failure
 codes, and archived adapter geometry. Intervals are conditional on one fitted
 seed pair and its selected checkpoints; they are not seed-to-seed uncertainty.

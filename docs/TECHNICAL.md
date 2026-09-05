@@ -12,6 +12,9 @@ entire calibration history on the front page.
   Pilot where it is more specific than the earlier protocol.
 - [`duraseed_pilot_config.yaml`](../duraseed_pilot_config.yaml) is the
   machine-readable configuration.
+- The supervised trace-source follow-up now running has a separate frozen
+  design; see the [public overview](../README.md#what-were-testing-now). It
+  does not revise Pilot 0.
 - [`STATUS.md`](STATUS.md) reports what has actually run.
 - [`MAP.md`](MAP.md) maps components, evidence flow, and provenance locations.
 
@@ -118,12 +121,13 @@ was [recorded prospectively](results/pilot0-pair2-prediction.md) before outcomes
 were opened. Later fresh pairs are variance reconnaissance, not replacements
 for a failed or unavailable seed.
 
-The protocol conditionally prioritizes supervised replay of a frozen,
-verifier-correct subset of B-G rollouts if a reproducible difference appears.
-The newer gauge-rescaling candidate recorded with the
-[prospective prediction](results/pilot0-pair2-prediction.md) is a separate
-hypothesis, not a replacement for that priority. This Pilot-0 record does not
-authorize an experiment or spend.
+The authorized follow-up now implements supervised replay of archived,
+verifier-correct B-G traces versus solver traces on shared prompts. Both arms
+use the same supervised acquisition recipe, then fixed-rule matching and the
+common MAPS probe. Its separate frozen design fixes the two-block run matrix
+and reporting; no follow-up outcome is part of Pilot 0.
+The earlier gauge-rescaling candidate is dropped. The historical
+[prospective prediction](results/pilot0-pair2-prediction.md) remains unchanged.
 
 ## How the pre-Pilot design evolved
 
@@ -221,7 +225,8 @@ preserves the earlier planning calculation and transcription corrections.
 - `frozen/v0/`: immutable carried calibration evidence.
 - `provenance/`: hashes, replay equivalence, billing lineage, and public
   projections.
-- `runs/`: generated local/live evidence, intentionally excluded from Git.
+- `runs/`: generated local/live evidence, excluded from Git; observed Pilot-0
+  scientific records are available in the [separate data download](pilot0-data.md).
 
 For exact paths and hashes, continue to [`MAP.md`](MAP.md) and
 [`provenance/v0-map.md`](../provenance/v0-map.md).

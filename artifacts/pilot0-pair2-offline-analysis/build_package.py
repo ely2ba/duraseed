@@ -106,6 +106,7 @@ print("Pair-2 artifact paths only; no remote clients or new samples.")
     notes_path = REPO / "docs/confirmatory-design-notes.md"
     notes = notes_path.read_text()
     notes_snapshot = notes.replace("../artifacts/pilot0-pair2-offline-analysis/README.md", "README.md")
+    notes_snapshot = notes_snapshot.replace("../artifacts/pilot0-pair1-offline-analysis/", "../pilot0-pair1-offline-analysis/")
     cells.append(cell("markdown", notes_snapshot + "\nSource: [notes file](../../docs/confirmatory-design-notes.md).\n", len(cells)))
     access = '''# Full cadence/per-layer spectra remain in the sidecar, not duplicated into this notebook.
 geometry = json.loads((package / "geometry.json").read_text())

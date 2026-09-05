@@ -15,6 +15,7 @@ from duraseed.provenance import canonical_json_value
 REPO = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).resolve().parent
 ROOT = REPO / "runs/pilot0/pilot0-pair1-seed11-20260825T125100Z"
+ROOT_REF = ROOT.relative_to(REPO).as_posix()
 GRID = list(STAGE_B_GRID)
 METHODS = ("B-S", "B-G")
 COLORS = {"B-S": "#285b86", "B-G": "#b45a31"}
@@ -118,17 +119,17 @@ for method in METHODS:
         "F2_headroom_normalized_relative": [v/(1-posterior[0]+1e-12) for v in relative],
         "F2_raw_pass1_baseline_relative": [v-raw[0] for v in raw],
         "source_paths": {
-            "a_monitor": [str(eval_path(method, step, "a-monitor")) for step in GRID],
-            "b_validation": [str(eval_path(method, step, "b-validation")) for step in GRID],
-            "a_validation_pre": str(base / "selected-pre-b/a-validation/result.json"),
-            "a_validation_post": str(base / "stage-b/steps-320-480/a-validation/result.json"),
+            "a_monitor": [eval_path(method, step, "a-monitor").relative_to(REPO).as_posix() for step in GRID],
+            "b_validation": [eval_path(method, step, "b-validation").relative_to(REPO).as_posix() for step in GRID],
+            "a_validation_pre": (base / "selected-pre-b/a-validation/result.json").relative_to(REPO).as_posix(),
+            "a_validation_post": (base / "stage-b/steps-320-480/a-validation/result.json").relative_to(REPO).as_posix(),
         },
     }
 
 payload = {"run_id": ROOT.name, "seed": 11, "stage_b_updates": GRID,
            "matching": matching, "F1_F2_cells": cells, "derived": extracted,
            "paired_primary_contrast": result["paired_primary_contrast"],
-           "F3_source": str(ROOT / "seed-11/pre-b-profiles.json")}
+           "F3_source": f"{ROOT_REF}/seed-11/pre-b-profiles.json"}
 (OUT / "readout.json").write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
 
 f1panels = []
@@ -146,7 +147,7 @@ make_figure(OUT / "F2-learning.svg", [
 
 lines = ["# Pair-1 scientific readout", "", f"Run: `{ROOT.name}`. Seed: 11. Local artifacts only.", "",
     "Matching selected B-S Stage-A update 140 and B-G update 30; each had 31/96 targeted exact successes on the cadence matching panel. Both Stage-B schedules ran 480 updates.", "",
-    f"Sources: [terminal result]({ROOT / 'result.json'}), [matching record]({ROOT / 'seed-11/matching.json'}), [exact readout data](readout.json), [both F3 profiles](F3.md).", "",
+    f"Raw source references ([data download and layout](../../docs/pilot0-data.md)): terminal result (`{ROOT_REF}/result.json`), matching record (`{ROOT_REF}/seed-11/matching.json`), [exact readout data](readout.json), [both F3 profiles](F3.md).", "",
     "All sequences below follow this Stage-B update grid:", "", f"`{GRID}`", "",
     "Rates are proportions, not percentages. Printed sequences use six decimal places; readout.json retains the stored precision, exact success/trial counts, and every source path. Pass@k uses the stored unbiased item-averaged estimator. Posterior means use the item-level Jeffreys estimator `(successes + 0.5)/(draws + 1)`, averaged equally over items.", "",
     "The zero-success posterior floor is 0.1 with four draws and 0.029411764705882353 with 16 draws; it is not observed Pass@1. a_monitor has 192 targeted and 192 sentinel items × 4 draws; a_validation has 256 targeted and 256 sentinel items × 16 draws; b_validation has 512 MAPS items × 16 draws.", "",
