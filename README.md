@@ -241,7 +241,7 @@ decisions throughout, including how to structure the comparisons, what to
 measure, how to respond to failures, and what conclusions the evidence could
 support.
 
-I used OpenAI Codex extensively as a coding partner, particularly for
+I used OpenAI Codex as a coding partner, particularly for
 implementation, boilerplate, scaffolding, tests, repetitive analysis, and
 debugging. That leverage made it possible to execute a project of this scope
 independently in weeks rather than months.
