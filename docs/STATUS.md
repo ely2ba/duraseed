@@ -1,8 +1,13 @@
 # Project status
 
-_Last updated: 2026-09-05._
+_Last updated: 2026-09-08._
 
 ## Current
+
+**The experimental phase is complete.** The study comprises two Pilot pairs,
+four replay acquisition runs, and the only matched replay continuation pair,
+in block 11. The paper is being revised; it has not been posted or submitted.
+No additional experiments are planned or authorized.
 
 **Pilot 0 is complete and frozen.** Pair 1 (seed 11) and Pair 2 (seed 29)
 both finished with `evidence_collected`; both 480-update Stage-B schedules and
@@ -20,15 +25,34 @@ The Pair-2 prediction was released from geometry before its F1/F2/F3 outcomes
 were opened. Its two registered legs both held, producing the mechanical score
 `PREDICTION: CONFIRMED`. Final test data remain sealed.
 
-**The supervised trace-replay follow-up is now running.** Both acquisition
-arms use supervised training on shared prompts: R-S learns solver traces and
-R-P learns archived, verifier-correct Pilot-0 B-G traces. In the first source
-block, R-S acquisition is complete and R-P acquisition is in progress. The
-second block, fixed-rule matching, and eligible matched MAPS continuations
-follow. There are no completed follow-up contrasts yet. The follow-up has a
-separate frozen design; its aim is explained in the
-[current overview](../README.md#what-were-testing-now). Pilot-0 settings and
-evidence are unchanged. Earlier gauge work is dropped.
+**The bounded trace-replay package is complete.** All four acquisition runs and
+all twelve candidate assessments finished. The selected seed-11 checkpoints,
+R-S@220 and R-P@20, both completed the unchanged 480-update Stage-B recipe:
+960 updates, 48 evaluation panels, and 246,784 completions. Seed 29 remains
+`NO_MATCH` and received no Stage-B training. The saved readout reproduces exactly;
+panel evidence, checkpoint/optimizer continuity, and all 1,100 logical call
+records passed terminal checks, with no pending request. The completed launchd
+job is unloaded and its monitor deleted. Original evidence and Pilot-0 settings are unchanged; gauge
+work is dropped.
+
+The [follow-up results and reproducible figures](../artifacts/replay-v1/followup/README.md)
+report R-P minus R-S targeted retention AUC0–20 of +0.061263
+(conditional paired-item 95% interval [0.042904, 0.079395]). This is not uniformly
+slower forgetting: R-P starts higher, crosses its own half-baseline earlier,
+and rebounds at update 10. Absolute MAPS AUC0–480 instead favors R-S; endpoints
+are similar. The [detailed readout](../artifacts/replay-v1/followup/readout.md)
+and [supplement](../artifacts/replay-v1/followup/supplement.md) report the
+trajectories, starting-score sensitivity, and unavailable block.
+
+Local accounting totals $341.504818818 in observed-token costs plus $35.25 in
+storage allowances ($376.754818818 combined), not settled provider invoices.
+Final provider attribution, external account commitments, and current reserve
+remain unverified. The 20 Stage-B checkpoint pairs record a 30-day TTL; absolute
+expiry timestamps and current provider retention were not independently checked.
+
+The original matching design unnecessarily required agreement with historical
+Pilot-0 scores in addition to agreement between the new arms. We changed the
+design to remove the historical-score requirement.
 
 ## Completed foundations
 
@@ -82,15 +106,15 @@ The required read order was completed:
 The archived record is [public](results/pilot0-pair2-prediction.md). No Pair-2
 outcome was consulted to form the geometry-first prediction.
 
-## Next
+## Manuscript preparation and closeout
 
-1. Preserve Pilot 0 as the frozen two-pair result.
-2. Complete the authorized two-block supervised trace-replay comparison,
-   retaining any unavailable matching outcome without replacement.
-3. Report the follow-up alongside Pilot 0 and complete the manuscript. No
+1. Preserve Pilot 0 as the frozen two-pair result and retain the completed replay records.
+2. Continue manuscript revision without publishing the paper. Any later posting
+   or submission requires owner authorization; neither has occurred.
+3. Finish provider invoice attribution during end-of-project accounting. No
    additional seed, model, task, or gauge experiment is part of this package.
 
-For the scientific overview, return to the [README](../README.md). For exact
+For the scientific overview, return to the [README](../README.md#results). For exact
 schedules, gates, calibration history, budgets, and provenance, see the
 [technical appendix](TECHNICAL.md), frozen [capability-targeted
 amendment](amendment-capability-targeted-acquisition.md), and

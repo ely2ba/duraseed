@@ -1,0 +1,3577 @@
+{
+  "1": {
+    "grid": [
+      0,
+      1,
+      2,
+      5,
+      10,
+      20,
+      40,
+      80,
+      160,
+      320,
+      480
+    ],
+    "curves": {
+      "targeted": {
+        "B-S": {
+          "raw": [
+            0.2981770833333333,
+            0.24609375,
+            0.16927083333333334,
+            0.078125,
+            0.005208333333333333,
+            0.0013020833333333333,
+            0.0013020833333333333,
+            0.0013020833333333333,
+            0.0026041666666666665,
+            0.0,
+            0.0
+          ],
+          "posterior": [
+            0.33854166666666674,
+            0.296875,
+            0.23541666666666694,
+            0.16250000000000045,
+            0.10416666666666674,
+            0.1010416666666667,
+            0.1010416666666667,
+            0.1010416666666667,
+            0.10208333333333336,
+            0.10000000000000002,
+            0.10000000000000002
+          ],
+          "items": 192
+        },
+        "B-G": {
+          "raw": [
+            0.30859375,
+            0.28515625,
+            0.2721354166666667,
+            0.10416666666666667,
+            0.0078125,
+            0.005208333333333333,
+            0.0078125,
+            0.00390625,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "posterior": [
+            0.3468750000000002,
+            0.32812500000000006,
+            0.3177083333333336,
+            0.18333333333333382,
+            0.10625000000000011,
+            0.10416666666666675,
+            0.10625000000000012,
+            0.10312500000000008,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002
+          ],
+          "items": 192
+        }
+      },
+      "sentinel": {
+        "B-S": {
+          "raw": [
+            0.044270833333333336,
+            0.03515625,
+            0.03515625,
+            0.028645833333333332,
+            0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "posterior": [
+            0.1354166666666671,
+            0.1281250000000004,
+            0.1281250000000003,
+            0.12291666666666694,
+            0.10312500000000008,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002
+          ],
+          "items": 192
+        },
+        "B-G": {
+          "raw": [
+            0.2955729166666667,
+            0.3125,
+            0.2760416666666667,
+            0.09375,
+            0.013020833333333334,
+            0.006510416666666667,
+            0.0026041666666666665,
+            0.0026041666666666665,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "posterior": [
+            0.33645833333333314,
+            0.3499999999999999,
+            0.32083333333333325,
+            0.17500000000000057,
+            0.11041666666666683,
+            0.10520833333333345,
+            0.1020833333333334,
+            0.1020833333333334,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002
+          ],
+          "items": 192
+        }
+      },
+      "maps": {
+        "B-S": {
+          "raw": [
+            0.0,
+            0.0029296875,
+            0.03564453125,
+            0.0626220703125,
+            0.0711669921875,
+            0.0701904296875,
+            0.1165771484375,
+            0.1630859375,
+            0.2362060546875,
+            0.32568359375,
+            0.378173828125
+          ],
+          "posterior": [
+            0.029411764705882255,
+            0.03216911764705877,
+            0.06295955882353023,
+            0.08835018382352994,
+            0.09639246323529452,
+            0.09547334558823573,
+            0.13913143382352983,
+            0.18290441176470645,
+            0.2517233455882356,
+            0.3359375000000005,
+            0.38534007352941213
+          ],
+          "items": 512
+        },
+        "B-G": {
+          "raw": [
+            0.0499267578125,
+            0.065185546875,
+            0.0540771484375,
+            0.0614013671875,
+            0.0712890625,
+            0.0670166015625,
+            0.072265625,
+            0.1717529296875,
+            0.1793212890625,
+            0.3284912109375,
+            0.4036865234375
+          ],
+          "posterior": [
+            0.0764016544117654,
+            0.09076286764705932,
+            0.08030790441176534,
+            0.08720128676470658,
+            0.09650735294117689,
+            0.09248621323529456,
+            0.09742647058823566,
+            0.19106158088235334,
+            0.19818474264705901,
+            0.33857996323529466,
+            0.4093520220588239
+          ],
+          "items": 512
+        }
+      }
+    },
+    "failures": [
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 0,
+        "completions": 768,
+        "unconditional_success": 0.044270833333333336,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 278,
+          "correct": 34,
+          "invalid_character": 32,
+          "invalid_syntax": 33,
+          "missing_answer_tag": 25,
+          "operand_multiset_mismatch": 235,
+          "wrong_target": 131
+        },
+        "disjoint_groups": {
+          "correct": 34,
+          "executable_wrong_target": 131,
+          "other_well_formed_task_failure": 235,
+          "output_contract_or_parse": 368
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 368,
+          "cap_reached": 23,
+          "invalid_syntax": 368,
+          "invalid_tag": 25,
+          "output_valid": 400,
+          "output_valid_correct": 34
+        },
+        "conditional_output_valid": {
+          "successes": 34,
+          "denominator": 400,
+          "accuracy": 0.085
+        },
+        "tokens_mean": 232.8203125,
+        "tokens_median": 87.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 0,
+        "completions": 768,
+        "unconditional_success": 0.2981770833333333,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 202,
+          "correct": 229,
+          "invalid_character": 11,
+          "invalid_syntax": 21,
+          "missing_answer_tag": 15,
+          "operand_multiset_mismatch": 213,
+          "wrong_target": 77
+        },
+        "disjoint_groups": {
+          "correct": 229,
+          "executable_wrong_target": 77,
+          "other_well_formed_task_failure": 213,
+          "output_contract_or_parse": 249
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 249,
+          "cap_reached": 14,
+          "invalid_syntax": 249,
+          "invalid_tag": 15,
+          "output_valid": 519,
+          "output_valid_correct": 229
+        },
+        "conditional_output_valid": {
+          "successes": 229,
+          "denominator": 519,
+          "accuracy": 0.441233140655106
+        },
+        "tokens_mean": 174.16927083333334,
+        "tokens_median": 79.5
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 1,
+        "completions": 768,
+        "unconditional_success": 0.03515625,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 266,
+          "correct": 27,
+          "invalid_character": 21,
+          "invalid_syntax": 35,
+          "missing_answer_tag": 6,
+          "operand_multiset_mismatch": 250,
+          "wrong_target": 163
+        },
+        "disjoint_groups": {
+          "correct": 27,
+          "executable_wrong_target": 163,
+          "other_well_formed_task_failure": 250,
+          "output_contract_or_parse": 328
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 328,
+          "cap_reached": 6,
+          "invalid_syntax": 328,
+          "invalid_tag": 6,
+          "output_valid": 440,
+          "output_valid_correct": 27
+        },
+        "conditional_output_valid": {
+          "successes": 27,
+          "denominator": 440,
+          "accuracy": 0.06136363636363636
+        },
+        "tokens_mean": 133.1953125,
+        "tokens_median": 85.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 1,
+        "completions": 768,
+        "unconditional_success": 0.24609375,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 185,
+          "correct": 189,
+          "invalid_character": 18,
+          "invalid_syntax": 25,
+          "missing_answer_tag": 7,
+          "operand_multiset_mismatch": 234,
+          "wrong_target": 110
+        },
+        "disjoint_groups": {
+          "correct": 189,
+          "executable_wrong_target": 110,
+          "other_well_formed_task_failure": 234,
+          "output_contract_or_parse": 235
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 235,
+          "cap_reached": 7,
+          "invalid_syntax": 235,
+          "invalid_tag": 7,
+          "output_valid": 533,
+          "output_valid_correct": 189
+        },
+        "conditional_output_valid": {
+          "successes": 189,
+          "denominator": 533,
+          "accuracy": 0.3545966228893058
+        },
+        "tokens_mean": 130.71354166666666,
+        "tokens_median": 79.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 2,
+        "completions": 768,
+        "unconditional_success": 0.03515625,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 223,
+          "correct": 27,
+          "invalid_character": 19,
+          "invalid_syntax": 18,
+          "missing_answer_tag": 2,
+          "operand_multiset_mismatch": 246,
+          "wrong_target": 233
+        },
+        "disjoint_groups": {
+          "correct": 27,
+          "executable_wrong_target": 233,
+          "other_well_formed_task_failure": 246,
+          "output_contract_or_parse": 262
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 262,
+          "cap_reached": 2,
+          "invalid_syntax": 262,
+          "invalid_tag": 2,
+          "output_valid": 506,
+          "output_valid_correct": 27
+        },
+        "conditional_output_valid": {
+          "successes": 27,
+          "denominator": 506,
+          "accuracy": 0.0533596837944664
+        },
+        "tokens_mean": 100.984375,
+        "tokens_median": 82.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 2,
+        "completions": 768,
+        "unconditional_success": 0.16927083333333334,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 175,
+          "correct": 130,
+          "invalid_character": 10,
+          "invalid_syntax": 17,
+          "missing_answer_tag": 3,
+          "operand_multiset_mismatch": 220,
+          "wrong_target": 213
+        },
+        "disjoint_groups": {
+          "correct": 130,
+          "executable_wrong_target": 213,
+          "other_well_formed_task_failure": 220,
+          "output_contract_or_parse": 205
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 205,
+          "cap_reached": 3,
+          "invalid_syntax": 205,
+          "invalid_tag": 3,
+          "output_valid": 563,
+          "output_valid_correct": 130
+        },
+        "conditional_output_valid": {
+          "successes": 130,
+          "denominator": 563,
+          "accuracy": 0.23090586145648312
+        },
+        "tokens_mean": 100.66015625,
+        "tokens_median": 78.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 5,
+        "completions": 768,
+        "unconditional_success": 0.028645833333333332,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 131,
+          "correct": 22,
+          "invalid_character": 44,
+          "invalid_syntax": 27,
+          "missing_answer_tag": 7,
+          "operand_multiset_mismatch": 259,
+          "wrong_target": 278
+        },
+        "disjoint_groups": {
+          "correct": 22,
+          "executable_wrong_target": 278,
+          "other_well_formed_task_failure": 259,
+          "output_contract_or_parse": 209
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 209,
+          "cap_reached": 6,
+          "invalid_syntax": 209,
+          "invalid_tag": 7,
+          "output_valid": 559,
+          "output_valid_correct": 22
+        },
+        "conditional_output_valid": {
+          "successes": 22,
+          "denominator": 559,
+          "accuracy": 0.03935599284436494
+        },
+        "tokens_mean": 111.62109375,
+        "tokens_median": 72.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 5,
+        "completions": 768,
+        "unconditional_success": 0.078125,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 112,
+          "correct": 60,
+          "invalid_character": 39,
+          "invalid_syntax": 39,
+          "missing_answer_tag": 7,
+          "multiple_answer_tags": 1,
+          "operand_multiset_mismatch": 250,
+          "wrong_target": 260
+        },
+        "disjoint_groups": {
+          "correct": 60,
+          "executable_wrong_target": 260,
+          "other_well_formed_task_failure": 250,
+          "output_contract_or_parse": 198
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 198,
+          "cap_reached": 7,
+          "invalid_syntax": 198,
+          "invalid_tag": 8,
+          "output_valid": 570,
+          "output_valid_correct": 60
+        },
+        "conditional_output_valid": {
+          "successes": 60,
+          "denominator": 570,
+          "accuracy": 0.10526315789473684
+        },
+        "tokens_mean": 115.12239583333333,
+        "tokens_median": 71.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 10,
+        "completions": 768,
+        "unconditional_success": 0.00390625,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 2,
+          "correct": 3,
+          "invalid_character": 608,
+          "missing_answer_tag": 38,
+          "multiple_answer_tags": 28,
+          "operand_multiset_mismatch": 81,
+          "wrong_target": 8
+        },
+        "disjoint_groups": {
+          "correct": 3,
+          "executable_wrong_target": 8,
+          "other_well_formed_task_failure": 81,
+          "output_contract_or_parse": 676
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 676,
+          "cap_reached": 40,
+          "invalid_syntax": 676,
+          "invalid_tag": 66,
+          "output_valid": 92,
+          "output_valid_correct": 3
+        },
+        "conditional_output_valid": {
+          "successes": 3,
+          "denominator": 92,
+          "accuracy": 0.03260869565217391
+        },
+        "tokens_mean": 288.69140625,
+        "tokens_median": 63.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 10,
+        "completions": 768,
+        "unconditional_success": 0.005208333333333333,
+        "disjoint_authoritative_codes": {
+          "answer_too_long": 3,
+          "ast_limit_exceeded": 4,
+          "correct": 4,
+          "invalid_character": 595,
+          "invalid_syntax": 1,
+          "missing_answer_tag": 35,
+          "multiple_answer_tags": 36,
+          "operand_multiset_mismatch": 85,
+          "wrong_target": 5
+        },
+        "disjoint_groups": {
+          "correct": 4,
+          "executable_wrong_target": 5,
+          "other_well_formed_task_failure": 85,
+          "output_contract_or_parse": 674
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 674,
+          "cap_reached": 40,
+          "invalid_syntax": 674,
+          "invalid_tag": 71,
+          "output_valid": 94,
+          "output_valid_correct": 4
+        },
+        "conditional_output_valid": {
+          "successes": 4,
+          "denominator": 94,
+          "accuracy": 0.0425531914893617
+        },
+        "tokens_mean": 285.3971354166667,
+        "tokens_median": 62.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 20,
+        "completions": 768,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "answer_too_long": 1,
+          "ast_limit_exceeded": 2,
+          "invalid_character": 508,
+          "missing_answer_tag": 18,
+          "multiple_answer_tags": 12,
+          "operand_multiset_mismatch": 217,
+          "wrong_target": 10
+        },
+        "disjoint_groups": {
+          "executable_wrong_target": 10,
+          "other_well_formed_task_failure": 217,
+          "output_contract_or_parse": 541
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 541,
+          "cap_reached": 24,
+          "invalid_syntax": 541,
+          "invalid_tag": 30,
+          "output_valid": 227,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 227,
+          "accuracy": 0.0
+        },
+        "tokens_mean": 179.04427083333334,
+        "tokens_median": 50.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 20,
+        "completions": 768,
+        "unconditional_success": 0.0013020833333333333,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 1,
+          "correct": 1,
+          "invalid_character": 494,
+          "missing_answer_tag": 26,
+          "multiple_answer_tags": 11,
+          "operand_multiset_mismatch": 221,
+          "wrong_target": 14
+        },
+        "disjoint_groups": {
+          "correct": 1,
+          "executable_wrong_target": 14,
+          "other_well_formed_task_failure": 221,
+          "output_contract_or_parse": 532
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 532,
+          "cap_reached": 28,
+          "invalid_syntax": 532,
+          "invalid_tag": 37,
+          "output_valid": 236,
+          "output_valid_correct": 1
+        },
+        "conditional_output_valid": {
+          "successes": 1,
+          "denominator": 236,
+          "accuracy": 0.00423728813559322
+        },
+        "tokens_mean": 203.15625,
+        "tokens_median": 50.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 40,
+        "completions": 768,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 1,
+          "invalid_character": 369,
+          "missing_answer_tag": 11,
+          "multiple_answer_tags": 9,
+          "operand_multiset_mismatch": 364,
+          "wrong_target": 14
+        },
+        "disjoint_groups": {
+          "executable_wrong_target": 14,
+          "other_well_formed_task_failure": 364,
+          "output_contract_or_parse": 390
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 390,
+          "cap_reached": 12,
+          "invalid_syntax": 390,
+          "invalid_tag": 20,
+          "output_valid": 378,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 378,
+          "accuracy": 0.0
+        },
+        "tokens_mean": 99.92838541666667,
+        "tokens_median": 19.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 40,
+        "completions": 768,
+        "unconditional_success": 0.0013020833333333333,
+        "disjoint_authoritative_codes": {
+          "answer_too_long": 1,
+          "ast_limit_exceeded": 4,
+          "correct": 1,
+          "invalid_character": 340,
+          "invalid_syntax": 1,
+          "missing_answer_tag": 7,
+          "multiple_answer_tags": 9,
+          "operand_multiset_mismatch": 396,
+          "wrong_target": 9
+        },
+        "disjoint_groups": {
+          "correct": 1,
+          "executable_wrong_target": 9,
+          "other_well_formed_task_failure": 396,
+          "output_contract_or_parse": 362
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 362,
+          "cap_reached": 8,
+          "invalid_syntax": 362,
+          "invalid_tag": 16,
+          "output_valid": 406,
+          "output_valid_correct": 1
+        },
+        "conditional_output_valid": {
+          "successes": 1,
+          "denominator": 406,
+          "accuracy": 0.0024630541871921183
+        },
+        "tokens_mean": 81.16015625,
+        "tokens_median": 17.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 0,
+        "completions": 8192,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "invalid_program": 4235,
+          "missing_answer_tag": 3910,
+          "multiple_answer_tags": 47
+        },
+        "disjoint_groups": {
+          "output_contract_or_parse": 8192
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 8192,
+          "cap_reached": 820,
+          "invalid_syntax": 8192,
+          "invalid_tag": 8192,
+          "output_valid": 0,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 0,
+          "accuracy": null
+        },
+        "tokens_mean": 50.203369140625,
+        "tokens_median": 44.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 1,
+        "completions": 8192,
+        "unconditional_success": 0.0029296875,
+        "disjoint_authoritative_codes": {
+          "correct": 24,
+          "invalid_program": 4632,
+          "missing_answer_tag": 536,
+          "multiple_answer_tags": 195,
+          "program_too_long": 2570,
+          "wrong_target": 235
+        },
+        "disjoint_groups": {
+          "correct": 24,
+          "executable_wrong_target": 235,
+          "other_well_formed_task_failure": 364,
+          "output_contract_or_parse": 7569
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 7569,
+          "cap_reached": 561,
+          "invalid_syntax": 7569,
+          "invalid_tag": 930,
+          "output_valid": 623,
+          "output_valid_correct": 24
+        },
+        "conditional_output_valid": {
+          "successes": 24,
+          "denominator": 623,
+          "accuracy": 0.038523274478330656
+        },
+        "tokens_mean": 33.0977783203125,
+        "tokens_median": 21.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 2,
+        "completions": 8192,
+        "unconditional_success": 0.03564453125,
+        "disjoint_authoritative_codes": {
+          "correct": 292,
+          "illegal_instruction": 15,
+          "invalid_program": 466,
+          "missing_answer_tag": 115,
+          "multiple_answer_tags": 2,
+          "program_too_long": 1491,
+          "wrong_target": 5811
+        },
+        "disjoint_groups": {
+          "correct": 292,
+          "executable_wrong_target": 5811,
+          "other_well_formed_task_failure": 1066,
+          "output_contract_or_parse": 1023
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 1023,
+          "cap_reached": 36,
+          "invalid_syntax": 1023,
+          "invalid_tag": 314,
+          "output_valid": 7169,
+          "output_valid_correct": 292
+        },
+        "conditional_output_valid": {
+          "successes": 292,
+          "denominator": 7169,
+          "accuracy": 0.040730924815176456
+        },
+        "tokens_mean": 14.4739990234375,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 5,
+        "completions": 8192,
+        "unconditional_success": 0.0626220703125,
+        "disjoint_authoritative_codes": {
+          "correct": 513,
+          "illegal_instruction": 45,
+          "invalid_program": 10,
+          "missing_answer_tag": 153,
+          "program_too_long": 15,
+          "wrong_target": 7456
+        },
+        "disjoint_groups": {
+          "correct": 513,
+          "executable_wrong_target": 7456,
+          "other_well_formed_task_failure": 55,
+          "output_contract_or_parse": 168
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 168,
+          "cap_reached": 0,
+          "invalid_syntax": 168,
+          "invalid_tag": 156,
+          "output_valid": 8024,
+          "output_valid_correct": 513
+        },
+        "conditional_output_valid": {
+          "successes": 513,
+          "denominator": 8024,
+          "accuracy": 0.06393320039880358
+        },
+        "tokens_mean": 12.8619384765625,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 10,
+        "completions": 8192,
+        "unconditional_success": 0.0711669921875,
+        "disjoint_authoritative_codes": {
+          "correct": 583,
+          "illegal_instruction": 1,
+          "wrong_target": 7608
+        },
+        "disjoint_groups": {
+          "correct": 583,
+          "executable_wrong_target": 7608,
+          "other_well_formed_task_failure": 1
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 583
+        },
+        "conditional_output_valid": {
+          "successes": 583,
+          "denominator": 8192,
+          "accuracy": 0.0711669921875
+        },
+        "tokens_mean": 12.80712890625,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 20,
+        "completions": 8192,
+        "unconditional_success": 0.0701904296875,
+        "disjoint_authoritative_codes": {
+          "correct": 575,
+          "illegal_instruction": 2,
+          "wrong_target": 7615
+        },
+        "disjoint_groups": {
+          "correct": 575,
+          "executable_wrong_target": 7615,
+          "other_well_formed_task_failure": 2
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 575
+        },
+        "conditional_output_valid": {
+          "successes": 575,
+          "denominator": 8192,
+          "accuracy": 0.0701904296875
+        },
+        "tokens_mean": 12.68115234375,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 40,
+        "completions": 8192,
+        "unconditional_success": 0.1165771484375,
+        "disjoint_authoritative_codes": {
+          "correct": 955,
+          "illegal_instruction": 925,
+          "wrong_target": 6312
+        },
+        "disjoint_groups": {
+          "correct": 955,
+          "executable_wrong_target": 6312,
+          "other_well_formed_task_failure": 925
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 955
+        },
+        "conditional_output_valid": {
+          "successes": 955,
+          "denominator": 8192,
+          "accuracy": 0.1165771484375
+        },
+        "tokens_mean": 12.6650390625,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 0,
+        "completions": 768,
+        "unconditional_success": 0.2955729166666667,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 20,
+          "correct": 227,
+          "empty_answer": 3,
+          "invalid_character": 151,
+          "invalid_syntax": 1,
+          "missing_answer_tag": 268,
+          "multiple_answer_tags": 12,
+          "operand_multiset_mismatch": 43,
+          "wrong_target": 43
+        },
+        "disjoint_groups": {
+          "correct": 227,
+          "executable_wrong_target": 43,
+          "other_well_formed_task_failure": 43,
+          "output_contract_or_parse": 455
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 455,
+          "cap_reached": 227,
+          "invalid_syntax": 455,
+          "invalid_tag": 280,
+          "output_valid": 313,
+          "output_valid_correct": 227
+        },
+        "conditional_output_valid": {
+          "successes": 227,
+          "denominator": 313,
+          "accuracy": 0.7252396166134185
+        },
+        "tokens_mean": 2011.1901041666667,
+        "tokens_median": 1559.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 0,
+        "completions": 768,
+        "unconditional_success": 0.30859375,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 23,
+          "correct": 237,
+          "empty_answer": 2,
+          "invalid_character": 120,
+          "invalid_syntax": 6,
+          "missing_answer_tag": 280,
+          "multiple_answer_tags": 9,
+          "operand_multiset_mismatch": 47,
+          "wrong_target": 44
+        },
+        "disjoint_groups": {
+          "correct": 237,
+          "executable_wrong_target": 44,
+          "other_well_formed_task_failure": 47,
+          "output_contract_or_parse": 440
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 440,
+          "cap_reached": 229,
+          "invalid_syntax": 440,
+          "invalid_tag": 289,
+          "output_valid": 328,
+          "output_valid_correct": 237
+        },
+        "conditional_output_valid": {
+          "successes": 237,
+          "denominator": 328,
+          "accuracy": 0.7225609756097561
+        },
+        "tokens_mean": 1970.62890625,
+        "tokens_median": 1448.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 1,
+        "completions": 768,
+        "unconditional_success": 0.3125,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 18,
+          "correct": 240,
+          "empty_answer": 1,
+          "invalid_character": 85,
+          "invalid_syntax": 2,
+          "missing_answer_tag": 334,
+          "multiple_answer_tags": 11,
+          "operand_multiset_mismatch": 39,
+          "wrong_target": 38
+        },
+        "disjoint_groups": {
+          "correct": 240,
+          "executable_wrong_target": 38,
+          "other_well_formed_task_failure": 39,
+          "output_contract_or_parse": 451
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 451,
+          "cap_reached": 221,
+          "invalid_syntax": 451,
+          "invalid_tag": 345,
+          "output_valid": 317,
+          "output_valid_correct": 240
+        },
+        "conditional_output_valid": {
+          "successes": 240,
+          "denominator": 317,
+          "accuracy": 0.7570977917981072
+        },
+        "tokens_mean": 1945.9361979166667,
+        "tokens_median": 1368.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 1,
+        "completions": 768,
+        "unconditional_success": 0.28515625,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 9,
+          "correct": 219,
+          "empty_answer": 2,
+          "invalid_character": 86,
+          "invalid_syntax": 4,
+          "missing_answer_tag": 344,
+          "multiple_answer_tags": 6,
+          "operand_multiset_mismatch": 59,
+          "wrong_target": 39
+        },
+        "disjoint_groups": {
+          "correct": 219,
+          "executable_wrong_target": 39,
+          "other_well_formed_task_failure": 59,
+          "output_contract_or_parse": 451
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 451,
+          "cap_reached": 241,
+          "invalid_syntax": 451,
+          "invalid_tag": 350,
+          "output_valid": 317,
+          "output_valid_correct": 219
+        },
+        "conditional_output_valid": {
+          "successes": 219,
+          "denominator": 317,
+          "accuracy": 0.6908517350157729
+        },
+        "tokens_mean": 1956.2122395833333,
+        "tokens_median": 1284.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 2,
+        "completions": 768,
+        "unconditional_success": 0.2760416666666667,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 28,
+          "correct": 212,
+          "empty_answer": 1,
+          "invalid_character": 80,
+          "invalid_syntax": 4,
+          "missing_answer_tag": 303,
+          "multiple_answer_tags": 6,
+          "operand_multiset_mismatch": 78,
+          "wrong_target": 56
+        },
+        "disjoint_groups": {
+          "correct": 212,
+          "executable_wrong_target": 56,
+          "other_well_formed_task_failure": 78,
+          "output_contract_or_parse": 422
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 422,
+          "cap_reached": 222,
+          "invalid_syntax": 422,
+          "invalid_tag": 309,
+          "output_valid": 346,
+          "output_valid_correct": 212
+        },
+        "conditional_output_valid": {
+          "successes": 212,
+          "denominator": 346,
+          "accuracy": 0.6127167630057804
+        },
+        "tokens_mean": 1827.6783854166667,
+        "tokens_median": 1105.5
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 2,
+        "completions": 768,
+        "unconditional_success": 0.2721354166666667,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 22,
+          "correct": 209,
+          "empty_answer": 1,
+          "invalid_character": 87,
+          "invalid_syntax": 2,
+          "missing_answer_tag": 317,
+          "multiple_answer_tags": 5,
+          "operand_multiset_mismatch": 74,
+          "wrong_target": 51
+        },
+        "disjoint_groups": {
+          "correct": 209,
+          "executable_wrong_target": 51,
+          "other_well_formed_task_failure": 74,
+          "output_contract_or_parse": 434
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 434,
+          "cap_reached": 229,
+          "invalid_syntax": 434,
+          "invalid_tag": 322,
+          "output_valid": 334,
+          "output_valid_correct": 209
+        },
+        "conditional_output_valid": {
+          "successes": 209,
+          "denominator": 334,
+          "accuracy": 0.625748502994012
+        },
+        "tokens_mean": 1829.9049479166667,
+        "tokens_median": 1105.5
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 5,
+        "completions": 768,
+        "unconditional_success": 0.09375,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 34,
+          "correct": 72,
+          "division_by_zero": 2,
+          "invalid_character": 94,
+          "invalid_syntax": 7,
+          "missing_answer_tag": 133,
+          "multiple_answer_tags": 1,
+          "operand_multiset_mismatch": 141,
+          "wrong_target": 284
+        },
+        "disjoint_groups": {
+          "correct": 72,
+          "executable_wrong_target": 284,
+          "other_well_formed_task_failure": 143,
+          "output_contract_or_parse": 269
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 269,
+          "cap_reached": 80,
+          "invalid_syntax": 269,
+          "invalid_tag": 134,
+          "output_valid": 499,
+          "output_valid_correct": 72
+        },
+        "conditional_output_valid": {
+          "successes": 72,
+          "denominator": 499,
+          "accuracy": 0.14428857715430862
+        },
+        "tokens_mean": 632.6927083333334,
+        "tokens_median": 58.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 5,
+        "completions": 768,
+        "unconditional_success": 0.10416666666666667,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 33,
+          "correct": 80,
+          "empty_answer": 1,
+          "invalid_character": 107,
+          "invalid_syntax": 13,
+          "missing_answer_tag": 136,
+          "multiple_answer_tags": 1,
+          "operand_multiset_mismatch": 137,
+          "wrong_target": 260
+        },
+        "disjoint_groups": {
+          "correct": 80,
+          "executable_wrong_target": 260,
+          "other_well_formed_task_failure": 137,
+          "output_contract_or_parse": 291
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 291,
+          "cap_reached": 78,
+          "invalid_syntax": 291,
+          "invalid_tag": 137,
+          "output_valid": 477,
+          "output_valid_correct": 80
+        },
+        "conditional_output_valid": {
+          "successes": 80,
+          "denominator": 477,
+          "accuracy": 0.16771488469601678
+        },
+        "tokens_mean": 633.80859375,
+        "tokens_median": 77.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 10,
+        "completions": 768,
+        "unconditional_success": 0.013020833333333334,
+        "disjoint_authoritative_codes": {
+          "correct": 10,
+          "division_by_zero": 1,
+          "invalid_syntax": 1,
+          "operand_multiset_mismatch": 195,
+          "wrong_target": 561
+        },
+        "disjoint_groups": {
+          "correct": 10,
+          "executable_wrong_target": 561,
+          "other_well_formed_task_failure": 196,
+          "output_contract_or_parse": 1
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 1,
+          "cap_reached": 0,
+          "invalid_syntax": 1,
+          "invalid_tag": 0,
+          "output_valid": 767,
+          "output_valid_correct": 10
+        },
+        "conditional_output_valid": {
+          "successes": 10,
+          "denominator": 767,
+          "accuracy": 0.01303780964797914
+        },
+        "tokens_mean": 21.317708333333332,
+        "tokens_median": 22.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 10,
+        "completions": 768,
+        "unconditional_success": 0.0078125,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 2,
+          "correct": 6,
+          "invalid_character": 1,
+          "invalid_syntax": 11,
+          "missing_answer_tag": 1,
+          "operand_multiset_mismatch": 191,
+          "wrong_target": 556
+        },
+        "disjoint_groups": {
+          "correct": 6,
+          "executable_wrong_target": 556,
+          "other_well_formed_task_failure": 191,
+          "output_contract_or_parse": 15
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 15,
+          "cap_reached": 1,
+          "invalid_syntax": 15,
+          "invalid_tag": 1,
+          "output_valid": 753,
+          "output_valid_correct": 6
+        },
+        "conditional_output_valid": {
+          "successes": 6,
+          "denominator": 753,
+          "accuracy": 0.00796812749003984
+        },
+        "tokens_mean": 26.783854166666668,
+        "tokens_median": 22.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 20,
+        "completions": 768,
+        "unconditional_success": 0.006510416666666667,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 9,
+          "correct": 5,
+          "invalid_character": 1,
+          "invalid_syntax": 39,
+          "operand_multiset_mismatch": 271,
+          "wrong_target": 443
+        },
+        "disjoint_groups": {
+          "correct": 5,
+          "executable_wrong_target": 443,
+          "other_well_formed_task_failure": 271,
+          "output_contract_or_parse": 49
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 49,
+          "cap_reached": 0,
+          "invalid_syntax": 49,
+          "invalid_tag": 0,
+          "output_valid": 719,
+          "output_valid_correct": 5
+        },
+        "conditional_output_valid": {
+          "successes": 5,
+          "denominator": 719,
+          "accuracy": 0.006954102920723227
+        },
+        "tokens_mean": 21.359375,
+        "tokens_median": 22.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 20,
+        "completions": 768,
+        "unconditional_success": 0.005208333333333333,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 9,
+          "correct": 4,
+          "invalid_syntax": 48,
+          "operand_multiset_mismatch": 282,
+          "wrong_target": 425
+        },
+        "disjoint_groups": {
+          "correct": 4,
+          "executable_wrong_target": 425,
+          "other_well_formed_task_failure": 282,
+          "output_contract_or_parse": 57
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 57,
+          "cap_reached": 0,
+          "invalid_syntax": 57,
+          "invalid_tag": 0,
+          "output_valid": 711,
+          "output_valid_correct": 4
+        },
+        "conditional_output_valid": {
+          "successes": 4,
+          "denominator": 711,
+          "accuracy": 0.005625879043600563
+        },
+        "tokens_mean": 21.595052083333332,
+        "tokens_median": 22.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 40,
+        "completions": 768,
+        "unconditional_success": 0.0026041666666666665,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 15,
+          "correct": 2,
+          "invalid_character": 4,
+          "invalid_syntax": 7,
+          "missing_answer_tag": 1,
+          "operand_multiset_mismatch": 334,
+          "wrong_target": 405
+        },
+        "disjoint_groups": {
+          "correct": 2,
+          "executable_wrong_target": 405,
+          "other_well_formed_task_failure": 334,
+          "output_contract_or_parse": 27
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 27,
+          "cap_reached": 0,
+          "invalid_syntax": 27,
+          "invalid_tag": 1,
+          "output_valid": 741,
+          "output_valid_correct": 2
+        },
+        "conditional_output_valid": {
+          "successes": 2,
+          "denominator": 741,
+          "accuracy": 0.002699055330634278
+        },
+        "tokens_mean": 21.34375,
+        "tokens_median": 22.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 40,
+        "completions": 768,
+        "unconditional_success": 0.0078125,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 24,
+          "correct": 6,
+          "invalid_character": 1,
+          "invalid_syntax": 18,
+          "operand_multiset_mismatch": 346,
+          "wrong_target": 373
+        },
+        "disjoint_groups": {
+          "correct": 6,
+          "executable_wrong_target": 373,
+          "other_well_formed_task_failure": 346,
+          "output_contract_or_parse": 43
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 43,
+          "cap_reached": 0,
+          "invalid_syntax": 43,
+          "invalid_tag": 0,
+          "output_valid": 725,
+          "output_valid_correct": 6
+        },
+        "conditional_output_valid": {
+          "successes": 6,
+          "denominator": 725,
+          "accuracy": 0.008275862068965517
+        },
+        "tokens_mean": 21.463541666666668,
+        "tokens_median": 22.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 0,
+        "completions": 8192,
+        "unconditional_success": 0.0499267578125,
+        "disjoint_authoritative_codes": {
+          "correct": 409,
+          "illegal_instruction": 118,
+          "invalid_program": 535,
+          "missing_answer_tag": 758,
+          "multiple_answer_tags": 2,
+          "program_too_long": 775,
+          "wrong_target": 5595
+        },
+        "disjoint_groups": {
+          "correct": 409,
+          "executable_wrong_target": 5595,
+          "other_well_formed_task_failure": 594,
+          "output_contract_or_parse": 1594
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 1594,
+          "cap_reached": 627,
+          "invalid_syntax": 1594,
+          "invalid_tag": 1164,
+          "output_valid": 6598,
+          "output_valid_correct": 409
+        },
+        "conditional_output_valid": {
+          "successes": 409,
+          "denominator": 6598,
+          "accuracy": 0.06198848135798727
+        },
+        "tokens_mean": 24.99951171875,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 1,
+        "completions": 8192,
+        "unconditional_success": 0.065185546875,
+        "disjoint_authoritative_codes": {
+          "correct": 534,
+          "illegal_instruction": 1,
+          "wrong_target": 7657
+        },
+        "disjoint_groups": {
+          "correct": 534,
+          "executable_wrong_target": 7657,
+          "other_well_formed_task_failure": 1
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 534
+        },
+        "conditional_output_valid": {
+          "successes": 534,
+          "denominator": 8192,
+          "accuracy": 0.065185546875
+        },
+        "tokens_mean": 12.93798828125,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 2,
+        "completions": 8192,
+        "unconditional_success": 0.0540771484375,
+        "disjoint_authoritative_codes": {
+          "correct": 443,
+          "invalid_program": 18,
+          "wrong_target": 7731
+        },
+        "disjoint_groups": {
+          "correct": 443,
+          "executable_wrong_target": 7731,
+          "output_contract_or_parse": 18
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 18,
+          "cap_reached": 0,
+          "invalid_syntax": 18,
+          "invalid_tag": 0,
+          "output_valid": 8174,
+          "output_valid_correct": 443
+        },
+        "conditional_output_valid": {
+          "successes": 443,
+          "denominator": 8174,
+          "accuracy": 0.054196231954979204
+        },
+        "tokens_mean": 12.018798828125,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 5,
+        "completions": 8192,
+        "unconditional_success": 0.0614013671875,
+        "disjoint_authoritative_codes": {
+          "correct": 503,
+          "wrong_target": 7689
+        },
+        "disjoint_groups": {
+          "correct": 503,
+          "executable_wrong_target": 7689
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 503
+        },
+        "conditional_output_valid": {
+          "successes": 503,
+          "denominator": 8192,
+          "accuracy": 0.0614013671875
+        },
+        "tokens_mean": 12.861083984375,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 10,
+        "completions": 8192,
+        "unconditional_success": 0.0712890625,
+        "disjoint_authoritative_codes": {
+          "correct": 584,
+          "wrong_target": 7608
+        },
+        "disjoint_groups": {
+          "correct": 584,
+          "executable_wrong_target": 7608
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 584
+        },
+        "conditional_output_valid": {
+          "successes": 584,
+          "denominator": 8192,
+          "accuracy": 0.0712890625
+        },
+        "tokens_mean": 12.826904296875,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 20,
+        "completions": 8192,
+        "unconditional_success": 0.0670166015625,
+        "disjoint_authoritative_codes": {
+          "correct": 549,
+          "wrong_target": 7643
+        },
+        "disjoint_groups": {
+          "correct": 549,
+          "executable_wrong_target": 7643
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 549
+        },
+        "conditional_output_valid": {
+          "successes": 549,
+          "denominator": 8192,
+          "accuracy": 0.0670166015625
+        },
+        "tokens_mean": 12.7060546875,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 1,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 40,
+        "completions": 8192,
+        "unconditional_success": 0.072265625,
+        "disjoint_authoritative_codes": {
+          "correct": 592,
+          "wrong_target": 7600
+        },
+        "disjoint_groups": {
+          "correct": 592,
+          "executable_wrong_target": 7600
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 592
+        },
+        "conditional_output_valid": {
+          "successes": 592,
+          "denominator": 8192,
+          "accuracy": 0.072265625
+        },
+        "tokens_mean": 12.5595703125,
+        "tokens_median": 13.0
+      }
+    ]
+  },
+  "2": {
+    "grid": [
+      0,
+      1,
+      2,
+      5,
+      10,
+      20,
+      40,
+      80,
+      160,
+      320,
+      480
+    ],
+    "curves": {
+      "targeted": {
+        "B-S": {
+          "raw": [
+            0.17578125,
+            0.09765625,
+            0.026041666666666668,
+            0.005208333333333333,
+            0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "posterior": [
+            0.24062500000000028,
+            0.17812500000000042,
+            0.12083333333333358,
+            0.10416666666666673,
+            0.10312500000000008,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002
+          ],
+          "items": 192
+        },
+        "B-G": {
+          "raw": [
+            0.19791666666666666,
+            0.20052083333333334,
+            0.13802083333333334,
+            0.05078125,
+            0.024739583333333332,
+            0.0,
+            0.0,
+            0.00390625,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "posterior": [
+            0.25833333333333336,
+            0.2604166666666669,
+            0.21041666666666714,
+            0.14062500000000042,
+            0.11979166666666691,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10312500000000006,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002
+          ],
+          "items": 192
+        }
+      },
+      "sentinel": {
+        "B-S": {
+          "raw": [
+            0.059895833333333336,
+            0.046875,
+            0.022135416666666668,
+            0.015625,
+            0.00390625,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "posterior": [
+            0.14791666666666714,
+            0.13750000000000037,
+            0.11770833333333362,
+            0.1125000000000002,
+            0.10312500000000004,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002
+          ],
+          "items": 192
+        },
+        "B-G": {
+          "raw": [
+            0.19791666666666666,
+            0.20182291666666666,
+            0.15885416666666666,
+            0.0390625,
+            0.024739583333333332,
+            0.0013020833333333333,
+            0.0,
+            0.006510416666666667,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "posterior": [
+            0.2583333333333334,
+            0.26145833333333374,
+            0.22708333333333364,
+            0.13125000000000042,
+            0.11979166666666698,
+            0.1010416666666667,
+            0.10000000000000002,
+            0.1052083333333334,
+            0.10000000000000002,
+            0.10000000000000002,
+            0.10000000000000002
+          ],
+          "items": 192
+        }
+      },
+      "maps": {
+        "B-S": {
+          "raw": [
+            0.0,
+            0.003173828125,
+            0.0552978515625,
+            0.0694580078125,
+            0.072998046875,
+            0.0716552734375,
+            0.077392578125,
+            0.0726318359375,
+            0.07373046875,
+            0.1373291015625,
+            0.2685546875
+          ],
+          "posterior": [
+            0.029411764705882255,
+            0.03239889705882349,
+            0.08145680147058888,
+            0.0947840073529417,
+            0.0981158088235298,
+            0.09685202205882396,
+            0.10225183823529455,
+            0.09777113970588286,
+            0.09880514705882384,
+            0.1586626838235296,
+            0.2821691176470595
+          ],
+          "items": 512
+        },
+        "B-G": {
+          "raw": [
+            0.053466796875,
+            0.076904296875,
+            0.0499267578125,
+            0.0684814453125,
+            0.0701904296875,
+            0.074951171875,
+            0.076171875,
+            0.1385498046875,
+            0.17138671875,
+            0.33056640625,
+            0.36865234375
+          ],
+          "posterior": [
+            0.07973345588235353,
+            0.10179227941176518,
+            0.07640165441176536,
+            0.09386488970588279,
+            0.09547334558823567,
+            0.09995404411764745,
+            0.10110294117647098,
+            0.15981158088235334,
+            0.19071691176470634,
+            0.34053308823529443,
+            0.37637867647058876
+          ],
+          "items": 512
+        }
+      }
+    },
+    "failures": [
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 0,
+        "completions": 768,
+        "unconditional_success": 0.17578125,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 175,
+          "correct": 135,
+          "invalid_character": 35,
+          "invalid_syntax": 64,
+          "missing_answer_tag": 135,
+          "operand_multiset_mismatch": 137,
+          "wrong_target": 87
+        },
+        "disjoint_groups": {
+          "correct": 135,
+          "executable_wrong_target": 87,
+          "other_well_formed_task_failure": 137,
+          "output_contract_or_parse": 409
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 409,
+          "cap_reached": 133,
+          "invalid_syntax": 409,
+          "invalid_tag": 135,
+          "output_valid": 359,
+          "output_valid_correct": 135
+        },
+        "conditional_output_valid": {
+          "successes": 135,
+          "denominator": 359,
+          "accuracy": 0.37604456824512533
+        },
+        "tokens_mean": 814.5221354166666,
+        "tokens_median": 96.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 0,
+        "completions": 768,
+        "unconditional_success": 0.059895833333333336,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 195,
+          "correct": 46,
+          "invalid_character": 30,
+          "invalid_syntax": 74,
+          "missing_answer_tag": 161,
+          "operand_multiset_mismatch": 156,
+          "wrong_target": 106
+        },
+        "disjoint_groups": {
+          "correct": 46,
+          "executable_wrong_target": 106,
+          "other_well_formed_task_failure": 156,
+          "output_contract_or_parse": 460
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 460,
+          "cap_reached": 154,
+          "invalid_syntax": 460,
+          "invalid_tag": 161,
+          "output_valid": 308,
+          "output_valid_correct": 46
+        },
+        "conditional_output_valid": {
+          "successes": 46,
+          "denominator": 308,
+          "accuracy": 0.14935064935064934
+        },
+        "tokens_mean": 936.05078125,
+        "tokens_median": 101.5
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 1,
+        "completions": 768,
+        "unconditional_success": 0.09765625,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 57,
+          "correct": 75,
+          "invalid_character": 48,
+          "invalid_syntax": 39,
+          "missing_answer_tag": 14,
+          "multiple_answer_tags": 19,
+          "operand_multiset_mismatch": 116,
+          "wrong_target": 400
+        },
+        "disjoint_groups": {
+          "correct": 75,
+          "executable_wrong_target": 400,
+          "other_well_formed_task_failure": 116,
+          "output_contract_or_parse": 177
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 177,
+          "cap_reached": 15,
+          "invalid_syntax": 177,
+          "invalid_tag": 33,
+          "output_valid": 591,
+          "output_valid_correct": 75
+        },
+        "conditional_output_valid": {
+          "successes": 75,
+          "denominator": 591,
+          "accuracy": 0.12690355329949238
+        },
+        "tokens_mean": 160.03125,
+        "tokens_median": 68.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 1,
+        "completions": 768,
+        "unconditional_success": 0.046875,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 45,
+          "correct": 36,
+          "invalid_character": 51,
+          "invalid_syntax": 33,
+          "missing_answer_tag": 7,
+          "multiple_answer_tags": 18,
+          "operand_multiset_mismatch": 117,
+          "wrong_target": 461
+        },
+        "disjoint_groups": {
+          "correct": 36,
+          "executable_wrong_target": 461,
+          "other_well_formed_task_failure": 117,
+          "output_contract_or_parse": 154
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 154,
+          "cap_reached": 11,
+          "invalid_syntax": 154,
+          "invalid_tag": 25,
+          "output_valid": 614,
+          "output_valid_correct": 36
+        },
+        "conditional_output_valid": {
+          "successes": 36,
+          "denominator": 614,
+          "accuracy": 0.05863192182410423
+        },
+        "tokens_mean": 127.47265625,
+        "tokens_median": 68.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 2,
+        "completions": 768,
+        "unconditional_success": 0.026041666666666668,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 6,
+          "correct": 20,
+          "invalid_character": 167,
+          "invalid_syntax": 9,
+          "missing_answer_tag": 3,
+          "multiple_answer_tags": 44,
+          "operand_multiset_mismatch": 244,
+          "wrong_target": 275
+        },
+        "disjoint_groups": {
+          "correct": 20,
+          "executable_wrong_target": 275,
+          "other_well_formed_task_failure": 244,
+          "output_contract_or_parse": 229
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 229,
+          "cap_reached": 7,
+          "invalid_syntax": 229,
+          "invalid_tag": 47,
+          "output_valid": 539,
+          "output_valid_correct": 20
+        },
+        "conditional_output_valid": {
+          "successes": 20,
+          "denominator": 539,
+          "accuracy": 0.03710575139146568
+        },
+        "tokens_mean": 81.2890625,
+        "tokens_median": 47.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 2,
+        "completions": 768,
+        "unconditional_success": 0.022135416666666668,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 6,
+          "correct": 17,
+          "invalid_character": 163,
+          "invalid_syntax": 10,
+          "missing_answer_tag": 6,
+          "multiple_answer_tags": 44,
+          "operand_multiset_mismatch": 249,
+          "wrong_target": 273
+        },
+        "disjoint_groups": {
+          "correct": 17,
+          "executable_wrong_target": 273,
+          "other_well_formed_task_failure": 249,
+          "output_contract_or_parse": 229
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 229,
+          "cap_reached": 9,
+          "invalid_syntax": 229,
+          "invalid_tag": 50,
+          "output_valid": 539,
+          "output_valid_correct": 17
+        },
+        "conditional_output_valid": {
+          "successes": 17,
+          "denominator": 539,
+          "accuracy": 0.03153988868274583
+        },
+        "tokens_mean": 91.77994791666667,
+        "tokens_median": 38.5
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 5,
+        "completions": 768,
+        "unconditional_success": 0.005208333333333333,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 12,
+          "correct": 4,
+          "invalid_character": 228,
+          "invalid_syntax": 13,
+          "missing_answer_tag": 28,
+          "multiple_answer_tags": 36,
+          "operand_multiset_mismatch": 313,
+          "wrong_target": 134
+        },
+        "disjoint_groups": {
+          "correct": 4,
+          "executable_wrong_target": 134,
+          "other_well_formed_task_failure": 313,
+          "output_contract_or_parse": 317
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 317,
+          "cap_reached": 29,
+          "invalid_syntax": 317,
+          "invalid_tag": 64,
+          "output_valid": 451,
+          "output_valid_correct": 4
+        },
+        "conditional_output_valid": {
+          "successes": 4,
+          "denominator": 451,
+          "accuracy": 0.008869179600886918
+        },
+        "tokens_mean": 202.11848958333334,
+        "tokens_median": 51.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 5,
+        "completions": 768,
+        "unconditional_success": 0.015625,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 7,
+          "correct": 12,
+          "invalid_character": 227,
+          "invalid_syntax": 14,
+          "missing_answer_tag": 21,
+          "multiple_answer_tags": 31,
+          "operand_multiset_mismatch": 310,
+          "wrong_target": 146
+        },
+        "disjoint_groups": {
+          "correct": 12,
+          "executable_wrong_target": 146,
+          "other_well_formed_task_failure": 310,
+          "output_contract_or_parse": 300
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 300,
+          "cap_reached": 21,
+          "invalid_syntax": 300,
+          "invalid_tag": 52,
+          "output_valid": 468,
+          "output_valid_correct": 12
+        },
+        "conditional_output_valid": {
+          "successes": 12,
+          "denominator": 468,
+          "accuracy": 0.02564102564102564
+        },
+        "tokens_mean": 159.43619791666666,
+        "tokens_median": 50.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 10,
+        "completions": 768,
+        "unconditional_success": 0.00390625,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 8,
+          "correct": 3,
+          "invalid_character": 281,
+          "invalid_syntax": 7,
+          "missing_answer_tag": 29,
+          "multiple_answer_tags": 41,
+          "operand_multiset_mismatch": 350,
+          "wrong_target": 49
+        },
+        "disjoint_groups": {
+          "correct": 3,
+          "executable_wrong_target": 49,
+          "other_well_formed_task_failure": 350,
+          "output_contract_or_parse": 366
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 366,
+          "cap_reached": 33,
+          "invalid_syntax": 366,
+          "invalid_tag": 70,
+          "output_valid": 402,
+          "output_valid_correct": 3
+        },
+        "conditional_output_valid": {
+          "successes": 3,
+          "denominator": 402,
+          "accuracy": 0.007462686567164179
+        },
+        "tokens_mean": 224.875,
+        "tokens_median": 22.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 10,
+        "completions": 768,
+        "unconditional_success": 0.00390625,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 8,
+          "correct": 3,
+          "invalid_character": 267,
+          "invalid_syntax": 7,
+          "missing_answer_tag": 22,
+          "multiple_answer_tags": 32,
+          "operand_multiset_mismatch": 382,
+          "wrong_target": 47
+        },
+        "disjoint_groups": {
+          "correct": 3,
+          "executable_wrong_target": 47,
+          "other_well_formed_task_failure": 382,
+          "output_contract_or_parse": 336
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 336,
+          "cap_reached": 23,
+          "invalid_syntax": 336,
+          "invalid_tag": 54,
+          "output_valid": 432,
+          "output_valid_correct": 3
+        },
+        "conditional_output_valid": {
+          "successes": 3,
+          "denominator": 432,
+          "accuracy": 0.006944444444444444
+        },
+        "tokens_mean": 169.10026041666666,
+        "tokens_median": 16.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 20,
+        "completions": 768,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "answer_too_long": 1,
+          "ast_limit_exceeded": 2,
+          "invalid_character": 335,
+          "invalid_syntax": 5,
+          "missing_answer_tag": 7,
+          "multiple_answer_tags": 59,
+          "operand_multiset_mismatch": 348,
+          "wrong_target": 11
+        },
+        "disjoint_groups": {
+          "executable_wrong_target": 11,
+          "other_well_formed_task_failure": 348,
+          "output_contract_or_parse": 409
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 409,
+          "cap_reached": 18,
+          "invalid_syntax": 409,
+          "invalid_tag": 66,
+          "output_valid": 359,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 359,
+          "accuracy": 0.0
+        },
+        "tokens_mean": 138.328125,
+        "tokens_median": 16.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 20,
+        "completions": 768,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 1,
+          "invalid_character": 310,
+          "invalid_syntax": 1,
+          "missing_answer_tag": 8,
+          "multiple_answer_tags": 32,
+          "operand_multiset_mismatch": 406,
+          "wrong_target": 10
+        },
+        "disjoint_groups": {
+          "executable_wrong_target": 10,
+          "other_well_formed_task_failure": 406,
+          "output_contract_or_parse": 352
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 352,
+          "cap_reached": 14,
+          "invalid_syntax": 352,
+          "invalid_tag": 40,
+          "output_valid": 416,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 416,
+          "accuracy": 0.0
+        },
+        "tokens_mean": 104.30729166666667,
+        "tokens_median": 15.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 40,
+        "completions": 768,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "invalid_character": 273,
+          "invalid_syntax": 2,
+          "multiple_answer_tags": 28,
+          "operand_multiset_mismatch": 463,
+          "wrong_target": 2
+        },
+        "disjoint_groups": {
+          "executable_wrong_target": 2,
+          "other_well_formed_task_failure": 463,
+          "output_contract_or_parse": 303
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 303,
+          "cap_reached": 0,
+          "invalid_syntax": 303,
+          "invalid_tag": 28,
+          "output_valid": 465,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 465,
+          "accuracy": 0.0
+        },
+        "tokens_mean": 25.895833333333332,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 40,
+        "completions": 768,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "invalid_character": 235,
+          "invalid_syntax": 4,
+          "missing_answer_tag": 1,
+          "multiple_answer_tags": 24,
+          "operand_multiset_mismatch": 502,
+          "wrong_target": 2
+        },
+        "disjoint_groups": {
+          "executable_wrong_target": 2,
+          "other_well_formed_task_failure": 502,
+          "output_contract_or_parse": 264
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 264,
+          "cap_reached": 4,
+          "invalid_syntax": 264,
+          "invalid_tag": 25,
+          "output_valid": 504,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 504,
+          "accuracy": 0.0
+        },
+        "tokens_mean": 41.11328125,
+        "tokens_median": 12.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 0,
+        "completions": 8192,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "invalid_program": 4832,
+          "missing_answer_tag": 3356,
+          "multiple_answer_tags": 4
+        },
+        "disjoint_groups": {
+          "output_contract_or_parse": 8192
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 8192,
+          "cap_reached": 1640,
+          "invalid_syntax": 8192,
+          "invalid_tag": 8192,
+          "output_valid": 0,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 0,
+          "accuracy": null
+        },
+        "tokens_mean": 61.3607177734375,
+        "tokens_median": 47.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 1,
+        "completions": 8192,
+        "unconditional_success": 0.003173828125,
+        "disjoint_authoritative_codes": {
+          "correct": 26,
+          "illegal_instruction": 4,
+          "invalid_program": 3899,
+          "missing_answer_tag": 1291,
+          "multiple_answer_tags": 389,
+          "program_too_long": 2227,
+          "wrong_target": 356
+        },
+        "disjoint_groups": {
+          "correct": 26,
+          "executable_wrong_target": 356,
+          "other_well_formed_task_failure": 316,
+          "output_contract_or_parse": 7494
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 7494,
+          "cap_reached": 1301,
+          "invalid_syntax": 7494,
+          "invalid_tag": 1680,
+          "output_valid": 698,
+          "output_valid_correct": 26
+        },
+        "conditional_output_valid": {
+          "successes": 26,
+          "denominator": 698,
+          "accuracy": 0.03724928366762178
+        },
+        "tokens_mean": 42.51708984375,
+        "tokens_median": 22.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 2,
+        "completions": 8192,
+        "unconditional_success": 0.0552978515625,
+        "disjoint_authoritative_codes": {
+          "correct": 453,
+          "empty_answer": 2,
+          "illegal_instruction": 147,
+          "invalid_program": 478,
+          "missing_answer_tag": 109,
+          "multiple_answer_tags": 15,
+          "program_too_long": 6,
+          "wrong_target": 6982
+        },
+        "disjoint_groups": {
+          "correct": 453,
+          "executable_wrong_target": 6982,
+          "other_well_formed_task_failure": 148,
+          "output_contract_or_parse": 609
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 609,
+          "cap_reached": 4,
+          "invalid_syntax": 609,
+          "invalid_tag": 154,
+          "output_valid": 7583,
+          "output_valid_correct": 453
+        },
+        "conditional_output_valid": {
+          "successes": 453,
+          "denominator": 7583,
+          "accuracy": 0.059738889621521823
+        },
+        "tokens_mean": 12.3934326171875,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 5,
+        "completions": 8192,
+        "unconditional_success": 0.0694580078125,
+        "disjoint_authoritative_codes": {
+          "correct": 569,
+          "illegal_instruction": 44,
+          "invalid_program": 11,
+          "wrong_target": 7568
+        },
+        "disjoint_groups": {
+          "correct": 569,
+          "executable_wrong_target": 7568,
+          "other_well_formed_task_failure": 44,
+          "output_contract_or_parse": 11
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 11,
+          "cap_reached": 0,
+          "invalid_syntax": 11,
+          "invalid_tag": 0,
+          "output_valid": 8181,
+          "output_valid_correct": 569
+        },
+        "conditional_output_valid": {
+          "successes": 569,
+          "denominator": 8181,
+          "accuracy": 0.06955139958440289
+        },
+        "tokens_mean": 12.86474609375,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 10,
+        "completions": 8192,
+        "unconditional_success": 0.072998046875,
+        "disjoint_authoritative_codes": {
+          "correct": 598,
+          "illegal_instruction": 1,
+          "wrong_target": 7593
+        },
+        "disjoint_groups": {
+          "correct": 598,
+          "executable_wrong_target": 7593,
+          "other_well_formed_task_failure": 1
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 598
+        },
+        "conditional_output_valid": {
+          "successes": 598,
+          "denominator": 8192,
+          "accuracy": 0.072998046875
+        },
+        "tokens_mean": 12.885009765625,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 20,
+        "completions": 8192,
+        "unconditional_success": 0.0716552734375,
+        "disjoint_authoritative_codes": {
+          "correct": 587,
+          "wrong_target": 7605
+        },
+        "disjoint_groups": {
+          "correct": 587,
+          "executable_wrong_target": 7605
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 587
+        },
+        "conditional_output_valid": {
+          "successes": 587,
+          "denominator": 8192,
+          "accuracy": 0.0716552734375
+        },
+        "tokens_mean": 12.47119140625,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-S",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 40,
+        "completions": 8192,
+        "unconditional_success": 0.077392578125,
+        "disjoint_authoritative_codes": {
+          "correct": 634,
+          "wrong_target": 7558
+        },
+        "disjoint_groups": {
+          "correct": 634,
+          "executable_wrong_target": 7558
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 634
+        },
+        "conditional_output_valid": {
+          "successes": 634,
+          "denominator": 8192,
+          "accuracy": 0.077392578125
+        },
+        "tokens_mean": 12.654052734375,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 0,
+        "completions": 768,
+        "unconditional_success": 0.19791666666666666,
+        "disjoint_authoritative_codes": {
+          "answer_too_long": 2,
+          "ast_limit_exceeded": 19,
+          "correct": 152,
+          "empty_answer": 3,
+          "invalid_character": 166,
+          "invalid_syntax": 4,
+          "missing_answer_tag": 259,
+          "multiple_answer_tags": 12,
+          "operand_multiset_mismatch": 78,
+          "wrong_target": 73
+        },
+        "disjoint_groups": {
+          "correct": 152,
+          "executable_wrong_target": 73,
+          "other_well_formed_task_failure": 78,
+          "output_contract_or_parse": 465
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 465,
+          "cap_reached": 214,
+          "invalid_syntax": 465,
+          "invalid_tag": 271,
+          "output_valid": 303,
+          "output_valid_correct": 152
+        },
+        "conditional_output_valid": {
+          "successes": 152,
+          "denominator": 303,
+          "accuracy": 0.5016501650165016
+        },
+        "tokens_mean": 1814.83203125,
+        "tokens_median": 1122.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 0,
+        "completions": 768,
+        "unconditional_success": 0.19791666666666666,
+        "disjoint_authoritative_codes": {
+          "answer_too_long": 1,
+          "ast_limit_exceeded": 30,
+          "correct": 152,
+          "empty_answer": 4,
+          "invalid_character": 152,
+          "invalid_syntax": 7,
+          "missing_answer_tag": 289,
+          "multiple_answer_tags": 16,
+          "operand_multiset_mismatch": 66,
+          "wrong_target": 51
+        },
+        "disjoint_groups": {
+          "correct": 152,
+          "executable_wrong_target": 51,
+          "other_well_formed_task_failure": 66,
+          "output_contract_or_parse": 499
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 499,
+          "cap_reached": 230,
+          "invalid_syntax": 499,
+          "invalid_tag": 305,
+          "output_valid": 269,
+          "output_valid_correct": 152
+        },
+        "conditional_output_valid": {
+          "successes": 152,
+          "denominator": 269,
+          "accuracy": 0.5650557620817844
+        },
+        "tokens_mean": 1805.39453125,
+        "tokens_median": 1031.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 1,
+        "completions": 768,
+        "unconditional_success": 0.20052083333333334,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 25,
+          "correct": 154,
+          "invalid_character": 108,
+          "invalid_syntax": 3,
+          "missing_answer_tag": 378,
+          "multiple_answer_tags": 3,
+          "operand_multiset_mismatch": 55,
+          "wrong_target": 42
+        },
+        "disjoint_groups": {
+          "correct": 154,
+          "executable_wrong_target": 42,
+          "other_well_formed_task_failure": 55,
+          "output_contract_or_parse": 517
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 517,
+          "cap_reached": 240,
+          "invalid_syntax": 517,
+          "invalid_tag": 381,
+          "output_valid": 251,
+          "output_valid_correct": 154
+        },
+        "conditional_output_valid": {
+          "successes": 154,
+          "denominator": 251,
+          "accuracy": 0.6135458167330677
+        },
+        "tokens_mean": 1935.7838541666667,
+        "tokens_median": 1319.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 1,
+        "completions": 768,
+        "unconditional_success": 0.20182291666666666,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 22,
+          "correct": 155,
+          "empty_answer": 2,
+          "invalid_character": 102,
+          "invalid_syntax": 8,
+          "missing_answer_tag": 377,
+          "multiple_answer_tags": 8,
+          "operand_multiset_mismatch": 60,
+          "wrong_target": 34
+        },
+        "disjoint_groups": {
+          "correct": 155,
+          "executable_wrong_target": 34,
+          "other_well_formed_task_failure": 60,
+          "output_contract_or_parse": 519
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 519,
+          "cap_reached": 250,
+          "invalid_syntax": 519,
+          "invalid_tag": 385,
+          "output_valid": 249,
+          "output_valid_correct": 155
+        },
+        "conditional_output_valid": {
+          "successes": 155,
+          "denominator": 249,
+          "accuracy": 0.6224899598393574
+        },
+        "tokens_mean": 1895.9752604166667,
+        "tokens_median": 1156.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 2,
+        "completions": 768,
+        "unconditional_success": 0.13802083333333334,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 32,
+          "correct": 106,
+          "empty_answer": 3,
+          "invalid_character": 128,
+          "invalid_syntax": 5,
+          "missing_answer_tag": 344,
+          "multiple_answer_tags": 1,
+          "operand_multiset_mismatch": 94,
+          "wrong_target": 55
+        },
+        "disjoint_groups": {
+          "correct": 106,
+          "executable_wrong_target": 55,
+          "other_well_formed_task_failure": 94,
+          "output_contract_or_parse": 513
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 513,
+          "cap_reached": 183,
+          "invalid_syntax": 513,
+          "invalid_tag": 345,
+          "output_valid": 255,
+          "output_valid_correct": 106
+        },
+        "conditional_output_valid": {
+          "successes": 106,
+          "denominator": 255,
+          "accuracy": 0.41568627450980394
+        },
+        "tokens_mean": 1442.5260416666667,
+        "tokens_median": 453.5
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 2,
+        "completions": 768,
+        "unconditional_success": 0.15885416666666666,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 33,
+          "correct": 122,
+          "empty_answer": 3,
+          "invalid_character": 103,
+          "invalid_syntax": 11,
+          "missing_answer_tag": 356,
+          "multiple_answer_tags": 1,
+          "operand_multiset_mismatch": 85,
+          "wrong_target": 54
+        },
+        "disjoint_groups": {
+          "correct": 122,
+          "executable_wrong_target": 54,
+          "other_well_formed_task_failure": 85,
+          "output_contract_or_parse": 507
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 507,
+          "cap_reached": 204,
+          "invalid_syntax": 507,
+          "invalid_tag": 357,
+          "output_valid": 261,
+          "output_valid_correct": 122
+        },
+        "conditional_output_valid": {
+          "successes": 122,
+          "denominator": 261,
+          "accuracy": 0.4674329501915709
+        },
+        "tokens_mean": 1584.8255208333333,
+        "tokens_median": 642.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 5,
+        "completions": 768,
+        "unconditional_success": 0.05078125,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 51,
+          "correct": 39,
+          "invalid_character": 161,
+          "invalid_syntax": 10,
+          "missing_answer_tag": 185,
+          "multiple_answer_tags": 1,
+          "operand_multiset_mismatch": 148,
+          "wrong_target": 173
+        },
+        "disjoint_groups": {
+          "correct": 39,
+          "executable_wrong_target": 173,
+          "other_well_formed_task_failure": 148,
+          "output_contract_or_parse": 408
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 408,
+          "cap_reached": 76,
+          "invalid_syntax": 408,
+          "invalid_tag": 186,
+          "output_valid": 360,
+          "output_valid_correct": 39
+        },
+        "conditional_output_valid": {
+          "successes": 39,
+          "denominator": 360,
+          "accuracy": 0.10833333333333334
+        },
+        "tokens_mean": 612.2955729166666,
+        "tokens_median": 94.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 5,
+        "completions": 768,
+        "unconditional_success": 0.0390625,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 58,
+          "correct": 30,
+          "invalid_character": 159,
+          "invalid_syntax": 16,
+          "missing_answer_tag": 193,
+          "multiple_answer_tags": 1,
+          "operand_multiset_mismatch": 151,
+          "wrong_target": 160
+        },
+        "disjoint_groups": {
+          "correct": 30,
+          "executable_wrong_target": 160,
+          "other_well_formed_task_failure": 151,
+          "output_contract_or_parse": 427
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 427,
+          "cap_reached": 80,
+          "invalid_syntax": 427,
+          "invalid_tag": 194,
+          "output_valid": 341,
+          "output_valid_correct": 30
+        },
+        "conditional_output_valid": {
+          "successes": 30,
+          "denominator": 341,
+          "accuracy": 0.08797653958944282
+        },
+        "tokens_mean": 590.3268229166666,
+        "tokens_median": 98.5
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 10,
+        "completions": 768,
+        "unconditional_success": 0.024739583333333332,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 14,
+          "correct": 19,
+          "invalid_character": 104,
+          "invalid_syntax": 15,
+          "missing_answer_tag": 47,
+          "operand_multiset_mismatch": 307,
+          "wrong_target": 262
+        },
+        "disjoint_groups": {
+          "correct": 19,
+          "executable_wrong_target": 262,
+          "other_well_formed_task_failure": 307,
+          "output_contract_or_parse": 180
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 180,
+          "cap_reached": 24,
+          "invalid_syntax": 180,
+          "invalid_tag": 47,
+          "output_valid": 588,
+          "output_valid_correct": 19
+        },
+        "conditional_output_valid": {
+          "successes": 19,
+          "denominator": 588,
+          "accuracy": 0.03231292517006803
+        },
+        "tokens_mean": 210.42838541666666,
+        "tokens_median": 24.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 10,
+        "completions": 768,
+        "unconditional_success": 0.024739583333333332,
+        "disjoint_authoritative_codes": {
+          "ast_limit_exceeded": 15,
+          "correct": 19,
+          "empty_answer": 2,
+          "invalid_character": 107,
+          "invalid_syntax": 20,
+          "missing_answer_tag": 60,
+          "multiple_answer_tags": 1,
+          "operand_multiset_mismatch": 329,
+          "wrong_target": 215
+        },
+        "disjoint_groups": {
+          "correct": 19,
+          "executable_wrong_target": 215,
+          "other_well_formed_task_failure": 329,
+          "output_contract_or_parse": 205
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 205,
+          "cap_reached": 28,
+          "invalid_syntax": 205,
+          "invalid_tag": 61,
+          "output_valid": 563,
+          "output_valid_correct": 19
+        },
+        "conditional_output_valid": {
+          "successes": 19,
+          "denominator": 563,
+          "accuracy": 0.03374777975133215
+        },
+        "tokens_mean": 237.78385416666666,
+        "tokens_median": 24.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 20,
+        "completions": 768,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "invalid_character": 82,
+          "invalid_syntax": 7,
+          "missing_answer_tag": 1,
+          "multiple_answer_tags": 1,
+          "operand_multiset_mismatch": 655,
+          "wrong_target": 22
+        },
+        "disjoint_groups": {
+          "executable_wrong_target": 22,
+          "other_well_formed_task_failure": 655,
+          "output_contract_or_parse": 91
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 91,
+          "cap_reached": 1,
+          "invalid_syntax": 91,
+          "invalid_tag": 2,
+          "output_valid": 677,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 677,
+          "accuracy": 0.0
+        },
+        "tokens_mean": 23.31640625,
+        "tokens_median": 12.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 20,
+        "completions": 768,
+        "unconditional_success": 0.0013020833333333333,
+        "disjoint_authoritative_codes": {
+          "correct": 1,
+          "invalid_character": 59,
+          "invalid_syntax": 12,
+          "operand_multiset_mismatch": 678,
+          "wrong_target": 18
+        },
+        "disjoint_groups": {
+          "correct": 1,
+          "executable_wrong_target": 18,
+          "other_well_formed_task_failure": 678,
+          "output_contract_or_parse": 71
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 71,
+          "cap_reached": 0,
+          "invalid_syntax": 71,
+          "invalid_tag": 0,
+          "output_valid": 697,
+          "output_valid_correct": 1
+        },
+        "conditional_output_valid": {
+          "successes": 1,
+          "denominator": 697,
+          "accuracy": 0.0014347202295552368
+        },
+        "tokens_mean": 13.962239583333334,
+        "tokens_median": 12.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "targeted",
+        "update": 40,
+        "completions": 768,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "invalid_character": 26,
+          "invalid_syntax": 6,
+          "operand_multiset_mismatch": 726,
+          "wrong_target": 10
+        },
+        "disjoint_groups": {
+          "executable_wrong_target": 10,
+          "other_well_formed_task_failure": 726,
+          "output_contract_or_parse": 32
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 32,
+          "cap_reached": 0,
+          "invalid_syntax": 32,
+          "invalid_tag": 0,
+          "output_valid": 736,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 736,
+          "accuracy": 0.0
+        },
+        "tokens_mean": 13.497395833333334,
+        "tokens_median": 12.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "a-monitor",
+        "role": "sentinel",
+        "update": 40,
+        "completions": 768,
+        "unconditional_success": 0.0,
+        "disjoint_authoritative_codes": {
+          "invalid_character": 22,
+          "invalid_syntax": 15,
+          "operand_multiset_mismatch": 724,
+          "wrong_target": 7
+        },
+        "disjoint_groups": {
+          "executable_wrong_target": 7,
+          "other_well_formed_task_failure": 724,
+          "output_contract_or_parse": 37
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 37,
+          "cap_reached": 0,
+          "invalid_syntax": 37,
+          "invalid_tag": 0,
+          "output_valid": 731,
+          "output_valid_correct": 0
+        },
+        "conditional_output_valid": {
+          "successes": 0,
+          "denominator": 731,
+          "accuracy": 0.0
+        },
+        "tokens_mean": 13.184895833333334,
+        "tokens_median": 12.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 0,
+        "completions": 8192,
+        "unconditional_success": 0.053466796875,
+        "disjoint_authoritative_codes": {
+          "correct": 438,
+          "illegal_instruction": 103,
+          "invalid_program": 531,
+          "missing_answer_tag": 723,
+          "multiple_answer_tags": 1,
+          "program_too_long": 846,
+          "wrong_target": 5550
+        },
+        "disjoint_groups": {
+          "correct": 438,
+          "executable_wrong_target": 5550,
+          "other_well_formed_task_failure": 615,
+          "output_contract_or_parse": 1589
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 1589,
+          "cap_reached": 573,
+          "invalid_syntax": 1589,
+          "invalid_tag": 1119,
+          "output_valid": 6603,
+          "output_valid_correct": 438
+        },
+        "conditional_output_valid": {
+          "successes": 438,
+          "denominator": 6603,
+          "accuracy": 0.06633348477964561
+        },
+        "tokens_mean": 24.3338623046875,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 1,
+        "completions": 8192,
+        "unconditional_success": 0.076904296875,
+        "disjoint_authoritative_codes": {
+          "correct": 630,
+          "illegal_instruction": 3,
+          "wrong_target": 7559
+        },
+        "disjoint_groups": {
+          "correct": 630,
+          "executable_wrong_target": 7559,
+          "other_well_formed_task_failure": 3
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 630
+        },
+        "conditional_output_valid": {
+          "successes": 630,
+          "denominator": 8192,
+          "accuracy": 0.076904296875
+        },
+        "tokens_mean": 12.9366455078125,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 2,
+        "completions": 8192,
+        "unconditional_success": 0.0499267578125,
+        "disjoint_authoritative_codes": {
+          "correct": 409,
+          "illegal_instruction": 2,
+          "invalid_program": 73,
+          "wrong_target": 7708
+        },
+        "disjoint_groups": {
+          "correct": 409,
+          "executable_wrong_target": 7708,
+          "other_well_formed_task_failure": 2,
+          "output_contract_or_parse": 73
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 73,
+          "cap_reached": 0,
+          "invalid_syntax": 73,
+          "invalid_tag": 0,
+          "output_valid": 8119,
+          "output_valid_correct": 409
+        },
+        "conditional_output_valid": {
+          "successes": 409,
+          "denominator": 8119,
+          "accuracy": 0.05037566202734327
+        },
+        "tokens_mean": 11.728271484375,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 5,
+        "completions": 8192,
+        "unconditional_success": 0.0684814453125,
+        "disjoint_authoritative_codes": {
+          "correct": 561,
+          "illegal_instruction": 6,
+          "invalid_program": 267,
+          "wrong_target": 7358
+        },
+        "disjoint_groups": {
+          "correct": 561,
+          "executable_wrong_target": 7358,
+          "other_well_formed_task_failure": 6,
+          "output_contract_or_parse": 267
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 267,
+          "cap_reached": 0,
+          "invalid_syntax": 267,
+          "invalid_tag": 0,
+          "output_valid": 7925,
+          "output_valid_correct": 561
+        },
+        "conditional_output_valid": {
+          "successes": 561,
+          "denominator": 7925,
+          "accuracy": 0.07078864353312303
+        },
+        "tokens_mean": 12.8270263671875,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 10,
+        "completions": 8192,
+        "unconditional_success": 0.0701904296875,
+        "disjoint_authoritative_codes": {
+          "correct": 575,
+          "illegal_instruction": 4,
+          "wrong_target": 7613
+        },
+        "disjoint_groups": {
+          "correct": 575,
+          "executable_wrong_target": 7613,
+          "other_well_formed_task_failure": 4
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 575
+        },
+        "conditional_output_valid": {
+          "successes": 575,
+          "denominator": 8192,
+          "accuracy": 0.0701904296875
+        },
+        "tokens_mean": 12.574951171875,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 20,
+        "completions": 8192,
+        "unconditional_success": 0.074951171875,
+        "disjoint_authoritative_codes": {
+          "correct": 614,
+          "wrong_target": 7578
+        },
+        "disjoint_groups": {
+          "correct": 614,
+          "executable_wrong_target": 7578
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 614
+        },
+        "conditional_output_valid": {
+          "successes": 614,
+          "denominator": 8192,
+          "accuracy": 0.074951171875
+        },
+        "tokens_mean": 12.6728515625,
+        "tokens_median": 13.0
+      },
+      {
+        "pair": 2,
+        "method": "B-G",
+        "panel": "b-validation",
+        "role": "stage-b",
+        "update": 40,
+        "completions": 8192,
+        "unconditional_success": 0.076171875,
+        "disjoint_authoritative_codes": {
+          "correct": 624,
+          "illegal_instruction": 5,
+          "wrong_target": 7563
+        },
+        "disjoint_groups": {
+          "correct": 624,
+          "executable_wrong_target": 7563,
+          "other_well_formed_task_failure": 5
+        },
+        "overlapping_indicators": {
+          "cap_or_parse_failure": 0,
+          "cap_reached": 0,
+          "invalid_syntax": 0,
+          "invalid_tag": 0,
+          "output_valid": 8192,
+          "output_valid_correct": 624
+        },
+        "conditional_output_valid": {
+          "successes": 624,
+          "denominator": 8192,
+          "accuracy": 0.076171875
+        },
+        "tokens_mean": 12.5205078125,
+        "tokens_median": 13.0
+      }
+    ]
+  }
+}

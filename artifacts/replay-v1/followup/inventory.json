@@ -1,0 +1,1165 @@
+{
+  "billing": {
+    "ledgers": {
+      "continuation": {
+        "committed": {
+          "prefill": 27693392,
+          "sample": 295698432,
+          "train": 3672710
+        },
+        "committed_fixed_usd": 5.0,
+        "observed": {
+          "prefill": 27693392,
+          "sample": 40843884,
+          "train": 3672710
+        },
+        "observed_fixed_usd": 5.0,
+        "observed_token_cost_plus_storage_reservation_usd": 110.13436203,
+        "run_id": "replay-v1-continuation-20260907T075721Z",
+        "storage_note": "fixed charges are reserved byte-time bounds, not settled invoice actuals"
+      },
+      "engineering_only": {
+        "committed": {
+          "prefill": 0,
+          "sample": 0,
+          "train": 4216
+        },
+        "committed_fixed_usd": 0.25,
+        "observed": {
+          "prefill": 0,
+          "sample": 0,
+          "train": 4216
+        },
+        "observed_fixed_usd": 0.25,
+        "observed_token_cost_plus_storage_reservation_usd": 0.256168008,
+        "run_id": "engineering-only",
+        "storage_note": "fixed charges are reserved byte-time bounds, not settled invoice actuals"
+      },
+      "original_acquisition_and_selection": {
+        "committed": {
+          "prefill": 9543984,
+          "sample": 295698432,
+          "train": 34433220
+        },
+        "committed_fixed_usd": 30.0,
+        "observed": {
+          "prefill": 9543984,
+          "sample": 90069904,
+          "train": 34433220
+        },
+        "observed_fixed_usd": 30.0,
+        "observed_token_cost_plus_storage_reservation_usd": 266.36428878000004,
+        "run_id": "replay-v1-20260905T022302Z",
+        "storage_note": "fixed charges are reserved byte-time bounds, not settled invoice actuals"
+      }
+    },
+    "observed_token_charges_usd": "341.504818818",
+    "observed_tokens_plus_storage_allowances_usd": "376.754818818",
+    "prices_per_million_usd": {
+      "prefill": "0.66",
+      "sample": "1.995",
+      "train": "1.463"
+    },
+    "settled_invoice_actuals": "not available; these are local token-ledger figures, not provider invoice settlement",
+    "storage_allowances_included_usd": "35.25",
+    "unused_recovery_reservation_usd": "191.3731572720",
+    "unused_reserve_authorizes_additional_experiments": false
+  },
+  "continuation_block_status": {
+    "11": "COMPLETED",
+    "29": "NO_MATCH"
+  },
+  "continuation_run_id": "replay-v1-continuation-20260907T075721Z",
+  "original_block_status": {
+    "11": "NO_MATCH",
+    "29": "NO_MATCH"
+  },
+  "source_run_id": "replay-v1-20260905T022302Z",
+  "stage_a": {
+    "11": {
+      "arms": {
+        "R-P": {
+          "completed_updates": 294,
+          "full_presentations": 9408,
+          "full_train_tokens": 15548318,
+          "selected_presentations": 640,
+          "selected_train_tokens": 1064519,
+          "selected_update": 20,
+          "unique_trace_lengths": {
+            "full_rendered_tokens": {
+              "count": 579,
+              "maximum": 4195,
+              "mean": 1653.4525043177894,
+              "median": 1445,
+              "minimum": 154
+            },
+            "target_tokens": {
+              "count": 579,
+              "maximum": 4064,
+              "mean": 1521.3229706390327,
+              "median": 1313,
+              "minimum": 22
+            },
+            "train_tokens": {
+              "count": 579,
+              "maximum": 4194,
+              "mean": 1652.4525043177894,
+              "median": 1444,
+              "minimum": 153
+            }
+          }
+        },
+        "R-S": {
+          "completed_updates": 294,
+          "full_presentations": 9408,
+          "full_train_tokens": 1889739,
+          "selected_presentations": 7040,
+          "selected_train_tokens": 1414098,
+          "selected_update": 220,
+          "unique_trace_lengths": {
+            "full_rendered_tokens": {
+              "count": 579,
+              "maximum": 215,
+              "mean": 201.8721934369603,
+              "median": 202,
+              "minimum": 189
+            },
+            "target_tokens": {
+              "count": 579,
+              "maximum": 81,
+              "mean": 69.7426597582038,
+              "median": 70,
+              "minimum": 60
+            },
+            "train_tokens": {
+              "count": 579,
+              "maximum": 214,
+              "mean": 200.8721934369603,
+              "median": 201,
+              "minimum": 188
+            }
+          }
+        }
+      },
+      "assigned_family_count": 36,
+      "audit": {
+        "corpus_sha256": "sha256:2d74ce964325380f9c28bd30bad6841a2133b125ce0c51cdc02d501aa8490d65",
+        "eligible_sample_count": 1479,
+        "exclusions_sha256": "sha256:b44fca08e2c5b1716217ac86cd1514004bb74c6a3ce6c08ebf1afeb06eb4a773",
+        "family_attrition": {
+          "ADD(ADD(r1,r3),SUB(ADD(r2,r4),r5))|intermediates=I,I,I,I": {
+            "capped": 70,
+            "eligible_samples": 74,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 3,
+            "not_verifier_correct": 198,
+            "sampled": 272,
+            "sampled_unique_prompts": 34,
+            "selected_prompts": 31,
+            "unsampled_manifest_prompts": 30
+          },
+          "ADD(ADD(r4,r5),ADD(r1,SUB(r3,r2)))|intermediates=I,I,I,I": {
+            "capped": 33,
+            "eligible_samples": 110,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 3,
+            "not_verifier_correct": 162,
+            "sampled": 272,
+            "sampled_unique_prompts": 34,
+            "selected_prompts": 31,
+            "unsampled_manifest_prompts": 30
+          },
+          "ADD(MUL(r1,r3),ADD(r5,SUB(r2,r4)))|intermediates=I,I,I,I": {
+            "capped": 49,
+            "eligible_samples": 30,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 4,
+            "not_verifier_correct": 106,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 13,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(MUL(r3,r5),ADD(r1,ADD(r2,r4)))|intermediates=I,I,I,I": {
+            "capped": 31,
+            "eligible_samples": 113,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 2,
+            "not_verifier_correct": 159,
+            "sampled": 272,
+            "sampled_unique_prompts": 34,
+            "selected_prompts": 32,
+            "unsampled_manifest_prompts": 30
+          },
+          "ADD(SUB(r2,r3),SUB(SUB(r5,r4),r1))|intermediates=I,I,I,I": {
+            "capped": 46,
+            "eligible_samples": 30,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 106,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 10,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(SUB(r2,r4),ADD(r3,SUB(r1,r5)))|intermediates=I,I,I,I": {
+            "capped": 40,
+            "eligible_samples": 36,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 3,
+            "not_verifier_correct": 100,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 14,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(SUB(r5,r4),MUL(r2,SUB(r3,r1)))|intermediates=I,I,I,I": {
+            "capped": 60,
+            "eligible_samples": 27,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 4,
+            "not_verifier_correct": 109,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 13,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(r1,MUL(ADD(r2,r5),DIV(r3,r4)))|intermediates=I,F,I,I": {
+            "capped": 64,
+            "eligible_samples": 22,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 6,
+            "not_verifier_correct": 114,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 11,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(r2,ADD(r5,ADD(r3,MUL(r1,r4))))|intermediates=I,I,I,I": {
+            "capped": 76,
+            "eligible_samples": 82,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 4,
+            "not_verifier_correct": 190,
+            "sampled": 272,
+            "sampled_unique_prompts": 34,
+            "selected_prompts": 30,
+            "unsampled_manifest_prompts": 30
+          },
+          "ADD(r2,DIV(MUL(r3,ADD(r4,r5)),r1))|intermediates=I,I,I,I": {
+            "capped": 46,
+            "eligible_samples": 32,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 104,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 10,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(r2,SUB(r4,ADD(r3,SUB(r5,r1))))|intermediates=I,I,I,I": {
+            "capped": 70,
+            "eligible_samples": 66,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 8,
+            "not_verifier_correct": 198,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 25,
+            "unsampled_manifest_prompts": 31
+          },
+          "ADD(r5,ADD(r4,ADD(r1,ADD(r2,r3))))|intermediates=I,I,I,I": {
+            "capped": 28,
+            "eligible_samples": 123,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 1,
+            "not_verifier_correct": 141,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 32,
+            "unsampled_manifest_prompts": 31
+          },
+          "ADD(r5,SUB(SUB(r4,r1),SUB(r3,r2)))|intermediates=I,I,I,I": {
+            "capped": 53,
+            "eligible_samples": 85,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 5,
+            "not_verifier_correct": 179,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 28,
+            "unsampled_manifest_prompts": 31
+          },
+          "DIV(ADD(r4,MUL(r2,ADD(r3,r5))),r1)|intermediates=I,I,I,I": {
+            "capped": 65,
+            "eligible_samples": 23,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 6,
+            "not_verifier_correct": 113,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 11,
+            "unsampled_manifest_prompts": 47
+          },
+          "DIV(SUB(MUL(r1,r3),r4),ADD(r2,r5))|intermediates=I,I,I,I": {
+            "capped": 57,
+            "eligible_samples": 15,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 121,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 10,
+            "unsampled_manifest_prompts": 47
+          },
+          "MUL(DIV(r3,r4),MUL(r1,MUL(r2,r5)))|intermediates=F,I,I,I": {
+            "capped": 46,
+            "eligible_samples": 31,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 4,
+            "not_verifier_correct": 105,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 13,
+            "unsampled_manifest_prompts": 47
+          },
+          "MUL(MUL(r1,r2),ADD(r3,SUB(r4,r5)))|intermediates=I,I,I,I": {
+            "capped": 118,
+            "eligible_samples": 38,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 12,
+            "not_verifier_correct": 226,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 21,
+            "unsampled_manifest_prompts": 31
+          },
+          "MUL(r2,DIV(MUL(r1,SUB(r4,r5)),r3))|intermediates=I,I,F,I": {
+            "capped": 69,
+            "eligible_samples": 16,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 112,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 9,
+            "unsampled_manifest_prompts": 48
+          },
+          "MUL(r2,MUL(r1,DIV(r3,SUB(r4,r5))))|intermediates=I,F,I,I": {
+            "capped": 63,
+            "eligible_samples": 12,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 11,
+            "not_verifier_correct": 124,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 6,
+            "unsampled_manifest_prompts": 47
+          },
+          "MUL(r3,MUL(r4,DIV(r2,SUB(r1,r5))))|intermediates=I,F,I,I": {
+            "capped": 49,
+            "eligible_samples": 26,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 4,
+            "not_verifier_correct": 110,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 13,
+            "unsampled_manifest_prompts": 47
+          },
+          "MUL(r3,SUB(ADD(r1,ADD(r2,r4)),r5))|intermediates=I,I,I,I": {
+            "capped": 50,
+            "eligible_samples": 26,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 110,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 10,
+            "unsampled_manifest_prompts": 47
+          },
+          "SUB(ADD(r1,SUB(r4,ADD(r3,r5))),r2)|intermediates=I,I,I,I": {
+            "capped": 66,
+            "eligible_samples": 14,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 8,
+            "not_verifier_correct": 122,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 9,
+            "unsampled_manifest_prompts": 47
+          },
+          "SUB(ADD(r1,r2),MUL(r3,SUB(r4,r5)))|intermediates=I,I,I,I": {
+            "capped": 56,
+            "eligible_samples": 25,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 6,
+            "not_verifier_correct": 103,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 10,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(ADD(r2,r4),SUB(r3,MUL(r1,r5)))|intermediates=I,I,I,I": {
+            "capped": 58,
+            "eligible_samples": 91,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 2,
+            "not_verifier_correct": 173,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 31,
+            "unsampled_manifest_prompts": 31
+          },
+          "SUB(ADD(r3,r4),DIV(r1,SUB(r5,r2)))|intermediates=I,I,I,I": {
+            "capped": 55,
+            "eligible_samples": 30,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 1,
+            "not_verifier_correct": 106,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 16,
+            "unsampled_manifest_prompts": 47
+          },
+          "SUB(DIV(MUL(r3,ADD(r4,r5)),r2),r1)|intermediates=I,I,I,I": {
+            "capped": 54,
+            "eligible_samples": 25,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 6,
+            "not_verifier_correct": 111,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 11,
+            "unsampled_manifest_prompts": 47
+          },
+          "SUB(MUL(ADD(r1,r3),DIV(r4,r5)),r2)|intermediates=I,F,I,I": {
+            "capped": 110,
+            "eligible_samples": 46,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 13,
+            "not_verifier_correct": 218,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 20,
+            "unsampled_manifest_prompts": 31
+          },
+          "SUB(MUL(r1,r4),ADD(r3,ADD(r2,r5)))|intermediates=I,I,I,I": {
+            "capped": 120,
+            "eligible_samples": 44,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 11,
+            "not_verifier_correct": 220,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 22,
+            "unsampled_manifest_prompts": 31
+          },
+          "SUB(SUB(ADD(r1,r2),ADD(r4,r5)),r3)|intermediates=I,I,I,I": {
+            "capped": 62,
+            "eligible_samples": 17,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 119,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 10,
+            "unsampled_manifest_prompts": 47
+          },
+          "SUB(SUB(MUL(r3,SUB(r2,r5)),r1),r4)|intermediates=I,I,I,I": {
+            "capped": 78,
+            "eligible_samples": 3,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 14,
+            "not_verifier_correct": 125,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 2,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(SUB(r3,SUB(SUB(r4,r5),r2)),r1)|intermediates=I,I,I,I": {
+            "capped": 53,
+            "eligible_samples": 77,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 5,
+            "not_verifier_correct": 187,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 28,
+            "unsampled_manifest_prompts": 31
+          },
+          "SUB(r2,SUB(ADD(r4,SUB(r3,r5)),r1))|intermediates=I,I,I,I": {
+            "capped": 32,
+            "eligible_samples": 37,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 3,
+            "not_verifier_correct": 91,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 13,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(r4,ADD(r5,ADD(r2,ADD(r1,r3))))|intermediates=I,I,I,I": {
+            "capped": 56,
+            "eligible_samples": 13,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 9,
+            "not_verifier_correct": 115,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 7,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(r4,MUL(r5,SUB(ADD(r1,r2),r3)))|intermediates=I,I,I,I": {
+            "capped": 63,
+            "eligible_samples": 18,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 110,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 9,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(r5,ADD(MUL(r1,r3),ADD(r2,r4)))|intermediates=I,I,I,I": {
+            "capped": 67,
+            "eligible_samples": 12,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 116,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 9,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(r5,ADD(MUL(r1,r4),ADD(r2,r3)))|intermediates=I,I,I,I": {
+            "capped": 81,
+            "eligible_samples": 10,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 118,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 9,
+            "unsampled_manifest_prompts": 48
+          }
+        },
+        "leakage": {
+          "audited_splits": [
+            "a_monitor",
+            "a_rl_train",
+            "a_validation"
+          ],
+          "clean": true,
+          "finding_count": 0,
+          "findings": [],
+          "record_count": 3200
+        },
+        "sample_count": 6400,
+        "sampled_unique_prompt_count": 800,
+        "source_manifest_id": "sha256:a1105825a6f1e6db81fc091707e9f19625e0505f741380361974d73739fe7fca",
+        "stratum_attrition": {
+          "boundary": {
+            "capped": 820,
+            "eligible_samples": 949,
+            "manifest_prompts": 768,
+            "no_eligible_trace_prompts": 69,
+            "not_verifier_correct": 2251,
+            "sampled": 3200,
+            "sampled_unique_prompts": 400,
+            "selected_prompts": 331,
+            "unsampled_manifest_prompts": 368
+          },
+          "broad_random": {
+            "capped": 727,
+            "eligible_samples": 218,
+            "manifest_prompts": 768,
+            "no_eligible_trace_prompts": 87,
+            "not_verifier_correct": 1382,
+            "sampled": 1600,
+            "sampled_unique_prompts": 200,
+            "selected_prompts": 113,
+            "unsampled_manifest_prompts": 568
+          },
+          "intermediate": {
+            "capped": 647,
+            "eligible_samples": 312,
+            "manifest_prompts": 768,
+            "no_eligible_trace_prompts": 65,
+            "not_verifier_correct": 1288,
+            "sampled": 1600,
+            "sampled_unique_prompts": 200,
+            "selected_prompts": 135,
+            "unsampled_manifest_prompts": 568
+          }
+        }
+      },
+      "original_policy_sampled_tokens": {
+        "count": 579,
+        "maximum": 4061,
+        "mean": 1517.9343696027634,
+        "median": 1310,
+        "minimum": 18
+      },
+      "stratum_counts": {
+        "boundary": 331,
+        "broad_random": 113,
+        "intermediate": 135
+      },
+      "unique_prompts": 579
+    },
+    "29": {
+      "arms": {
+        "R-P": {
+          "completed_updates": 294,
+          "full_presentations": 9408,
+          "full_train_tokens": 15101772,
+          "selected_presentations": null,
+          "selected_train_tokens": null,
+          "selected_update": null,
+          "unique_trace_lengths": {
+            "full_rendered_tokens": {
+              "count": 557,
+              "maximum": 4217,
+              "mean": 1606.903052064632,
+              "median": 1312,
+              "minimum": 200
+            },
+            "target_tokens": {
+              "count": 557,
+              "maximum": 4087,
+              "mean": 1474.8150807899463,
+              "median": 1178,
+              "minimum": 69
+            },
+            "train_tokens": {
+              "count": 557,
+              "maximum": 4216,
+              "mean": 1605.903052064632,
+              "median": 1311,
+              "minimum": 199
+            }
+          }
+        },
+        "R-S": {
+          "completed_updates": 294,
+          "full_presentations": 9408,
+          "full_train_tokens": 1893391,
+          "selected_presentations": null,
+          "selected_train_tokens": null,
+          "selected_update": null,
+          "unique_trace_lengths": {
+            "full_rendered_tokens": {
+              "count": 557,
+              "maximum": 215,
+              "mean": 202.25134649910234,
+              "median": 202,
+              "minimum": 191
+            },
+            "target_tokens": {
+              "count": 557,
+              "maximum": 81,
+              "mean": 70.16337522441651,
+              "median": 70,
+              "minimum": 61
+            },
+            "train_tokens": {
+              "count": 557,
+              "maximum": 214,
+              "mean": 201.25134649910234,
+              "median": 201,
+              "minimum": 190
+            }
+          }
+        }
+      },
+      "assigned_family_count": 36,
+      "audit": {
+        "corpus_sha256": "sha256:362061e30c80044ec04eeb39c31aa301b43d0c2273aa4af7bdcaadad7d62fa50",
+        "eligible_sample_count": 1416,
+        "exclusions_sha256": "sha256:1b9ecb4d298fd408798d77b3d11d57edcb540fdbd4e65d22716e714cc4121636",
+        "family_attrition": {
+          "ADD(ADD(r1,r5),SUB(r4,MUL(r2,r3)))|intermediates=I,I,I,I": {
+            "capped": 64,
+            "eligible_samples": 10,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 10,
+            "not_verifier_correct": 126,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 7,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(ADD(r2,r5),SUB(ADD(r3,r4),r1))|intermediates=I,I,I,I": {
+            "capped": 35,
+            "eligible_samples": 113,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 3,
+            "not_verifier_correct": 159,
+            "sampled": 272,
+            "sampled_unique_prompts": 34,
+            "selected_prompts": 31,
+            "unsampled_manifest_prompts": 30
+          },
+          "ADD(ADD(r3,r5),SUB(MUL(r1,r4),r2))|intermediates=I,I,I,I": {
+            "capped": 104,
+            "eligible_samples": 50,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 12,
+            "not_verifier_correct": 222,
+            "sampled": 272,
+            "sampled_unique_prompts": 34,
+            "selected_prompts": 22,
+            "unsampled_manifest_prompts": 30
+          },
+          "ADD(MUL(r1,r3),ADD(r5,ADD(r2,r4)))|intermediates=I,I,I,I": {
+            "capped": 113,
+            "eligible_samples": 52,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 9,
+            "not_verifier_correct": 220,
+            "sampled": 272,
+            "sampled_unique_prompts": 34,
+            "selected_prompts": 25,
+            "unsampled_manifest_prompts": 30
+          },
+          "ADD(MUL(r1,r3),ADD(r5,SUB(r2,r4)))|intermediates=I,I,I,I": {
+            "capped": 52,
+            "eligible_samples": 28,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 5,
+            "not_verifier_correct": 108,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 12,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(SUB(r1,r2),SUB(r5,SUB(r3,r4)))|intermediates=I,I,I,I": {
+            "capped": 58,
+            "eligible_samples": 76,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 6,
+            "not_verifier_correct": 196,
+            "sampled": 272,
+            "sampled_unique_prompts": 34,
+            "selected_prompts": 28,
+            "unsampled_manifest_prompts": 30
+          },
+          "ADD(SUB(r2,r3),SUB(SUB(r5,r4),r1))|intermediates=I,I,I,I": {
+            "capped": 46,
+            "eligible_samples": 31,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 2,
+            "not_verifier_correct": 105,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 15,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(SUB(r2,r4),ADD(r3,SUB(r1,r5)))|intermediates=I,I,I,I": {
+            "capped": 49,
+            "eligible_samples": 26,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 5,
+            "not_verifier_correct": 110,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 12,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(SUB(r5,r4),MUL(r2,SUB(r3,r1)))|intermediates=I,I,I,I": {
+            "capped": 52,
+            "eligible_samples": 21,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 6,
+            "not_verifier_correct": 115,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 11,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(SUB(r5,r4),MUL(r3,DIV(r2,r1)))|intermediates=I,F,I,I": {
+            "capped": 65,
+            "eligible_samples": 18,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 8,
+            "not_verifier_correct": 118,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 9,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(r1,ADD(r2,ADD(r3,SUB(r5,r4))))|intermediates=I,I,I,I": {
+            "capped": 66,
+            "eligible_samples": 78,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 5,
+            "not_verifier_correct": 186,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 28,
+            "unsampled_manifest_prompts": 31
+          },
+          "ADD(r1,SUB(ADD(r3,r4),ADD(r2,r5)))|intermediates=I,I,I,I": {
+            "capped": 76,
+            "eligible_samples": 66,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 198,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 26,
+            "unsampled_manifest_prompts": 31
+          },
+          "ADD(r2,ADD(MUL(r1,r5),ADD(r3,r4)))|intermediates=I,I,I,I": {
+            "capped": 51,
+            "eligible_samples": 96,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 1,
+            "not_verifier_correct": 168,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 32,
+            "unsampled_manifest_prompts": 31
+          },
+          "ADD(r2,ADD(r4,MUL(r1,MUL(r3,r5))))|intermediates=I,I,I,I": {
+            "capped": 58,
+            "eligible_samples": 81,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 4,
+            "not_verifier_correct": 183,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 29,
+            "unsampled_manifest_prompts": 31
+          },
+          "ADD(r2,DIV(MUL(r3,ADD(r4,r5)),r1))|intermediates=I,I,I,I": {
+            "capped": 43,
+            "eligible_samples": 37,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 5,
+            "not_verifier_correct": 99,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 12,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(r3,ADD(MUL(r1,r4),DIV(r5,r2)))|intermediates=I,I,I,I": {
+            "capped": 51,
+            "eligible_samples": 21,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 115,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 10,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(r3,ADD(r2,MUL(r5,SUB(r4,r1))))|intermediates=I,I,I,I": {
+            "capped": 52,
+            "eligible_samples": 27,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 6,
+            "not_verifier_correct": 109,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 11,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(r4,ADD(MUL(r1,r2),MUL(r3,r5)))|intermediates=I,I,I,I": {
+            "capped": 39,
+            "eligible_samples": 26,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 110,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 10,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(r5,MUL(r3,SUB(r2,SUB(r4,r1))))|intermediates=I,I,I,I": {
+            "capped": 64,
+            "eligible_samples": 18,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 10,
+            "not_verifier_correct": 118,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 7,
+            "unsampled_manifest_prompts": 47
+          },
+          "ADD(r5,SUB(SUB(r3,r1),ADD(r2,r4)))|intermediates=I,I,I,I": {
+            "capped": 87,
+            "eligible_samples": 65,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 8,
+            "not_verifier_correct": 199,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 25,
+            "unsampled_manifest_prompts": 31
+          },
+          "DIV(ADD(r4,ADD(r2,r5)),DIV(r1,r3))|intermediates=I,I,F,I": {
+            "capped": 56,
+            "eligible_samples": 27,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 8,
+            "not_verifier_correct": 109,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 9,
+            "unsampled_manifest_prompts": 47
+          },
+          "DIV(ADD(r4,MUL(r2,ADD(r3,r5))),r1)|intermediates=I,I,I,I": {
+            "capped": 71,
+            "eligible_samples": 17,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 8,
+            "not_verifier_correct": 119,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 9,
+            "unsampled_manifest_prompts": 47
+          },
+          "DIV(SUB(MUL(r1,r3),r4),ADD(r2,r5))|intermediates=I,I,I,I": {
+            "capped": 58,
+            "eligible_samples": 16,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 6,
+            "not_verifier_correct": 120,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 11,
+            "unsampled_manifest_prompts": 47
+          },
+          "DIV(SUB(r4,ADD(r5,MUL(r2,r3))),r1)|intermediates=I,I,I,I": {
+            "capped": 60,
+            "eligible_samples": 6,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 13,
+            "not_verifier_correct": 130,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 4,
+            "unsampled_manifest_prompts": 47
+          },
+          "MUL(DIV(r3,r4),MUL(r1,MUL(r2,r5)))|intermediates=F,I,I,I": {
+            "capped": 47,
+            "eligible_samples": 32,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 2,
+            "not_verifier_correct": 104,
+            "sampled": 136,
+            "sampled_unique_prompts": 17,
+            "selected_prompts": 15,
+            "unsampled_manifest_prompts": 47
+          },
+          "MUL(r2,DIV(MUL(r1,SUB(r4,r5)),r3))|intermediates=I,I,F,I": {
+            "capped": 57,
+            "eligible_samples": 19,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 6,
+            "not_verifier_correct": 109,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 10,
+            "unsampled_manifest_prompts": 48
+          },
+          "MUL(r3,ADD(MUL(r1,r4),SUB(r2,r5)))|intermediates=I,I,I,I": {
+            "capped": 114,
+            "eligible_samples": 52,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 13,
+            "not_verifier_correct": 212,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 20,
+            "unsampled_manifest_prompts": 31
+          },
+          "SUB(ADD(r1,r2),MUL(r3,SUB(r4,r5)))|intermediates=I,I,I,I": {
+            "capped": 45,
+            "eligible_samples": 25,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 103,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 9,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(ADD(r2,r5),SUB(r4,MUL(r1,r3)))|intermediates=I,I,I,I": {
+            "capped": 51,
+            "eligible_samples": 27,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 3,
+            "not_verifier_correct": 101,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 13,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(DIV(SUB(ADD(r3,r5),r1),r4),r2)|intermediates=I,I,I,I": {
+            "capped": 56,
+            "eligible_samples": 15,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 7,
+            "not_verifier_correct": 113,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 9,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(DIV(SUB(r3,MUL(r4,r5)),r1),r2)|intermediates=I,I,I,I": {
+            "capped": 57,
+            "eligible_samples": 13,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 10,
+            "not_verifier_correct": 115,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 6,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(MUL(r3,r5),SUB(r1,SUB(r2,r4)))|intermediates=I,I,I,I": {
+            "capped": 51,
+            "eligible_samples": 84,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 5,
+            "not_verifier_correct": 180,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 28,
+            "unsampled_manifest_prompts": 31
+          },
+          "SUB(r2,SUB(ADD(r4,SUB(r3,r5)),r1))|intermediates=I,I,I,I": {
+            "capped": 34,
+            "eligible_samples": 30,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 4,
+            "not_verifier_correct": 98,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 12,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(r3,SUB(r1,ADD(r5,SUB(r4,r2))))|intermediates=I,I,I,I": {
+            "capped": 36,
+            "eligible_samples": 96,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 2,
+            "not_verifier_correct": 168,
+            "sampled": 264,
+            "sampled_unique_prompts": 33,
+            "selected_prompts": 31,
+            "unsampled_manifest_prompts": 31
+          },
+          "SUB(r4,MUL(r1,ADD(r5,ADD(r2,r3))))|intermediates=I,I,I,I": {
+            "capped": 66,
+            "eligible_samples": 6,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 12,
+            "not_verifier_correct": 122,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 4,
+            "unsampled_manifest_prompts": 48
+          },
+          "SUB(r5,ADD(MUL(r1,r4),ADD(r2,r3)))|intermediates=I,I,I,I": {
+            "capped": 74,
+            "eligible_samples": 11,
+            "manifest_prompts": 64,
+            "no_eligible_trace_prompts": 11,
+            "not_verifier_correct": 117,
+            "sampled": 128,
+            "sampled_unique_prompts": 16,
+            "selected_prompts": 5,
+            "unsampled_manifest_prompts": 48
+          }
+        },
+        "leakage": {
+          "audited_splits": [
+            "a_monitor",
+            "a_rl_train",
+            "a_validation"
+          ],
+          "clean": true,
+          "finding_count": 0,
+          "findings": [],
+          "record_count": 3200
+        },
+        "sample_count": 6400,
+        "sampled_unique_prompt_count": 800,
+        "source_manifest_id": "sha256:c62d713bdcd03f9694391b676ff77956d5117d34bad44d0a465eee836c8e6a5e",
+        "stratum_attrition": {
+          "boundary": {
+            "capped": 849,
+            "eligible_samples": 909,
+            "manifest_prompts": 768,
+            "no_eligible_trace_prompts": 75,
+            "not_verifier_correct": 2291,
+            "sampled": 3200,
+            "sampled_unique_prompts": 400,
+            "selected_prompts": 325,
+            "unsampled_manifest_prompts": 368
+          },
+          "broad_random": {
+            "capped": 681,
+            "eligible_samples": 214,
+            "manifest_prompts": 768,
+            "no_eligible_trace_prompts": 101,
+            "not_verifier_correct": 1386,
+            "sampled": 1600,
+            "sampled_unique_prompts": 200,
+            "selected_prompts": 99,
+            "unsampled_manifest_prompts": 568
+          },
+          "intermediate": {
+            "capped": 628,
+            "eligible_samples": 293,
+            "manifest_prompts": 768,
+            "no_eligible_trace_prompts": 67,
+            "not_verifier_correct": 1307,
+            "sampled": 1600,
+            "sampled_unique_prompts": 200,
+            "selected_prompts": 133,
+            "unsampled_manifest_prompts": 568
+          }
+        }
+      },
+      "original_policy_sampled_tokens": {
+        "count": 557,
+        "maximum": 4084,
+        "mean": 1471.3447037701974,
+        "median": 1174,
+        "minimum": 65
+      },
+      "stratum_counts": {
+        "boundary": 325,
+        "broad_random": 99,
+        "intermediate": 133
+      },
+      "unique_prompts": 557
+    }
+  },
+  "stage_b": {
+    "11": {
+      "R-P": {
+        "completed_updates": 480,
+        "full_presentations": 15360,
+        "full_train_tokens": 1836355,
+        "selected_presentations": null,
+        "selected_train_tokens": null,
+        "selected_update": null
+      },
+      "R-S": {
+        "completed_updates": 480,
+        "full_presentations": 15360,
+        "full_train_tokens": 1836355,
+        "selected_presentations": null,
+        "selected_train_tokens": null,
+        "selected_update": null
+      }
+    },
+    "29": {}
+  }
+}

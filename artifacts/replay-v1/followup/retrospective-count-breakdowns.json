@@ -1,0 +1,3645 @@
+{
+  "R_P_update_5_to_10": {
+    "sentinel": {
+      "any_success_u5_u10": [
+        48,
+        162
+      ],
+      "correct_draws_u5_u10": [
+        58,
+        281
+      ],
+      "fewer": 6,
+      "items": 192,
+      "more": 142,
+      "unchanged": 44
+    },
+    "targeted": {
+      "any_success_u5_u10": [
+        49,
+        145
+      ],
+      "correct_draws_u5_u10": [
+        59,
+        241
+      ],
+      "fewer": 9,
+      "items": 192,
+      "more": 119,
+      "unchanged": 64
+    }
+  },
+  "acquisition": {
+    "11": {
+      "sentinel": {
+        "R_P_above": 30,
+        "R_P_below": [],
+        "series": [
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 32,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 2,
+              "trials": 96
+            },
+            "update": 10
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 28,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 3,
+              "trials": 96
+            },
+            "update": 20
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 41,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 7,
+              "trials": 96
+            },
+            "update": 30
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 40,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 4,
+              "trials": 96
+            },
+            "update": 40
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 47,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 6,
+              "trials": 96
+            },
+            "update": 50
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 40,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 2,
+              "trials": 96
+            },
+            "update": 60
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 49,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 2,
+              "trials": 96
+            },
+            "update": 70
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 48,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 80
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 51,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 90
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 35,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 2,
+              "trials": 96
+            },
+            "update": 100
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 47,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 110
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 46,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 120
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 54,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 7,
+              "trials": 96
+            },
+            "update": 130
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 44,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 2,
+              "trials": 96
+            },
+            "update": 140
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 39,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 7,
+              "trials": 96
+            },
+            "update": 150
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 46,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 4,
+              "trials": 96
+            },
+            "update": 160
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 47,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 8,
+              "trials": 96
+            },
+            "update": 170
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 43,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 1,
+              "trials": 96
+            },
+            "update": 180
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 56,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 3,
+              "trials": 96
+            },
+            "update": 190
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 41,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 3,
+              "trials": 96
+            },
+            "update": 200
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 51,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 6,
+              "trials": 96
+            },
+            "update": 210
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 34,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 1,
+              "trials": 96
+            },
+            "update": 220
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 59,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 11,
+              "trials": 96
+            },
+            "update": 230
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 32,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 9,
+              "trials": 96
+            },
+            "update": 240
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 44,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 6,
+              "trials": 96
+            },
+            "update": 250
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 44,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 3,
+              "trials": 96
+            },
+            "update": 260
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 47,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 2,
+              "trials": 96
+            },
+            "update": 270
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 45,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 7,
+              "trials": 96
+            },
+            "update": 280
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 43,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 290
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 55,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 4,
+              "trials": 96
+            },
+            "update": 294
+          }
+        ],
+        "ties": []
+      },
+      "targeted": {
+        "R_P_above": 29,
+        "R_P_below": [
+          240
+        ],
+        "series": [
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 45,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 3,
+              "trials": 96
+            },
+            "update": 10
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 30,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 20
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 46,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 30
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 46,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 14,
+              "trials": 96
+            },
+            "update": 40
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 55,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 15,
+              "trials": 96
+            },
+            "update": 50
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 45,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 19,
+              "trials": 96
+            },
+            "update": 60
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 42,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 14,
+              "trials": 96
+            },
+            "update": 70
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 38,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 20,
+              "trials": 96
+            },
+            "update": 80
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 57,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 23,
+              "trials": 96
+            },
+            "update": 90
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 39,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 17,
+              "trials": 96
+            },
+            "update": 100
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 50,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 35,
+              "trials": 96
+            },
+            "update": 110
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 51,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 13,
+              "trials": 96
+            },
+            "update": 120
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 48,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 31,
+              "trials": 96
+            },
+            "update": 130
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 46,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 19,
+              "trials": 96
+            },
+            "update": 140
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 43,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 31,
+              "trials": 96
+            },
+            "update": 150
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 44,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 20,
+              "trials": 96
+            },
+            "update": 160
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 48,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 35,
+              "trials": 96
+            },
+            "update": 170
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 38,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 28,
+              "trials": 96
+            },
+            "update": 180
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 54,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 26,
+              "trials": 96
+            },
+            "update": 190
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 40,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 26,
+              "trials": 96
+            },
+            "update": 200
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 51,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 32,
+              "trials": 96
+            },
+            "update": 210
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 40,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 31,
+              "trials": 96
+            },
+            "update": 220
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 43,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 32,
+              "trials": 96
+            },
+            "update": 230
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 34,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 35,
+              "trials": 96
+            },
+            "update": 240
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 45,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 28,
+              "trials": 96
+            },
+            "update": 250
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 40,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 30,
+              "trials": 96
+            },
+            "update": 260
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 47,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 25,
+              "trials": 96
+            },
+            "update": 270
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 44,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 27,
+              "trials": 96
+            },
+            "update": 280
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 61,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 24,
+              "trials": 96
+            },
+            "update": 290
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 52,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 27,
+              "trials": 96
+            },
+            "update": 294
+          }
+        ],
+        "ties": []
+      }
+    },
+    "29": {
+      "sentinel": {
+        "R_P_above": 30,
+        "R_P_below": [],
+        "series": [
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 38,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 6,
+              "trials": 96
+            },
+            "update": 10
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 43,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 2,
+              "trials": 96
+            },
+            "update": 20
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 38,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 11,
+              "trials": 96
+            },
+            "update": 30
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 47,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 10,
+              "trials": 96
+            },
+            "update": 40
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 41,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 7,
+              "trials": 96
+            },
+            "update": 50
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 47,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 13,
+              "trials": 96
+            },
+            "update": 60
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 51,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 70
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 30,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 9,
+              "trials": 96
+            },
+            "update": 80
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 52,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 6,
+              "trials": 96
+            },
+            "update": 90
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 43,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 100
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 55,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 1,
+              "trials": 96
+            },
+            "update": 110
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 50,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 120
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 59,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 3,
+              "trials": 96
+            },
+            "update": 130
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 51,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 0,
+              "trials": 96
+            },
+            "update": 140
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 51,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 3,
+              "trials": 96
+            },
+            "update": 150
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 46,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 6,
+              "trials": 96
+            },
+            "update": 160
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 51,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 2,
+              "trials": 96
+            },
+            "update": 170
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 55,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 10,
+              "trials": 96
+            },
+            "update": 180
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 50,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 8,
+              "trials": 96
+            },
+            "update": 190
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 56,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 7,
+              "trials": 96
+            },
+            "update": 200
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 39,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 6,
+              "trials": 96
+            },
+            "update": 210
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 53,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 3,
+              "trials": 96
+            },
+            "update": 220
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 55,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 9,
+              "trials": 96
+            },
+            "update": 230
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 56,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 5,
+              "trials": 96
+            },
+            "update": 240
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 38,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 6,
+              "trials": 96
+            },
+            "update": 250
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 57,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 4,
+              "trials": 96
+            },
+            "update": 260
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 36,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 1,
+              "trials": 96
+            },
+            "update": 270
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 63,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 9,
+              "trials": 96
+            },
+            "update": 280
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 55,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 7,
+              "trials": 96
+            },
+            "update": 290
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 53,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 6,
+              "trials": 96
+            },
+            "update": 294
+          }
+        ],
+        "ties": []
+      },
+      "targeted": {
+        "R_P_above": 30,
+        "R_P_below": [],
+        "series": [
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 29,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 2,
+              "trials": 96
+            },
+            "update": 10
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 36,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 8,
+              "trials": 96
+            },
+            "update": 20
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 46,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 11,
+              "trials": 96
+            },
+            "update": 30
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 50,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 13,
+              "trials": 96
+            },
+            "update": 40
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 43,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 17,
+              "trials": 96
+            },
+            "update": 50
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 58,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 25,
+              "trials": 96
+            },
+            "update": 60
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 56,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 14,
+              "trials": 96
+            },
+            "update": 70
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 35,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 26,
+              "trials": 96
+            },
+            "update": 80
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 41,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 22,
+              "trials": 96
+            },
+            "update": 90
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 46,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 32,
+              "trials": 96
+            },
+            "update": 100
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 40,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 29,
+              "trials": 96
+            },
+            "update": 110
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 44,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 32,
+              "trials": 96
+            },
+            "update": 120
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 61,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 28,
+              "trials": 96
+            },
+            "update": 130
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 39,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 32,
+              "trials": 96
+            },
+            "update": 140
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 61,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 27,
+              "trials": 96
+            },
+            "update": 150
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 50,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 30,
+              "trials": 96
+            },
+            "update": 160
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 60,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 29,
+              "trials": 96
+            },
+            "update": 170
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 59,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 38,
+              "trials": 96
+            },
+            "update": 180
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 45,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 29,
+              "trials": 96
+            },
+            "update": 190
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 52,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 37,
+              "trials": 96
+            },
+            "update": 200
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 38,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 36,
+              "trials": 96
+            },
+            "update": 210
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 58,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 33,
+              "trials": 96
+            },
+            "update": 220
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 54,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 32,
+              "trials": 96
+            },
+            "update": 230
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 49,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 32,
+              "trials": 96
+            },
+            "update": 240
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 46,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 31,
+              "trials": 96
+            },
+            "update": 250
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 57,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 34,
+              "trials": 96
+            },
+            "update": 260
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 49,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 37,
+              "trials": 96
+            },
+            "update": 270
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 73,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 35,
+              "trials": 96
+            },
+            "update": 280
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 54,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 33,
+              "trials": 96
+            },
+            "update": 290
+          },
+          {
+            "R-P": {
+              "items": 96,
+              "successes": 52,
+              "trials": 96
+            },
+            "R-S": {
+              "items": 96,
+              "successes": 36,
+              "trials": 96
+            },
+            "update": 294
+          }
+        ],
+        "ties": []
+      }
+    },
+    "block_29_closest_assessed_pairs": [
+      {
+        "R-P": {
+          "items": 256,
+          "successes": 1537,
+          "trials": 4096
+        },
+        "R-S": {
+          "items": 256,
+          "successes": 732,
+          "trials": 4096
+        },
+        "gap": 0.196533203125,
+        "updates": [
+          40,
+          10
+        ]
+      }
+    ]
+  },
+  "analysis_status": "retrospective descriptive breakdowns; no confirmation test or endpoint change",
+  "coverage": {
+    "sentinel": {
+      "R-P": {
+        "all_16_success": 0,
+        "any_success": 243,
+        "families": [
+          {
+            "assigned_family_id": "ADD(ADD(r2,r5),SUB(ADD(r3,r4),r1))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.5080213903743315,
+            "item_count": 22,
+            "panel_role": "sentinel",
+            "successes": 179,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(ADD(r3,r5),SUB(MUL(r1,r4),r2))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.2967914438502674,
+            "item_count": 22,
+            "panel_role": "sentinel",
+            "successes": 100,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(MUL(r1,r3),ADD(r5,ADD(r2,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.2192513368983957,
+            "item_count": 22,
+            "panel_role": "sentinel",
+            "successes": 71,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(SUB(r1,r2),SUB(r5,SUB(r3,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.4251336898395722,
+            "item_count": 22,
+            "panel_role": "sentinel",
+            "successes": 148,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(r1,ADD(r2,ADD(r3,SUB(r5,r4))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.4271708683473389,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 142,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r1,SUB(ADD(r3,r4),ADD(r2,r5)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.34593837535014005,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 113,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r2,ADD(MUL(r1,r5),ADD(r3,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.44117647058823534,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 147,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r2,ADD(r4,MUL(r1,MUL(r3,r5))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.3067226890756303,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 99,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r5,SUB(SUB(r3,r1),ADD(r2,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.3375350140056022,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 110,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "MUL(r3,ADD(MUL(r1,r4),SUB(r2,r5)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.20588235294117646,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 63,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(MUL(r3,r5),SUB(r1,SUB(r2,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.39075630252100835,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 129,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(r3,SUB(r1,ADD(r5,SUB(r4,r2))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.49719887955182074,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 167,
+            "trials": 336
+          }
+        ],
+        "items": 256,
+        "recomputed_pass_at_k": {
+          "1": 0.3583984375,
+          "16": 0.94921875,
+          "4": 0.7804322630494506
+        },
+        "recorded_panel": {
+          "completion_count": 4096,
+          "completion_token_length": {
+            "completion_count": 4096,
+            "maximum": 4096,
+            "mean": 1361.273681640625,
+            "median": 606.0,
+            "minimum": 3
+          },
+          "cover_curve": [
+            {
+              "posterior_soft_cover": 0.9767559964895645,
+              "tau": 0.01
+            },
+            {
+              "posterior_soft_cover": 0.9667498665934575,
+              "tau": 0.02
+            },
+            {
+              "posterior_soft_cover": 0.9436121727733161,
+              "tau": 0.05
+            },
+            {
+              "posterior_soft_cover": 0.9015563324222602,
+              "tau": 0.1
+            },
+            {
+              "posterior_soft_cover": 0.6968811824358009,
+              "tau": 0.25
+            },
+            {
+              "posterior_soft_cover": 0.2670115967162193,
+              "tau": 0.5
+            },
+            {
+              "posterior_soft_cover": 0.02413464356883745,
+              "tau": 0.75
+            }
+          ],
+          "equal_item_posterior_mean": 0.36672794117647056,
+          "exact_success_rate": 0.3583984375,
+          "failure_code_counts": {
+            "answer_too_long": 3,
+            "ast_limit_exceeded": 85,
+            "intermediate_limit_exceeded": 1,
+            "invalid_character": 318,
+            "invalid_syntax": 6,
+            "missing_answer_tag": 1069,
+            "multiple_answer_tags": 32,
+            "operand_multiset_mismatch": 215,
+            "wrong_target": 899
+          },
+          "item_count": 256,
+          "length_stop_count": 814,
+          "length_stop_rate": 0.19873046875,
+          "loop_fraction_among_length_stops": 0.18181818181818182,
+          "looped_length_stop_count": 148,
+          "mean_pass_at_k": {
+            "1": 0.3583984375,
+            "16": 0.94921875,
+            "4": 0.7804322630494506
+          },
+          "sampled_token_surprisal": {
+            "coverage": 1.0,
+            "mean_surprisal": 0.17467604324554203,
+            "observed_logprob_count": 5575777,
+            "total_token_count": 5575777
+          },
+          "successes": 1468,
+          "syntactically_invalid_rate": 0.369384765625,
+          "unique_completion_count": 4073,
+          "unique_verified_strategy_family_count": 563,
+          "verified_strategy_family_counts": {
+            "ADD(ADD(r1,r3),SUB(ADD(r2,r5),r4))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r3),SUB(r5,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r4),SUB(SUB(r5,r2),r3))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r5),SUB(r4,ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r4),DIV(ADD(r1,r5),r3))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r4),MUL(r1,MUL(r3,r5)))|intermediates=I,I,I,I": 5,
+            "ADD(ADD(r2,r4),MUL(r5,MUL(r1,r3)))|intermediates=I,I,I,I": 3,
+            "ADD(ADD(r2,r5),DIV(r4,SUB(r3,r1)))|intermediates=I,I,I,I": 2,
+            "ADD(ADD(r2,r5),SUB(r3,SUB(r4,r1)))|intermediates=I,I,I,I": 2,
+            "ADD(ADD(r3,r4),SUB(SUB(r5,r1),r2))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r3,r4),SUB(SUB(r5,r2),r1))|intermediates=I,I,I,I": 3,
+            "ADD(ADD(r3,r4),SUB(r5,ADD(r1,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r3,r5),SUB(ADD(r2,r4),r1))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r3,r5),SUB(SUB(r4,r2),r1))|intermediates=I,I,I,I": 4,
+            "ADD(ADD(r4,r5),ADD(r2,MUL(r1,r3)))|intermediates=I,I,I,I": 2,
+            "ADD(ADD(r4,r5),DIV(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r4,r5),MUL(r1,ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r4,r5),MUL(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r4,r5),MUL(r2,SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r4,r5),SUB(ADD(r1,r2),r3))|intermediates=I,I,I,I": 2,
+            "ADD(ADD(r4,r5),SUB(ADD(r2,r3),r1))|intermediates=I,I,I,I": 3,
+            "ADD(ADD(r4,r5),SUB(SUB(r3,r2),r1))|intermediates=I,I,I,I": 4,
+            "ADD(DIV(r4,r1),ADD(r2,ADD(r3,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(DIV(r4,r1),ADD(r5,MUL(r2,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(DIV(r5,r1),ADD(r2,MUL(r3,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(DIV(r5,r1),MUL(r4,ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(DIV(r5,r4),SUB(ADD(r1,r3),r2))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r2),MUL(r3,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r3),ADD(r2,ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r3),ADD(r4,ADD(r2,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r3),MUL(r5,ADD(r2,r4)))|intermediates=I,I,I,I": 2,
+            "ADD(MUL(r1,r4),ADD(r5,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r4),SUB(ADD(r3,r5),r2))|intermediates=I,I,I,I": 10,
+            "ADD(MUL(r1,r5),ADD(r2,ADD(r3,r4)))|intermediates=I,I,I,I": 9,
+            "ADD(MUL(r1,r5),ADD(r3,ADD(r2,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r5),ADD(r4,ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r5),DIV(r4,DIV(r3,r2)))|intermediates=I,I,I,I": 2,
+            "ADD(MUL(r1,r5),MUL(r2,DIV(r4,r3)))|intermediates=I,F,I,I": 1,
+            "ADD(MUL(r1,r5),SUB(ADD(r3,r4),r2))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r2,r3),ADD(r5,ADD(r1,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r2,r3),MUL(r5,SUB(r4,r1)))|intermediates=I,I,I,I": 8,
+            "ADD(MUL(r2,r4),ADD(r1,SUB(r5,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r2,r4),SUB(SUB(r5,r3),r1))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r2,r5),ADD(r1,SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r2,r5),SUB(ADD(r3,r4),r1))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r3,r4),ADD(r2,DIV(r5,r1)))|intermediates=I,I,I,I": 2,
+            "ADD(MUL(r3,r4),SUB(SUB(r5,r2),r1))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r3,r5),MUL(r1,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r1,r2),SUB(ADD(r3,r4),r5))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r1,r4),ADD(r2,ADD(r3,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r2,r1),ADD(r3,ADD(r4,r5)))|intermediates=I,I,I,I": 9,
+            "ADD(SUB(r2,r1),ADD(r4,ADD(r3,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r2,r1),ADD(r5,ADD(r3,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r2,r1),MUL(r4,ADD(r3,r5)))|intermediates=I,I,I,I": 3,
+            "ADD(SUB(r2,r1),MUL(r4,SUB(r5,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r2,r1),MUL(r5,SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r2,r1),SUB(MUL(r3,r5),r4))|intermediates=I,I,I,I": 9,
+            "ADD(SUB(r2,r1),SUB(r5,ADD(r3,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r2,r3),DIV(SUB(r5,r4),r1))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r3,r1),ADD(r2,ADD(r4,r5)))|intermediates=I,I,I,I": 3,
+            "ADD(SUB(r3,r1),ADD(r5,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r3,r1),SUB(SUB(r5,r4),r2))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r3,r2),ADD(r4,MUL(r1,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r3,r2),ADD(r4,SUB(r5,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r3,r2),ADD(r5,MUL(r1,r4)))|intermediates=I,I,I,I": 3,
+            "ADD(SUB(r3,r2),ADD(r5,SUB(r4,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r3,r2),MUL(r1,ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r3,r2),MUL(r5,ADD(r1,r4)))|intermediates=I,I,I,I": 4,
+            "ADD(SUB(r3,r2),SUB(ADD(r1,r4),r5))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r3,r2),SUB(ADD(r4,r5),r1))|intermediates=I,I,I,I": 4,
+            "ADD(SUB(r3,r2),SUB(SUB(r5,r4),r1))|intermediates=I,I,I,I": 4,
+            "ADD(SUB(r3,r2),SUB(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 4,
+            "ADD(SUB(r3,r4),SUB(ADD(r1,r2),r5))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r1),ADD(r2,ADD(r3,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r1),ADD(r3,ADD(r2,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r1),MUL(r5,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r2),ADD(r1,SUB(r5,r3)))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r4,r2),ADD(r5,SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r2),SUB(r3,SUB(r5,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r3),SUB(ADD(r1,r5),r2))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r1),DIV(r3,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r1),SUB(ADD(r3,r4),r2))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r1),SUB(SUB(r3,r2),r4))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r3),DIV(SUB(r4,r2),r1))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r3),MUL(r2,DIV(r4,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r3),SUB(ADD(r1,r4),r2))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r3),SUB(r4,SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r4),ADD(r3,ADD(r1,r2)))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r5,r4),MUL(r1,ADD(r2,r3)))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r5,r4),SUB(SUB(r3,r1),r2))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r4),SUB(SUB(r3,r2),r1))|intermediates=I,I,I,I": 2,
+            "ADD(r1,ADD(ADD(r2,r3),SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(MUL(r2,r3),ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(MUL(r2,r5),SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(SUB(r3,r2),SUB(r4,r5)))|intermediates=I,I,I,I": 2,
+            "ADD(r1,ADD(SUB(r4,r2),SUB(r5,r3)))|intermediates=I,I,I,I": 6,
+            "ADD(r1,ADD(SUB(r4,r3),SUB(r5,r2)))|intermediates=I,I,I,I": 4,
+            "ADD(r1,ADD(r2,ADD(r3,SUB(r5,r4))))|intermediates=I,I,I,I": 4,
+            "ADD(r1,ADD(r2,ADD(r5,MUL(r3,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r2,MUL(r3,SUB(r5,r4))))|intermediates=I,I,I,I": 2,
+            "ADD(r1,ADD(r2,MUL(r4,SUB(r5,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r2,SUB(ADD(r3,r5),r4)))|intermediates=I,I,I,I": 17,
+            "ADD(r1,ADD(r2,SUB(MUL(r3,r4),r5)))|intermediates=I,I,I,I": 3,
+            "ADD(r1,ADD(r3,ADD(r2,SUB(r5,r4))))|intermediates=I,I,I,I": 3,
+            "ADD(r1,ADD(r3,MUL(r2,ADD(r4,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r3,SUB(ADD(r2,r5),r4)))|intermediates=I,I,I,I": 3,
+            "ADD(r1,ADD(r3,SUB(MUL(r2,r4),r5)))|intermediates=I,I,I,I": 3,
+            "ADD(r1,ADD(r4,MUL(r2,SUB(r5,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r4,SUB(MUL(r2,r3),r5)))|intermediates=I,I,I,I": 2,
+            "ADD(r1,ADD(r5,MUL(r4,SUB(r3,r2))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,MUL(SUB(r2,r3),SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,MUL(SUB(r4,r3),SUB(r5,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,MUL(r5,ADD(r3,SUB(r4,r2))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,MUL(r5,SUB(ADD(r3,r4),r2)))|intermediates=I,I,I,I": 4,
+            "ADD(r1,SUB(ADD(r2,ADD(r3,r5)),r4))|intermediates=I,I,I,I": 4,
+            "ADD(r1,SUB(ADD(r2,r5),SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(ADD(r3,ADD(r2,r5)),r4))|intermediates=I,I,I,I": 5,
+            "ADD(r1,SUB(ADD(r3,SUB(r4,r5)),r2))|intermediates=I,I,I,I": 4,
+            "ADD(r1,SUB(ADD(r3,r5),SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(ADD(r4,MUL(r2,r5)),r3))|intermediates=I,I,I,I": 2,
+            "ADD(r1,SUB(ADD(r4,SUB(r3,r2)),r5))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(ADD(r4,SUB(r5,r2)),r3))|intermediates=I,I,I,I": 2,
+            "ADD(r1,SUB(ADD(r4,SUB(r5,r3)),r2))|intermediates=I,I,I,I": 5,
+            "ADD(r1,SUB(ADD(r4,r5),ADD(r2,r3)))|intermediates=I,I,I,I": 5,
+            "ADD(r1,SUB(ADD(r5,ADD(r2,r3)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(ADD(r5,MUL(r2,r3)),r4))|intermediates=I,I,I,I": 2,
+            "ADD(r1,SUB(ADD(r5,MUL(r2,r4)),r3))|intermediates=I,I,I,I": 6,
+            "ADD(r1,SUB(ADD(r5,SUB(r4,r3)),r2))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(MUL(r2,SUB(r5,r4)),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(MUL(r3,r5),MUL(r2,r4)))|intermediates=I,I,I,I": 3,
+            "ADD(r1,SUB(MUL(r5,SUB(r3,r2)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(SUB(ADD(r3,r4),r5),r2))|intermediates=I,I,I,I": 12,
+            "ADD(r1,SUB(SUB(ADD(r4,r5),r2),r3))|intermediates=I,I,I,I": 7,
+            "ADD(r1,SUB(SUB(ADD(r4,r5),r3),r2))|intermediates=I,I,I,I": 32,
+            "ADD(r1,SUB(SUB(r3,r2),SUB(r5,r4)))|intermediates=I,I,I,I": 2,
+            "ADD(r1,SUB(SUB(r4,SUB(r5,r3)),r2))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(SUB(r4,r2),SUB(r5,r3)))|intermediates=I,I,I,I": 6,
+            "ADD(r1,SUB(r4,SUB(ADD(r2,r5),r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(ADD(r3,r4),SUB(r5,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(ADD(r3,r5),SUB(r4,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(ADD(r4,r5),SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(MUL(r1,r3),ADD(r4,r5)))|intermediates=I,I,I,I": 6,
+            "ADD(r2,ADD(MUL(r1,r3),MUL(r4,r5)))|intermediates=I,I,I,I": 3,
+            "ADD(r2,ADD(MUL(r1,r5),ADD(r3,r4)))|intermediates=I,I,I,I": 4,
+            "ADD(r2,ADD(MUL(r1,r5),MUL(r3,r4)))|intermediates=I,I,I,I": 4,
+            "ADD(r2,ADD(r1,SUB(ADD(r3,r5),r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r1,SUB(MUL(r3,r4),r5)))|intermediates=I,I,I,I": 2,
+            "ADD(r2,ADD(r3,ADD(r1,SUB(r5,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r3,ADD(r4,MUL(r1,r5))))|intermediates=I,I,I,I": 54,
+            "ADD(r2,ADD(r3,ADD(r4,SUB(r5,r1))))|intermediates=I,I,I,I": 3,
+            "ADD(r2,ADD(r3,ADD(r5,SUB(r4,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r3,SUB(ADD(r1,r5),r4)))|intermediates=I,I,I,I": 2,
+            "ADD(r2,ADD(r4,ADD(r3,MUL(r1,r5))))|intermediates=I,I,I,I": 6,
+            "ADD(r2,ADD(r4,ADD(r3,SUB(r5,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r4,ADD(r5,MUL(r1,r3))))|intermediates=I,I,I,I": 9,
+            "ADD(r2,ADD(r4,MUL(r1,MUL(r3,r5))))|intermediates=I,I,I,I": 26,
+            "ADD(r2,ADD(r4,MUL(r3,MUL(r1,r5))))|intermediates=I,I,I,I": 9,
+            "ADD(r2,ADD(r5,ADD(r3,SUB(r4,r1))))|intermediates=I,I,I,I": 2,
+            "ADD(r2,ADD(r5,ADD(r4,MUL(r1,r3))))|intermediates=I,I,I,I": 5,
+            "ADD(r2,ADD(r5,DIV(MUL(r3,r4),r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,MUL(SUB(r3,r1),SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,MUL(r3,SUB(r5,SUB(r4,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(ADD(r1,ADD(r3,r5)),r4))|intermediates=I,I,I,I": 4,
+            "ADD(r2,SUB(ADD(r3,ADD(r1,r5)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(ADD(r3,ADD(r4,r5)),r1))|intermediates=I,I,I,I": 2,
+            "ADD(r2,SUB(ADD(r4,ADD(r3,r5)),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(ADD(r5,SUB(r1,r3)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(ADD(r5,SUB(r1,r4)),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(DIV(MUL(r1,r5),r4),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(MUL(r1,ADD(r3,r4)),r5))|intermediates=I,I,I,I": 2,
+            "ADD(r2,SUB(MUL(r1,SUB(r5,r3)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(MUL(r3,DIV(r5,r1)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(MUL(r3,r5),ADD(r1,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(SUB(MUL(r1,r5),r4),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(SUB(MUL(r3,r5),r1),r4))|intermediates=I,I,I,I": 2,
+            "ADD(r2,SUB(SUB(MUL(r3,r5),r4),r1))|intermediates=I,I,I,I": 4,
+            "ADD(r2,SUB(SUB(r5,r4),ADD(r1,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(ADD(r2,r4),SUB(r5,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(MUL(r2,r5),SUB(r4,r1)))|intermediates=I,I,I,I": 2,
+            "ADD(r3,ADD(SUB(r4,r1),SUB(r5,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(SUB(r4,r2),SUB(r5,r1)))|intermediates=I,I,I,I": 3,
+            "ADD(r3,ADD(r1,SUB(MUL(r2,r4),r5)))|intermediates=I,I,I,I": 2,
+            "ADD(r3,ADD(r1,SUB(SUB(r4,r2),r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r2,ADD(r1,SUB(r5,r4))))|intermediates=I,I,I,I": 2,
+            "ADD(r3,ADD(r2,ADD(r4,MUL(r1,r5))))|intermediates=I,I,I,I": 13,
+            "ADD(r3,ADD(r2,ADD(r4,SUB(r5,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r2,SUB(ADD(r1,r5),r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r2,SUB(ADD(r4,r5),r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r4,ADD(r2,MUL(r1,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r4,ADD(r2,SUB(r5,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r4,MUL(r1,SUB(r5,r2))))|intermediates=I,I,I,I": 2,
+            "ADD(r3,ADD(r5,MUL(r1,MUL(r2,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r5,SUB(ADD(r1,r2),r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,MUL(r5,ADD(r2,DIV(r4,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,MUL(r5,DIV(ADD(r1,r4),r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,MUL(r5,SUB(SUB(r4,r2),r1)))|intermediates=I,I,I,I": 3,
+            "ADD(r3,MUL(r5,SUB(r4,ADD(r1,r2))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(ADD(r1,ADD(r2,r5)),r4))|intermediates=I,I,I,I": 6,
+            "ADD(r3,SUB(ADD(r2,ADD(r1,r5)),r4))|intermediates=I,I,I,I": 3,
+            "ADD(r3,SUB(ADD(r2,r5),DIV(r4,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(ADD(r4,r5),ADD(r1,r2)))|intermediates=I,I,I,I": 3,
+            "ADD(r3,SUB(ADD(r5,ADD(r1,r2)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(ADD(r5,MUL(r1,r4)),r2))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(DIV(MUL(r2,r5),r1),r4))|intermediates=I,I,I,I": 2,
+            "ADD(r3,SUB(MUL(r2,DIV(r5,r1)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(SUB(ADD(r1,r2),r5),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(SUB(ADD(r1,r4),r2),r5))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(SUB(ADD(r4,r5),r1),r2))|intermediates=I,I,I,I": 2,
+            "ADD(r3,SUB(SUB(ADD(r4,r5),r2),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(SUB(MUL(r1,r5),r2),r4))|intermediates=I,I,I,I": 2,
+            "ADD(r3,SUB(SUB(MUL(r2,r5),r1),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(SUB(SUB(r5,r1),r4),r2))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(r5,ADD(r4,ADD(r1,r2))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(ADD(r2,r3),SUB(r5,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(MUL(r1,r5),ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r1,ADD(r5,MUL(r2,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r2,ADD(r3,MUL(r1,r5))))|intermediates=I,I,I,I": 3,
+            "ADD(r4,ADD(r2,ADD(r5,MUL(r1,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r2,MUL(r1,MUL(r3,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r2,MUL(r3,MUL(r1,r5))))|intermediates=I,I,I,I": 3,
+            "ADD(r4,ADD(r3,ADD(r2,MUL(r1,r5))))|intermediates=I,I,I,I": 7,
+            "ADD(r4,ADD(r3,MUL(r1,ADD(r2,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r3,MUL(r1,SUB(r5,r2))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r3,SUB(SUB(r5,r1),r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,DIV(r5,SUB(r1,SUB(r3,r2))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(ADD(r1,SUB(r3,r2)),r5))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(ADD(r1,SUB(r5,r3)),r2))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(ADD(r2,ADD(r3,r5)),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(SUB(r5,r2),SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(SUB(r5,r3),SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(r5,ADD(r3,SUB(r2,r1))))|intermediates=I,I,I,I": 3,
+            "ADD(r4,SUB(r5,SUB(ADD(r1,r2),r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(SUB(r3,r1),SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r1,SUB(SUB(r4,r3),r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r3,MUL(r1,MUL(r2,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r3,SUB(MUL(r1,r4),r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r4,ADD(r2,MUL(r1,r3))))|intermediates=I,I,I,I": 2,
+            "ADD(r5,DIV(r3,SUB(SUB(r4,r2),r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,MUL(ADD(r2,r4),SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(ADD(r2,ADD(r3,r4)),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(ADD(r3,ADD(r1,r2)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(ADD(r3,ADD(r2,r4)),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(SUB(ADD(r1,r4),r2),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(SUB(ADD(r3,r4),r2),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(SUB(MUL(r2,r4),r3),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(SUB(r4,r2),SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(SUB(r4,r3),SUB(r2,r1)))|intermediates=I,I,I,I": 4,
+            "ADD(r5,SUB(r3,ADD(r4,ADD(r1,r2))))|intermediates=I,I,I,I": 1,
+            "DIV(ADD(ADD(r4,r5),SUB(r3,r1)),r2)|intermediates=I,I,I,I": 1,
+            "DIV(ADD(r1,ADD(r2,ADD(r3,r5))),r4)|intermediates=I,I,I,I": 1,
+            "DIV(ADD(r1,r3),SUB(SUB(r4,r2),r5))|intermediates=I,I,I,I": 1,
+            "DIV(ADD(r1,r5),DIV(r3,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(MUL(r1,r3),SUB(r5,r4)),r2)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(SUB(r3,r2),SUB(r5,r4)),r1)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(SUB(r4,r3),SUB(r5,r2)),r1)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r1,SUB(r2,r3)),SUB(r5,r4))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r1,r3),SUB(ADD(r2,r4),r5))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r4,SUB(ADD(r2,r5),r3)),r1)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r4,r5),SUB(ADD(r1,r2),r3))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r5,SUB(r4,r2)),SUB(r3,r1))|intermediates=I,I,I,I": 1,
+            "DIV(SUB(MUL(r2,r4),r5),ADD(r1,r3))|intermediates=I,I,I,I": 1,
+            "DIV(SUB(SUB(r3,SUB(r5,r4)),r2),r1)|intermediates=I,I,I,I": 1,
+            "DIV(SUB(SUB(r4,r3),r1),DIV(r5,r2))|intermediates=I,I,I,I": 1,
+            "DIV(SUB(r5,r2),DIV(r4,SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "DIV(SUB(r5,r4),DIV(r3,ADD(r1,r2)))|intermediates=I,I,I,I": 1,
+            "DIV(r4,DIV(SUB(r5,r2),SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "MUL(ADD(r1,r2),MUL(r5,SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "MUL(ADD(r2,r4),SUB(r5,MUL(r1,r3)))|intermediates=I,I,I,I": 1,
+            "MUL(ADD(r4,r5),DIV(ADD(r1,r2),r3))|intermediates=I,I,I,I": 1,
+            "MUL(ADD(r4,r5),DIV(r3,ADD(r1,r2)))|intermediates=I,I,I,I": 1,
+            "MUL(ADD(r4,r5),SUB(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "MUL(ADD(r4,r5),SUB(r2,SUB(r3,r1)))|intermediates=I,I,I,I": 2,
+            "MUL(DIV(r3,r1),ADD(r5,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "MUL(DIV(r3,r1),SUB(ADD(r4,r5),r2))|intermediates=I,I,I,I": 1,
+            "MUL(DIV(r3,r1),SUB(r2,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "MUL(DIV(r4,r1),SUB(ADD(r2,r5),r3))|intermediates=F,I,I,I": 1,
+            "MUL(DIV(r4,r1),SUB(r2,SUB(r5,r3)))|intermediates=I,I,I,I": 1,
+            "MUL(MUL(r2,r3),SUB(r5,ADD(r1,r4)))|intermediates=I,I,I,I": 1,
+            "MUL(MUL(r3,r5),SUB(SUB(r4,r1),r2))|intermediates=I,I,I,I": 1,
+            "MUL(MUL(r3,r5),SUB(SUB(r4,r2),r1))|intermediates=I,I,I,I": 2,
+            "MUL(MUL(r4,r5),SUB(r2,SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r2,r1),MUL(r3,SUB(r5,r4)))|intermediates=I,I,I,I": 2,
+            "MUL(SUB(r3,r1),DIV(SUB(r5,r4),r2))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r3,r1),DIV(r4,SUB(r5,r2)))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r3,r2),ADD(r4,DIV(r5,r1)))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r3,r2),SUB(MUL(r1,r4),r5))|intermediates=I,I,I,I": 2,
+            "MUL(SUB(r3,r2),SUB(MUL(r1,r5),r4))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r4,r3),ADD(r1,ADD(r2,r5)))|intermediates=I,I,I,I": 2,
+            "MUL(SUB(r4,r3),DIV(ADD(r2,r5),r1))|intermediates=I,I,I,I": 3,
+            "MUL(SUB(r5,r3),SUB(MUL(r1,r4),r2))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r5,r4),DIV(SUB(r3,r2),r1))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r5,r4),DIV(r3,ADD(r1,r2)))|intermediates=I,I,I,I": 2,
+            "MUL(r1,ADD(r2,ADD(r5,MUL(r3,r4))))|intermediates=I,I,I,I": 1,
+            "MUL(r1,SUB(MUL(r4,r5),SUB(r3,r2)))|intermediates=I,I,I,I": 2,
+            "MUL(r1,SUB(SUB(r5,r4),SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "MUL(r2,ADD(r1,SUB(ADD(r3,r5),r4)))|intermediates=I,I,I,I": 1,
+            "MUL(r2,ADD(r3,ADD(r5,MUL(r1,r4))))|intermediates=I,I,I,I": 1,
+            "MUL(r2,ADD(r5,DIV(r1,SUB(r4,r3))))|intermediates=I,I,I,I": 1,
+            "MUL(r3,ADD(MUL(r1,r2),ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "MUL(r3,ADD(r1,ADD(r2,SUB(r5,r4))))|intermediates=I,I,I,I": 9,
+            "MUL(r3,ADD(r1,SUB(SUB(r5,r4),r2)))|intermediates=I,I,I,I": 3,
+            "MUL(r3,DIV(r1,SUB(r2,SUB(r5,r4))))|intermediates=I,I,I,I": 1,
+            "MUL(r3,SUB(ADD(r5,ADD(r1,r2)),r4))|intermediates=I,I,I,I": 1,
+            "MUL(r3,SUB(ADD(r5,MUL(r1,r4)),r2))|intermediates=I,I,I,I": 5,
+            "MUL(r3,SUB(r5,SUB(ADD(r2,r4),r1)))|intermediates=I,I,I,I": 1,
+            "MUL(r3,SUB(r5,SUB(SUB(r4,r2),r1)))|intermediates=I,I,I,I": 1,
+            "MUL(r4,DIV(r1,SUB(SUB(r5,r3),r2)))|intermediates=I,I,I,I": 1,
+            "MUL(r4,DIV(r5,DIV(r3,SUB(r2,r1))))|intermediates=I,I,I,I": 1,
+            "MUL(r4,MUL(r5,SUB(ADD(r1,r2),r3)))|intermediates=I,I,I,I": 1,
+            "MUL(r4,SUB(r5,DIV(ADD(r1,r2),r3)))|intermediates=I,I,I,I": 1,
+            "MUL(r4,SUB(r5,DIV(r1,SUB(r3,r2))))|intermediates=I,I,I,I": 1,
+            "MUL(r5,ADD(SUB(r4,r3),DIV(r2,r1)))|intermediates=I,I,I,I": 1,
+            "MUL(r5,SUB(SUB(ADD(r2,r4),r3),r1))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(ADD(r1,r2),ADD(r3,r5)),r4)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(ADD(r1,r3),ADD(r2,r5)),r4)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(ADD(r1,r4),SUB(r5,r2)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(ADD(r1,r5),SUB(r4,r3)),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(ADD(r2,r3),ADD(r4,r5)),r1)|intermediates=I,I,I,I": 7,
+            "SUB(ADD(ADD(r2,r5),ADD(r3,r4)),r1)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(ADD(r3,r4),SUB(r5,r1)),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(ADD(r3,r5),SUB(r4,r1)),r2)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(ADD(r3,r5),SUB(r4,r2)),r1)|intermediates=I,I,I,I": 8,
+            "SUB(ADD(ADD(r4,r5),SUB(r3,r2)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(MUL(r1,r4),ADD(r3,r5)),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(MUL(r1,r4),MUL(r2,r5)),r3)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(MUL(r1,r5),ADD(r3,r4)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(MUL(r2,r4),SUB(r5,r1)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(MUL(r2,r4),SUB(r5,r3)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(SUB(r3,r1),SUB(r5,r4)),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(SUB(r3,r2),SUB(r5,r4)),r1)|intermediates=I,I,I,I": 4,
+            "SUB(ADD(r1,ADD(r2,ADD(r3,r5))),r4)|intermediates=I,I,I,I": 7,
+            "SUB(ADD(r1,ADD(r2,r5)),SUB(r4,r3))|intermediates=I,I,I,I": 4,
+            "SUB(ADD(r1,ADD(r3,ADD(r2,r5))),r4)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r1,ADD(r3,SUB(r4,r5))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,ADD(r3,r4)),ADD(r2,r5))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,ADD(r3,r5)),SUB(r4,r2))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r1,ADD(r4,r5)),ADD(r2,r3))|intermediates=I,I,I,I": 6,
+            "SUB(ADD(r1,ADD(r4,r5)),SUB(r3,r2))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,ADD(r5,MUL(r2,r4))),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,SUB(ADD(r4,r5),r3)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,SUB(r3,r2)),SUB(r5,r4))|intermediates=I,I,I,I": 7,
+            "SUB(ADD(r1,SUB(r4,r2)),SUB(r5,r3))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r1,r3),ADD(r2,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,r4),SUB(r2,SUB(r5,r3)))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r1,r4),SUB(r3,SUB(r5,r2)))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r1,r5),SUB(ADD(r2,r3),r4))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,r5),SUB(SUB(r4,r3),r2))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,r5),SUB(r2,SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,r5),SUB(r3,SUB(r4,r2)))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r1,r5),SUB(r4,ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,ADD(r1,ADD(r3,r5))),r4)|intermediates=I,I,I,I": 4,
+            "SUB(ADD(r2,ADD(r1,ADD(r4,r5))),r3)|intermediates=I,I,I,I": 4,
+            "SUB(ADD(r2,ADD(r1,r5)),SUB(r4,r3))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,ADD(r3,ADD(r1,r5))),r4)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,ADD(r3,ADD(r4,r5))),r1)|intermediates=I,I,I,I": 61,
+            "SUB(ADD(r2,ADD(r3,r5)),SUB(r4,r1))|intermediates=I,I,I,I": 5,
+            "SUB(ADD(r2,ADD(r4,ADD(r3,r5))),r1)|intermediates=I,I,I,I": 15,
+            "SUB(ADD(r2,ADD(r5,ADD(r3,r4))),r1)|intermediates=I,I,I,I": 7,
+            "SUB(ADD(r2,MUL(r1,ADD(r3,r4))),r5)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,MUL(r3,r5)),ADD(r1,r4))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,MUL(r4,ADD(r3,r5))),r1)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r2,MUL(r5,SUB(r4,r3))),r1)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r2,SUB(MUL(r3,r5),r4)),r1)|intermediates=I,I,I,I": 61,
+            "SUB(ADD(r2,SUB(SUB(r5,r4),r3)),r1)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r2,r5),ADD(r1,ADD(r3,r4)))|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r2,r5),ADD(r4,ADD(r1,r3)))|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r2,r5),SUB(DIV(r4,r1),r3))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,r5),SUB(SUB(r4,r1),r3))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,r5),SUB(SUB(r4,r3),r1))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r3,ADD(r1,ADD(r2,r5))),r4)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r1,SUB(r4,r5))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r1,r4)),ADD(r2,r5))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r2,ADD(r1,r5))),r4)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r2,ADD(r4,r5))),r1)|intermediates=I,I,I,I": 19,
+            "SUB(ADD(r3,ADD(r2,r5)),SUB(r4,r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r4,ADD(r2,r5))),r1)|intermediates=I,I,I,I": 8,
+            "SUB(ADD(r3,ADD(r4,MUL(r1,r5))),r2)|intermediates=I,I,I,I": 5,
+            "SUB(ADD(r3,ADD(r4,MUL(r2,r5))),r1)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r3,ADD(r4,SUB(r1,r5))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r4,SUB(r5,r1))),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r3,ADD(r4,r5)),ADD(r1,r2))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r3,ADD(r5,MUL(r1,r4))),r2)|intermediates=I,I,I,I": 31,
+            "SUB(ADD(r3,MUL(r1,ADD(r4,r5))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,MUL(r5,ADD(r1,r4))),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r3,SUB(ADD(r1,r4),r5)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,SUB(ADD(r4,r5),r1)),r2)|intermediates=I,I,I,I": 6,
+            "SUB(ADD(r3,SUB(ADD(r4,r5),r2)),r1)|intermediates=I,I,I,I": 8,
+            "SUB(ADD(r3,SUB(MUL(r1,r5),r4)),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r3,SUB(MUL(r2,r5),r4)),r1)|intermediates=I,I,I,I": 4,
+            "SUB(ADD(r3,SUB(SUB(r5,r1),r2)),r4)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r3,SUB(SUB(r5,r2),r4)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,SUB(SUB(r5,r4),r1)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,SUB(SUB(r5,r4),r2)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,r5),ADD(r1,ADD(r2,r4)))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r3,r5),ADD(r4,ADD(r1,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,r5),DIV(SUB(r4,r2),r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,r5),SUB(ADD(r1,r2),r4))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,r5),SUB(SUB(r4,r1),r2))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,r5),SUB(SUB(r4,r2),r1))|intermediates=I,I,I,I": 6,
+            "SUB(ADD(r3,r5),SUB(r1,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,r5),SUB(r2,SUB(r4,r1)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,r5),SUB(r4,ADD(r1,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,ADD(r1,SUB(r3,r2))),r5)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r4,ADD(r1,SUB(r5,r2))),r3)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r4,ADD(r2,ADD(r3,r5))),r1)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r4,ADD(r3,ADD(r2,r5))),r1)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r4,ADD(r3,MUL(r2,r5))),r1)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r4,ADD(r3,SUB(r1,r2))),r5)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r4,ADD(r3,r5)),ADD(r1,r2))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,ADD(r5,ADD(r1,r2))),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,ADD(r5,ADD(r2,r3))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,MUL(r1,ADD(r2,r5))),r3)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r4,MUL(r1,SUB(r5,r2))),r3)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r4,MUL(r3,ADD(r1,r2))),r5)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,MUL(r3,SUB(r5,r2))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,MUL(r5,SUB(r3,r1))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,SUB(ADD(r1,r3),r2)),r5)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,SUB(ADD(r1,r5),r2)),r3)|intermediates=I,I,I,I": 5,
+            "SUB(ADD(r4,SUB(ADD(r1,r5),r3)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,SUB(ADD(r2,r3),r5)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,SUB(ADD(r3,r5),r1)),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r4,SUB(ADD(r3,r5),r2)),r1)|intermediates=I,I,I,I": 4,
+            "SUB(ADD(r4,SUB(MUL(r2,r5),r1)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,SUB(MUL(r2,r5),r3)),r1)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r4,SUB(r5,r3)),SUB(r2,r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,r5),ADD(r2,SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,r5),ADD(r3,SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,r5),DIV(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,r5),SUB(ADD(r1,r2),r3))|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r4,r5),SUB(ADD(r2,r3),r1))|intermediates=I,I,I,I": 6,
+            "SUB(ADD(r4,r5),SUB(SUB(r3,r2),r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,r5),SUB(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r4,r5),SUB(r2,SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,ADD(r2,ADD(r1,r3))),r4)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,ADD(r2,ADD(r3,r4))),r1)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r5,ADD(r2,r3)),SUB(r4,r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,ADD(r3,ADD(r1,r2))),r4)|intermediates=I,I,I,I": 7,
+            "SUB(ADD(r5,ADD(r3,MUL(r1,r4))),r2)|intermediates=I,I,I,I": 12,
+            "SUB(ADD(r5,ADD(r3,r4)),ADD(r1,r2))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,ADD(r4,ADD(r2,r3))),r1)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r5,MUL(r2,r4)),SUB(r3,r1))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r5,SUB(ADD(r1,r4),r2)),r3)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r5,SUB(ADD(r1,r4),r3)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,SUB(MUL(r2,r3),r1)),r4)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,SUB(SUB(r3,r2),r1)),r4)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,SUB(r4,r3)),SUB(r2,r1))|intermediates=I,I,I,I": 3,
+            "SUB(DIV(MUL(r4,r5),SUB(r2,r1)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(DIV(SUB(r5,r4),r1),SUB(r3,r2))|intermediates=I,I,I,I": 2,
+            "SUB(DIV(r5,SUB(r4,r3)),DIV(r2,r1))|intermediates=I,I,I,I": 4,
+            "SUB(DIV(r5,r2),SUB(r1,SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(ADD(r3,r5),SUB(r4,r1)),r2)|intermediates=I,I,I,I": 2,
+            "SUB(MUL(SUB(r2,r1),SUB(r5,r3)),r4)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(SUB(r2,r1),SUB(r5,r4)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(SUB(r4,r2),DIV(r5,r3)),r1)|intermediates=I,F,I,I": 1,
+            "SUB(MUL(SUB(r4,r2),SUB(r5,r3)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r1,ADD(r4,MUL(r3,r5))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r1,ADD(r5,MUL(r3,r4))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,DIV(r5,r1)),SUB(r4,r3))|intermediates=I,I,I,I": 2,
+            "SUB(MUL(r2,r3),DIV(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r3),MUL(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r3),SUB(SUB(r5,r4),r1))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r3),SUB(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r4),ADD(r1,ADD(r3,r5)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r4),ADD(r1,SUB(r3,r5)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r4),MUL(r1,SUB(r5,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r4),SUB(SUB(r5,r3),r1))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r4),SUB(r1,SUB(r5,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r4),SUB(r3,SUB(r5,r1)))|intermediates=I,I,I,I": 2,
+            "SUB(MUL(r2,r5),ADD(r1,SUB(r3,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r5),ADD(r1,SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r2,r5),SUB(r1,SUB(r4,r3)))|intermediates=I,I,I,I": 2,
+            "SUB(MUL(r3,r4),SUB(SUB(r5,r2),r1))|intermediates=I,I,I,I": 2,
+            "SUB(MUL(r3,r4),SUB(r5,ADD(r1,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r3,r5),ADD(r1,SUB(r4,r2)))|intermediates=I,I,I,I": 19,
+            "SUB(MUL(r3,r5),SUB(ADD(r1,r4),r2))|intermediates=I,I,I,I": 5,
+            "SUB(MUL(r3,r5),SUB(MUL(r2,r4),r1))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r3,r5),SUB(r4,SUB(r2,r1)))|intermediates=I,I,I,I": 9,
+            "SUB(MUL(r4,r5),ADD(r1,ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r4,r5),ADD(r3,ADD(r1,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r4,r5),MUL(r3,DIV(r2,r1)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r5,ADD(r2,r4)),MUL(r1,r3))|intermediates=I,I,I,I": 2,
+            "SUB(MUL(r5,DIV(r2,r1)),SUB(r4,r3))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r5,SUB(r4,r1)),ADD(r2,r3))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r1,ADD(r3,r4)),r5),r2)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r1,ADD(r4,r5)),r2),r3)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r1,r4),r2),SUB(r5,r3))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r2,MUL(r3,r5)),r4),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r2,r5),ADD(r3,r4)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r3,ADD(r1,r2)),r4),r5)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r3,ADD(r4,r5)),r1),r2)|intermediates=I,I,I,I": 4,
+            "SUB(SUB(ADD(r3,ADD(r4,r5)),r2),r1)|intermediates=I,I,I,I": 29,
+            "SUB(SUB(ADD(r3,SUB(r5,r2)),r4),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r3,SUB(r5,r4)),r1),r2)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r3,SUB(r5,r4)),r2),r1)|intermediates=I,I,I,I": 4,
+            "SUB(SUB(ADD(r3,r4),r5),SUB(r2,r1))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r3,r5),ADD(r2,r4)),r1)|intermediates=I,I,I,I": 5,
+            "SUB(SUB(ADD(r4,ADD(r1,r3)),r2),r5)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r4,ADD(r1,r5)),r3),r2)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r4,ADD(r3,r5)),r1),r2)|intermediates=I,I,I,I": 3,
+            "SUB(SUB(ADD(r4,ADD(r3,r5)),r2),r1)|intermediates=I,I,I,I": 21,
+            "SUB(SUB(ADD(r4,r5),SUB(r3,r1)),r2)|intermediates=I,I,I,I": 3,
+            "SUB(SUB(ADD(r5,ADD(r1,r4)),r2),r3)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r5,ADD(r3,r4)),r1),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r5,ADD(r3,r4)),r2),r1)|intermediates=I,I,I,I": 7,
+            "SUB(SUB(ADD(r5,MUL(r1,r4)),r3),r2)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r5,MUL(r2,r3)),r4),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r5,MUL(r2,r4)),r3),r1)|intermediates=I,I,I,I": 7,
+            "SUB(SUB(ADD(r5,MUL(r3,r4)),r1),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r5,MUL(r3,r4)),r2),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r5,SUB(r2,r1)),r3),r4)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r5,SUB(r3,r2)),r4),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(MUL(r2,ADD(r1,r5)),r4),r3)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(MUL(r2,r5),SUB(r4,r3)),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(MUL(r3,r5),MUL(r2,r4)),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(MUL(r3,r5),SUB(r4,r2)),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(MUL(r4,r5),MUL(r1,r3)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(ADD(r2,r5),r4),r1),r3)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(ADD(r2,r5),r4),r3),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(ADD(r3,r5),r1),r2),r4)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(ADD(r3,r5),r2),r4),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(ADD(r3,r5),r4),r1),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(ADD(r3,r5),r4),r2),r1)|intermediates=I,I,I,I": 9,
+            "SUB(SUB(SUB(MUL(r2,r3),r4),r1),r5)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(MUL(r2,r3),r5),r4),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(SUB(MUL(r2,r4),r3),r5),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(MUL(r2,r4),r5),r3),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(MUL(r2,r5),r1),r3),r4)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(SUB(MUL(r2,r5),r4),r3),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(r3,r1),r4),SUB(r2,r5))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(r5,SUB(r4,r3)),r2),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(SUB(r5,r1),SUB(r4,r3)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(r5,r2),SUB(r4,r3)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(r5,r2),r1),SUB(r4,r3))|intermediates=I,I,I,I": 2,
+            "SUB(SUB(SUB(r5,r4),SUB(r2,r3)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(r5,r4),SUB(r3,r2)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r1,SUB(r5,r3)),SUB(r4,r2))|intermediates=I,I,I,I": 2,
+            "SUB(SUB(r2,DIV(r5,r1)),SUB(r3,r4))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r3,SUB(r2,r1)),SUB(r5,r4))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r3,SUB(r4,SUB(r5,r2))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r3,SUB(r5,r4)),SUB(r2,r1))|intermediates=I,I,I,I": 2,
+            "SUB(SUB(r3,r2),SUB(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r4,SUB(SUB(r5,r3),r1)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r4,SUB(r2,r1)),SUB(r5,r3))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r4,r2),SUB(SUB(r5,r1),r3))|intermediates=I,I,I,I": 2,
+            "SUB(SUB(r4,r2),SUB(SUB(r5,r3),r1))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,ADD(r1,r4)),SUB(r3,r2))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,SUB(r4,SUB(r3,r2))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,r1),SUB(ADD(r2,r4),r3))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,r2),ADD(r1,SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,r4),ADD(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,r4),SUB(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 2,
+            "SUB(r1,ADD(SUB(r4,r2),SUB(r5,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(r1,SUB(ADD(r2,r5),ADD(r3,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(r1,SUB(SUB(r5,r4),SUB(r3,r2)))|intermediates=I,I,I,I": 2,
+            "SUB(r2,DIV(r4,SUB(SUB(r5,r1),r3)))|intermediates=I,I,I,I": 1,
+            "SUB(r3,MUL(r1,DIV(r2,SUB(r5,r4))))|intermediates=I,I,I,I": 1,
+            "SUB(r3,SUB(ADD(r2,SUB(r5,r1)),r4))|intermediates=I,I,I,I": 1,
+            "SUB(r3,SUB(ADD(r2,r5),ADD(r1,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(r4,SUB(ADD(r2,SUB(r5,r3)),r1))|intermediates=I,I,I,I": 1,
+            "SUB(r4,SUB(ADD(r2,r5),ADD(r1,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(r5,ADD(ADD(r1,r2),SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(r5,ADD(r2,SUB(ADD(r1,r4),r3)))|intermediates=I,I,I,I": 1,
+            "SUB(r5,SUB(SUB(SUB(r4,r3),r2),r1))|intermediates=I,I,I,I": 3
+          }
+        },
+        "success_count_histogram_0_to_16": [
+          13,
+          7,
+          10,
+          31,
+          29,
+          27,
+          31,
+          29,
+          35,
+          24,
+          10,
+          8,
+          2,
+          0,
+          0,
+          0,
+          0
+        ],
+        "zero_success": 13
+      },
+      "R-S": {
+        "all_16_success": 0,
+        "any_success": 30,
+        "families": [
+          {
+            "assigned_family_id": "ADD(ADD(r2,r5),SUB(ADD(r3,r4),r1))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.0748663101604278,
+            "item_count": 22,
+            "panel_role": "sentinel",
+            "successes": 17,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(ADD(r3,r5),SUB(MUL(r1,r4),r2))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.05614973262032086,
+            "item_count": 22,
+            "panel_role": "sentinel",
+            "successes": 10,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(MUL(r1,r3),ADD(r5,ADD(r2,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.029411764705882356,
+            "item_count": 22,
+            "panel_role": "sentinel",
+            "successes": 0,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(SUB(r1,r2),SUB(r5,SUB(r3,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.0962566844919786,
+            "item_count": 22,
+            "panel_role": "sentinel",
+            "successes": 25,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(r1,ADD(r2,ADD(r3,SUB(r5,r4))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.11064425770308121,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 29,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r1,SUB(ADD(r3,r4),ADD(r2,r5)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.03781512605042017,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 3,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r2,ADD(MUL(r1,r5),ADD(r3,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.0350140056022409,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 2,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r2,ADD(r4,MUL(r1,MUL(r3,r5))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.07142857142857142,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 15,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r5,SUB(SUB(r3,r1),ADD(r2,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.04061624649859944,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 4,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "MUL(r3,ADD(MUL(r1,r4),SUB(r2,r5)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.029411764705882353,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 0,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(MUL(r3,r5),SUB(r1,SUB(r2,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.037815126050420166,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 3,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(r3,SUB(r1,ADD(r5,SUB(r4,r2))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.04341736694677871,
+            "item_count": 21,
+            "panel_role": "sentinel",
+            "successes": 5,
+            "trials": 336
+          }
+        ],
+        "items": 256,
+        "recomputed_pass_at_k": {
+          "1": 0.027587890625,
+          "16": 0.1171875,
+          "4": 0.061272321428571426
+        },
+        "recorded_panel": {
+          "completion_count": 4096,
+          "completion_token_length": {
+            "completion_count": 4096,
+            "maximum": 4096,
+            "mean": 700.65380859375,
+            "median": 116.5,
+            "minimum": 51
+          },
+          "cover_curve": [
+            {
+              "posterior_soft_cover": 0.6160525544419284,
+              "tau": 0.01
+            },
+            {
+              "posterior_soft_cover": 0.480028210628366,
+              "tau": 0.02
+            },
+            {
+              "posterior_soft_cover": 0.2712778179690988,
+              "tau": 0.05
+            },
+            {
+              "posterior_soft_cover": 0.1327449622811141,
+              "tau": 0.1
+            },
+            {
+              "posterior_soft_cover": 0.04078344052422964,
+              "tau": 0.25
+            },
+            {
+              "posterior_soft_cover": 0.019735162450946673,
+              "tau": 0.5
+            },
+            {
+              "posterior_soft_cover": 0.009121626756226736,
+              "tau": 0.75
+            }
+          ],
+          "equal_item_posterior_mean": 0.055376838235294115,
+          "exact_success_rate": 0.027587890625,
+          "failure_code_counts": {
+            "ast_limit_exceeded": 1681,
+            "invalid_character": 136,
+            "invalid_syntax": 120,
+            "missing_answer_tag": 566,
+            "operand_multiset_mismatch": 1310,
+            "wrong_target": 170
+          },
+          "item_count": 256,
+          "length_stop_count": 539,
+          "length_stop_rate": 0.131591796875,
+          "loop_fraction_among_length_stops": 0.07977736549165121,
+          "looped_length_stop_count": 43,
+          "mean_pass_at_k": {
+            "1": 0.027587890625,
+            "16": 0.1171875,
+            "4": 0.06127232142857143
+          },
+          "sampled_token_surprisal": {
+            "coverage": 1.0,
+            "mean_surprisal": 0.06208324252564342,
+            "observed_logprob_count": 2869878,
+            "total_token_count": 2869878
+          },
+          "successes": 113,
+          "syntactically_invalid_rate": 0.611083984375,
+          "unique_completion_count": 3048,
+          "unique_verified_strategy_family_count": 25,
+          "verified_strategy_family_counts": {
+            "ADD(ADD(r2,r4),ADD(r3,MUL(r1,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r4),MUL(r3,MUL(r1,r5)))|intermediates=I,I,I,I": 15,
+            "ADD(ADD(r2,r4),SUB(ADD(r3,r5),r1))|intermediates=I,I,I,I": 8,
+            "ADD(MUL(r3,r4),ADD(r1,ADD(r2,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r2,r4),ADD(r3,SUB(r1,r5)))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r3,r4),SUB(SUB(r5,r1),r2))|intermediates=I,I,I,I": 2,
+            "ADD(r1,SUB(r3,SUB(SUB(r4,r5),r2)))|intermediates=I,I,I,I": 29,
+            "ADD(r2,ADD(r4,ADD(r3,MUL(r1,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r5,ADD(r3,SUB(r4,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(r5,SUB(r2,SUB(r3,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r2,ADD(r3,SUB(r4,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(SUB(r4,r2),SUB(r3,r1)))|intermediates=I,I,I,I": 16,
+            "SUB(ADD(r1,ADD(r4,SUB(r3,r5))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,r3),ADD(r2,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,r3),SUB(ADD(r2,r5),r4))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,ADD(r3,ADD(r4,r5))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r4,SUB(r5,r1))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,ADD(r3,ADD(r2,r5))),r1)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r5,ADD(r2,ADD(r3,r4))),r1)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r5,ADD(r3,ADD(r2,r4))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,ADD(r3,MUL(r1,r4))),r2)|intermediates=I,I,I,I": 10,
+            "SUB(ADD(r5,ADD(r3,SUB(r4,r2))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r3,ADD(r4,r5)),r2),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(MUL(r2,ADD(r3,r5)),r4),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(r1,SUB(SUB(r3,r5),r4)),r2)|intermediates=I,I,I,I": 9
+          }
+        },
+        "success_count_histogram_0_to_16": [
+          226,
+          13,
+          5,
+          2,
+          3,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        "zero_success": 226
+      },
+      "R_P_above_family_count": 12
+    },
+    "targeted": {
+      "R-P": {
+        "all_16_success": 0,
+        "any_success": 247,
+        "families": [
+          {
+            "assigned_family_id": "ADD(ADD(r1,r3),SUB(ADD(r2,r4),r5))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.3449197860962567,
+            "item_count": 22,
+            "panel_role": "targeted",
+            "successes": 118,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(ADD(r4,r5),ADD(r1,SUB(r3,r2)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.4893048128342246,
+            "item_count": 22,
+            "panel_role": "targeted",
+            "successes": 172,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(MUL(r3,r5),ADD(r1,ADD(r2,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.48128342245989303,
+            "item_count": 22,
+            "panel_role": "targeted",
+            "successes": 169,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(r2,ADD(r5,ADD(r3,MUL(r1,r4))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.2647058823529412,
+            "item_count": 22,
+            "panel_role": "targeted",
+            "successes": 88,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(r2,SUB(r4,ADD(r3,SUB(r5,r1))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.28711484593837533,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 92,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r5,ADD(r4,ADD(r1,ADD(r2,r3))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.5812324929971989,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 197,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r5,SUB(SUB(r4,r1),SUB(r3,r2)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.44117647058823534,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 147,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "MUL(MUL(r1,r2),ADD(r3,SUB(r4,r5)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.16666666666666666,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 49,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(ADD(r2,r4),SUB(r3,MUL(r1,r5)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.4439775910364146,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 148,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(MUL(ADD(r1,r3),DIV(r4,r5)),r2)|intermediates=I,F,I,I",
+            "equal_item_posterior_mean": 0.1750700280112045,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 52,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(MUL(r1,r4),ADD(r3,ADD(r2,r5)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.18067226890756305,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 54,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(SUB(r3,SUB(SUB(r4,r5),r2)),r1)|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.396358543417367,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 131,
+            "trials": 336
+          }
+        ],
+        "items": 256,
+        "recomputed_pass_at_k": {
+          "1": 0.345947265625,
+          "16": 0.96484375,
+          "4": 0.7602721497252747
+        },
+        "recorded_panel": {
+          "completion_count": 4096,
+          "completion_token_length": {
+            "completion_count": 4096,
+            "maximum": 4096,
+            "mean": 1408.377197265625,
+            "median": 628.0,
+            "minimum": 3
+          },
+          "cover_curve": [
+            {
+              "posterior_soft_cover": 0.9822008456854018,
+              "tau": 0.01
+            },
+            {
+              "posterior_soft_cover": 0.9721237048780295,
+              "tau": 0.02
+            },
+            {
+              "posterior_soft_cover": 0.9422064908608625,
+              "tau": 0.05
+            },
+            {
+              "posterior_soft_cover": 0.88446898809256,
+              "tau": 0.1
+            },
+            {
+              "posterior_soft_cover": 0.662734235762688,
+              "tau": 0.25
+            },
+            {
+              "posterior_soft_cover": 0.2518710686923722,
+              "tau": 0.5
+            },
+            {
+              "posterior_soft_cover": 0.028374114200097843,
+              "tau": 0.75
+            }
+          ],
+          "equal_item_posterior_mean": 0.3550091911764706,
+          "exact_success_rate": 0.345947265625,
+          "failure_code_counts": {
+            "answer_too_long": 4,
+            "ast_limit_exceeded": 82,
+            "empty_answer": 1,
+            "invalid_character": 314,
+            "invalid_syntax": 12,
+            "missing_answer_tag": 1116,
+            "multiple_answer_tags": 34,
+            "operand_multiset_mismatch": 240,
+            "wrong_target": 876
+          },
+          "item_count": 256,
+          "length_stop_count": 860,
+          "length_stop_rate": 0.2099609375,
+          "loop_fraction_among_length_stops": 0.14418604651162792,
+          "looped_length_stop_count": 124,
+          "mean_pass_at_k": {
+            "1": 0.345947265625,
+            "16": 0.96484375,
+            "4": 0.7602721497252748
+          },
+          "sampled_token_surprisal": {
+            "coverage": 1.0,
+            "mean_surprisal": 0.17767960956289802,
+            "observed_logprob_count": 5768713,
+            "total_token_count": 5768713
+          },
+          "successes": 1417,
+          "syntactically_invalid_rate": 0.381591796875,
+          "unique_completion_count": 4064,
+          "unique_verified_strategy_family_count": 512,
+          "verified_strategy_family_counts": {
+            "ADD(ADD(r1,r2),ADD(r3,ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r2),ADD(r4,MUL(r3,r5)))|intermediates=I,I,I,I": 3,
+            "ADD(ADD(r1,r2),SUB(r3,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r2),SUB(r4,SUB(r5,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r3),ADD(r5,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r3),SUB(r2,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r4),ADD(r3,SUB(r5,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r4),ADD(r5,ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r4),MUL(r5,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r1,r4),SUB(r2,SUB(r5,r3)))|intermediates=I,I,I,I": 2,
+            "ADD(ADD(r1,r4),SUB(r3,SUB(r5,r2)))|intermediates=I,I,I,I": 2,
+            "ADD(ADD(r2,r3),ADD(r1,ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r3),ADD(r5,MUL(r1,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r3),SUB(SUB(r5,r4),r1))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r3),SUB(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r4),SUB(SUB(r5,r3),r1))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r4),SUB(r1,SUB(r5,r3)))|intermediates=I,I,I,I": 2,
+            "ADD(ADD(r2,r5),ADD(r3,MUL(r1,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r5),DIV(SUB(r4,r3),r1))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r5),SUB(SUB(r4,r1),r3))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r5),SUB(r4,ADD(r1,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r2,r5),SUB(r4,DIV(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r3,r4),ADD(r1,ADD(r2,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r3,r5),ADD(r1,ADD(r2,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r3,r5),ADD(r1,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r4,r5),ADD(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 8,
+            "ADD(ADD(r4,r5),ADD(r3,ADD(r1,r2)))|intermediates=I,I,I,I": 2,
+            "ADD(ADD(r4,r5),SUB(r3,SUB(r2,r1)))|intermediates=I,I,I,I": 2,
+            "ADD(DIV(r3,r1),ADD(r5,ADD(r2,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(DIV(r3,r1),SUB(ADD(r4,r5),r2))|intermediates=I,I,I,I": 1,
+            "ADD(DIV(r4,r1),SUB(r5,ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(DIV(r5,r3),DIV(SUB(r4,r2),r1))|intermediates=I,I,I,I": 1,
+            "ADD(DIV(r5,r3),SUB(ADD(r1,r2),r4))|intermediates=I,I,I,I": 1,
+            "ADD(DIV(r5,r3),SUB(SUB(r4,r2),r1))|intermediates=I,I,I,I": 1,
+            "ADD(DIV(r5,r4),SUB(SUB(r3,r1),r2))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r2),ADD(r3,ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r2),SUB(r3,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r4),ADD(r3,ADD(r2,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r4),MUL(r5,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r5),ADD(r2,SUB(r4,r3)))|intermediates=I,I,I,I": 8,
+            "ADD(MUL(r1,r5),SUB(ADD(r2,r4),r3))|intermediates=I,I,I,I": 8,
+            "ADD(MUL(r1,r5),SUB(ADD(r3,r4),r2))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r1,r5),SUB(r4,SUB(r3,r2)))|intermediates=I,I,I,I": 2,
+            "ADD(MUL(r2,r4),DIV(DIV(r5,r3),r1))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r2,r4),DIV(r5,MUL(r1,r3)))|intermediates=I,I,I,I": 2,
+            "ADD(MUL(r2,r5),ADD(r1,SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r2,r5),MUL(r4,SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r2,r5),SUB(MUL(r1,r4),r3))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r3,r5),ADD(r1,ADD(r2,r4)))|intermediates=I,I,I,I": 15,
+            "ADD(MUL(r3,r5),ADD(r4,ADD(r1,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r1,r2),ADD(r3,ADD(r4,r5)))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r2,r1),ADD(r5,SUB(r4,r3)))|intermediates=I,I,I,I": 3,
+            "ADD(SUB(r2,r1),DIV(r5,SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r2,r1),MUL(r3,SUB(r5,r4)))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r2,r1),SUB(ADD(r3,r5),r4))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r2,r1),SUB(ADD(r4,r5),r3))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r2,r1),SUB(r5,SUB(r4,r3)))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r2,r3),ADD(r4,MUL(r1,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r2,r3),SUB(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 3,
+            "ADD(SUB(r3,r1),ADD(r2,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r3,r1),MUL(r5,SUB(r4,r2)))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r3,r1),SUB(ADD(r2,r5),r4))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r3,r1),SUB(r5,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r3,r2),ADD(r1,ADD(r4,r5)))|intermediates=I,I,I,I": 3,
+            "ADD(SUB(r4,r1),SUB(ADD(r2,r5),r3))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r2),ADD(r1,ADD(r3,r5)))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r4,r3),ADD(r2,MUL(r1,r5)))|intermediates=I,I,I,I": 3,
+            "ADD(SUB(r4,r3),ADD(r2,SUB(r5,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r3),ADD(r5,SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r3),MUL(r1,SUB(r5,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r3),SUB(ADD(r2,r5),r1))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r4,r5),ADD(r3,ADD(r1,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r4,r5),SUB(ADD(r1,r2),r3))|intermediates=I,I,I,I": 4,
+            "ADD(SUB(r5,r1),SUB(r4,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r2),DIV(ADD(r1,r4),r3))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r3),SUB(ADD(r2,r4),r1))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r4),ADD(r2,SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(SUB(r5,r4),ADD(r3,SUB(r2,r1)))|intermediates=I,I,I,I": 2,
+            "ADD(SUB(r5,r4),MUL(r2,SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(ADD(r2,r3),ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(ADD(r2,r5),ADD(r3,r4)))|intermediates=I,I,I,I": 2,
+            "ADD(r1,ADD(ADD(r3,r4),SUB(r5,r2)))|intermediates=I,I,I,I": 2,
+            "ADD(r1,ADD(ADD(r3,r5),SUB(r4,r2)))|intermediates=I,I,I,I": 2,
+            "ADD(r1,ADD(ADD(r4,r5),SUB(r3,r2)))|intermediates=I,I,I,I": 10,
+            "ADD(r1,ADD(MUL(r2,r3),ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(MUL(r3,r5),ADD(r2,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(SUB(r5,r4),DIV(r3,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r2,ADD(r3,ADD(r4,r5))))|intermediates=I,I,I,I": 56,
+            "ADD(r1,ADD(r2,ADD(r4,ADD(r3,r5))))|intermediates=I,I,I,I": 4,
+            "ADD(r1,ADD(r2,ADD(r4,MUL(r3,r5))))|intermediates=I,I,I,I": 103,
+            "ADD(r1,ADD(r2,SUB(ADD(r3,r4),r5)))|intermediates=I,I,I,I": 20,
+            "ADD(r1,ADD(r2,SUB(SUB(r4,r3),r5)))|intermediates=I,I,I,I": 2,
+            "ADD(r1,ADD(r2,SUB(r4,ADD(r3,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r2,SUB(r4,SUB(r5,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r3,ADD(r2,ADD(r4,r5))))|intermediates=I,I,I,I": 6,
+            "ADD(r1,ADD(r3,ADD(r2,SUB(r4,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r3,ADD(r4,ADD(r2,r5))))|intermediates=I,I,I,I": 2,
+            "ADD(r1,ADD(r3,ADD(r4,SUB(r5,r2))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r4,ADD(r2,ADD(r3,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r4,ADD(r2,MUL(r3,r5))))|intermediates=I,I,I,I": 3,
+            "ADD(r1,ADD(r4,ADD(r3,ADD(r2,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r5,ADD(r4,ADD(r2,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,DIV(SUB(r3,r2),SUB(r5,r4)))|intermediates=I,I,I,I": 2,
+            "ADD(r1,MUL(SUB(r3,r2),SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,MUL(r3,SUB(ADD(r4,r5),r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,MUL(r5,SUB(SUB(r4,r3),r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(ADD(r2,SUB(r4,r5)),r3))|intermediates=I,I,I,I": 2,
+            "ADD(r1,SUB(ADD(r2,r3),SUB(r5,r4)))|intermediates=I,I,I,I": 2,
+            "ADD(r1,SUB(ADD(r2,r4),ADD(r3,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(ADD(r2,r4),SUB(r5,r3)))|intermediates=I,I,I,I": 3,
+            "ADD(r1,SUB(ADD(r3,ADD(r2,r4)),r5))|intermediates=I,I,I,I": 2,
+            "ADD(r1,SUB(ADD(r3,ADD(r4,r5)),r2))|intermediates=I,I,I,I": 66,
+            "ADD(r1,SUB(ADD(r3,r4),SUB(r5,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(ADD(r4,ADD(r2,r3)),r5))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(ADD(r4,ADD(r3,r5)),r2))|intermediates=I,I,I,I": 16,
+            "ADD(r1,SUB(ADD(r4,MUL(r2,r5)),r3))|intermediates=I,I,I,I": 2,
+            "ADD(r1,SUB(ADD(r5,ADD(r3,r4)),r2))|intermediates=I,I,I,I": 5,
+            "ADD(r1,SUB(DIV(MUL(r4,r5),r3),r2))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(MUL(r4,SUB(r5,r2)),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(SUB(ADD(r2,r4),r5),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(SUB(MUL(r4,r5),r2),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(SUB(MUL(r4,r5),r3),r2))|intermediates=I,I,I,I": 2,
+            "ADD(r1,SUB(SUB(r4,r3),SUB(r5,r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(r4,SUB(SUB(r5,r3),r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r1,SUB(r4,SUB(r5,ADD(r2,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(ADD(r1,r3),ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(MUL(r1,r4),ADD(r3,r5)))|intermediates=I,I,I,I": 2,
+            "ADD(r2,ADD(MUL(r1,r5),SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(MUL(r3,r5),ADD(r1,r4)))|intermediates=I,I,I,I": 3,
+            "ADD(r2,ADD(SUB(r3,r4),SUB(r5,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(SUB(r4,r1),SUB(r5,r3)))|intermediates=I,I,I,I": 2,
+            "ADD(r2,ADD(SUB(r4,r3),SUB(r5,r1)))|intermediates=I,I,I,I": 2,
+            "ADD(r2,ADD(SUB(r5,r4),DIV(r3,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r1,ADD(r3,ADD(r4,r5))))|intermediates=I,I,I,I": 15,
+            "ADD(r2,ADD(r1,ADD(r3,SUB(r4,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r1,ADD(r4,ADD(r3,r5))))|intermediates=I,I,I,I": 3,
+            "ADD(r2,ADD(r1,ADD(r4,MUL(r3,r5))))|intermediates=I,I,I,I": 17,
+            "ADD(r2,ADD(r1,ADD(r5,ADD(r3,r4))))|intermediates=I,I,I,I": 2,
+            "ADD(r2,ADD(r1,SUB(SUB(r4,r3),r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r1,SUB(SUB(r4,r5),r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r3,ADD(r4,ADD(r1,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r3,ADD(r5,ADD(r1,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r3,ADD(r5,MUL(r1,r4))))|intermediates=I,I,I,I": 32,
+            "ADD(r2,ADD(r3,DIV(ADD(r4,r5),r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r3,SUB(ADD(r1,r4),r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r3,SUB(SUB(r5,r1),r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r5,ADD(r3,ADD(r1,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r5,ADD(r3,MUL(r1,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r5,MUL(r3,ADD(r1,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,MUL(r4,DIV(r1,DIV(r5,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(ADD(r1,ADD(r3,r4)),r5))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(ADD(r1,r4),SUB(r5,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(ADD(r3,ADD(r1,r4)),r5))|intermediates=I,I,I,I": 3,
+            "ADD(r2,SUB(ADD(r3,SUB(r5,r1)),r4))|intermediates=I,I,I,I": 3,
+            "ADD(r2,SUB(ADD(r4,ADD(r1,r3)),r5))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(ADD(r4,MUL(r1,r5)),r3))|intermediates=I,I,I,I": 57,
+            "ADD(r2,SUB(ADD(r4,SUB(r1,r5)),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(ADD(r4,SUB(r5,r1)),r3))|intermediates=I,I,I,I": 3,
+            "ADD(r2,SUB(ADD(r4,SUB(r5,r3)),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(ADD(r4,r5),ADD(r1,r3)))|intermediates=I,I,I,I": 2,
+            "ADD(r2,SUB(ADD(r5,SUB(r4,r1)),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(MUL(r1,ADD(r3,r5)),r4))|intermediates=I,I,I,I": 3,
+            "ADD(r2,SUB(MUL(r1,r3),ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(SUB(ADD(r3,r5),r4),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(SUB(ADD(r4,r5),r1),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(SUB(ADD(r4,r5),r3),r1))|intermediates=I,I,I,I": 2,
+            "ADD(r2,SUB(SUB(MUL(r1,r3),r5),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(SUB(MUL(r4,r5),r1),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(SUB(r5,r1),SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(r5,DIV(ADD(r3,r4),r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(ADD(r1,r2),ADD(r4,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(MUL(r1,r4),ADD(r2,r5)))|intermediates=I,I,I,I": 2,
+            "ADD(r3,ADD(r1,ADD(r2,ADD(r4,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r2,ADD(r1,ADD(r4,r5))))|intermediates=I,I,I,I": 6,
+            "ADD(r3,ADD(r2,ADD(r5,ADD(r1,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r2,ADD(r5,MUL(r1,r4))))|intermediates=I,I,I,I": 12,
+            "ADD(r3,ADD(r4,ADD(r2,ADD(r1,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r5,ADD(r4,MUL(r1,r2))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,MUL(SUB(r1,r2),SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(ADD(r1,ADD(r2,r4)),r5))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(ADD(r2,ADD(r1,r4)),r5))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(ADD(r2,SUB(r5,r1)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(ADD(r2,SUB(r5,r4)),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(ADD(r4,ADD(r1,r2)),r5))|intermediates=I,I,I,I": 3,
+            "ADD(r3,SUB(ADD(r5,SUB(r2,r1)),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(MUL(r1,ADD(r2,r4)),r5))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(MUL(r1,r5),MUL(r2,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r3,SUB(SUB(ADD(r2,r5),r1),r4))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(ADD(r1,r2),ADD(r3,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(SUB(r1,r3),SUB(r2,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(SUB(r2,r1),SUB(r5,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r1,ADD(r2,ADD(r3,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r1,ADD(r2,MUL(r3,r5))))|intermediates=I,I,I,I": 3,
+            "ADD(r4,ADD(r1,ADD(r3,ADD(r2,r5))))|intermediates=I,I,I,I": 2,
+            "ADD(r4,ADD(r2,ADD(r1,MUL(r3,r5))))|intermediates=I,I,I,I": 2,
+            "ADD(r4,ADD(r2,SUB(SUB(r5,r3),r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r3,ADD(r2,ADD(r1,r5))))|intermediates=I,I,I,I": 2,
+            "ADD(r4,ADD(r5,ADD(r2,ADD(r1,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r5,ADD(r3,ADD(r1,r2))))|intermediates=I,I,I,I": 5,
+            "ADD(r4,ADD(r5,MUL(r3,DIV(r2,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(ADD(r2,ADD(r1,r3)),r5))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(ADD(r2,SUB(r5,r3)),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(ADD(r3,ADD(r1,r2)),r5))|intermediates=I,I,I,I": 3,
+            "ADD(r4,SUB(ADD(r3,r5),SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(MUL(r1,r5),MUL(r2,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r4,SUB(SUB(ADD(r2,r5),r1),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(ADD(r1,r2),ADD(r3,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r1,ADD(r4,ADD(r2,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r1,ADD(r4,MUL(r2,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r1,SUB(ADD(r3,r4),r2)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r3,ADD(r2,MUL(r1,r4))))|intermediates=I,I,I,I": 2,
+            "ADD(r5,ADD(r4,ADD(r1,MUL(r2,r3))))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r4,ADD(r3,ADD(r1,r2))))|intermediates=I,I,I,I": 64,
+            "ADD(r5,MUL(ADD(r3,r4),SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(ADD(r1,ADD(r3,r4)),r2))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(ADD(r2,SUB(r4,r1)),r3))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(ADD(r2,SUB(r4,r3)),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(ADD(r3,r4),SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(SUB(r2,r1),SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(r1,ADD(r2,ADD(r3,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r5,SUB(r4,SUB(r3,SUB(r2,r1))))|intermediates=I,I,I,I": 1,
+            "DIV(ADD(r3,MUL(r1,r5)),SUB(r4,r2))|intermediates=I,I,I,I": 1,
+            "DIV(ADD(r4,r5),ADD(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "DIV(DIV(r5,r2),SUB(SUB(r4,r3),r1))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(ADD(r1,r2),SUB(r4,r5)),r3)|intermediates=I,I,I,I": 3,
+            "DIV(MUL(ADD(r1,r4),SUB(r3,r2)),r5)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(SUB(r3,r1),SUB(r4,r5)),r2)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(SUB(r3,r2),SUB(r4,r5)),r1)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(SUB(r4,r2),SUB(r5,r3)),r1)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r1,MUL(r2,r5)),SUB(r4,r3))|intermediates=I,I,I,I": 2,
+            "DIV(MUL(r2,ADD(r4,r5)),SUB(r3,r1))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r2,SUB(r5,r4)),SUB(r3,r1))|intermediates=I,I,I,I": 2,
+            "DIV(MUL(r2,r3),ADD(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r2,r5),SUB(SUB(r4,r3),r1))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r3,ADD(r1,r2)),SUB(r5,r4))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r3,SUB(SUB(r5,r4),r2)),r1)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r3,SUB(r5,SUB(r4,r1))),r2)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r3,r5),ADD(r2,DIV(r4,r1)))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r4,ADD(r2,SUB(r3,r5))),r1)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r4,SUB(SUB(r5,r3),r2)),r1)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r4,SUB(r5,MUL(r1,r2))),r3)|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r4,SUB(r5,r3)),SUB(r2,r1))|intermediates=I,I,I,I": 1,
+            "DIV(MUL(r5,SUB(r2,r1)),SUB(r4,r3))|intermediates=I,I,I,I": 1,
+            "DIV(SUB(ADD(r4,r5),r1),SUB(r3,r2))|intermediates=I,I,I,I": 1,
+            "DIV(SUB(MUL(r3,r4),MUL(r1,r5)),r2)|intermediates=I,I,I,I": 1,
+            "DIV(SUB(MUL(r4,r5),r1),DIV(r3,r2))|intermediates=I,I,I,I": 1,
+            "DIV(SUB(SUB(ADD(r1,r5),r4),r3),r2)|intermediates=I,I,I,I": 1,
+            "DIV(SUB(SUB(r4,r2),r1),DIV(r5,r3))|intermediates=I,I,I,I": 1,
+            "DIV(SUB(SUB(r5,r2),r1),SUB(r4,r3))|intermediates=I,I,I,I": 1,
+            "DIV(SUB(r2,r4),DIV(r3,DIV(r5,r1)))|intermediates=I,I,I,I": 1,
+            "DIV(r5,ADD(r3,DIV(r4,SUB(r2,r1))))|intermediates=I,I,I,I": 1,
+            "MUL(ADD(r2,r3),SUB(ADD(r1,r4),r5))|intermediates=I,I,I,I": 1,
+            "MUL(ADD(r2,r3),SUB(r4,SUB(r5,r1)))|intermediates=I,I,I,I": 1,
+            "MUL(ADD(r2,r5),SUB(ADD(r1,r3),r4))|intermediates=I,I,I,I": 1,
+            "MUL(DIV(r4,r1),SUB(SUB(r5,r2),r3))|intermediates=I,I,I,I": 1,
+            "MUL(DIV(r4,r1),SUB(SUB(r5,r3),r2))|intermediates=I,I,I,I": 1,
+            "MUL(DIV(r5,r2),SUB(r4,SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "MUL(DIV(r5,r3),DIV(SUB(r4,r2),r1))|intermediates=I,I,I,I": 3,
+            "MUL(MUL(r1,r2),SUB(ADD(r3,r4),r5))|intermediates=I,I,I,I": 2,
+            "MUL(MUL(r1,r2),SUB(r3,SUB(r5,r4)))|intermediates=I,I,I,I": 3,
+            "MUL(MUL(r1,r2),SUB(r4,SUB(r5,r3)))|intermediates=I,I,I,I": 2,
+            "MUL(MUL(r2,r3),SUB(SUB(r5,r4),r1))|intermediates=I,I,I,I": 2,
+            "MUL(MUL(r2,r5),SUB(SUB(r4,r3),r1))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r2,r1),ADD(r5,MUL(r3,r4)))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r3,r1),SUB(ADD(r2,r4),r5))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r3,r1),SUB(r4,SUB(r5,r2)))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r3,r1),SUB(r5,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r3,r2),DIV(SUB(r4,r5),r1))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r3,r2),MUL(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 4,
+            "MUL(SUB(r3,r2),MUL(r4,SUB(r5,r1)))|intermediates=I,I,I,I": 2,
+            "MUL(SUB(r3,r2),SUB(ADD(r4,r5),r1))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r3,r2),SUB(DIV(r5,r1),r4))|intermediates=I,I,I,I": 2,
+            "MUL(SUB(r3,r2),SUB(SUB(r5,r4),r1))|intermediates=I,I,I,I": 3,
+            "MUL(SUB(r4,r2),ADD(r1,SUB(r5,r3)))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r4,r3),DIV(ADD(r1,r2),r5))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r4,r5),SUB(MUL(r1,r2),r3))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r5,r4),DIV(r3,SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r5,r4),SUB(ADD(r2,r3),r1))|intermediates=I,I,I,I": 1,
+            "MUL(SUB(r5,r4),SUB(SUB(r3,r2),r1))|intermediates=I,I,I,I": 2,
+            "MUL(r1,ADD(SUB(r3,r2),SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "MUL(r1,ADD(r2,ADD(r3,SUB(r5,r4))))|intermediates=I,I,I,I": 1,
+            "MUL(r1,ADD(r2,SUB(ADD(r3,r5),r4)))|intermediates=I,I,I,I": 1,
+            "MUL(r1,ADD(r2,SUB(SUB(r5,r3),r4)))|intermediates=I,I,I,I": 1,
+            "MUL(r1,DIV(SUB(r4,r3),SUB(r5,r2)))|intermediates=I,I,F,I": 1,
+            "MUL(r1,DIV(SUB(r5,r3),SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "MUL(r1,MUL(r2,ADD(r4,SUB(r3,r5))))|intermediates=I,I,I,I": 2,
+            "MUL(r1,MUL(r2,SUB(ADD(r3,r4),r5)))|intermediates=I,I,I,I": 1,
+            "MUL(r1,MUL(r2,SUB(r3,SUB(r5,r4))))|intermediates=I,I,I,I": 2,
+            "MUL(r1,SUB(ADD(r3,SUB(r5,r4)),r2))|intermediates=I,I,I,I": 1,
+            "MUL(r1,SUB(ADD(r3,r4),ADD(r2,r5)))|intermediates=I,I,I,I": 1,
+            "MUL(r1,SUB(DIV(r5,r4),SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "MUL(r1,SUB(SUB(r3,r2),SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "MUL(r1,SUB(SUB(r5,r2),SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "MUL(r1,SUB(SUB(r5,r4),SUB(r3,r2)))|intermediates=I,I,I,I": 2,
+            "MUL(r2,ADD(r3,DIV(r5,SUB(r4,r1))))|intermediates=I,I,I,I": 1,
+            "MUL(r2,ADD(r4,DIV(SUB(r5,r3),r1)))|intermediates=I,I,I,I": 1,
+            "MUL(r2,DIV(SUB(r4,r1),SUB(r5,r3)))|intermediates=I,I,F,I": 1,
+            "MUL(r2,MUL(r1,SUB(ADD(r3,r4),r5)))|intermediates=I,I,I,I": 1,
+            "MUL(r2,MUL(r3,SUB(SUB(r5,r1),r4)))|intermediates=I,I,I,I": 1,
+            "MUL(r2,SUB(ADD(r1,r5),ADD(r3,r4)))|intermediates=I,I,I,I": 1,
+            "MUL(r2,SUB(DIV(r5,r4),DIV(r3,r1)))|intermediates=I,I,I,I": 1,
+            "MUL(r2,SUB(SUB(ADD(r4,r5),r3),r1))|intermediates=I,I,I,I": 3,
+            "MUL(r2,SUB(SUB(r5,r4),ADD(r1,r3)))|intermediates=I,I,I,I": 1,
+            "MUL(r2,SUB(SUB(r5,r4),SUB(r3,r1)))|intermediates=I,I,I,I": 1,
+            "MUL(r3,ADD(SUB(r2,r1),SUB(r5,r4)))|intermediates=I,I,I,I": 2,
+            "MUL(r3,DIV(SUB(r5,r4),SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "MUL(r3,SUB(ADD(r2,SUB(r5,r4)),r1))|intermediates=I,I,I,I": 2,
+            "MUL(r3,SUB(SUB(ADD(r2,r5),r4),r1))|intermediates=I,I,I,I": 1,
+            "MUL(r3,SUB(SUB(r2,r1),SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "MUL(r4,DIV(SUB(SUB(r5,r3),r2),r1))|intermediates=I,I,I,I": 1,
+            "MUL(r4,SUB(SUB(SUB(r5,r1),r2),r3))|intermediates=I,I,I,I": 1,
+            "MUL(r4,SUB(SUB(SUB(r5,r3),r1),r2))|intermediates=I,I,I,I": 1,
+            "MUL(r4,SUB(SUB(SUB(r5,r3),r2),r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(ADD(r1,r2),ADD(r3,r4)),r5)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(ADD(r1,r3),ADD(r4,r5)),r2)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(ADD(r2,r3),SUB(r5,r1)),r4)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(ADD(r2,r4),SUB(r5,r3)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(ADD(r2,r5),SUB(r4,r3)),r1)|intermediates=I,I,I,I": 5,
+            "SUB(ADD(MUL(r1,r4),MUL(r2,r5)),r3)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(MUL(r1,r5),ADD(r2,r4)),r3)|intermediates=I,I,I,I": 4,
+            "SUB(ADD(MUL(r1,r5),ADD(r3,r4)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(MUL(r2,r4),ADD(r3,r5)),r1)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(SUB(r2,r3),SUB(r5,r4)),r1)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r1,ADD(r2,ADD(r3,r4))),r5)|intermediates=I,I,I,I": 7,
+            "SUB(ADD(r1,ADD(r2,r3)),SUB(r5,r4))|intermediates=I,I,I,I": 7,
+            "SUB(ADD(r1,ADD(r2,r4)),ADD(r3,r5))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,ADD(r2,r4)),SUB(r5,r3))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r1,ADD(r3,ADD(r4,r5))),r2)|intermediates=I,I,I,I": 8,
+            "SUB(ADD(r1,ADD(r4,ADD(r3,r5))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,ADD(r5,ADD(r3,r4))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,MUL(r4,DIV(r5,r3))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,SUB(ADD(r2,r4),r5)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,SUB(SUB(r5,r4),r3)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,r2),SUB(SUB(r5,r4),r3))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,r4),SUB(ADD(r3,r5),r2))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,r5),DIV(r2,SUB(r4,r3)))|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r2,ADD(r1,SUB(r4,r3))),r5)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r2,ADD(r1,SUB(r4,r5))),r3)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r2,ADD(r1,r3)),SUB(r5,r4))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,ADD(r3,SUB(r5,r4))),r1)|intermediates=I,I,I,I": 8,
+            "SUB(ADD(r2,ADD(r3,r4)),SUB(r5,r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,ADD(r3,r5)),ADD(r1,r4))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,ADD(r4,MUL(r1,r5))),r3)|intermediates=I,I,I,I": 16,
+            "SUB(ADD(r2,ADD(r4,SUB(r5,r1))),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,ADD(r4,r5)),ADD(r1,r3))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r2,DIV(r5,SUB(r4,r3))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,SUB(ADD(r1,r4),r5)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,SUB(ADD(r3,r5),r4)),r1)|intermediates=I,I,I,I": 33,
+            "SUB(ADD(r2,SUB(ADD(r4,r5),r1)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,SUB(ADD(r4,r5),r3)),r1)|intermediates=I,I,I,I": 52,
+            "SUB(ADD(r2,SUB(SUB(r5,r4),r1)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,SUB(r1,SUB(r5,r4))),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,SUB(r5,SUB(r4,r3))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,SUB(r5,r1)),SUB(r4,r3))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,r3),SUB(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,r4),SUB(ADD(r3,r5),r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,r4),SUB(SUB(r5,r3),r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,r5),ADD(r1,ADD(r3,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,r5),ADD(r1,SUB(r3,r4)))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r2,r5),ADD(r1,SUB(r4,r3)))|intermediates=I,I,I,I": 4,
+            "SUB(ADD(r2,r5),SUB(r1,SUB(r4,r3)))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r2,r5),SUB(r3,SUB(r4,r1)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r1,ADD(r2,r4))),r5)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r1,ADD(r4,r5))),r2)|intermediates=I,I,I,I": 4,
+            "SUB(ADD(r3,ADD(r1,r2)),SUB(r5,r4))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r1,r4)),SUB(r5,r2))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r2,SUB(r5,r4))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r2,r5)),ADD(r1,r4))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,ADD(r4,ADD(r1,r5))),r2)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r3,ADD(r4,r5)),SUB(r2,r1))|intermediates=I,I,I,I": 9,
+            "SUB(ADD(r3,ADD(r5,ADD(r1,r4))),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r3,ADD(r5,MUL(r2,r4))),r1)|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r3,DIV(ADD(r4,r5),r1)),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r3,DIV(r5,SUB(r2,r1))),r4)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r3,SUB(ADD(r2,r5),r4)),r1)|intermediates=I,I,I,I": 17,
+            "SUB(ADD(r3,r4),SUB(SUB(r5,r2),r1))|intermediates=I,I,I,I": 4,
+            "SUB(ADD(r3,r4),SUB(r5,ADD(r1,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,ADD(r1,ADD(r3,r5))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,ADD(r2,MUL(r1,r5))),r3)|intermediates=I,I,I,I": 8,
+            "SUB(ADD(r4,ADD(r3,ADD(r1,r2))),r5)|intermediates=I,I,I,I": 5,
+            "SUB(ADD(r4,ADD(r3,MUL(r1,r5))),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r4,ADD(r3,r5)),SUB(r2,r1))|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r4,ADD(r5,ADD(r1,r3))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,ADD(r5,MUL(r2,r3))),r1)|intermediates=I,I,I,I": 5,
+            "SUB(ADD(r4,DIV(MUL(r1,r5),r2)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,MUL(r1,ADD(r2,r5))),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,MUL(r1,r5)),SUB(r3,r2))|intermediates=I,I,I,I": 8,
+            "SUB(ADD(r4,MUL(r2,SUB(r5,r1))),r3)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r4,MUL(r3,DIV(r5,r1))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,MUL(r3,SUB(r5,r1))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,SUB(ADD(r1,r2),r3)),r5)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,SUB(ADD(r2,r5),r1)),r3)|intermediates=I,I,I,I": 5,
+            "SUB(ADD(r4,SUB(ADD(r2,r5),r3)),r1)|intermediates=I,I,I,I": 6,
+            "SUB(ADD(r4,r5),ADD(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 3,
+            "SUB(ADD(r4,r5),DIV(MUL(r2,r3),r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,r5),MUL(r2,DIV(r3,r1)))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,r5),SUB(ADD(r1,r3),r2))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,r5),SUB(r3,SUB(r2,r1)))|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r5,ADD(r2,r4)),ADD(r1,r3))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,ADD(r3,r4)),SUB(r2,r1))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,ADD(r4,ADD(r1,r3))),r2)|intermediates=I,I,I,I": 2,
+            "SUB(ADD(r5,ADD(r4,MUL(r2,r3))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,MUL(r1,ADD(r3,r4))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,SUB(ADD(r2,r3),r1)),r4)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,SUB(ADD(r2,r4),r1)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,SUB(ADD(r2,r4),r3)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,SUB(r4,r1)),SUB(r3,r2))|intermediates=I,I,I,I": 1,
+            "SUB(DIV(ADD(r1,r5),r2),SUB(r4,r3))|intermediates=I,I,I,I": 1,
+            "SUB(DIV(ADD(r4,r5),SUB(r3,r1)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(DIV(MUL(r1,r5),SUB(r3,r2)),r4)|intermediates=I,I,I,I": 1,
+            "SUB(DIV(MUL(r2,SUB(r4,r3)),r5),r1)|intermediates=I,I,I,I": 1,
+            "SUB(DIV(MUL(r4,r5),SUB(r3,r1)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(DIV(SUB(r5,r4),SUB(r3,r2)),r1)|intermediates=I,I,I,I": 3,
+            "SUB(DIV(r2,DIV(r5,SUB(r4,r3))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(DIV(r5,r1),DIV(r3,SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(ADD(r4,r5),SUB(r3,r2)),r1)|intermediates=I,I,I,I": 2,
+            "SUB(MUL(DIV(r4,r3),DIV(r5,r1)),r2)|intermediates=F,I,I,I": 1,
+            "SUB(MUL(SUB(r5,r1),DIV(r3,r2)),r4)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r1,ADD(r2,SUB(r5,r4))),r3)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r1,ADD(r3,r5)),SUB(r4,r2))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r1,ADD(r4,SUB(r5,r2))),r3)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r1,ADD(r4,r5)),ADD(r2,r3))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r1,SUB(r3,r2)),SUB(r5,r4))|intermediates=I,I,I,I": 2,
+            "SUB(MUL(r1,SUB(r5,r2)),SUB(r4,r3))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r1,r3),ADD(r5,ADD(r2,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r1,r4),ADD(r2,ADD(r3,r5)))|intermediates=I,I,I,I": 8,
+            "SUB(MUL(r1,r4),ADD(r5,ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r1,r5),MUL(r4,SUB(r3,r2)))|intermediates=I,I,I,I": 2,
+            "SUB(MUL(r3,r5),ADD(r1,ADD(r2,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r3,r5),ADD(r4,ADD(r1,r2)))|intermediates=I,I,I,I": 2,
+            "SUB(MUL(r4,SUB(r2,SUB(r5,r3))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r4,SUB(r2,r1)),SUB(r5,r3))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r4,SUB(r3,SUB(r5,r2))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r4,SUB(r5,r2)),SUB(r3,r1))|intermediates=I,I,I,I": 2,
+            "SUB(MUL(r4,r5),ADD(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r4,r5),ADD(r3,SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r4,r5),SUB(ADD(r2,r3),r1))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r4,r5),SUB(r3,SUB(r2,r1)))|intermediates=I,I,I,I": 1,
+            "SUB(MUL(r5,DIV(r4,SUB(r3,r1))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r1,SUB(r5,r4)),r3),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r1,r2),r3),DIV(r5,r4))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r1,r4),r5),SUB(r3,r2))|intermediates=I,I,I,I": 3,
+            "SUB(SUB(ADD(r2,ADD(r1,r4)),r5),r3)|intermediates=I,I,I,I": 3,
+            "SUB(SUB(ADD(r2,ADD(r4,r5)),r1),r3)|intermediates=I,I,I,I": 5,
+            "SUB(SUB(ADD(r2,ADD(r4,r5)),r3),r1)|intermediates=I,I,I,I": 7,
+            "SUB(SUB(ADD(r2,SUB(r5,r1)),r3),r4)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r2,SUB(r5,r3)),r4),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r2,r3),DIV(r5,r1)),r4)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r2,r3),r4),DIV(r5,r1))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r2,r4),SUB(r5,r1)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r2,r4),r5),SUB(r3,r1))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r2,r5),SUB(r4,r3)),r1)|intermediates=I,I,I,I": 6,
+            "SUB(SUB(ADD(r3,ADD(r2,r5)),r4),r1)|intermediates=I,I,I,I": 3,
+            "SUB(SUB(ADD(r3,r5),SUB(r4,r2)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r4,ADD(r1,r2)),r5),r3)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r4,ADD(r2,r5)),r1),r3)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r4,ADD(r2,r5)),r3),r1)|intermediates=I,I,I,I": 3,
+            "SUB(SUB(ADD(r4,r5),SUB(r3,r2)),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r4,r5),r1),SUB(r3,r2))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r5,ADD(r2,r3)),r4),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r5,ADD(r2,r4)),r1),r3)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r5,DIV(r4,r1)),r2),r3)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r5,DIV(r4,r2)),r3),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(ADD(r5,MUL(r2,r4)),r1),r3)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(ADD(r5,MUL(r2,r4)),r3),r1)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(DIV(MUL(r2,r5),r4),r3),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(DIV(r5,DIV(r4,r3)),r2),r1)|intermediates=F,I,I,I": 1,
+            "SUB(SUB(MUL(r1,ADD(r4,r5)),r3),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(MUL(r1,r4),ADD(r3,r5)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(MUL(r3,SUB(r5,r1)),r4),r2)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(MUL(r4,r5),r1),SUB(r3,r2))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(ADD(r1,r5),r4),r3),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(ADD(r2,r5),r4),r3),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(ADD(r3,r4),r5),r1),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(MUL(r1,r4),r2),r3),r5)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(SUB(MUL(r1,r4),r3),r2),r5)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(MUL(r1,r4),r3),r5),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(MUL(r1,r4),r5),r2),r3)|intermediates=I,I,I,I": 6,
+            "SUB(SUB(SUB(MUL(r1,r4),r5),r3),r2)|intermediates=I,I,I,I": 13,
+            "SUB(SUB(SUB(MUL(r2,r5),r4),r3),r1)|intermediates=I,I,I,I": 4,
+            "SUB(SUB(SUB(MUL(r3,r5),r2),r4),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(MUL(r3,r5),r4),r2),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(r3,r2),SUB(r5,r4)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(r4,r2),DIV(r5,r3)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(r5,r3),SUB(r4,r2)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(SUB(r5,r4),SUB(r3,r2)),r1)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r1,SUB(r3,r2)),SUB(r5,r4))|intermediates=I,I,I,I": 2,
+            "SUB(SUB(r1,SUB(r5,r4)),SUB(r3,r2))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r2,SUB(r3,r1)),SUB(r5,r4))|intermediates=I,I,I,I": 2,
+            "SUB(SUB(r3,r1),DIV(ADD(r4,r5),r2))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r4,SUB(r5,r2)),SUB(r3,r1))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,DIV(ADD(r3,r4),r1)),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,SUB(r3,SUB(r4,r1))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,r3),SUB(ADD(r2,r4),r1))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,r4),ADD(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(SUB(r5,r4),ADD(r2,DIV(r3,r1)))|intermediates=I,I,I,I": 1,
+            "SUB(r1,ADD(SUB(r3,r2),SUB(r5,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(r1,ADD(SUB(r3,r4),SUB(r5,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(r1,DIV(SUB(r5,r4),SUB(r3,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(r1,SUB(ADD(r3,r5),ADD(r2,r4)))|intermediates=I,I,I,I": 1,
+            "SUB(r3,MUL(r1,SUB(SUB(r5,r4),r2)))|intermediates=I,I,I,I": 1,
+            "SUB(r3,SUB(ADD(r4,DIV(r5,r1)),r2))|intermediates=I,I,I,I": 1,
+            "SUB(r3,SUB(SUB(SUB(r5,r4),r2),r1))|intermediates=I,I,I,I": 1,
+            "SUB(r3,SUB(r1,DIV(r5,SUB(r4,r2))))|intermediates=I,I,I,I": 1,
+            "SUB(r5,MUL(SUB(r3,r1),SUB(r4,r2)))|intermediates=I,I,I,I": 1,
+            "SUB(r5,SUB(ADD(r1,SUB(r4,r3)),r2))|intermediates=I,I,I,I": 1,
+            "SUB(r5,SUB(ADD(r1,r4),ADD(r2,r3)))|intermediates=I,I,I,I": 2,
+            "SUB(r5,SUB(ADD(r2,ADD(r3,r4)),r1))|intermediates=I,I,I,I": 1,
+            "SUB(r5,SUB(SUB(r4,r2),SUB(r3,r1)))|intermediates=I,I,I,I": 2,
+            "SUB(r5,SUB(SUB(r4,r3),SUB(r2,r1)))|intermediates=I,I,I,I": 5,
+            "SUB(r5,SUB(r1,SUB(r2,SUB(r4,r3))))|intermediates=I,I,I,I": 1,
+            "SUB(r5,SUB(r4,ADD(r3,SUB(r2,r1))))|intermediates=I,I,I,I": 1
+          }
+        },
+        "success_count_histogram_0_to_16": [
+          9,
+          14,
+          24,
+          23,
+          24,
+          34,
+          31,
+          27,
+          24,
+          25,
+          8,
+          9,
+          3,
+          1,
+          0,
+          0,
+          0
+        ],
+        "zero_success": 9
+      },
+      "R-S": {
+        "all_16_success": 35,
+        "any_success": 170,
+        "families": [
+          {
+            "assigned_family_id": "ADD(ADD(r1,r3),SUB(ADD(r2,r4),r5))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.3342245989304813,
+            "item_count": 22,
+            "panel_role": "targeted",
+            "successes": 114,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(ADD(r4,r5),ADD(r1,SUB(r3,r2)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.47593582887700536,
+            "item_count": 22,
+            "panel_role": "targeted",
+            "successes": 167,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(MUL(r3,r5),ADD(r1,ADD(r2,r4)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.660427807486631,
+            "item_count": 22,
+            "panel_role": "targeted",
+            "successes": 236,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(r2,ADD(r5,ADD(r3,MUL(r1,r4))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.19518716577540107,
+            "item_count": 22,
+            "panel_role": "targeted",
+            "successes": 62,
+            "trials": 352
+          },
+          {
+            "assigned_family_id": "ADD(r2,SUB(r4,ADD(r3,SUB(r5,r1))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.2507002801120448,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 79,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r5,ADD(r4,ADD(r1,ADD(r2,r3))))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.5952380952380952,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 202,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "ADD(r5,SUB(SUB(r4,r1),SUB(r3,r2)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.4775910364145658,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 160,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "MUL(MUL(r1,r2),ADD(r3,SUB(r4,r5)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.11064425770308124,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 29,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(ADD(r2,r4),SUB(r3,MUL(r1,r5)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.16106442577030813,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 47,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(MUL(ADD(r1,r3),DIV(r4,r5)),r2)|intermediates=I,F,I,I",
+            "equal_item_posterior_mean": 0.5056022408963585,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 170,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(MUL(r1,r4),ADD(r3,ADD(r2,r5)))|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.15826330532212884,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 46,
+            "trials": 336
+          },
+          {
+            "assigned_family_id": "SUB(SUB(r3,SUB(SUB(r4,r5),r2)),r1)|intermediates=I,I,I,I",
+            "equal_item_posterior_mean": 0.4523809523809524,
+            "item_count": 21,
+            "panel_role": "targeted",
+            "successes": 151,
+            "trials": 336
+          }
+        ],
+        "items": 256,
+        "recomputed_pass_at_k": {
+          "1": 0.357177734375,
+          "16": 0.6640625,
+          "4": 0.5379399896978022
+        },
+        "recorded_panel": {
+          "completion_count": 4096,
+          "completion_token_length": {
+            "completion_count": 4096,
+            "maximum": 4096,
+            "mean": 539.53662109375,
+            "median": 84.0,
+            "minimum": 52
+          },
+          "cover_curve": [
+            {
+              "posterior_soft_cover": 0.8522384830196231,
+              "tau": 0.01
+            },
+            {
+              "posterior_soft_cover": 0.7974579713869895,
+              "tau": 0.02
+            },
+            {
+              "posterior_soft_cover": 0.7043772266503138,
+              "tau": 0.05
+            },
+            {
+              "posterior_soft_cover": 0.6196605675510026,
+              "tau": 0.1
+            },
+            {
+              "posterior_soft_cover": 0.4739919503436168,
+              "tau": 0.25
+            },
+            {
+              "posterior_soft_cover": 0.33735703710693665,
+              "tau": 0.5
+            },
+            {
+              "posterior_soft_cover": 0.23114703098931885,
+              "tau": 0.75
+            }
+          ],
+          "equal_item_posterior_mean": 0.3655790441176471,
+          "exact_success_rate": 0.357177734375,
+          "failure_code_counts": {
+            "ast_limit_exceeded": 1085,
+            "invalid_character": 63,
+            "invalid_syntax": 100,
+            "missing_answer_tag": 431,
+            "operand_multiset_mismatch": 834,
+            "wrong_target": 120
+          },
+          "item_count": 256,
+          "length_stop_count": 406,
+          "length_stop_rate": 0.09912109375,
+          "loop_fraction_among_length_stops": 0.07881773399014778,
+          "looped_length_stop_count": 32,
+          "mean_pass_at_k": {
+            "1": 0.357177734375,
+            "16": 0.6640625,
+            "4": 0.5379399896978022
+          },
+          "sampled_token_surprisal": {
+            "coverage": 1.0,
+            "mean_surprisal": 0.060920774467120756,
+            "observed_logprob_count": 2209942,
+            "total_token_count": 2209942
+          },
+          "successes": 1463,
+          "syntactically_invalid_rate": 0.409912109375,
+          "unique_completion_count": 2259,
+          "unique_verified_strategy_family_count": 52,
+          "verified_strategy_family_counts": {
+            "ADD(ADD(r1,r2),ADD(r3,ADD(r4,r5)))|intermediates=I,I,I,I": 2,
+            "ADD(ADD(r1,r3),SUB(ADD(r2,r4),r5))|intermediates=I,I,I,I": 100,
+            "ADD(ADD(r2,r3),SUB(ADD(r1,r4),r5))|intermediates=I,I,I,I": 4,
+            "ADD(ADD(r2,r4),ADD(r1,ADD(r3,r5)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r4,r5),ADD(r1,ADD(r2,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(ADD(r4,r5),ADD(r1,SUB(r3,r2)))|intermediates=I,I,I,I": 163,
+            "ADD(MUL(r1,r5),ADD(r2,SUB(r4,r3)))|intermediates=I,I,I,I": 1,
+            "ADD(MUL(r3,r5),ADD(r1,ADD(r2,r4)))|intermediates=I,I,I,I": 231,
+            "ADD(SUB(r2,r3),SUB(r1,SUB(r5,r4)))|intermediates=I,I,I,I": 3,
+            "ADD(r1,ADD(r2,ADD(r3,ADD(r4,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r2,SUB(r4,ADD(r3,r5))))|intermediates=I,I,I,I": 4,
+            "ADD(r1,ADD(r4,ADD(r2,ADD(r3,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r4,ADD(r3,ADD(r2,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r4,ADD(r3,SUB(r5,r2))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r4,MUL(r2,ADD(r3,r5))))|intermediates=I,I,I,I": 5,
+            "ADD(r1,ADD(r5,ADD(r2,ADD(r3,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,ADD(r5,ADD(r3,ADD(r2,r4))))|intermediates=I,I,I,I": 3,
+            "ADD(r1,ADD(r5,ADD(r4,SUB(r3,r2))))|intermediates=I,I,I,I": 1,
+            "ADD(r1,DIV(MUL(r3,SUB(r4,r5)),r2))|intermediates=I,I,I,I": 1,
+            "ADD(r2,ADD(r1,ADD(r4,SUB(r3,r5))))|intermediates=I,I,I,I": 9,
+            "ADD(r2,ADD(r1,SUB(r4,ADD(r3,r5))))|intermediates=I,I,I,I": 3,
+            "ADD(r2,ADD(r5,ADD(r3,MUL(r1,r4))))|intermediates=I,I,I,I": 62,
+            "ADD(r2,DIV(MUL(r3,SUB(r4,r5)),r1))|intermediates=I,I,I,I": 1,
+            "ADD(r2,MUL(r1,ADD(r4,SUB(r3,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r2,SUB(r4,ADD(r3,SUB(r5,r1))))|intermediates=I,I,I,I": 61,
+            "ADD(r3,ADD(r2,SUB(r4,SUB(r5,r1))))|intermediates=I,I,I,I": 1,
+            "ADD(r3,ADD(r5,ADD(r1,ADD(r2,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r4,ADD(r1,SUB(r2,ADD(r3,r5))))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(ADD(r1,r3),ADD(r2,r4)))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r1,ADD(r2,ADD(r3,r4))))|intermediates=I,I,I,I": 1,
+            "ADD(r5,ADD(r1,ADD(r3,ADD(r2,r4))))|intermediates=I,I,I,I": 5,
+            "ADD(r5,ADD(r3,ADD(r1,ADD(r2,r4))))|intermediates=I,I,I,I": 14,
+            "ADD(r5,ADD(r4,ADD(r1,ADD(r2,r3))))|intermediates=I,I,I,I": 162,
+            "ADD(r5,ADD(r4,ADD(r2,ADD(r1,r3))))|intermediates=I,I,I,I": 7,
+            "ADD(r5,SUB(SUB(r3,r1),SUB(r4,r2)))|intermediates=I,I,I,I": 8,
+            "ADD(r5,SUB(SUB(r4,r1),SUB(r3,r2)))|intermediates=I,I,I,I": 159,
+            "MUL(MUL(r1,r2),ADD(r3,SUB(r4,r5)))|intermediates=I,I,I,I": 29,
+            "SUB(ADD(r1,SUB(r2,r3)),SUB(r5,r4))|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r1,r3),MUL(r5,DIV(r2,r4)))|intermediates=I,F,I,I": 1,
+            "SUB(ADD(r2,ADD(r5,SUB(r3,r4))),r1)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r2,r4),SUB(r3,MUL(r1,r5)))|intermediates=I,I,I,I": 46,
+            "SUB(ADD(r3,ADD(r4,ADD(r1,r5))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r4,SUB(ADD(r2,r5),r1)),r3)|intermediates=I,I,I,I": 1,
+            "SUB(ADD(r5,ADD(r1,ADD(r3,r4))),r2)|intermediates=I,I,I,I": 1,
+            "SUB(MUL(ADD(r1,r3),DIV(r4,r5)),r2)|intermediates=I,F,I,I": 168,
+            "SUB(MUL(r1,r4),ADD(r3,ADD(r2,r5)))|intermediates=I,I,I,I": 44,
+            "SUB(SUB(MUL(r1,r4),ADD(r3,r5)),r2)|intermediates=I,I,I,I": 2,
+            "SUB(SUB(r3,SUB(SUB(r4,r5),r2)),r1)|intermediates=I,I,I,I": 141,
+            "SUB(r1,ADD(r3,ADD(r2,SUB(r4,r5))))|intermediates=I,I,I,I": 1,
+            "SUB(r2,SUB(ADD(r3,SUB(r5,r1)),r4))|intermediates=I,I,I,I": 2,
+            "SUB(r2,SUB(r4,ADD(r3,SUB(r5,r1))))|intermediates=I,I,I,I": 1,
+            "SUB(r2,SUB(r5,ADD(r4,SUB(r1,r3))))|intermediates=I,I,I,I": 1
+          }
+        },
+        "success_count_histogram_0_to_16": [
+          86,
+          14,
+          15,
+          18,
+          12,
+          9,
+          6,
+          4,
+          11,
+          6,
+          5,
+          6,
+          9,
+          7,
+          4,
+          9,
+          35
+        ],
+        "zero_success": 86
+      },
+      "R_P_above_family_count": 7
+    }
+  },
+  "targeted_auc_quadrature": {
+    "R_P_minus_R_S_point_contributions": [
+      0.0015625,
+      -0.0027994791666666667,
+      -0.008854166666666666,
+      -0.009375,
+      0.0927734375,
+      -0.012044270833333334
+    ],
+    "baseline_difference": 0.0625,
+    "baseline_subtracted_auc_difference_descriptive_only": -0.0012369791666666666,
+    "grid": [
+      0,
+      1,
+      2,
+      5,
+      10,
+      20
+    ],
+    "normalized_trapezoidal_weights": [
+      0.025,
+      0.05,
+      0.1,
+      0.2,
+      0.375,
+      0.25
+    ],
+    "other_points_contribution": -0.031510416666666666,
+    "primary_absolute_auc_difference": 0.061263020833333334,
+    "update_10_contribution": 0.0927734375
+  }
+}

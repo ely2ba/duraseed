@@ -1,233 +1,235 @@
 # DuraSeed
 
+**How a model learns a skill can change what happens when it learns the next one.**
+
 Made possible by **$5,000 in compute credits from Thinking Machines Lab (TML)**
 through its [Tinker Research Grant](https://thinkingmachines.ai/news/tinker-research-and-teaching-grants/).
 
-> **Current work:** Pilot 0 is complete. A supervised trace-replay follow-up is
-> running, and the paper is in preparation.
+**Experiments complete · September 2026.** Two Pilot pairs and a supervised
+trace-replay follow-up are finished. Results and analysis are below; the paper
+is being revised and will be shared separately.
 
-**Two models can have the same measured acquired capability and still become different learners.**
+[The study](#the-study) · [Results](#results) · [Related work](#where-this-fits) ·
+[Data and reproduction](#data-and-reproduction)
 
-We trained the same base model to acquire the same arithmetic capability using
-either supervised fine-tuning or on-policy reinforcement learning, selected
-checkpoints with matched measured capability, and then gave both checkpoints
-exactly the same subsequent training.
+Most evaluations ask what a model can do now. DuraSeed asks what its current
+score leaves out: how much of a newly learned skill survives the next training
+stage, and how readily the model learns the next task.
 
-Across two independently matched pairs, the SFT-acquired checkpoint consistently:
+We first compared supervised learning with reinforcement learning. We then
+kept supervised learning fixed and changed the source of its worked solutions.
+In both comparisons, similar arithmetic scores concealed large differences in
+which problems the models could solve and how they responded to later training.
+The follow-up also complicated the retention story: broader problem coverage
+did not mean slower initial forgetting.
 
-- forgot the previously acquired capability faster; and
-- learned the new downstream task faster early in training.
+## The study
 
-The RL-acquired checkpoint consistently:
+![DuraSeed: two acquisition comparisons, score-based checkpoint selection, and the same later training](docs/assets/duraseed-pipeline.svg)
 
-- retained the previous capability longer;
-- transferred more strongly to the new task before training; and
-- finished the downstream training run with higher absolute performance.
+The first task is arithmetic expression synthesis: use a given set of numbers
+to construct an expression that reaches an exact target. The second is short
+program synthesis: write a sequence of operations that implements a modular
+arithmetic transformation. Both have deterministic answer checkers; no judge
+model scores the outputs.
 
-For brevity, **B-S** is the SFT-acquired branch and **B-G** is the RL-acquired
-branch.
+All branches start from a common format-trained **Qwen3.5-9B-Base** origin and
+use rank-32 LoRA adapters. After acquiring arithmetic, selected checkpoints
+receive the **same 480 updates of supervised program-synthesis training**, with
+the same data order and a fresh optimizer. Arithmetic is not rehearsed during
+this later stage.
 
-After Pair 1, adapter geometry suggested a prospective prediction: the SFT
-checkpoint's much larger inherited LoRA B-factor scale should identify the
-checkpoint that both forgets faster and learns faster early. Before Pair-2
-F1/F2/F3 outcomes were inspected, geometry again selected B-S. Both registered
-Pair-2 predictions held:
+| Comparison | What changes during arithmetic learning? | Completed scope |
+|---|---|---|
+| **Pilot 0** | **B-S:** supervised solver solutions. **B-G:** on-policy RL with verifier rewards. | Two matched seed pairs, each followed through all 480 later updates. |
+| **Trace replay** | **R-S:** solver solutions. **R-P:** correct solutions archived from Pilot RL. Both use supervised learning on shared prompts and the same prompt order. | Two source blocks, four acquisition runs. One block matched and completed later training; the other had no match. |
 
-- retention half-life: **B-S 1.136 updates vs B-G 3.343**; and
-- early Stage-B gain AUC(0–40): **B-S 0.069696 vs B-G 0.018779**.
+We record three views of each selected checkpoint: **F3**, its starting
+behavior and transfer to the new task; **F1**, retention of the arithmetic
+skill during later training; and **F2**, learning of the new task, both in
+absolute terms and relative to its own starting score.
+F1 measures total post-acquisition accuracy, including capability already
+present at the common origin; it does not isolate only newly acquired ability.
 
-This is the first genuinely prospective result in the project, not another
-post-hoc observation.
+## Results
 
-## The experiment
+### Similar scores, different sets of solvable problems
 
-![DuraSeed experimental design](docs/assets/duraseed-pipeline.svg)
+The replay checkpoints were selected at **1,504/4,096** and **1,503/4,096**
+correct arithmetic attempts. On fresh draws over those same 256 problems,
+their average accuracy was again close: **35.72% for R-S, 34.59% for R-P**.
+But R-S solved **170** problems at least once in 16 tries; R-P solved **247**.
 
-1. **Acquire a capability.** Starting from the same Qwen3.5-9B-Base checkpoint,
-   B-S learns an exact-verifier arithmetic task from fixed verified
-   derivations; B-G learns it through on-policy generation and verifier rewards.
-2. **Match checkpoints.** Within each pair, a frozen rule selects real
-   checkpoints with the same measured targeted score.
-3. **Train both identically on a new task.** Both selected checkpoints keep
-   their Stage-A LoRA adapters, receive fresh optimizers, and undergo the same
-   480-update program-synthesis training.
+![Recorded successes on each of 256 arithmetic problems: R-S covers 170, R-P covers 247 despite similar average accuracy](docs/assets/results-coverage.svg)
 
-We then measure:
+R-S answered 35 problems correctly on every attempt and never solved 86.
+R-P had no perfect-16 problems, but only nine it never solved. The two averages
+therefore describe different distributions of success: repeated reliability on
+a narrower set versus occasional success across almost the whole panel.
 
-- **F1 — retention:** how quickly the arithmetic capability is overwritten;
-- **F2 — future learning:** how quickly and how far the new capability develops;
-  and
-- **F3 — starting profile:** transfer, generalization, response length,
-  validity, diversity, and surprisal before the later training begins.
+This difference extended beyond the families used for acquisition. On held-out
+arithmetic families, R-P's success rate was **35.84%**, against **2.76%** for
+R-S. During acquisition, R-P led on this held-out-family panel at all **30
+recorded checkpoints in each source block**. These are validation results,
+not an evaluation of the unopened test sets.
 
-B-S and B-G are complete acquisition procedures, not a loss-function-only
-comparison. All task answers are checked by deterministic verifiers; no judge
-model is used.
+### The starting profiles were different too (F3)
 
-## What we're testing now
+The selected replay checkpoints, before any program-synthesis training:
 
-Pilot 0 changed both **how the model learned** and **which solutions it learned
-from**. The follow-up narrows the question: if both models learn by supervised
-fine-tuning on the same problems, does the source of their worked solutions
-still change what survives later training?
-
-- **Solver traces (R-S):** verified, step-by-step solutions from the task solver.
-- **Archived model traces (R-P):** correct solutions the RL branch generated
-  during Pilot 0. We reuse those records; no new RL rollouts are being collected.
-
-Both branches start from the same origin and use the same supervised training
-recipe and problem order. We then match their arithmetic scores and give the
-matched checkpoints the same program-synthesis training, measuring arithmetic
-retention, new-task learning, and their starting profiles. The solutions still
-differ in length and content: this tests **trace source**, not a single isolated
-property of those traces.
-
-**As of September 5:** the first solver-trace acquisition run is complete and
-its archived-trace counterpart is running. We then repeat this comparison with
-the second set of archived problems and solutions;
-checkpoint matching and later-task training are still ahead. If a block cannot
-be matched under the fixed rule, it is reported as unavailable. No follow-up
-results are claimed yet. The next deliverable is the completed comparison and
-paper.
-
-## Pilot 0 results
-
-All two-arm entries below are **B-S / B-G**. Pass@1 values and AUCs are
-proportions.
-
-| Metric | Pair 1 · seed 11 | Pair 2 · seed 29 |
+| Starting profile | Solver traces · R-S @220 | Archived policy traces · R-P @20 |
 |---|---:|---:|
-| Selected checkpoints | B-S@140 / B-G@30 | B-S@40 / B-G@20 |
-| Matched targeted score | 31/96 / 31/96 | 17/96 / 17/96 |
-| F1 targeted half-life, updates | 2.664 / 4.105 | 1.136 / 3.343 |
-| F2 baseline-relative gain AUC(0–40) | 0.076927 / 0.017735 | 0.069696 / 0.018779 |
-| F2 starting raw Pass@1 | 0.000000 / 0.049927 | 0.000000 / 0.053467 |
-| F2 endpoint raw Pass@1 | 0.378174 / 0.403687 | 0.268555 / 0.368652 |
-| ‖B‖F ratio, B-S ÷ B-G | 7.36× | 5.46× |
+| Targeted arithmetic success per attempt | 35.72% | 34.59% |
+| Targeted problems solved at least once / 256 | 170 | 247 |
+| Held-out-family success per attempt | 2.76% | 35.84% |
+| Median targeted response length, tokens | 84 | 628 |
+| Distinct verified strategy signatures, targeted | 52 | 512 |
+| Mean targeted token surprisal, nats/token | 0.061 | 0.178 |
+| New-task success before training | 0.00% | 5.19% |
 
-F1 half-life is the first interpolated downward crossing of 50% of that arm's
-own targeted update-0 raw Pass@1. F2 AUC(0–40) integrates baseline-relative raw
-Pass@1 over the fixed early grid and divides by 40.
+The arithmetic profiles use 16 attempts per item. Strategy signatures are
+verifier-derived structural labels, not a count of distinct reasoning methods.
+The full [F3 profiles](artifacts/replay-v1/followup/profiles/) also report output
+validity, length stops, repetition, and per-family results.
 
-### F1 — retention of the acquired capability
+### What survived, and what was learned next? (F1 / F2)
 
-| Pair 1 · seed 11 | Pair 2 · seed 29 |
-|:---:|:---:|
-| ![Pair-1 F1 retention trajectories](artifacts/pilot0-pair1-readout/F1-retention.svg) | ![Pair-2 F1 retention trajectories](artifacts/pilot0-pair2-readout/F1-retention.svg) |
+Retention uses a separate monitor panel: 192 targeted items with four attempts
+per checkpoint. Its starting scores therefore differ from the 16-draw profile
+above.
 
-### F2 — learning the new capability
+![Replay arithmetic retention over updates 0–20 and program-synthesis learning over updates 0–480](docs/assets/results-trajectories.svg)
 
-| Pair 1 · seed 11 | Pair 2 · seed 29 |
-|:---:|:---:|
-| ![Pair-1 F2 learning curves](artifacts/pilot0-pair1-readout/F2-learning.svg) | ![Pair-2 F2 learning curves](artifacts/pilot0-pair2-readout/F2-learning.svg) |
+R-P lost half its starting arithmetic score sooner than R-S: **1.69 versus
+4.25 updates**. It then rebounded at update 10, from **59 to 241 correct
+attempts out of 768** between updates 5 and 10. Its average arithmetic score
+over the first 20 updates was consequently higher: **17.62% versus 11.49%**.
+First decline and performance over a window give different answers here.
 
-The F2 figures show absolute Pass@1 and change from each branch's own update-0
-baseline. The early comparison uses only the frozen 0–40 grid; endpoints are
-reported separately.
+On the new task, R-S had the larger early improvement and the larger average
+absolute score over the full training run. At the endpoint, the two branches
+were close: **45.79% versus 45.70%**. Both finished with zero correct arithmetic
+attempts on the final targeted and held-out-family panels.
 
-## What replicated
+| Replay summary · source block 11 | R-S | R-P |
+|---|---:|---:|
+| Targeted arithmetic half-life, updates | 4.250 | 1.689 |
+| Mean targeted arithmetic score, updates 0–20 | 11.49% | 17.62% |
+| Mean new-task score, updates 0–40 | 11.02% | 7.07% |
+| Mean new-task gain over own baseline, updates 0–40 | 11.02 pp | 1.88 pp |
+| Mean new-task score, updates 0–480 | 32.41% | 29.77% |
+| New-task endpoint, update 480 | 45.79% | 45.70% |
 
-- B-S showed faster F1 decay in both pairs.
-- B-S had the larger early F2 gain AUC(0–40) in both pairs.
-- B-G had higher zero-shot Stage-B transfer in both pairs.
-- B-G had the higher Stage-B endpoint in both pairs.
-- The broad behavioral fingerprint repeated: B-G had much greater sentinel
-  transfer, longer outputs, higher surprisal, and many more verified strategy
-  families.
-- Pair-2 geometry prospectively predicted the F1/F2 ordering before its
-  outcomes were opened.
+Here, a window average is the trapezoidal area under the recorded curve divided
+by the window's width. Half-life is the first downward crossing of half the
+branch's own starting score, interpolated between checkpoints. All scores use
+**raw Pass@1: correct attempts divided by all attempts**, including invalid
+outputs. “pp” means percentage points.
 
-## What did not replicate exactly
+Paired item-bootstrap 95% intervals put R-P's arithmetic window-average
+advantage at **6.13 pp [4.29, 7.94]**, R-S's full-window new-task advantage at
+**2.65 pp [1.88, 3.42]**, and the endpoint difference, R-P minus R-S, at
+**−0.09 pp [−1.92, 1.76]**. These intervals resample the same items with their
+paired trajectories; they do not measure uncertainty across training seeds or
+checkpoint selection. [Full counts, curves, and intervals](artifacts/replay-v1/followup/readout.md).
 
-The 0–480 raw-gain AUC favored B-S in Pair 1 (**B-S 0.246866 vs B-G
-0.189930**) and B-G in Pair 2 (**B-G 0.176493 vs B-S 0.119604**).
+### The two Pilot pairs
 
-The early and late regimes differ: B-S consistently moved faster early, while
-B-G consistently finished higher. An integral over the whole trajectory
-therefore depends on when the curves cross.
+Before trace replay, the comparison changed the whole arithmetic-acquisition
+procedure: supervised learning (**B-S**) versus RL (**B-G**). The RL branch had
+a longer targeted arithmetic half-life in both pairs, a higher new-task
+baseline, and a higher new-task endpoint. B-S made the larger early gain from
+its own baseline in both pairs.
 
-## Why this matters
+| Pilot result · entries are B-S / B-G | Pair 1 · seed 11 | Pair 2 · seed 29 |
+|---|---:|---:|
+| Selected arithmetic checkpoints | 140 / 30 | 40 / 20 |
+| Matching score | 31/96 / 31/96 | 17/96 / 17/96 |
+| Targeted half-life, updates | 2.664 / 4.105 | 1.136 / 3.343 |
+| New-task baseline | 0.00% / 4.99% | 0.00% / 5.35% |
+| Mean new-task gain, updates 0–40 | 7.69 / 1.77 pp | 6.97 / 1.88 pp |
+| Mean absolute new-task score, updates 0–40 | 7.69% / 6.77% | 6.97% / 7.22% |
+| Mean new-task gain, updates 0–480 | 26.23 / 20.18 pp | 12.71 / 18.75 pp |
+| New-task endpoint | 37.82% / 40.37% | 26.86% / 36.87% |
 
-A benchmark score is a snapshot, not a complete description of a checkpoint.
-Two checkpoints that score the same on the capability used for matching can differ
-substantially in how they generalize, how quickly later training changes them,
-and how quickly previously acquired behavior is overwritten.
+The absolute early-performance ordering changes between pairs, as does the
+full-window gain ordering. “Larger improvement” and “higher performance” should
+not be used interchangeably. The [existing-data audit](artifacts/replay-v1/pilot-audit/README.md)
+puts both definitions alongside the original trajectories and failure counts.
 
-This matters for sequential post-training and continual learning because
-training history may determine not only what a model can do now, but how it
-responds to the next update.
+Adapter measurements supplied a separate prospective prediction. The LoRA
+**B-factor norm** was larger in B-S by **7.36× in Pair 1** and **5.46× in Pair
+2**. Before inspecting Pair-2 outcomes, the recorded prediction identified B-S
+as having the shorter targeted half-life and the larger early baseline-relative
+gain. Both legs held. The [prediction and scoring record](docs/results/pilot0-pair2-prediction.md)
+preserves the timing: this was before outcome inspection, not before execution.
+It is an association with saved parameters, not evidence that their scale
+caused the trajectories.
 
-## Where DuraSeed fits in the literature
+## What the study establishes—and what it does not
 
-Several nearby lines of research motivate this study:
+In these experiments, a matched arithmetic score did not make two checkpoints
+interchangeable as starting points for further training. Trace replay retained
+large differences in problem coverage, held-out-family performance, and
+new-task transfer even when both acquisition branches used supervised
+learning. Its later trajectories do **not** support a blanket claim that
+policy-derived traces slow forgetting: R-P crossed its half-score threshold
+first, then rebounded.
 
-- **What generalizes after learning?** [SFT Memorizes, RL
-  Generalizes](https://arxiv.org/abs/2501.17161) compares how SFT- and
-  RL-acquired behavior transfers to unseen task variants.
-- **What survives while learning?** [RL's Razor](https://arxiv.org/abs/2509.04259)
-  and [Retaining by Doing](https://arxiv.org/abs/2510.18874) compare preservation
-  of pre-existing abilities during SFT and RL. Related
-  [continual post-training work](https://arxiv.org/abs/2507.05386) follows
-  previously learned tasks through longer training sequences.
-- **What makes a good starting point for later training?** [Good SFT Optimizes
-  for SFT, Better SFT Prepares for Reinforcement
-  Learning](https://arxiv.org/abs/2602.01058) shows that stronger SFT checkpoints
-  can finish worse after identical subsequent RL. Current performance and
-  readiness for the next training stage are different questions.
+The scope is one model, one adapter rank, two Pilot pairs, and one matched replay
+continuation. Pilot compares complete procedures, not just loss functions.
+Replay changes a bundle of trace properties—content, length, format, and
+strategy—and training-token doses are not matched. Matching a scalar score is
+not an equivalence test for generalization or internal state.
 
-DuraSeed brings these questions into one controlled comparison: **vary how a
-skill is acquired, match its measured score, then hold the later training
-fixed.** We follow the *newly acquired* arithmetic skill into a separate
-training stage and measure both its durability and learning of the new task.
-Later training is supervised for both branches: the comparison is between
-their acquisition histories, not between SFT and RL updates during forgetting.
+The original replay matching design unnecessarily required agreement with
+historical Pilot-0 scores in addition to agreement between the new arms. We
+removed that historical-score requirement after seeing the candidate scores,
+before any replay Stage-B outcomes. Block 11 then matched; block 29 still did
+not and received no Stage-B training. Both decisions are retained in the
+[matching record](artifacts/replay-v1/followup/selection.json).
 
-Matching is deliberately narrow. Equal targeted scores do not imply equal
-generalization, transfer, or internal state; F3 records what remains different.
-Together, the completed Pilot-0 retention curves, learning curves, and starting
-profiles describe consequences of two complete acquisition procedures. They do
-not isolate the loss function, and "future learnability" here means learning
-under this fixed supervised probe—not general model plasticity. The
-contribution is this joint comparison, not a claim that sequential forgetting
-or training-history effects were previously unstudied.
+## Where this fits
 
-## Scientific conclusion
+[SFT Memorizes, RL Generalizes](https://proceedings.mlr.press/v267/chu25c.html)
+studies generalization after acquisition.
+[RL's Razor](https://arxiv.org/abs/2509.04259) and
+[Retaining by Doing](https://arxiv.org/abs/2510.18874) study preservation of
+pre-existing abilities while learning through SFT or RL.
+[Good SFT Optimizes for SFT, Better SFT Prepares for Reinforcement Learning](https://arxiv.org/abs/2602.01058)
+shows that a checkpoint's present performance need not predict its performance
+after a common later training recipe.
 
-> Under this controlled acquisition and matching setup, SFT- and RL-acquired
-> checkpoints with matched measured capability reproducibly exhibited
-> different subsequent learning and forgetting dynamics.
+DuraSeed follows a newly acquired skill into that later stage. We measure its
+retention, learning of the next task, and the starting behavioral profile in
+the same comparison. Later training is supervised for every branch; the
+contrast concerns what was inherited from acquisition. The replay study then
+asks how much of the pattern remains when both branches acquire the skill
+through SFT. This is a controlled case study of training history, not a claim
+to have discovered sequential forgetting or training on model-generated data.
 
-Pilot 0 contains only two independently matched pairs, uses one model and one
-rank-32 LoRA setup, and selected different matched capability levels in the two
-pairs. The geometry association is predictive but not yet causal.
+## Data and reproduction
 
-These results do not establish that RL universally improves retention, that
-SFT universally improves plasticity, or that LoRA B-factor scale causes the
-observed dynamics.
+| Material | What is available |
+|---|---|
+| [Pilot-0 raw data](https://github.com/ely2ba/duraseed/releases/tag/pilot0-data-v1) | 519,424 recorded completions, verifier rewards, prompts, token records, evaluations, and matching selections. [Portable data guide](docs/pilot0-data.md). |
+| [Pilot audit and notebook](artifacts/replay-v1/pilot-audit/) | Raw and baseline-relative trajectories, paired uncertainty, item counts, and failure breakdowns for both pairs. |
+| [Pair 1](artifacts/pilot0-pair1-readout/README.md) / [Pair 2](artifacts/pilot0-pair2-readout/README.md) | Original F1/F2 readouts; starting profiles and adapter geometry in the [Pair-1](artifacts/pilot0-pair1-offline-analysis/README.md) and [Pair-2](artifacts/pilot0-pair2-offline-analysis/README.md) analysis packages. |
+| [Completed replay package](artifacts/replay-v1/followup/README.md) | Both acquisition histories, matching decisions, per-item outcome counts, F3 profiles, retention and learning curves, corpus lineage, and descriptive breakdowns. |
+| [Methods and technical detail](docs/TECHNICAL.md) | Protocols, metric definitions, implementation, and the short procedural history. |
 
-## Evidence and data
+The compact replay release supports count-based analyses; it does not include
+raw generation text or adapter tensors. Private account and billing metadata,
+personal filesystem paths, and unopened test sets are excluded. The paper is
+still being revised and is **not part of this release**. No further experiments
+are running or planned for this study.
 
-The [Pilot-0 raw-data download](https://github.com/ely2ba/duraseed/releases/tag/pilot0-data-v1)
-contains all 519,424 recorded completions and their verifier rewards, along with
-prompts, token-level records, evaluations, matching selections, and manifests.
-The reports below provide the curves, uncertainty estimates, and analysis code.
-[Data contents and reproduction instructions](docs/pilot0-data.md) explain the
-portable file layout. Private service/billing metadata, adapter weights, and
-unopened test sets are not included. The running follow-up is not part of this
-Pilot-0 release.
+Regenerate the two result graphics from the checked-in counts, with Python's
+standard library only; this makes no service calls:
 
-- [Pair-1 readout](artifacts/pilot0-pair1-readout/README.md) — complete F1/F2
-  trajectories, exact counts, and F3 profile
-- [Pair-2 outcome report](artifacts/pilot0-pair2-readout/outcome-report.md) —
-  prospective score and complete readout
-- [Pair-2 F1/F2 readout](artifacts/pilot0-pair2-readout/README.md)
-- [Pair-1 offline analysis](artifacts/pilot0-pair1-offline-analysis/README.md) —
-  paired uncertainty, failure analysis, early-window retention, and geometry
-- [Pair-2 offline analysis](artifacts/pilot0-pair2-offline-analysis/README.md)
-- [Pair-1 geometry report](artifacts/pilot0-pair1-offline-analysis/geometry.md)
-- [Pair-2 geometry report](artifacts/pilot0-pair2-offline-analysis/geometry.md)
-- [Prospective Pair-2 prediction and scoring record](docs/results/pilot0-pair2-prediction.md)
-- [Frozen scientific protocol](PROTOCOL.md)
+```sh
+python tools/make_readme_figures.py
+```
 
 ## Acknowledgements
 

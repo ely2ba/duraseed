@@ -2,8 +2,9 @@
 
 This is the starting point for readers and contributors. The public scientific
 contract is [`PROTOCOL.md`](../PROTOCOL.md); current progress is in
-[`STATUS.md`](STATUS.md). Pilot 0 is complete and frozen, with both paired-seed
-readouts and analyses linked from the [public overview](../README.md).
+[`STATUS.md`](STATUS.md). The experimental phase is complete: two frozen Pilot-0
+pairs and the bounded trace-replay follow-up. Read the
+[results overview](../README.md#results). The paper is being revised.
 
 ## Components
 
@@ -29,15 +30,17 @@ No later stage may rescan an earlier task distribution using method outcomes. Pi
 
 The pre-B profile includes target, sentinel, and per-family accuracy, the Cover curve, invalid-output rate, completion length, supported Pass@k, verified strategy diversity, token surprisal, and baseline Stage-B task performance before Stage-B training. Pass@k uses already-required draws only, for `k` no larger than the collected independent draw count. These quantities describe residual differences; they are not additional matching gates. Archived adapter geometry is supplementary post-hoc evidence, outside F3 and all gates.
 
-Pilot 0 is now followed by the bounded [supervised trace-replay
-comparison](../README.md#what-were-testing-now), not an expansion to more Pilot seeds or a
-gauge intervention. In each of the two existing source blocks, R-S and R-P
-learn from the same prompts using solver versus archived correct B-G traces,
-respectively. All four supervised acquisition runs finish before fixed
-candidate nomination and matching. Eligible pairs then receive the common
-MAPS probe; unmatched blocks remain unavailable. This follow-up is running
-as of September 5; see [STATUS.md](STATUS.md). Earlier conditional expansion
+Pilot 0 was followed by the bounded [supervised trace-replay
+comparison](../README.md#the-study). In each of the two existing source blocks,
+R-S and R-P learned from the same prompts using solver versus archived correct
+B-G traces, respectively. All four supervised acquisition runs finished before
+candidate nomination and matching. The follow-up completed on September 7:
+after the disclosed matching amendment, block 11 finished both common MAPS
+continuations and block 29 remained unmatched, with no Stage-B training.
+See the [result package](../artifacts/replay-v1/followup/README.md),
+[detailed readout](../artifacts/replay-v1/followup/readout.md), and [STATUS.md](STATUS.md). Earlier conditional expansion
 ideas in the original protocol are historical context, not the current plan.
+No additional experiments are planned or authorized.
 The prospective Pair-2 prediction remains an unchanged Pilot-0 record.
 
 ## Evidence and provenance

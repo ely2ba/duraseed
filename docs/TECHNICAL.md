@@ -1,20 +1,26 @@
 # DuraSeed technical appendix
 
 This page is the detailed companion to the [project overview](../README.md).
-It explains how the study is made executable and auditable without putting the
+It explains how the study was made executable and auditable without putting the
 entire calibration history on the front page.
+
+The experimental phase is complete; the combined Pilot and replay results are
+summarized in the [results overview](../README.md#results). The paper is being
+revised. The [detailed replay readout](../artifacts/replay-v1/followup/readout.md)
+and [supplement](../artifacts/replay-v1/followup/supplement.md) retain follow-up detail.
 
 ## Which document governs what
 
 - [`PROTOCOL.md`](../PROTOCOL.md) is the public scientific contract.
 - The frozen [capability-targeted acquisition
-  amendment](amendment-capability-targeted-acquisition.md) governs the current
-  Pilot where it is more specific than the earlier protocol.
+  amendment](amendment-capability-targeted-acquisition.md) governed the completed
+  Pilot where it was more specific than the earlier protocol.
 - [`duraseed_pilot_config.yaml`](../duraseed_pilot_config.yaml) is the
   machine-readable configuration.
-- The supervised trace-source follow-up now running has a separate frozen
-  design; see the [public overview](../README.md#what-were-testing-now). It
-  does not revise Pilot 0.
+- The completed supervised trace-source follow-up has a separate original
+  design and disclosed matching amendment; see the [study overview](../README.md#the-study)
+  and [result package](../artifacts/replay-v1/followup/README.md). It does not
+  revise Pilot 0.
 - [`STATUS.md`](STATUS.md) reports what has actually run.
 - [`MAP.md`](MAP.md) maps components, evidence flow, and provenance locations.
 
@@ -118,14 +124,17 @@ seed 29. Their [public overview](../README.md), full F1/F2/F3 readouts, paired
 offline analyses, and geometry reports are banked together. Pair-2 matching was
 mechanically blind to pair-1 contrasts, and its geometry-based F1/F2 ordering
 was [recorded prospectively](results/pilot0-pair2-prediction.md) before outcomes
-were opened. Later fresh pairs are variance reconnaissance, not replacements
-for a failed or unavailable seed.
+were opened. These two pairs constitute the completed Pilot; no further pairs
+are planned or authorized.
 
-The authorized follow-up now implements supervised replay of archived,
-verifier-correct B-G traces versus solver traces on shared prompts. Both arms
-use the same supervised acquisition recipe, then fixed-rule matching and the
-common MAPS probe. Its separate frozen design fixes the two-block run matrix
-and reporting; no follow-up outcome is part of Pilot 0.
+The completed follow-up used supervised replay of archived, verifier-correct
+B-G traces versus solver traces on shared prompts. Four acquisition runs used
+the same supervised recipe across two source blocks. After candidate assessment
+and the disclosed matching amendment, block 11 completed both common MAPS
+continuations; block 29 remained `NO_MATCH` and received no Stage-B training.
+Its original design and decision records remain separate from Pilot 0; no
+follow-up outcome is part of Pilot 0. No additional experiments are planned or
+authorized.
 The earlier gauge-rescaling candidate is dropped. The historical
 [prospective prediction](results/pilot0-pair2-prediction.md) remains unchanged.
 
