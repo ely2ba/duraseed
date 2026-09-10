@@ -10,10 +10,12 @@ their matching scores left out.
 Supported by **$5,000 in compute credits from Thinking Machines Lab (TML)**
 through its [Tinker Research Grant](https://thinkingmachines.ai/news/tinker-research-and-teaching-grants/).
 
-**The experiments are complete.** Both Pilot pairs and the trace-replay
-follow-up have finished. The paper is being revised.
+**Pilot 0, trace replay, and the dense-retention follow-ups are complete.**
+We are running one final comparison: can a student trained on a frozen RL
+model's outputs inherit how that model learns next? The paper is being revised.
 
 [The study](#the-study) · [Results](#results) · [Related work](#where-this-fits) ·
+[Current experiment](#current-experiment-can-a-clone-inherit-a-learning-future) ·
 [Data and reproduction](#data-and-reproduction)
 
 The clearest example came from our trace-replay follow-up. Two saved versions
@@ -26,7 +28,8 @@ with broader coverage lost accuracy sharply, recovered much of it, then
 declined again.
 
 This repository contains the completed experiments, their results, and the
-data needed to examine those differences.
+data needed to examine those differences, alongside the design of the final
+comparison.
 
 ## The study
 
@@ -280,10 +283,60 @@ common origin.
 
 </details>
 
+### Measuring the rebound and repeating acquisition
+
+We re-evaluated the saved update-10 checkpoint: it again solved about 30% of
+targeted arithmetic attempts. Then we repeated the continuation from the same
+starting checkpoints, measuring arithmetic after **every update through 20**.
+The recovery appeared across updates 9–11 before accuracy fell again at 12.
+Its average advantage was much smaller on this dense grid.
+
+A separate run repeated both acquisition procedures with a new training order
+on the same replay corpus. It selected different starting checkpoints. Here
+the policy-trace branch declined early without the original rebound.
+
+| Replay continuation | Selected R-S / R-P updates | Half-life, R-S / R-P | Mean targeted score, R-S / R-P, updates 0–20 |
+|---|---:|---:|---:|
+| Original, coarse grid | 220 / 20 | 4.25 / 1.69 | 11.49% / 17.62% |
+| Same origins, dense grid | 220 / 20 | 3.82 / 1.55 | 11.10% / 11.66% |
+| New acquisition order | 200 / 140 | 4.34 / 0.88 | 14.99% / 2.60% |
+
+The policy-trace branch crossed half its initial score earlier in all three
+continuations. Average retention depended on the trajectory and measurement
+grid. The [dense readout](artifacts/replay-v1/dense-retention-20260909/README.md)
+and [training-order readout](artifacts/replay-v1/order-seed47-20260909/readout.md)
+give the full curves and paired item-level intervals. These runs use one
+replay corpus; the dense run also reuses the original starting checkpoints.
+
+## Current experiment: can a clone inherit a learning future?
+
+The replay copied correct solutions collected throughout RL training. Our
+final comparison asks a different question: **if we copy one finished model's
+behavior, will the copy respond similarly to further training?**
+
+We will train one RL teacher, freeze it, and teach an SFT student from all of
+its sampled answers on fresh arithmetic problems—including wrong answers.
+The student must match the teacher's accuracy, coverage, response length,
+validity, and solution-pattern diversity, then pass confirmation on separate
+problems. New-task performance is measured afterward, not used to choose the
+student.
+
+If that behavioral match succeeds, both checkpoints receive the same MAPS
+training. We repeat each continuation twice through update 20 and follow one
+teacher–student pair through update 480. Dense measurements let us ask whether
+replacing the checkpoint changes its trajectory more than rerunning either
+checkpoint does.
+
+**Status: running—RL teacher acquisition began on September 10. No results yet.** The
+[experiment specification](docs/experiments/endpoint-clone.md) fixes the
+comparison and stopping rules. If no student passes the behavioral match,
+the experiment ends there.
+
 ## Scope and limitations
 
-These results cover one model and adapter rank, two Pilot pairs, and one
-matched replay continuation. Pilot compares two complete acquisition
+The completed results cover one model and adapter rank, two Pilot pairs,
+two matched replay acquisition pairs, and a dense continuation repeat from
+one of those pairs. Pilot compares two complete acquisition
 procedures. Replay changes several properties of the training solutions
 together, including content, length, format, and strategy. Training-token doses
 and selected acquisition durations differ. The adapter-scale observation remains
@@ -325,6 +378,8 @@ is the focus of this project.
 | [Pilot audit and notebook](artifacts/replay-v1/pilot-audit/) | Raw and baseline-relative curves, paired uncertainty, item counts, and failure breakdowns for both pairs. |
 | [Pair 1](artifacts/pilot0-pair1-readout/README.md) / [Pair 2](artifacts/pilot0-pair2-readout/README.md) | Original F1/F2 readouts, with profiles and geometry in the [Pair-1](artifacts/pilot0-pair1-offline-analysis/README.md) and [Pair-2](artifacts/pilot0-pair2-offline-analysis/README.md) analysis packages. |
 | [Replay package](artifacts/replay-v1/followup/README.md) | Acquisition histories, matching decisions, per-item counts, F3 profiles, later-training curves, and corpus lineage. |
+| [Dense retention](artifacts/replay-v1/dense-retention-20260909/README.md) / [new acquisition order](artifacts/replay-v1/order-seed47-20260909/readout.md) | Every-update arithmetic monitoring and the completed additional acquisition-order comparison. |
+| [Checkpoint re-evaluation and offline analyses](artifacts/replay-v1/publication-checks-20260909/COMPUTATIONAL-HANDOFF.md) | Update-10 recheck, half-life intervals, and replay adapter geometry. |
 | [Technical detail](docs/TECHNICAL.md) | Protocols, metric definitions, implementation, and procedural history. |
 
 The replay release contains compact outcome records for count-based analysis.

@@ -4,10 +4,13 @@ This page is the detailed companion to the [project overview](../README.md).
 It explains how the study was made executable and auditable without putting the
 entire calibration history on the front page.
 
-The experimental phase is complete; the combined Pilot and replay results are
-summarized in the [results overview](../README.md#results). The paper is being
-revised. The [detailed replay readout](../artifacts/replay-v1/followup/readout.md)
-and [supplement](../artifacts/replay-v1/followup/supplement.md) retain follow-up detail.
+The completed Pilot, replay, dense-retention, and acquisition-order results are
+summarized in the [results overview](../README.md#results). One final
+[endpoint-clone comparison](experiments/endpoint-clone.md) is running, beginning
+with RL teacher acquisition on September 10. The paper is being revised. The
+[detailed replay readout](../artifacts/replay-v1/followup/readout.md) and
+[supplement](../artifacts/replay-v1/followup/supplement.md) retain the original
+follow-up detail.
 
 ## Which document governs what
 
@@ -23,6 +26,10 @@ and [supplement](../artifacts/replay-v1/followup/supplement.md) retain follow-up
   revise Pilot 0.
 - [`STATUS.md`](STATUS.md) reports what has actually run.
 - [`MAP.md`](MAP.md) maps components, evidence flow, and provenance locations.
+- The [endpoint-clone specification](experiments/endpoint-clone.md), approved
+  2026-09-10, governs only the final fresh-teacher comparison. Its arithmetic
+  clone gates, independent confirmation, and trajectory-distance analysis do
+  not retrospectively apply to Pilot or replay matching.
 
 Decision records preserve why a rule changed. They do not silently rewrite
 older runs or turn calibration outcomes into method results.
@@ -133,8 +140,23 @@ the same supervised recipe across two source blocks. After candidate assessment
 and the disclosed matching amendment, block 11 completed both common MAPS
 continuations; block 29 remained `NO_MATCH` and received no Stage-B training.
 Its original design and decision records remain separate from Pilot 0; no
-follow-up outcome is part of Pilot 0. No additional experiments are planned or
-authorized.
+follow-up outcome is part of Pilot 0. A later dense-grid repeat measured both
+selected replay origins after every MAPS update through 20; a separate
+[acquisition-order replication](experiments/replay-order-replication.md)
+retrained both arms on the same block-11 corpus and completed both matched
+480-update continuations. These are separate observations, not replacements
+for the original measurements or independent trace-corpus replications.
+
+The final authorized [endpoint-clone comparison](experiments/endpoint-clone.md)
+uses a new 30-update RL teacher because the selected historical Pilot teacher
+states are no longer retained by the service. It collects unfiltered samples
+from that one endpoint on unused acquisition prompts. Arithmetic profile gates
+and item-disjoint confirmation determine whether an SFT student qualifies for
+continuation. MAPS baseline is an outcome, not a clone-selection gate. Two
+teacher and two student continuations supply dense update-0–20 trajectories;
+one predetermined run per checkpoint continues to 480. The primary summary is
+cross-checkpoint absolute trajectory separation minus the mean within-checkpoint
+repeat separation, reported descriptively without an equivalence verdict.
 The earlier gauge-rescaling candidate is dropped. The historical
 [prospective prediction](results/pilot0-pair2-prediction.md) remains unchanged.
 

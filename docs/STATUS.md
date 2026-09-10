@@ -1,13 +1,29 @@
 # Project status
 
-_Last updated: 2026-09-08._
+_Last updated: 2026-09-10._
 
 ## Current
 
-**The experimental phase is complete.** The study comprises two Pilot pairs,
-four replay acquisition runs, and the only matched replay continuation pair,
-in block 11. The paper is being revised; it has not been posted or submitted.
-No additional experiments are planned or authorized.
+**The final endpoint-clone comparison is running: RL teacher acquisition.**
+The owner approved the revised [specification](experiments/endpoint-clone.md)
+on 2026-09-10, including the revised continuation matrix and use of the old
+reserve. Launch was confirmed at 16:39 UTC on 2026-09-10: M0 restored, initial
+sampler creation pending, and no teacher update committed at that check. The
+exact full-cap preflight is **$2,148.44**, $1.44 above the approximate planning
+estimate because the final preflight includes the complete fixed schedule.
+No endpoint-clone outcome exists yet. The experiment uses a fresh
+30-update RL teacher, unfiltered endpoint samples, arithmetic-only clone
+selection and independent-item confirmation, then two teacher and two student
+continuations through update 20 if confirmation passes. One predetermined run
+per checkpoint continues to update 480. The primary analysis compares dense
+cross-checkpoint trajectory distances with within-checkpoint repeat distances;
+it carries no binary equivalence score.
+
+**Completed evidence remains frozen:** two Pilot pairs, the original four
+replay acquisition runs, the matched block-11 replay continuation, a dense
+retention repeat from those same origins, and a separate acquisition-order
+replication on block 11's existing replay corpus. The paper is being revised;
+it has not been posted or submitted.
 
 **Pilot 0 is complete and frozen.** Pair 1 (seed 11) and Pair 2 (seed 29)
 both finished with `evidence_collected`; both 480-update Stage-B schedules and
@@ -53,6 +69,33 @@ expiry timestamps and current provider retention were not independently checked.
 The original matching design unnecessarily required agreement with historical
 Pilot-0 scores in addition to agreement between the new arms. We changed the
 design to remove the historical-score requirement.
+
+## Completed September 9–10 follow-ups
+
+- **Stored update-10 re-evaluation:** targeted success was 229/768 against
+  241/768 originally; sentinel success was 282/768 against 281/768. The
+  [computational handoff](../artifacts/replay-v1/publication-checks-20260909/COMPUTATIONAL-HANDOFF.md)
+  also reports half-life uncertainty and archived replay adapter geometry.
+- **Dense retention:** both original selected replay checkpoints were continued
+  again through 20 MAPS updates, with arithmetic evaluated after every update.
+  The targeted 0–20 mean scores were 0.111035 for R-S and 0.116634 for R-P;
+  the paired-item difference was +0.005599 [−0.005762, 0.016829]. First-crossing
+  half-lives were 3.823529 and 1.551724 updates. The rebound spans updates 9–11
+  in this run. The [readout](../artifacts/replay-v1/dense-retention-20260909/README.md)
+  retains both roles, full trajectories, and the reused original update-0
+  observations; it does not replace the original coarse-grid result.
+- **Acquisition-order replication:** order seed 47 completed both 294-update
+  acquisition runs on the same 579-example block-11 corpus. Prospective direct
+  between-arm matching selected R-S@200 and R-P@140, and both 480-update
+  continuations finished. Targeted 0–20 mean scores were 0.149935 and 0.025977,
+  a difference of −0.123958 [−0.146745, −0.102507]. The first-crossing half-lives
+  were 4.344828 and 0.878947 updates. The [readout](../artifacts/replay-v1/order-seed47-20260909/readout.md)
+  contains the full retention, learning, and profile results. This is another
+  acquisition-order realization, not a new trace corpus or source block.
+
+Intervals above are paired item-bootstrap intervals conditional on the observed
+training realization. The [acquisition-order specification](experiments/replay-order-replication.md)
+remains separate from the original replay design.
 
 ## Completed foundations
 
@@ -106,13 +149,14 @@ The required read order was completed:
 The archived record is [public](results/pilot0-pair2-prediction.md). No Pair-2
 outcome was consulted to form the geometry-first prediction.
 
-## Manuscript preparation and closeout
+## Manuscript preparation and final comparison
 
-1. Preserve Pilot 0 as the frozen two-pair result and retain the completed replay records.
+1. Preserve Pilot 0 and all completed replay/follow-up records unchanged.
 2. Continue manuscript revision without publishing the paper. Any later posting
    or submission requires owner authorization; neither has occurred.
-3. Finish provider invoice attribution during end-of-project accounting. No
-   additional seed, model, task, or gauge experiment is part of this package.
+3. Execute only the authorized endpoint-clone comparison. No additional model,
+   task, teacher, gauge intervention, or outcome-dependent rescue is included.
+4. Finish provider invoice attribution during end-of-project accounting.
 
 For the scientific overview, return to the [README](../README.md#results). For exact
 schedules, gates, calibration history, budgets, and provenance, see the

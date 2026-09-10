@@ -2,9 +2,11 @@
 
 This is the starting point for readers and contributors. The public scientific
 contract is [`PROTOCOL.md`](../PROTOCOL.md); current progress is in
-[`STATUS.md`](STATUS.md). The experimental phase is complete: two frozen Pilot-0
-pairs and the bounded trace-replay follow-up. Read the
-[results overview](../README.md#results). The paper is being revised.
+[`STATUS.md`](STATUS.md). Two Pilot-0 pairs, the bounded trace-replay follow-up,
+a dense-retention repeat, and an acquisition-order replication are complete.
+The final [endpoint-clone comparison](experiments/endpoint-clone.md) is running
+and is currently acquiring its RL teacher. Read the [results overview](../README.md#results).
+The paper is being revised and is not part of the public release.
 
 ## Components
 
@@ -40,7 +42,14 @@ continuations and block 29 remained unmatched, with no Stage-B training.
 See the [result package](../artifacts/replay-v1/followup/README.md),
 [detailed readout](../artifacts/replay-v1/followup/readout.md), and [STATUS.md](STATUS.md). Earlier conditional expansion
 ideas in the original protocol are historical context, not the current plan.
-No additional experiments are planned or authorized.
+The later [dense-retention repeat](../artifacts/replay-v1/dense-retention-20260909/README.md)
+and [acquisition-order replication](../artifacts/replay-v1/order-seed47-20260909/readout.md)
+are complete and retain separate evidence. The latter uses the same block-11
+corpus with a new acquisition order and its own prospective matching rule.
+The authorized [endpoint-clone experiment](experiments/endpoint-clone.md) will
+sample a fresh fixed RL teacher without success filtering, select an arithmetic
+behavioral clone, and compare repeated common continuations if confirmation
+passes. It does not change any completed experiment.
 The prospective Pair-2 prediction remains an unchanged Pilot-0 record.
 
 ## Evidence and provenance

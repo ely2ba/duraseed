@@ -39,7 +39,9 @@ async def evaluate(
     draws: int,
     cap: int,
     output: Path,
+    seed_namespace: str | None = None,
 ):
+    seed_namespace = seed_namespace or f"replay-v1.{stage}.{purpose}.{update}"
     coordinate = {
         "replay_arm": arm,
         "seed": source.seed,
@@ -53,7 +55,7 @@ async def evaluate(
         "manifest_id": manifest.manifest_id,
         "draws": draws,
         "cap": cap,
-        "seed_namespace": f"replay-v1.{stage}.{purpose}.{update}",
+        "seed_namespace": seed_namespace,
     }
     identity_path = output / "replay-identity.json"
     if identity_path.exists() and read_json(identity_path) != coordinate:
@@ -97,7 +99,7 @@ async def evaluate(
         label=f"replay-v1-seed{source.seed}-{arm}-{stage}-{update}-{purpose}",
         samples_per_item=draws,
         max_tokens=cap,
-        seed_namespace=f"replay-v1.{stage}.{purpose}.{update}",
+        seed_namespace=seed_namespace,
         output=output,
     )
     if completed is None:

@@ -82,13 +82,16 @@ class ReplayRemote:
                 "durable billing and completed-call reservation floor disagree"
             )
         sdk = load_sdk()
-        self.run_id = root.name
+        self.run_id = config.get("run_id", root.name)
         self.session_ids = list(previous.get("session_ids", []))
         self.begin("session", {"run_id": self.run_id, "project_id": project_id})
         service = create_service(
             sdk,
             project_id=project_id,
-            user_metadata={"run_id": root.name, "study": "replay-v1"},
+            user_metadata={
+                "run_id": self.run_id,
+                "study": config.get("study", "replay-v1"),
+            },
         )
         session_id = str(service._get_session_holder().get_session_id())
         if not session_id.strip():
@@ -149,7 +152,7 @@ class ReplayRemote:
             full_state=full_state,
             ledger=self.ledger,
             user_metadata={
-                "study": "replay-v1",
+                "study": self.config.get("study", "replay-v1"),
                 **{k: str(v) for k, v in coordinate.items()},
             },
         )
